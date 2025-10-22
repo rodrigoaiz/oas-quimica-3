@@ -1,0 +1,30 @@
+---
+import Base from '@/layouts/Base.astro';
+import Hero from '@/components/Hero.astro';
+import { getCollection } from 'astro:content';
+const objetos = (await getCollection('objetos')).sort((a,b)=>a.data.order-b.data.order);
+---
+<Base title="Química 3 · CCH – Objetos de aprendizaje">
+  <Hero />
+  <main id="contenido" class="mx-auto max-w-screen-lg px-4 py-10">
+    <section aria-labelledby="objs">
+      <h2 id="objs" class="text-2xl font-bold mb-4">Objetos de aprendizaje</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {objetos.map(({ slug, data }) => (
+          <div>
+            <a href={`/objetos/${slug}/`} class="block">
+              <img src={data.cover} alt="" class="w-full aspect-video object-cover rounded-xl mb-3" loading="lazy" />
+              <h3 class="text-lg font-semibold">{data.title}</h3>
+              <p class="text-sm text-slate-600">{data.level} · {data.duration ?? '15–25 min'}</p>
+            </a>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section id="como-funciona" class="mt-16 prose">
+      <h2>Cómo funciona</h2>
+      <p>Explora cada OA, revisa la introducción, interactivos y autoevaluación. Diseñado para usarse en móvil, tableta o equipo de escritorio.</p>
+    </section>
+  </main>
+</Base>

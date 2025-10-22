@@ -1,0 +1,23 @@
+---
+import '../styles/global.css';
+import Nav from '@/components/Nav.astro';
+const { title = 'Química 3 · CCH', description = 'Micrositio de objetos de aprendizaje', noIndex = false } = Astro.props;
+---
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" href={`${Astro.site?.pathname ?? '/'}favicon.svg`} />
+  </head>
+  <body class="bg-cch-gris text-slate-900">
+    <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 bg-white text-cch-azul p-2 rounded">Saltar al contenido</a>
+    <Nav current={Astro.url.pathname} />
+    <slot />
+    <footer class="mt-16 py-10 text-center text-sm text-slate-600">
+      <p>Hecho en México | Portal Académico del CCH – UNAM</p>
+    </footer>
+  </body>
+</html>

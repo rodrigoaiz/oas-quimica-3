@@ -1,0 +1,8 @@
+---
+const { title, cover, duration = '15–25 min', level = 'Química 3', href } = Astro.props;
+---
+<a href={href} class="card block hover:shadow-md focus:outline-none focus:ring-2 focus:ring-cch-dorado">
+  <img src={cover} alt="" class="w-full aspect-video object-cover rounded-xl mb-3" loading="lazy" />
+  <h3 class="text-lg font-semibold">{title}</h3>
+  <p class="text-sm text-slate-600">{level} · {duration}</p>
+</a>
