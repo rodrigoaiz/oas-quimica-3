@@ -13,4 +13,15 @@ const objetos = defineCollection({
   })
 });
 
-export const collections = { objetos };
+// Nueva colección para pantallas individuales de OAs
+const screens = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    order: z.number(),
+    oaSlug: z.string(),
+    screenSlug: z.string(),
+  })
+});
+
+export const collections = { objetos, screens };

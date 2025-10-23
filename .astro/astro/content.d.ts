@@ -159,9 +159,93 @@ declare module 'astro:content' {
   collection: "objetos";
   data: InferEntrySchema<"objetos">
 } & { render(): Render[".mdx"] };
+"oa1/bohr.mdx": {
+	id: "oa1/bohr.mdx";
+  slug: "oa1/bohr";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa1/cuantico.mdx": {
+	id: "oa1/cuantico.mdx";
+  slug: "oa1/cuantico";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa1/dalton.mdx": {
+	id: "oa1/dalton.mdx";
+  slug: "oa1/dalton";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa1/evaluacion.mdx": {
+	id: "oa1/evaluacion.mdx";
+  slug: "oa1/evaluacion";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa1/introduccion.mdx": {
+	id: "oa1/introduccion.mdx";
+  slug: "oa1/introduccion";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa1/rutherford.mdx": {
+	id: "oa1/rutherford.mdx";
+  slug: "oa1/rutherford";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa1/thomson.mdx": {
+	id: "oa1/thomson.mdx";
+  slug: "oa1/thomson";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
 "oa2.mdx": {
 	id: "oa2.mdx";
   slug: "oa2";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa2/covalente.mdx": {
+	id: "oa2/covalente.mdx";
+  slug: "oa2/covalente";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa2/evaluacion.mdx": {
+	id: "oa2/evaluacion.mdx";
+  slug: "oa2/evaluacion";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa2/introduccion.mdx": {
+	id: "oa2/introduccion.mdx";
+  slug: "oa2/introduccion";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa2/ionico.mdx": {
+	id: "oa2/ionico.mdx";
+  slug: "oa2/ionico";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa2/metalico.mdx": {
+	id: "oa2/metalico.mdx";
+  slug: "oa2/metalico";
   body: string;
   collection: "objetos";
   data: InferEntrySchema<"objetos">
@@ -173,7 +257,50 @@ declare module 'astro:content' {
   collection: "objetos";
   data: InferEntrySchema<"objetos">
 } & { render(): Render[".mdx"] };
+"oa3/balanceo.mdx": {
+	id: "oa3/balanceo.mdx";
+  slug: "oa3/balanceo";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa3/energia.mdx": {
+	id: "oa3/energia.mdx";
+  slug: "oa3/energia";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa3/evaluacion.mdx": {
+	id: "oa3/evaluacion.mdx";
+  slug: "oa3/evaluacion";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa3/evidencias.mdx": {
+	id: "oa3/evidencias.mdx";
+  slug: "oa3/evidencias";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
+"oa3/introduccion.mdx": {
+	id: "oa3/introduccion.mdx";
+  slug: "oa3/introduccion";
+  body: string;
+  collection: "objetos";
+  data: InferEntrySchema<"objetos">
+} & { render(): Render[".mdx"] };
 };
+"screens": Record<string, {
+  id: string;
+  slug: string;
+  body: string;
+  collection: "screens";
+  data: InferEntrySchema<"screens">;
+  render(): Render[".md"];
+}>;
 
 	};
 

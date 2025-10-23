@@ -1,0 +1,110 @@
+---
+title: "Balanceo de ecuaciones"
+order: 4
+oaSlug: "oa3"
+screenSlug: "balanceo"
+---
+
+## Conservación de masa: balanceo de ecuaciones
+
+**Ley de conservación de masa** (Lavoisier, 1789):
+> "La materia no se crea ni se destruye, solo se transforma"
+
+En toda reacción química:
+- **Mismo número de átomos de cada elemento** en reactivos y productos
+- Cambian las combinaciones, pero no las cantidades totales
+
+### Ejemplo 1: Combustión de hidrógeno
+
+**Sin balancear:**
+H₂ + O₂ → H₂O ❌
+
+**Conteo:**
+- Reactivos: 2 H, 2 O
+- Productos: 2 H, 1 O  → ¡No balancea!
+
+**Balanceada:**
+2H₂ + O₂ → 2H₂O ✅
+
+**Conteo:**
+- Reactivos: 4 H, 2 O
+- Productos: 4 H, 2 O  → ¡Balanceada!
+
+### Método por tanteo (inspección)
+
+**Pasos:**
+1. Escribe la ecuación con fórmulas correctas
+2. Cuenta átomos de cada elemento
+3. Ajusta coeficientes (números grandes ANTES de fórmulas)
+4. NO cambies subíndices (números pequeños DENTRO de fórmulas)
+5. Verifica el balance final
+
+### Ejemplo 2: Combustión de metano
+
+**Sin balancear:**
+CH₄ + O₂ → CO₂ + H₂O
+
+**Balanceando:**
+1. Carbono: 1 C a cada lado ✅
+2. Hidrógeno: 4 H → necesito 2 H₂O
+   - CH₄ + O₂ → CO₂ + **2**H₂O
+3. Oxígeno: 2 + 2 = 4 O en productos → necesito 2 O₂
+   - CH₄ + **2**O₂ → CO₂ + 2H₂O
+
+**Verificación:**
+- C: 1 = 1 ✅
+- H: 4 = 4 ✅
+- O: 4 = 4 ✅
+
+### Practica balanceando
+
+**Ejercicio 1:**
+Fe + O₂ → Fe₂O₃
+
+<details>
+  <summary>Ver respuesta</summary>
+  
+  **4**Fe + **3**O₂ → **2**Fe₂O₃
+  
+  - Fe: 4 = 4 ✅
+  - O: 6 = 6 ✅
+</details>
+
+**Ejercicio 2:**
+N₂ + H₂ → NH₃
+
+<details>
+  <summary>Ver respuesta</summary>
+  
+  N₂ + **3**H₂ → **2**NH₃
+  
+  - N: 2 = 2 ✅
+  - H: 6 = 6 ✅
+</details>
+
+### Coeficientes vs subíndices
+
+| Coeficiente | Subíndice |
+|-------------|-----------|
+| **2**H₂O | H**₂**O |
+| Número ANTES | Número DENTRO |
+| Indica CUÁNTAS moléculas | Indica CUÁNTOS átomos en UNA molécula |
+| Se puede cambiar al balancear | NO se puede cambiar (cambiaría la sustancia) |
+
+import MCQ from '@/components/Activity/MCQ.jsx';
+
+<MCQ 
+  client:load 
+  question="¿Por qué NO podemos cambiar H₂O a H₃O para balancear una ecuación?" 
+  options={[
+    "Porque los subíndices son sagrados",
+    "Porque cambiaría la identidad química (H₃O⁺ no es agua)",
+    "Porque los profesores se enojan",
+    "Porque es más difícil"
+  ]} 
+  correctIndex={1} 
+  feedback={{
+    correct: "¡Exacto! Cambiar subíndices crea una sustancia diferente. Solo ajustamos coeficientes.",
+    incorrect: "Piensa: ¿qué define a una molécula? Su fórmula (subíndices). Cambiarla = cambiar la sustancia."
+  }} 
+/>

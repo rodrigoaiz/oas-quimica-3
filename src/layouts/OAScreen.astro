@@ -1,0 +1,113 @@
+---
+/**
+ * Layout para Objetos de Aprendizaje con múltiples pantallas
+ * 
+ * Props:
+ * - title: string
+ * - oaTitle: string (título del OA completo)
+ * - oaSlug: string (slug base del OA, ej: 'oa1')
+ * - screenTitle: string (título de la pantalla actual)
+ * - screenSlug: string (slug de la pantalla actual)
+ * - screens: Array<{ slug: string, title: string }>
+ * - description?: string
+ */
+import Base from './Base.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import InternalNav from '@/components/InternalNav.astro';
+
+interface Screen {
+  slug: string;
+  title: string;
+}
+
+interface Props {
+  title: string;
+  oaTitle: string;
+  oaSlug: string;
+  screenTitle: string;
+  screenSlug: string;
+  screens: Screen[];
+  description?: string;
+}
+
+const { title, oaTitle, oaSlug, screenTitle, screenSlug, screens, description } = Astro.props;
+
+// Construir breadcrumbs
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Objetos de aprendizaje', href: '/objetos' },
+  { label: oaTitle, href: `/objetos/${oaSlug}` },
+  { label: screenTitle } // último sin href (página actual)
+];
+
+const baseUrl = `/objetos/${oaSlug}`;
+---
+
+<Base title={title} description={description}>
+  <main id="contenido" class="mx-auto max-w-screen-lg px-4 py-6">
+    <!-- Breadcrumbs -->
+    <Breadcrumb items={breadcrumbItems} />
+
+    <!-- Contenido de la pantalla -->
+    <article class="screen-content">
+      <header class="screen-header">
+        <h1 class="screen-title">{screenTitle}</h1>
+      </header>
+      
+      <div class="prose prose-slate max-w-none">
+        <slot />
+      </div>
+    </article>
+
+    <!-- Navegación interna -->
+    <InternalNav 
+      screens={screens} 
+      currentSlug={screenSlug} 
+      baseUrl={baseUrl} 
+      showIndex={true}
+    />
+  </main>
+</Base>
+
+<style>
+  .screen-content {
+    margin-bottom: 2rem;
+  }
+
+  .screen-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #0070f3;
+  }
+
+  .screen-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  /* Tailwind prose override para mejor spacing */
+  .prose {
+    color: #334155;
+  }
+
+  .prose :where(h2):not(:where([class~="not-prose"] *)) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #0070f3;
+  }
+
+  .prose :where(h3):not(:where([class~="not-prose"] *)) {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #1e40af;
+  }
+
+  @media (max-width: 640px) {
+    .screen-header {
+      margin-bottom: 1.5rem;
+    }
+  }
+</style>

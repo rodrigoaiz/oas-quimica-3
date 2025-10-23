@@ -1,0 +1,203 @@
+---
+title: "Evaluación"
+order: 5
+oaSlug: "oa2"
+screenSlug: "evaluacion"
+---
+
+## Evaluación: Enlaces químicos
+
+Pon a prueba tu comprensión de los tres tipos de enlaces químicos.
+
+---
+
+### Pregunta 1: Identificación de enlaces
+
+import MCQ from '@/components/Activity/MCQ.jsx';
+
+<MCQ 
+  client:load 
+  question="¿Qué tipo de enlace se forma entre sodio (Na) y cloro (Cl)?" 
+  options={[
+    "Enlace covalente no polar",
+    "Enlace covalente polar",
+    "Enlace iónico",
+    "Enlace metálico"
+  ]} 
+  correctIndex={2} 
+  feedback={{
+    correct: "¡Correcto! Na (metal) transfiere un electrón a Cl (no metal), formando Na⁺ y Cl⁻.",
+    incorrect: "Recuerda: Na es un metal y Cl es un no metal. ¿Qué tipo de enlace se forma entre ellos?"
+  }} 
+/>
+
+---
+
+### Pregunta 2: Propiedades iónicas
+
+<MCQ 
+  client:load 
+  question="¿Por qué la sal (NaCl) sólida NO conduce electricidad, pero al disolverse en agua SÍ lo hace?" 
+  options={[
+    "Porque el agua es un buen conductor",
+    "Porque en solución los iones pueden moverse libremente",
+    "Porque se forman nuevos enlaces",
+    "Porque el agua rompe los átomos"
+  ]} 
+  correctIndex={1} 
+  feedback={{
+    correct: "¡Exacto! Los iones Na⁺ y Cl⁻ quedan libres en solución y pueden transportar carga eléctrica.",
+    incorrect: "Piensa: ¿qué necesitan los iones para conducir electricidad? ¿Pueden moverse en un cristal sólido?"
+  }} 
+/>
+
+---
+
+### Pregunta 3: Enlaces covalentes
+
+<MCQ 
+  client:load 
+  question="En una molécula de agua (H₂O), ¿cuántos pares de electrones comparte el átomo de oxígeno?" 
+  options={[
+    "1 par",
+    "2 pares",
+    "3 pares",
+    "4 pares"
+  ]} 
+  correctIndex={1} 
+  feedback={{
+    correct: "¡Perfecto! El oxígeno forma 2 enlaces covalentes (uno con cada H), compartiendo 2 pares de electrones.",
+    incorrect: "Recuerda la estructura del agua: H-O-H. Cada línea representa un par compartido."
+  }} 
+/>
+
+---
+
+### Pregunta 4: Polaridad
+
+<MCQ 
+  client:load 
+  question="¿Qué tipo de enlace tiene la molécula de oxígeno (O₂)?" 
+  options={[
+    "Iónico",
+    "Covalente polar",
+    "Covalente no polar",
+    "Metálico"
+  ]} 
+  correctIndex={2} 
+  feedback={{
+    correct: "¡Correcto! O₂ es covalente no polar porque los dos átomos son iguales (misma electronegatividad).",
+    incorrect: "Piensa: ¿qué pasa cuando dos átomos idénticos comparten electrones? ¿Hacia dónde se desplaza la carga?"
+  }} 
+/>
+
+---
+
+### Pregunta 5: Enlaces metálicos
+
+<MCQ 
+  client:load 
+  question="¿Qué propiedad de los metales se explica por la presencia de electrones deslocalizados?" 
+  options={[
+    "Su color brillante solamente",
+    "Su conductividad eléctrica y maleabilidad",
+    "Su punto de fusión bajo",
+    "Su fragilidad"
+  ]} 
+  correctIndex={1} 
+  feedback={{
+    correct: "¡Excelente! Los electrones móviles permiten conducción eléctrica y que los cationes se deslicen (maleabilidad).",
+    incorrect: "Recuerda el modelo del 'mar de electrones'. ¿Qué permite ese mar de cargas móviles?"
+  }} 
+/>
+
+---
+
+### Pregunta 6: Relacionar estructuras
+
+<div class="interactive-match bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
+  <p class="font-bold text-lg mb-4">Relaciona cada sustancia con su tipo de enlace:</p>
+  
+  <div class="space-y-3">
+    <div class="flex items-center gap-4 p-3 bg-white rounded">
+      <span class="w-32 font-medium">NaCl (sal)</span>
+      <select class="border-2 border-gray-300 rounded px-3 py-2 flex-1">
+        <option>Selecciona...</option>
+        <option>Iónico</option>
+        <option>Covalente</option>
+        <option>Metálico</option>
+      </select>
+      <span class="text-sm text-gray-600">Respuesta: Iónico</span>
+    </div>
+    
+    <div class="flex items-center gap-4 p-3 bg-white rounded">
+      <span class="w-32 font-medium">H₂O (agua)</span>
+      <select class="border-2 border-gray-300 rounded px-3 py-2 flex-1">
+        <option>Selecciona...</option>
+        <option>Iónico</option>
+        <option>Covalente</option>
+        <option>Metálico</option>
+      </select>
+      <span class="text-sm text-gray-600">Respuesta: Covalente</span>
+    </div>
+    
+    <div class="flex items-center gap-4 p-3 bg-white rounded">
+      <span class="w-32 font-medium">Cu (cobre)</span>
+      <select class="border-2 border-gray-300 rounded px-3 py-2 flex-1">
+        <option>Selecciona...</option>
+        <option>Iónico</option>
+        <option>Covalente</option>
+        <option>Metálico</option>
+      </select>
+      <span class="text-sm text-gray-600">Respuesta: Metálico</span>
+    </div>
+
+    <div class="flex items-center gap-4 p-3 bg-white rounded">
+      <span class="w-32 font-medium">CO₂ (dióxido)</span>
+      <select class="border-2 border-gray-300 rounded px-3 py-2 flex-1">
+        <option>Selecciona...</option>
+        <option>Iónico</option>
+        <option>Covalente</option>
+        <option>Metálico</option>
+      </select>
+      <span class="text-sm text-gray-600">Respuesta: Covalente</span>
+    </div>
+  </div>
+</div>
+
+---
+
+## Autoevaluación
+
+Verifica tu comprensión:
+
+- [ ] Puedo distinguir entre enlace iónico, covalente y metálico
+- [ ] Entiendo por qué se forma cada tipo de enlace
+- [ ] Sé predecir propiedades según el tipo de enlace
+- [ ] Comprendo la relación estructura-propiedad-función
+- [ ] Puedo dar ejemplos cotidianos de cada tipo de enlace
+
+---
+
+## Resumen visual
+
+| 🧂 Iónico | 💧 Covalente | 🔌 Metálico |
+|-----------|--------------|-------------|
+| Metal → No metal | No metal ↔ No metal | Metal ↔ Metal |
+| Transferencia e⁻ | Compartir e⁻ | Deslocalización e⁻ |
+| Sólido cristalino | Moléculas | Red cristalina |
+| Conduce (fundido) | No conduce | Siempre conduce |
+| Frágil | Variable | Maleable |
+
+---
+
+## ¡Felicitaciones!
+
+Has completado el estudio de **enlaces químicos y propiedades**. Ahora comprendes:
+
+✅ Cómo se forman los tres tipos principales de enlaces  
+✅ Por qué las sustancias tienen diferentes propiedades físicas  
+✅ La relación entre estructura atómica y propiedades macroscópicas  
+✅ Aplicaciones de los enlaces en la vida cotidiana y tecnología
+
+**Siguiente paso**: Explora cómo estos conceptos se aplican en **reacciones químicas** y transformaciones de la materia.

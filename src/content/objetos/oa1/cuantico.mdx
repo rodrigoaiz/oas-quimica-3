@@ -1,0 +1,115 @@
+---
+title: "Modelo cuántico moderno"
+order: 6
+oaSlug: "oa1"
+screenSlug: "cuantico"
+---
+
+## El modelo de mecánica cuántica (1926)
+
+Los físicos Schrödinger, Heisenberg, de Broglie y otros desarrollaron el modelo actual del átomo basado en la **mecánica cuántica**.
+
+### Conceptos revolucionarios
+
+#### 1. Dualidad onda-partícula (de Broglie, 1924)
+
+Los electrones no son solo partículas, también son **ondas**:
+- Tienen longitud de onda: $\lambda = \frac{h}{mv}$
+- Pueden hacer interferencia como las ondas de agua
+- No tienen una posición exacta hasta que se miden
+
+#### 2. Principio de incertidumbre (Heisenberg, 1927)
+
+**No se puede conocer simultáneamente** con precisión:
+- La posición exacta de un electrón
+- Y su velocidad (momento)
+
+Matemáticamente:
+$$\Delta x \cdot \Delta p \geq \frac{h}{4\pi}$$
+
+Esto no es por falta de tecnología, ¡es una ley fundamental de la naturaleza!
+
+#### 3. Ecuación de Schrödinger (1926)
+
+Describe al electrón como una **función de onda** (ψ, psi):
+- ψ² nos da la **probabilidad** de encontrar el electrón en cierta región
+- No hay órbitas definidas, sino **orbitales** (regiones de probabilidad)
+
+### Del modelo de Bohr al modelo cuántico
+
+| Aspecto | Bohr | Cuántico |
+|---------|------|----------|
+| Trayectoria | Órbitas circulares definidas | Orbitales (nubes de probabilidad) |
+| Posición | Exacta | Probabilística |
+| Naturaleza | Partícula | Onda-partícula |
+| Energía | Niveles (n) | Números cuánticos (n, l, m, s) |
+
+### Los orbitales atómicos
+
+En lugar de órbitas, ahora hablamos de **orbitales**:
+
+**Tipos principales:**
+- **s**: esféricos (1 orbital por nivel)
+- **p**: forma de "mancuerna" (3 orientaciones: px, py, pz)
+- **d**: más complejos (5 orientaciones)
+- **f**: muy complejos (7 orientaciones)
+
+Cada orbital puede contener **máximo 2 electrones** (con espines opuestos: ↑↓)
+
+### Números cuánticos
+
+Cada electrón se describe con 4 números:
+
+1. **n** (principal): nivel de energía (1, 2, 3...)
+2. **l** (azimutal): tipo de orbital (0=s, 1=p, 2=d, 3=f)
+3. **m** (magnético): orientación espacial (-l...0...+l)
+4. **s** (espín): giro del electrón (+½ o -½)
+
+### Verifica tu comprensión
+
+import MCQ from '@/components/Activity/MCQ.jsx';
+
+<MCQ 
+  client:load 
+  question="En el modelo cuántico, ¿qué representa un orbital atómico?" 
+  options={[
+    "La trayectoria exacta que sigue un electrón",
+    "La región donde hay alta probabilidad de encontrar un electrón",
+    "El núcleo del átomo",
+    "La distancia entre el núcleo y el electrón"
+  ]} 
+  correctIndex={1} 
+  feedback={{
+    correct: "¡Excelente! Un orbital es una región de probabilidad, no una trayectoria definida.",
+    incorrect: "Recuerda que en mecánica cuántica no podemos conocer trayectorias exactas. Piensa en probabilidades."
+  }} 
+/>
+
+### ¿Por qué este modelo es el correcto?
+
+✅ Explica **todos los espectros atómicos** (no solo hidrógeno)  
+✅ Predice correctamente el **comportamiento químico** de los elementos  
+✅ Permite entender **enlaces químicos** y estructura molecular  
+✅ Fundamenta toda la **química moderna** y **nanotecnología**  
+✅ Sus predicciones han sido verificadas en **miles de experimentos**
+
+### Conexión con tecnología actual
+
+- **Microscopios de túnel cuántico**: "ven" átomos individuales
+- **Computadoras cuánticas**: usan superposición de estados cuánticos
+- **Diseño de fármacos**: simulaciones de orbitales moleculares
+- **Semiconductores**: bandas de energía en sólidos
+
+### Reflexión final
+
+Desde Dalton (1808) hasta el modelo cuántico (1926) transcurrieron solo **118 años**, pero el progreso fue monumental:
+
+- Átomo indivisible → Núcleo + electrones → Orbitales probabilísticos
+- Materia sólida → Espacio vacío → Funciones de onda
+
+Este es el poder del método científico: modelos que evolucionan con nueva evidencia.
+
+---
+
+**¡Has completado el recorrido por los modelos atómicos!**  
+Ahora pondrás a prueba tu comprensión en la evaluación final.

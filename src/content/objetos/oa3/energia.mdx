@@ -1,0 +1,96 @@
+---
+title: "Reacciones endotérmicas y exotérmicas"
+order: 3
+oaSlug: "oa3"
+screenSlug: "energia"
+---
+
+## Energía en las reacciones químicas
+
+Todas las reacciones implican **cambios de energía**: se rompen enlaces (requiere energía) y se forman nuevos enlaces (libera energía).
+
+### Reacciones exotérmicas 🔥
+
+**Liberan** energía al entorno (calor, luz):
+- Balance energético: energía liberada > energía absorbida
+- El entorno se **calienta**
+
+**Ejemplos:**
+- Combustión: CH₄ + 2O₂ → CO₂ + 2H₂O + **energía**
+- Respiración celular: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + **ATP**
+- Neutralización: HCl + NaOH → NaCl + H₂O + **calor**
+- Oxidación de metales: 4Fe + 3O₂ → 2Fe₂O₃ + **calor**
+
+### Reacciones endotérmicas ❄️
+
+**Absorben** energía del entorno:
+- Balance energético: energía absorbida > energía liberada
+- El entorno se **enfría**
+
+**Ejemplos:**
+- Fotosíntesis: 6CO₂ + 6H₂O + **luz solar** → C₆H₁₂O₆ + 6O₂
+- Descomposición del agua: 2H₂O + **electricidad** → 2H₂ + O₂
+- Paquetes de frío instantáneo (nitrato de amonio)
+- Cocción de alimentos (requiere calor continuo)
+
+### Diagrama de energía
+
+**Exotérmica:**
+```
+Energía
+  ↑
+  │    Reactivos
+  │    ╱╲
+  │   ╱  ╲  ΔH < 0
+  │  ╱    ╲
+  │ ╱      ╲
+  │╱        Productos
+  └──────────────> Progreso
+```
+
+**Endotérmica:**
+```
+Energía
+  ↑         Productos
+  │        ╱
+  │       ╱  ΔH > 0
+  │      ╱
+  │     ╱
+  │    ╱
+  │Reactivos
+  └──────────────> Progreso
+```
+
+### Verifica tu comprensión
+
+import MCQ from '@/components/Activity/MCQ.jsx';
+
+<MCQ 
+  client:load 
+  question="En una reacción exotérmica, el sistema libera energía al entorno." 
+  options={[
+    "Verdadero",
+    "Falso"
+  ]} 
+  correctIndex={0} 
+  feedback={{
+    correct: "¡Correcto! Exotérmica significa 'hacia afuera' (exo-). El sistema libera calor.",
+    incorrect: "Recuerda: EXOtérmica = Energía sale (EXOpuesto al sistema)."
+  }} 
+/>
+
+<MCQ 
+  client:load 
+  question="¿Cuál de estas reacciones es endotérmica?" 
+  options={[
+    "Quemar madera",
+    "Fotosíntesis (plantas producen glucosa con luz solar)",
+    "Respiración celular",
+    "Mezclar ácido con base"
+  ]} 
+  correctIndex={1} 
+  feedback={{
+    correct: "¡Perfecto! La fotosíntesis ABSORBE energía solar para convertir CO₂ y H₂O en glucosa.",
+    incorrect: "Piensa: ¿cuál proceso NECESITA energía externa para ocurrir?"
+  }} 
+/>

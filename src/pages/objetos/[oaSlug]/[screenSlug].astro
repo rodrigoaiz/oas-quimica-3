@@ -1,0 +1,158 @@
+---
+/**
+ * Página dinámica para pantallas individuales de un OA
+ * Ruta: /objetos/[oaSlug]/[screenSlug]
+ * 
+ * Ejemplo: /objetos/oa1/introduccion
+ */
+import OAScreen from '@/layouts/OAScreen.astro';
+import { getCollection } from 'astro:content';
+
+// Tipos para los metadatos del OA
+interface OAMeta {
+  title: string;
+  screens: Array<{ slug: string; title: string; order: number }>;
+}
+
+export async function getStaticPaths() {
+  // Configuración de OAs y sus pantallas
+  const oaConfigs: Record<string, OAMeta> = {
+    'oa1': {
+      title: 'Estructura de la materia: modelos atómicos',
+      screens: [
+        { slug: 'introduccion', title: 'Introducción', order: 1 },
+        { slug: 'dalton', title: 'Modelo de Dalton', order: 2 },
+        { slug: 'thomson', title: 'Modelo de Thomson', order: 3 },
+        { slug: 'rutherford', title: 'Modelo de Rutherford', order: 4 },
+        { slug: 'bohr', title: 'Modelo de Bohr', order: 5 },
+        { slug: 'cuantico', title: 'Modelo cuántico', order: 6 },
+        { slug: 'evaluacion', title: 'Evaluación', order: 7 },
+      ]
+    },
+    'oa2': {
+      title: 'Enlaces químicos y propiedades',
+      screens: [
+        { slug: 'introduccion', title: 'Introducción', order: 1 },
+        { slug: 'ionico', title: 'Enlace iónico', order: 2 },
+        { slug: 'covalente', title: 'Enlace covalente', order: 3 },
+        { slug: 'metalico', title: 'Enlace metálico', order: 4 },
+        { slug: 'evaluacion', title: 'Evaluación', order: 5 },
+      ]
+    },
+    'oa3': {
+      title: 'Reacciones químicas y energía',
+      screens: [
+        { slug: 'introduccion', title: 'Introducción', order: 1 },
+        { slug: 'evidencias', title: 'Evidencias de reacción', order: 2 },
+        { slug: 'energia', title: 'Energía en reacciones', order: 3 },
+        { slug: 'balanceo', title: 'Balanceo de ecuaciones', order: 4 },
+        { slug: 'evaluacion', title: 'Evaluación', order: 5 },
+      ]
+    }
+  };
+
+  const paths = [];
+  
+  // Intentar obtener todas las entradas de contenido (screens)
+  const allScreens = await getCollection('objetos');
+  
+  for (const [oaSlug, config] of Object.entries(oaConfigs)) {
+    for (const screen of config.screens) {
+      // Buscar el archivo MDX correspondiente
+      const screenEntry = allScreens.find(entry => 
+        entry.slug === `${oaSlug}/${screen.slug}`
+      );
+      
+      paths.push({
+        params: { 
+          oaSlug, 
+          screenSlug: screen.slug 
+        },
+        props: {
+          oaTitle: config.title,
+          oaSlug,
+          screenTitle: screen.title,
+          screenSlug: screen.slug,
+          screens: config.screens.sort((a, b) => a.order - b.order),
+          entry: screenEntry || null, // Pasar la entrada MDX si existe
+        }
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { oaTitle, oaSlug, screenTitle, screenSlug, screens, entry } = Astro.props;
+const pageTitle = `${screenTitle} · ${oaTitle} · Química 3`;
+
+// Si hay entrada MDX, renderizarla
+let Content;
+if (entry) {
+  ({ Content } = await entry.render());
+}
+---
+
+<OAScreen
+  title={pageTitle}
+  oaTitle={oaTitle}
+  oaSlug={oaSlug}
+  screenTitle={screenTitle}
+  screenSlug={screenSlug}
+  screens={screens}
+>
+  {Content ? (
+    <Content />
+  ) : (
+    <!-- Contenido placeholder si no hay MDX -->
+    <div class="placeholder-content">
+      <p class="text-lg text-slate-600 mb-4">
+        Esta es la pantalla <strong>{screenTitle}</strong> del objeto de aprendizaje 
+        <strong>{oaTitle}</strong>.
+      </p>
+      
+      <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+        <h2 class="text-xl font-bold text-blue-900 mb-2">Contenido de ejemplo</h2>
+        <p class="text-blue-800">
+          Aquí irá el contenido específico de esta pantalla. Puedes incluir:
+        </p>
+        <ul class="list-disc list-inside mt-2 text-blue-800">
+          <li>Texto explicativo</li>
+          <li>Imágenes y diagramas</li>
+          <li>Componentes interactivos (MCQ, simulaciones)</li>
+          <li>Videos embebidos</li>
+          <li>Actividades de práctica</li>
+        </ul>
+      </div>
+
+      <h2>Siguiente paso</h2>
+      <p>
+        Para agregar contenido real, crea archivos MDX en 
+        <code>src/content/objetos/{oaSlug}/{screenSlug}.mdx</code> y actualiza 
+        esta página para renderizarlos.
+      </p>
+    </div>
+  )}
+</OAScreen>
+
+<style>
+  .placeholder-content {
+    line-height: 1.7;
+  }
+
+  .placeholder-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #0070f3;
+  }
+
+  .placeholder-content code {
+    background: #f1f5f9;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    color: #0f172a;
+  }
+</style>

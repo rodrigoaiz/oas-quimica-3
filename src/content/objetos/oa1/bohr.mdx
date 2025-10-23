@@ -1,0 +1,90 @@
+---
+title: "Modelo de Bohr"
+order: 5
+oaSlug: "oa1"
+screenSlug: "bohr"
+---
+
+## Niels Bohr y los niveles de energía (1913)
+
+El físico danés Niels Bohr combinó el modelo de Rutherford con las nuevas ideas de la **física cuántica** propuestas por Max Planck y Albert Einstein.
+
+### Los postulados cuánticos de Bohr
+
+1. **Los electrones solo pueden ocupar ciertas órbitas permitidas**
+   - Llamadas **niveles de energía** o **capas electrónicas**
+   - Numeradas n = 1, 2, 3, 4...
+   - Cada nivel tiene una energía fija
+
+2. **Los electrones NO emiten energía mientras están en una órbita permitida**
+   - Esto resuelve el problema de Rutherford
+   - El átomo es estable porque los electrones están "congelados" en sus niveles
+
+3. **Los electrones absorben o emiten energía solo al saltar entre niveles**
+   - **Absorción**: electrón salta a nivel superior (requiere energía)
+   - **Emisión**: electrón cae a nivel inferior (libera energía como luz)
+
+### ¿Por qué brillan los fuegos artificiales?
+
+Este modelo explica perfectamente los **espectros de emisión**:
+
+1. Se calienta un elemento (por ejemplo, sodio)
+2. Los electrones absorben energía y saltan a niveles superiores
+3. Al regresar, emiten luz de **colores específicos**
+
+**Ejemplos:**
+- 🟡 Sodio → Amarillo
+- 🔴 Litio → Rojo
+- 🟢 Bario → Verde
+- 🔵 Cobre → Azul
+
+Cada elemento tiene su "firma" de colores única, como una huella digital.
+
+### Fórmula de energía de Bohr
+
+Para el átomo de hidrógeno, Bohr calculó:
+
+$$E_n = -\frac{13.6 \text{ eV}}{n^2}$$
+
+Donde:
+- $E_n$ = energía del nivel n
+- $n$ = número cuántico principal (1, 2, 3...)
+- Signo negativo = el electrón está "atrapado" en el átomo
+
+### Actividad: Transiciones electrónicas
+
+import MCQ from '@/components/Activity/MCQ.jsx';
+
+<MCQ 
+  client:load 
+  question="¿Qué sucede cuando un electrón cae de un nivel de energía superior a uno inferior?" 
+  options={[
+    "El átomo absorbe energía",
+    "El electrón se destruye",
+    "El átomo emite luz (fotón)",
+    "El núcleo aumenta de tamaño"
+  ]} 
+  correctIndex={2} 
+  feedback={{
+    correct: "¡Correcto! Al caer a un nivel inferior, el electrón libera energía en forma de fotón (luz).",
+    incorrect: "Piensa en la conservación de energía. ¿Qué pasa con la diferencia de energía entre los niveles?"
+  }} 
+/>
+
+### Aplicaciones tecnológicas
+
+- **Láseres**: electrones en transiciones controladas
+- **LEDs**: emisión de luz por saltos cuánticos en semiconductores
+- **Espectroscopía**: identificar elementos en estrellas lejanas
+- **Análisis químico**: determinar composición de sustancias
+
+### Limitaciones del modelo de Bohr
+
+Aunque explicaba bien el hidrógeno, tenía problemas:
+
+❌ No funcionaba bien para átomos con **muchos electrones**  
+❌ No explicaba por qué algunas líneas espectrales eran **más intensas** que otras  
+❌ No consideraba que los electrones tienen propiedades **ondulatorias**  
+❌ Trataba las órbitas como **trayectorias definidas** (pero la mecánica cuántica dice que no lo son)
+
+El **modelo cuántico moderno** corregiría estas limitaciones...

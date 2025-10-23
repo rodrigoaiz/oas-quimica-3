@@ -1,0 +1,267 @@
+---
+/**
+ * Componente InternalNav - Navegación entre pantallas de un OA
+ * 
+ * Props:
+ * - screens: Array<{ slug: string, title: string }>
+ * - currentSlug: string
+ * - baseUrl: string (ej: '/objetos/oa1')
+ * - showIndex?: boolean (mostrar índice de todas las pantallas)
+ */
+
+interface Screen {
+  slug: string;
+  title: string;
+}
+
+interface Props {
+  screens: Screen[];
+  currentSlug: string;
+  baseUrl: string;
+  showIndex?: boolean;
+}
+
+const { screens, currentSlug, baseUrl, showIndex = true } = Astro.props;
+
+const currentIndex = screens.findIndex(s => s.slug === currentSlug);
+const prevScreen = currentIndex > 0 ? screens[currentIndex - 1] : null;
+const nextScreen = currentIndex < screens.length - 1 ? screens[currentIndex + 1] : null;
+---
+
+<nav aria-label="Navegación interna del objeto de aprendizaje" class="internal-nav">
+  <!-- Navegación Prev/Next -->
+  <div class="nav-controls">
+    {prevScreen ? (
+      <a href={`${baseUrl}/${prevScreen.slug}`} class="nav-btn nav-prev">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        <span class="nav-label">
+          <span class="nav-label-sm">Anterior</span>
+          <span class="nav-label-lg">{prevScreen.title}</span>
+        </span>
+      </a>
+    ) : (
+      <div class="nav-btn-placeholder"></div>
+    )}
+
+    {nextScreen ? (
+      <a href={`${baseUrl}/${nextScreen.slug}`} class="nav-btn nav-next">
+        <span class="nav-label">
+          <span class="nav-label-sm">Siguiente</span>
+          <span class="nav-label-lg">{nextScreen.title}</span>
+        </span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </a>
+    ) : (
+      <div class="nav-btn-placeholder"></div>
+    )}
+  </div>
+
+  <!-- Índice de pantallas (opcional) -->
+  {showIndex && screens.length > 1 && (
+    <details class="screen-index" open>
+      <summary class="index-summary">
+        Índice de pantallas ({currentIndex + 1}/{screens.length})
+      </summary>
+      <ol class="index-list">
+        {screens.map((screen, idx) => (
+          <li class:list={["index-item", { active: screen.slug === currentSlug }]}>
+            {screen.slug === currentSlug ? (
+              <span class="index-current" aria-current="page">
+                {idx + 1}. {screen.title}
+              </span>
+            ) : (
+              <a href={`${baseUrl}/${screen.slug}`} class="index-link">
+                {idx + 1}. {screen.title}
+              </a>
+            )}
+          </li>
+        ))}
+      </ol>
+    </details>
+  )}
+</nav>
+
+<style>
+  .internal-nav {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e2e8f0;
+  }
+
+  /* Controles Prev/Next */
+  .nav-controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #0070f3 0%, #00a8ff 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 112, 243, 0.3);
+    max-width: 45%;
+  }
+
+  .nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 112, 243, 0.4);
+  }
+
+  .nav-btn:focus {
+    outline: 3px solid #0070f3;
+    outline-offset: 2px;
+  }
+
+  .nav-prev {
+    flex-direction: row;
+  }
+
+  .nav-next {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
+  .nav-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .nav-label-sm {
+    font-size: 0.75rem;
+    opacity: 0.9;
+  }
+
+  .nav-label-lg {
+    font-size: 0.875rem;
+    line-height: 1.2;
+  }
+
+  .nav-btn-placeholder {
+    flex: 0 0 45%;
+  }
+
+  /* Índice de pantallas */
+  .screen-index {
+    background: rgba(241, 245, 249, 0.8);
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .index-summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: #0f172a;
+    list-style: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .index-summary:hover {
+    color: #0070f3;
+  }
+
+  .index-summary::marker,
+  .index-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .index-summary::before {
+    content: '▶';
+    display: inline-block;
+    transition: transform 0.2s;
+    font-size: 0.75rem;
+  }
+
+  details[open] .index-summary::before {
+    transform: rotate(90deg);
+  }
+
+  .index-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .index-item {
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+
+  .index-item.active {
+    background: rgba(0, 112, 243, 0.1);
+    font-weight: 600;
+  }
+
+  .index-link {
+    color: #0070f3;
+    text-decoration: none;
+    display: block;
+    transition: color 0.2s;
+  }
+
+  .index-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+  .index-current {
+    color: #0f172a;
+    display: block;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 640px) {
+    .nav-controls {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .nav-btn {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .nav-btn-placeholder {
+      display: none;
+    }
+
+    .nav-label-lg {
+      display: none;
+    }
+
+    .nav-label-sm {
+      font-size: 0.875rem;
+    }
+  }
+
+  /* Desktop: más espaciado */
+  @media (min-width: 1024px) {
+    .nav-controls {
+      margin-bottom: 2rem;
+    }
+
+    .nav-btn {
+      padding: 1rem 1.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+title: "Evidencias de reacción"
+order: 2
+oaSlug: "oa3"
+screenSlug: "evidencias"
+---
+
+## ¿Cómo saber si ocurrió una reacción química?
+
+Existen indicadores observables que revelan transformaciones químicas:
+
+### 1. Cambio de color 🎨
+- Oxidación del hierro: gris metálico → rojo óxido
+- Maduración de frutas: verde → amarillo/rojo
+- Indicadores ácido-base: fenolftaleína incolora → rosa
+
+### 2. Formación de precipitado ☁️
+- Mezcla de soluciones forma sólido insoluble
+- Ejemplo: AgNO₃ + NaCl → AgCl↓ (precipitado blanco)
+
+### 3. Formación de gas 💨
+- Burbujas en reacciones
+- Vinagre + bicarbonato → CO₂ (burbujas)
+- Digestión de alimentos → gases intestinales
+
+### 4. Cambio de temperatura 🌡️
+- **Exotérmica**: libera calor (se calienta)
+- **Endotérmica**: absorbe calor (se enfría)
+
+### 5. Emisión de luz ✨
+- Combustión (fuego)
+- Quimioluminiscencia (luciérnagas, glow sticks)
+
+import MCQ from '@/components/Activity/MCQ.jsx';
+
+<MCQ 
+  client:load 
+  question="¿Cuál NO es evidencia de una reacción química?" 
+  options={[
+    "Cambio de color",
+    "Cambio de estado (hielo→agua)",
+    "Formación de gas",
+    "Cambio de temperatura"
+  ]} 
+  correctIndex={1} 
+  feedback={{
+    correct: "¡Correcto! El cambio de estado (fusión) es un cambio físico, no químico. Las moléculas siguen siendo H₂O.",
+    incorrect: "Piensa: ¿en un cambio físico se forman nuevas sustancias? ¿O solo cambia la forma/estado?"
+  }} 
+/>
