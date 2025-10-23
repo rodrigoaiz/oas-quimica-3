@@ -7,31 +7,103 @@ const textColor = "#333333";
 
 <section class="hero-section">
   <div class="animated-bg">
-    <!-- Molécula 1: Cadena -->
-    <svg class="molecule mol-1" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
-      <line x1="30" y1="30" x2="100" y2="100" class="bond" />
-      <line x1="100" y1="100" x2="80" y2="170" class="bond" />
-      <line x1="80" y1="170" x2="140" y2="220" class="bond" />
-      <circle cx="30" cy="30" r="22" class="atom" />
-      <circle cx="100" cy="100" r="27" class="atom" />
-      <circle cx="80" cy="170" r="25" class="atom" />
-      <circle cx="140" cy="220" r="20" class="atom" />
+    <!-- Molécula 1: Anillo aromático con sustituyentes (tipo nitrofenol) -->
+    <svg class="molecule mol-1" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg" aria-label="Anillo aromático con nitro y OH">
+      <!-- Anillo bencénico -->
+      <!-- Vértices del hexágono -->
+      <!-- v1(130,68) v2(160,120) v3(130,172) v4(70,172) v5(40,120) v6(70,68) -->
+      <line x1="130" y1="68" x2="160" y2="120" class="bond" />
+      <line x1="160" y1="120" x2="130" y2="172" class="bond" />
+      <line x1="130" y1="172" x2="70" y2="172" class="bond" />
+      <line x1="70" y1="172" x2="40" y2="120" class="bond" />
+      <line x1="40" y1="120" x2="70" y2="68" class="bond" />
+      <line x1="70" y1="68" x2="130" y2="68" class="bond" />
+
+      <!-- Dobles enlaces alternados -->
+      <line x1="127" y1="68" x2="157" y2="120" class="bond" />
+      <line x1="130" y1="175" x2="70" y2="175" class="bond" />
+      <line x1="43" y1="120" x2="73" y2="68" class="bond" />
+
+      <!-- Sustituyente OH en v5 (40,120) -->
+      <line x1="40" y1="120" x2="15" y2="120" class="bond" />
+      <circle cx="15" cy="120" r="9" class="atom atom-hetero" />
+      <text x="15" y="124" text-anchor="middle" class="atom-label">O</text>
+
+      <!-- Sustituyente NO2 en v1 (130,68) simplificado -->
+      <line x1="130" y1="68" x2="130" y2="35" class="bond" />
+      <!-- Enlaces a oxígenos -->
+      <line x1="130" y1="35" x2="115" y2="25" class="bond" />
+      <line x1="130" y1="35" x2="145" y2="25" class="bond" />
+      <circle cx="115" cy="25" r="8" class="atom atom-hetero" />
+      <circle cx="145" cy="25" r="8" class="atom atom-hetero" />
+      <text x="115" y="29" text-anchor="middle" class="atom-label">O</text>
+      <text x="145" y="29" text-anchor="middle" class="atom-label">O</text>
+
+      <!-- Átomos del anillo -->
+      <circle cx="160" cy="120" r="6" class="atom" />
+      <circle cx="130" cy="172" r="6" class="atom" />
+      <circle cx="70" cy="172" r="6" class="atom" />
+      <circle cx="40" cy="120" r="6" class="atom" />
+      <circle cx="70" cy="68" r="6" class="atom" />
+      <circle cx="130" cy="68" r="6" class="atom" />
     </svg>
 
-    <!-- Molécula 2: Par simple -->
-    <svg class="molecule mol-2" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-      <line x1="40" y1="50" x2="160" y2="50" class="bond" />
-      <circle cx="40" cy="50" r="35" class="atom" />
-      <circle cx="160" cy="50" r="27" class="atom" />
+    <!-- Molécula 2: Alqueno disustituido (doble enlace con grupos) -->
+    <svg class="molecule mol-2" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" aria-label="Alqueno disustituido">
+      <!-- Doble enlace central -->
+      <line x1="80" y1="50" x2="120" y2="50" class="bond" />
+      <line x1="80" y1="54" x2="120" y2="54" class="bond" />
+      <!-- Sustituyentes en el carbono izquierdo -->
+      <line x1="80" y1="50" x2="55" y2="30" class="bond" />
+      <line x1="80" y1="50" x2="55" y2="70" class="bond" />
+      <circle cx="55" cy="30" r="8" class="atom" />
+      <circle cx="55" cy="70" r="8" class="atom" />
+      <!-- Sustituyentes en el carbono derecho -->
+      <line x1="120" y1="50" x2="145" y2="30" class="bond" />
+      <line x1="120" y1="50" x2="145" y2="70" class="bond" />
+      <circle cx="145" cy="30" r="8" class="atom" />
+      <circle cx="145" cy="70" r="8" class="atom" />
+      <!-- Carbonos del doble enlace como átomos un poco mayores -->
+      <circle cx="80" cy="50" r="10" class="atom" />
+      <circle cx="120" cy="50" r="10" class="atom" />
     </svg>
 
-    <!-- Molécula 3: Tres en línea -->
-    <svg class="molecule mol-3" viewBox="0 0 250 120" xmlns="http://www.w3.org/2000/svg">
-      <line x1="40" y1="60" x2="125" y2="30" class="bond" />
-      <line x1="125" y1="30" x2="210" y2="70" class="bond" />
-      <circle cx="40" cy="60" r="28" class="atom" />
-      <circle cx="125" cy="30" r="25" class="atom" />
-      <circle cx="210" cy="70" r="30" class="atom" />
+    <!-- Molécula 3: Anillo tipo glucosa (heteroátomo y sustituyentes OH) -->
+    <svg class="molecule mol-3" viewBox="0 0 250 120" xmlns="http://www.w3.org/2000/svg" aria-label="Anillo tipo glucosa">
+      <!-- Hexágono con heteroátomo (O) en v5 -->
+      <!-- Centro aprox (125,60), R~40 -->
+      <!-- v1(160,60) v2(143,91) v3(107,91) v4(90,60) v5(107,29) v6(143,29) -->
+      <line x1="160" y1="60" x2="143" y2="91" class="bond" />
+      <line x1="143" y1="91" x2="107" y2="91" class="bond" />
+      <line x1="107" y1="91" x2="90" y2="60" class="bond" />
+      <line x1="90" y1="60" x2="107" y2="29" class="bond" />
+      <line x1="107" y1="29" x2="143" y2="29" class="bond" />
+      <line x1="143" y1="29" x2="160" y2="60" class="bond" />
+
+      <!-- Sustituyentes OH en varias posiciones -->
+      <!-- En v2 -->
+      <line x1="143" y1="91" x2="165" y2="110" class="bond" />
+      <circle cx="165" cy="110" r="7" class="atom atom-hetero" />
+      <text x="165" y="114" text-anchor="middle" class="atom-label">O</text>
+      <!-- En v3 -->
+      <line x1="107" y1="91" x2="85" y2="110" class="bond" />
+      <circle cx="85" cy="110" r="7" class="atom atom-hetero" />
+      <text x="85" y="114" text-anchor="middle" class="atom-label">O</text>
+      <!-- En v6 -->
+      <line x1="143" y1="29" x2="165" y2="15" class="bond" />
+      <circle cx="165" cy="15" r="7" class="atom atom-hetero" />
+      <text x="165" y="19" text-anchor="middle" class="atom-label">O</text>
+
+      <!-- Heteroátomo en el anillo (O en v5) -->
+      <circle cx="107" cy="29" r="6" class="atom atom-hetero" />
+      <text x="107" y="33" text-anchor="middle" class="atom-label">O</text>
+
+      <!-- Átomos del anillo (C) como puntos -->
+      <circle cx="160" cy="60" r="5" class="atom" />
+      <circle cx="143" cy="91" r="5" class="atom" />
+      <circle cx="107" cy="91" r="5" class="atom" />
+      <circle cx="90" cy="60" r="5" class="atom" />
+      <circle cx="143" cy="29" r="5" class="atom" />
     </svg>
 
     <!-- Contenedor de partículas generadas con JS -->
@@ -186,11 +258,27 @@ const textColor = "#333333";
     stroke-width: 3;
   }
 
+  /* Heteroátomos (O, N, etc.) con un tono más marcado */
+  .molecule .atom-hetero {
+    fill: rgba(255, 255, 255, 0.85);
+    stroke: rgba(255, 120, 120, 0.95);
+  }
+
   /* Enlaces SVG (líneas) */
   .molecule .bond {
     stroke: rgba(0, 247, 194, 0.7);
     stroke-width: 3;
     stroke-linecap: round;
+  }
+
+  /* Etiquetas de átomo (letras) */
+  .molecule .atom-label {
+    font-size: 12px;
+    font-weight: 700;
+    fill: rgba(255, 255, 255, 0.95);
+    paint-order: stroke;
+    stroke: rgba(0, 0, 0, 0.2);
+    stroke-width: 2px;
   }
 
   /* Partículas sueltas */
@@ -318,5 +406,34 @@ const textColor = "#333333";
     .hero-section {
       padding: 80px 40px;
     }
+  }
+
+  /* Aumentar tamaño de moléculas en desktop */
+  @media (min-width: 1024px) {
+    .mol-1 {
+      width: 320px;
+      height: 380px;
+      top: 10%;
+      left: 6%;
+    }
+    .mol-2 {
+      width: 320px;
+      height: 160px;
+      top: 50%;
+      right: 6%;
+    }
+    .mol-3 {
+      width: 360px;
+      height: 170px;
+      bottom: 8%;
+      left: 38%;
+    }
+  }
+
+  /* Extra-large: un poco más grandes aún */
+  @media (min-width: 1440px) {
+    .mol-1 { width: 380px; height: 450px; }
+    .mol-2 { width: 360px; height: 180px; }
+    .mol-3 { width: 420px; height: 200px; }
   }
 </style>
