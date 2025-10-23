@@ -4,6 +4,11 @@
 
 :root { color-scheme: light dark; }
 
+/* Evita el salto horizontal por la scrollbar */
+html {
+  overflow-y: scroll;
+}
+
 /* Tipografía base y elementos accesibles */
 .prose { @apply leading-relaxed text-slate-800 max-w-none; }
 .btn { @apply inline-flex items-center gap-2 rounded-2xl px-4 py-2 font-medium shadow-sm hover:shadow transition; }

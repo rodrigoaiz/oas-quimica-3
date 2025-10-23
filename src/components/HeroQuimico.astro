@@ -1,0 +1,322 @@
+---
+// Define las variables de color para usar en el script y en los estilos
+const primaryColor = "#0070f3"; // Azul UNAM/moderno
+const secondaryColor = "#00f7c2"; // Cian/Verde brillante
+const textColor = "#333333";
+---
+
+<section class="hero-section">
+  <div class="animated-bg">
+    <!-- Molécula 1: Cadena -->
+    <svg class="molecule mol-1" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+      <line x1="30" y1="30" x2="100" y2="100" class="bond" />
+      <line x1="100" y1="100" x2="80" y2="170" class="bond" />
+      <line x1="80" y1="170" x2="140" y2="220" class="bond" />
+      <circle cx="30" cy="30" r="22" class="atom" />
+      <circle cx="100" cy="100" r="27" class="atom" />
+      <circle cx="80" cy="170" r="25" class="atom" />
+      <circle cx="140" cy="220" r="20" class="atom" />
+    </svg>
+
+    <!-- Molécula 2: Par simple -->
+    <svg class="molecule mol-2" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+      <line x1="40" y1="50" x2="160" y2="50" class="bond" />
+      <circle cx="40" cy="50" r="35" class="atom" />
+      <circle cx="160" cy="50" r="27" class="atom" />
+    </svg>
+
+    <!-- Molécula 3: Tres en línea -->
+    <svg class="molecule mol-3" viewBox="0 0 250 120" xmlns="http://www.w3.org/2000/svg">
+      <line x1="40" y1="60" x2="125" y2="30" class="bond" />
+      <line x1="125" y1="30" x2="210" y2="70" class="bond" />
+      <circle cx="40" cy="60" r="28" class="atom" />
+      <circle cx="125" cy="30" r="25" class="atom" />
+      <circle cx="210" cy="70" r="30" class="atom" />
+    </svg>
+
+    <!-- Contenedor de partículas generadas con JS -->
+    <div class="particles-container" id="particles"></div>
+  </div>
+
+  <div class="hero-content">
+    <h1 class="hero-title">Química 3 • Objetos de aprendizaje</h1>
+    <p class="hero-subtitle">
+      Navegación limpia, moderna, mobile-first. Interactivos ligeros con
+      JavaScript y accesibles.
+    </p>
+    <div class="hero-actions">
+      <a href="#objetos" class="btn btn-primary">Explorar objetos</a>
+      <a href="#como-funciona" class="btn btn-secondary">Cómo funciona</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Generar partículas flotantes dinámicamente
+  const container = document.getElementById('particles');
+  
+  if (container) {
+    const particleCount = 50; // Ajusta este número para más o menos partículas
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle-dynamic';
+      
+      // Posición aleatoria
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.left = `${Math.random() * 100}%`;
+      
+      // Tamaño aleatorio más variado (10px - 30px)
+      const size = Math.random() * 20 + 10;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      
+      // Forma irregular con border-radius aleatorio
+      const br1 = 40 + Math.random() * 60; // 40-100%
+      const br2 = 40 + Math.random() * 60;
+      const br3 = 40 + Math.random() * 60;
+      const br4 = 40 + Math.random() * 60;
+      particle.style.borderRadius = `${br1}% ${br2}% ${br3}% ${br4}%`;
+      
+      // Colores aleatorios entre cyan y blanco
+      const colorVariant = Math.random();
+      if (colorVariant < 0.3) {
+        // Cyan brillante
+        particle.style.background = 'rgba(0, 247, 194, 0.7)';
+        particle.style.border = '2px solid rgba(0, 247, 194, 0.9)';
+        particle.style.boxShadow = '0 0 20px rgba(0, 247, 194, 0.8)';
+      } else if (colorVariant < 0.6) {
+        // Blanco translúcido
+        particle.style.background = 'rgba(255, 255, 255, 0.8)';
+        particle.style.border = '2px solid rgba(200, 250, 240, 0.9)';
+        particle.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.6)';
+      } else {
+        // Azul claro
+        particle.style.background = 'rgba(100, 200, 255, 0.6)';
+        particle.style.border = '2px solid rgba(150, 220, 255, 0.8)';
+        particle.style.boxShadow = '0 0 18px rgba(100, 200, 255, 0.7)';
+      }
+      
+      // Duración de animación aleatoria (10s - 25s)
+      const duration = Math.random() * 15 + 10;
+      particle.style.animationDuration = `${duration}s`;
+      
+      // Retraso aleatorio para animaciones escalonadas
+      const delay = Math.random() * 5;
+      particle.style.animationDelay = `${delay}s`;
+      
+      // Opacidad aleatoria (0.5 - 0.9 para mejor visibilidad)
+      const opacity = Math.random() * 0.4 + 0.5;
+      particle.style.opacity = `${opacity}`;
+      
+      // Asegurar que las partículas estén dentro del contenedor
+      particle.style.position = 'absolute';
+      
+      // Crear animación única para cada partícula
+      const animationName = `float-${i}`;
+      const tx1 = (Math.random() - 0.5) * 120;
+      const ty1 = (Math.random() - 0.5) * 120;
+      const tx2 = (Math.random() - 0.5) * 120;
+      const ty2 = (Math.random() - 0.5) * 120;
+      const tx3 = (Math.random() - 0.5) * 120;
+      const ty3 = (Math.random() - 0.5) * 120;
+      
+      const keyframes = `
+        @keyframes ${animationName} {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          25% { transform: translate(${tx1}px, ${ty1}px) scale(1.1); }
+          50% { transform: translate(${tx2}px, ${ty2}px) scale(0.9); }
+          75% { transform: translate(${tx3}px, ${ty3}px) scale(1.05); }
+        }
+      `;
+      
+      // Agregar keyframes al documento
+      const style = document.createElement('style');
+      style.textContent = keyframes;
+      document.head.appendChild(style);
+      
+      particle.style.animationName = animationName;
+      particle.style.animationTimingFunction = 'ease-in-out';
+      particle.style.animationIterationCount = 'infinite';
+      
+      container.appendChild(particle);
+    }
+  }
+</script>
+
+<style define:vars={{ primaryColor, secondaryColor, textColor }}>
+  /* --- SECCIÓN HERO --- */
+  .hero-section {
+    position: relative;
+    overflow: hidden; /* Importante para recortar la animación */
+    min-height: 800px;
+    padding: 60px 20px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(
+      135deg,
+      var(--primaryColor) 0%,
+      #30c8ff 100%
+    ); /* Fondo degradado */
+    color: white;
+  }
+
+  /* --- FONDO ANIMADO CSS PURO --- */
+  .animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* Contenedor de moléculas (ahora SVG) */
+  .molecule {
+    position: absolute;
+    filter: drop-shadow(0 0 15px rgba(0, 247, 194, 0.4));
+    z-index: 2;
+  }
+
+  /* Átomos SVG (círculos) */
+  .molecule .atom {
+    fill: rgba(255, 255, 255, 0.7);
+    stroke: rgba(0, 247, 194, 0.9);
+    stroke-width: 3;
+  }
+
+  /* Enlaces SVG (líneas) */
+  .molecule .bond {
+    stroke: rgba(0, 247, 194, 0.7);
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+
+  /* Partículas sueltas */
+  .particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(0, 247, 194, 0.5);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(0, 247, 194, 0.4);
+  }
+
+  /* Contenedor de partículas dinámicas */
+  .particles-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  /* Partículas generadas con JavaScript */
+  .particle-dynamic {
+    position: absolute;
+    pointer-events: none;
+    will-change: transform;
+    /* Los estilos de color, tamaño y border-radius se aplican inline con JS */
+  }
+
+  /* --- POSICIONAMIENTO Y TAMAÑO DE MOLÉCULAS --- */
+  .mol-1 {
+    width: 200px;
+    height: 250px;
+    top: 15%;
+    left: 8%;
+    animation: float1 20s infinite ease-in-out;
+  }
+
+  .mol-2 {
+    width: 200px;
+    height: 100px;
+    top: 55%;
+    right: 8%;
+    animation: float2 25s infinite ease-in-out reverse;
+  }
+
+  .mol-3 {
+    width: 250px;
+    height: 120px;
+    bottom: 12%;
+    left: 35%;
+    animation: float3 18s infinite ease-in-out;
+  }
+
+  /* --- ANIMACIONES --- */
+  @keyframes float1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(50px, 30px) rotate(5deg); }
+    50% { transform: translate(20px, -40px) rotate(-3deg); }
+    75% { transform: translate(-30px, 20px) rotate(4deg); }
+  }
+
+  @keyframes float2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-40px, 50px) rotate(-8deg); }
+    66% { transform: translate(30px, -30px) rotate(6deg); }
+  }
+
+  @keyframes float3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-50px, -40px) scale(1.1); }
+  }
+
+  /* --- ESTILOS DEL CONTENIDO (para que no se pierda) --- */
+  .hero-content {
+    position: relative; /* Asegura que el contenido esté sobre la animación */
+    z-index: 10;
+    max-width: 600px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  /* Botones Mobile-First */
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    background-color: var(--secondaryColor);
+    color: var(--primaryColor);
+    box-shadow: 0 4px 10px rgba(0, 247, 194, 0.4);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+
+  /* Media Query para escritorio (ajustes sutiles) */
+  @media (min-width: 768px) {
+    .hero-section {
+      padding: 80px 40px;
+    }
+  }
+</style>
