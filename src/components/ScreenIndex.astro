@@ -1,0 +1,56 @@
+---
+/**
+ * Índice de pantallas del OA
+ * 
+ * Muestra una lista horizontal de todas las pantallas disponibles en el OA actual
+ * 
+ * Props:
+ * - screens: Array<{ slug: string, title: string }>
+ * - baseUrl: string (ej: '/objetos/oa1')
+ * - currentSlug?: string - Slug de la pantalla actual (opcional, para resaltar)
+ * - class?: string - Clases adicionales opcionales
+ */
+interface Screen {
+  slug: string;
+  title: string;
+}
+
+interface Props {
+  screens: Screen[];
+  baseUrl: string;
+  currentSlug?: string;
+  class?: string;
+}
+
+const { screens, baseUrl, currentSlug = '', class: className = '' } = Astro.props;
+---
+
+{screens.length > 0 && (
+  <nav class={`my-8 p-6 bg-slate-50 rounded-lg border border-slate-200 ${className}`} aria-label="Índice de pantallas">
+    <h2 class="text-xl font-bold text-cch-azul mb-4">📚 Contenido</h2>
+    <div class="flex flex-wrap gap-3">
+      {screens.map((screen, index) => {
+        const isActive = screen.slug === currentSlug;
+        return (
+          <a 
+            href={`${baseUrl}/${screen.slug}`}
+            class:list={[
+              "inline-flex items-center gap-2 px-4 py-3 rounded-lg transition-all",
+              isActive 
+                ? "bg-cch-azul text-white shadow-md" 
+                : "bg-white hover:bg-cch-azul hover:text-white hover:shadow-md"
+            ]}
+            aria-current={isActive ? "page" : undefined}
+          >
+            <span class="shrink-0 w-6 h-6 flex items-center justify-center rounded-full text-sm font-bold bg-white/20">
+              {index + 1}
+            </span>
+            <span class="font-medium text-sm">
+              {screen.title}
+            </span>
+          </a>
+        );
+      })}
+    </div>
+  </nav>
+)}

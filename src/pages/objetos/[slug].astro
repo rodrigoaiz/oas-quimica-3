@@ -2,6 +2,7 @@
 import Base from '@/layouts/Base.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
 import InternalNav from '@/components/InternalNav.astro';
+import ScreenIndex from '@/components/ScreenIndex.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
@@ -50,17 +51,22 @@ const baseUrl = `/objetos/${entry.slug}`;
       {data.summary && <p class="mt-2 text-slate-700">{data.summary}</p>}
       <img src={data.cover} alt="" class="w-full aspect-video rounded-2xl mt-4" loading="lazy" />
     </header>
+
     
     <article class="contenido-mdx">
       <Content />
     </article>
-
-    <!-- Navegación interna -->
-    <InternalNav 
+    <!-- Índice de pantallas -->
+    <ScreenIndex screens={screens} baseUrl={baseUrl} currentSlug="" />
+    
+    <!-- Navegación interna (solo mostrar si hay pantallas) -->
+    {screens.length > 0 && (
+      <InternalNav 
       screens={screens} 
       currentSlug="" 
       baseUrl={baseUrl} 
       showIndex={false}
-    />
+      />
+    )}
   </main>
 </Base>

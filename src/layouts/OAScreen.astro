@@ -14,6 +14,7 @@
 import Base from './Base.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
 import InternalNav from '@/components/InternalNav.astro';
+import ScreenIndex from '@/components/ScreenIndex.astro';
 
 interface Screen {
   slug: string;
@@ -59,12 +60,19 @@ const baseUrl = `/objetos/${oaSlug}`;
       </div>
     </article>
 
-    <!-- Navegación interna -->
+    <!-- Índice horizontal de pantallas -->
+    <ScreenIndex 
+      screens={screens} 
+      currentSlug={screenSlug} 
+      baseUrl={baseUrl}
+    />
+
+    <!-- Navegación interna (Prev/Next) -->
     <InternalNav 
       screens={screens} 
       currentSlug={screenSlug} 
       baseUrl={baseUrl} 
-      showIndex={true}
+      showIndex={false}
     />
   </main>
 </Base>

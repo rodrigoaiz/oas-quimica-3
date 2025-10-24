@@ -9,6 +9,14 @@ level: "Unidad 3"
 
 import Breakout from '@/components/Breakout.astro';
 import Prose from '@/components/Prose.astro';
+import Aprendizajes from '@/components/Aprendizajes.astro';
+
+export const aprendizajes = [
+  "(C) Comprende las dificultades que presentan diferentes procesos químicos al analizar información sobre el rendimiento de reacción en la obtención de amoniaco y otros insumos de la industria de los fertilizantes. (N2)",
+  "(C, H) Comprende que las reacciones se realizan con diferente rapidez, según la naturaleza de los reactivos y las condiciones de reacción, al analizar la información obtenida de un experimento.(N2)",
+  "(C, H) Explica con base en la Teoría de Colisiones, el efecto de la superficie de contacto, catalizador,temperatura, presión y concentración sobre la rapidez de las reacciones químicas, a partir de la elaboración de argumentos. (N3)",
+  "(V) Valora el proceso de obtención de algún producto estratégico, desde la perspectiva de su impacto socioeconómico y ambiental en México para desarrollar su pensamiento crítico."
+];
 
 <Prose>
 ## Aprendizajes
@@ -17,12 +25,7 @@ Esto sería un parrafo no y tiene prose aplicado. Comprende las dificultades que
 </Prose>
 
 <Breakout>
-  <div class="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 max-w-5xl mx-auto">
-    <div class="bg-blue-50 border-l-4 border-cch-azul p-4 rounded-r-lg text-sm">(C) Comprende las dificultades que presentan diferentes procesos químicos al analizar información sobre el rendimiento de reacción en la obtención de amoniaco y otros insumos de la industria de los fertilizantes. (N2)</div>
-    <div class="bg-blue-50 border-l-4 border-cch-azul p-4 rounded-r-lg text-sm">(C, H) Comprende que las reacciones se realizan con diferente rapidez, según la naturaleza de los reactivos y las condiciones de reacción, al analizar la información obtenida de un experimento.(N2)</div>
-    <div class="bg-blue-50 border-l-4 border-cch-azul p-4 rounded-r-lg text-sm">(C, H) Explica con base en la Teoría de Colisiones, el efecto de la superficie de contacto, catalizador,temperatura, presión y concentración sobre la rapidez de las reacciones químicas, a partir de la elaboración de argumentos. (N3)</div>
-    <div class="bg-blue-50 border-l-4 border-cch-azul p-4 rounded-r-lg text-sm">(V) Valora el proceso de obtención de algún producto estratégico, desde la perspectiva de su impacto socioeconómico y ambiental en México para desarrollar su pensamiento crítico.</div>
-  </div>
+  <Aprendizajes items={aprendizajes} />
 </Breakout>
 
 <Prose>

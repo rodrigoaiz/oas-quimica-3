@@ -1,0 +1,40 @@
+---
+/**
+ * Componente de Aprendizajes
+ * 
+ * Muestra una cuadrícula responsive de tarjetas con los aprendizajes esperados.
+ * Se adapta automáticamente al número de aprendizajes (1-4).
+ * 
+ * Props:
+ * - items: Array<string> - Lista de aprendizajes a mostrar
+ * - class?: string - Clases adicionales opcionales
+ */
+interface Props {
+  items: string[];
+  class?: string;
+}
+
+const { items, class: className = '' } = Astro.props;
+
+// Determinar el número de columnas según la cantidad de items
+// 1 item: 1 columna
+// 2 items: 2 columnas
+// 3 items: 3 columnas
+// 4 items: 4 columnas (responsive: 1 en móvil, 2 en tablet, 4 en desktop)
+const getGridClasses = (count: number) => {
+  if (count === 1) return 'grid-cols-1';
+  if (count === 2) return 'grid-cols-1 md:grid-cols-2';
+  if (count === 3) return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
+  return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
+};
+
+const gridClasses = getGridClasses(items.length);
+---
+
+<div class={`grid ${gridClasses} gap-4 max-w-5xl mx-auto ${className}`}>
+  {items.map((aprendizaje) => (
+    <div class="bg-blue-50 border-l-4 border-cch-azul p-4 rounded-r-lg text-sm">
+      {aprendizaje}
+    </div>
+  ))}
+</div>
