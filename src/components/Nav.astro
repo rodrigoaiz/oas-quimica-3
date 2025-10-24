@@ -1,26 +1,20 @@
 ---
 import { clsx } from 'clsx';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
 const { current = '/' } = Astro.props;
 
-// Definir los OAs principales manualmente (sin incluir pantallas individuales)
-const mainOAs = [
-  {
-    slug: 'oa1',
-    title: 'Estructura de la materia: modelos atómicos',
-    level: 'Química 3'
-  },
-  {
-    slug: 'oa2',
-    title: 'Enlaces químicos y propiedades',
-    level: 'Química 3'
-  },
-  {
-    slug: 'oa3',
-    title: 'Reacciones químicas y energía',
-    level: 'Química 3'
-  }
-];
+// Obtener los OAs principales desde la colección (sin pantallas individuales)
+const allObjetos = await getCollection('objetos');
+const mainOAs = allObjetos
+  .filter((obj: CollectionEntry<'objetos'>) => !obj.id.includes('/'))
+  .sort((a: CollectionEntry<'objetos'>, b: CollectionEntry<'objetos'>) => a.data.order - b.data.order)
+  .map((oa: CollectionEntry<'objetos'>) => ({
+    slug: oa.id.replace('.mdx', ''),
+    title: oa.data.title,
+    level: oa.data.level
+  }));
 ---
 <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
   <div class="mx-auto max-w-5xl flex items-center justify-between px-4 py-3">
@@ -38,7 +32,7 @@ const mainOAs = [
           <ul class="absolute right-0 mt-2 w-80 max-w-[90vw] bg-white border rounded-xl shadow-lg p-2 max-h-[70vh] overflow-auto z-50">
             {mainOAs.map(({ slug, title, level }) => (
               <li>
-                <a class="block px-2 py-1.5 rounded hover:bg-slate-100" href={`/objetos/${slug}/introduccion`}>
+                <a class="block px-2 py-1.5 rounded hover:bg-slate-100" href={`/objetos/${slug}`}>
                   <span class="font-medium">{title}</span>
                   {level && <span class="ml-1 text-xs text-slate-500">· {level}</span>}
                 </a>

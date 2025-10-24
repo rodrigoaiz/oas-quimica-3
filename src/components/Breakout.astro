@@ -1,0 +1,15 @@
+---
+/**
+ * Componente Breakout
+ * Muestra contenido a ancho completo del main, sin estilos de prose
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`my-8 ${className}`}>
+  <slot />
+</div>

@@ -6,6 +6,12 @@
   --color-cch-dorado: #c8a653;
   --color-cch-gris: #f5f6f7;
 }
+@layer components {
+  .contenido-mdx {
+    @apply text-slate-900;
+  }
+
+}
 
 html {
   overflow-y: scroll;

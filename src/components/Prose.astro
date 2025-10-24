@@ -1,0 +1,15 @@
+---
+/**
+ * Componente Prose
+ * Envuelve contenido con estilos de Tailwind Typography
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`prose prose-slate prose-lg mx-auto ${className}`}>
+  <slot />
+</div>

@@ -1,6 +1,9 @@
 ---
 import Base from '@/layouts/Base.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import InternalNav from '@/components/InternalNav.astro';
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
   const objetos = await getCollection('objetos');
@@ -13,16 +16,51 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 const { data } = entry;
+
+// Obtener todas las pantallas de este OA
+const allObjetos = await getCollection('objetos');
+const screens = allObjetos
+  .filter((obj: CollectionEntry<'objetos'>) => 
+    obj.id.startsWith(`${entry.slug}/`) && obj.id !== `${entry.slug}.mdx`
+  )
+  .sort((a: CollectionEntry<'objetos'>, b: CollectionEntry<'objetos'>) => 
+    a.data.order - b.data.order
+  )
+  .map((screen: CollectionEntry<'objetos'>) => ({
+    slug: screen.id.replace(`${entry.slug}/`, '').replace('.mdx', ''),
+    title: screen.data.title
+  }));
+
+// Construir breadcrumbs
+const breadcrumbItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Objetos de aprendizaje', href: '/objetos' },
+  { label: data.title } // último sin href (página actual)
+];
+
+const baseUrl = `/objetos/${entry.slug}`;
 ---
 <Base title={`${data.title} · Química 3`}>
-  <main id="contenido" class="mx-auto max-w-3xl px-4 py-8">
+  <main id="contenido" class="mx-auto max-w-6xl px-4 py-6">
+    <!-- Breadcrumbs -->
+    <Breadcrumb items={breadcrumbItems} />
+
     <header class="mb-6">
       <h1 class="text-3xl font-extrabold text-cch-azul">{data.title}</h1>
       {data.summary && <p class="mt-2 text-slate-700">{data.summary}</p>}
-      <img src={data.cover} alt="" class="w-full aspect-video object-cover rounded-2xl mt-4" loading="lazy" />
+      <img src={data.cover} alt="" class="w-full aspect-video rounded-2xl mt-4" loading="lazy" />
     </header>
-    <article class="prose">
+    
+    <article class="contenido-mdx">
       <Content />
     </article>
+
+    <!-- Navegación interna -->
+    <InternalNav 
+      screens={screens} 
+      currentSlug="" 
+      baseUrl={baseUrl} 
+      showIndex={false}
+    />
   </main>
 </Base>
