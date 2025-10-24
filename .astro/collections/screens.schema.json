@@ -1,0 +1,33 @@
+{
+  "$ref": "#/definitions/screens",
+  "definitions": {
+    "screens": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "order": {
+          "type": "number"
+        },
+        "oaSlug": {
+          "type": "string"
+        },
+        "screenSlug": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "order",
+        "oaSlug",
+        "screenSlug"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

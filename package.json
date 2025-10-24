@@ -12,24 +12,23 @@
     "format": "prettier -w ."
   },
   "dependencies": {
-    "@astrojs/mdx": "^3.1.0",
-    "@astrojs/react": "^3.6.0",
-    "@astrojs/tailwind": "^5.1.2",
-    "astro": "^4.15.0",
+    "@astrojs/mdx": "^4.3.8",
+    "@astrojs/react": "^4.4.0",
+    "astro": "^5.15.1",
     "clsx": "^2.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.1.16",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
-    "autoprefixer": "^10.4.20",
     "eslint": "^9.13.0",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^4.1.16",
     "typescript": "^5.6.3"
   }
 }
