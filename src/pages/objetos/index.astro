@@ -1,57 +1,52 @@
 ---
 import Base from '@/layouts/Base.astro';
 import Breadcrumb from '@/components/Breadcrumb.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
-// Configuración de OAs con sus pantallas
-const oaData = [
-  {
-    slug: 'oa1',
-    title: 'Estructura de la materia: modelos atómicos',
-    cover: '/images/oa1.jpg',
-    level: 'Química 3',
-    duration: '30–40 min',
-    summary: 'Recorre desde Dalton hasta el modelo cuántico con ejemplos cotidianos.',
-    screens: [
-      { slug: 'introduccion', title: 'Introducción' },
-      { slug: 'dalton', title: 'Dalton' },
-      { slug: 'thomson', title: 'Thomson' },
-      { slug: 'rutherford', title: 'Rutherford' },
-      { slug: 'bohr', title: 'Bohr' },
-      { slug: 'cuantico', title: 'Modelo cuántico' },
-      { slug: 'evaluacion', title: 'Evaluación' },
-    ]
-  },
-  {
-    slug: 'oa2',
-    title: 'Enlaces químicos y propiedades',
-    cover: '/images/oa2.jpg',
-    level: 'Química 3',
-    duration: '20–30 min',
-    summary: 'Iónico, covalente y metálico con visualizaciones simples.',
-    screens: [
-      { slug: 'introduccion', title: 'Introducción' },
-      { slug: 'ionico', title: 'Enlace iónico' },
-      { slug: 'covalente', title: 'Enlace covalente' },
-      { slug: 'metalico', title: 'Enlace metálico' },
-      { slug: 'evaluacion', title: 'Evaluación' },
-    ]
-  },
-  {
-    slug: 'oa3',
-    title: 'Reacciones químicas y energía',
-    cover: '/images/oa3.jpg',
-    level: 'Química 3',
-    duration: '20–30 min',
-    summary: 'Endotérmicas y exotérmicas, conservación de masa y evidencias de reacción.',
-    screens: [
-      { slug: 'introduccion', title: 'Introducción' },
-      { slug: 'evidencias', title: 'Evidencias' },
-      { slug: 'energia', title: 'Energía' },
-      { slug: 'balanceo', title: 'Balanceo' },
-      { slug: 'evaluacion', title: 'Evaluación' },
-    ]
-  }
-];
+// Interfaz para los datos procesados
+interface OAWithScreens {
+  slug: string;
+  title: string;
+  cover: string;
+  level: string;
+  duration?: string;
+  summary?: string;
+  screens: Array<{ slug: string; title: string }>;
+}
+
+// Obtener todas las entradas de objetos
+const allObjetos = await getCollection('objetos');
+
+// Separar los OAs principales de las pantallas
+const oasPrincipales = allObjetos.filter((obj: CollectionEntry<'objetos'>) => !obj.id.includes('/'));
+const pantallas = allObjetos.filter((obj: CollectionEntry<'objetos'>) => obj.id.includes('/'));
+
+// Construir la estructura de datos con OAs y sus pantallas
+const oaData: OAWithScreens[] = oasPrincipales
+  .sort((a: CollectionEntry<'objetos'>, b: CollectionEntry<'objetos'>) => a.data.order - b.data.order)
+  .map((oa: CollectionEntry<'objetos'>) => {
+    const slug = oa.id.replace('.mdx', '');
+    
+    // Obtener todas las pantallas de este OA
+    const screens = pantallas
+      .filter((p: CollectionEntry<'objetos'>) => p.data.oaSlug === slug)
+      .sort((a: CollectionEntry<'objetos'>, b: CollectionEntry<'objetos'>) => a.data.order - b.data.order)
+      .map((p: CollectionEntry<'objetos'>) => ({
+        slug: p.data.screenSlug!,
+        title: p.data.title
+      }));
+    
+    return {
+      slug,
+      title: oa.data.title,
+      cover: oa.data.cover,
+      level: oa.data.level,
+      duration: oa.data.duration,
+      summary: oa.data.summary,
+      screens
+    };
+  });
 
 const breadcrumbItems = [
   { label: 'Inicio', href: '/' },
@@ -68,7 +63,7 @@ const breadcrumbItems = [
     </header>
     
     <div class="space-y-8">
-      {oaData.map((oa) => (
+      {oaData.map((oa: OAWithScreens) => (
         <article class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow overflow-hidden">
           <div class="grid md:grid-cols-[300px_1fr] gap-6">
             {/* Imagen de portada */}
@@ -111,7 +106,7 @@ const breadcrumbItems = [
                   Contenido:
                 </h3>
                 <div class="flex flex-wrap gap-2">
-                  {oa.screens.map((screen, index) => (
+                  {oa.screens.map((screen: { slug: string; title: string }, index: number) => (
                     <a 
                       href={`/objetos/${oa.slug}/${screen.slug}`}
                       class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-cch-azul hover:text-white rounded-lg text-sm font-medium transition-colors group"

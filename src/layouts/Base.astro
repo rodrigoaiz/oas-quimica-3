@@ -1,7 +1,12 @@
 ---
 import '../styles/global.css';
 import Nav from '@/components/Nav.astro';
-const { title = 'Química 3 · CCH', description = 'Micrositio de objetos de aprendizaje', noIndex = false } = Astro.props;
+const { 
+  title = 'Química 3 · CCH', 
+  description = 'Micrositio de objetos de aprendizaje', 
+  keywords = 'química, CCH, UNAM, objetos de aprendizaje, educación',
+  noIndex = false 
+} = Astro.props;
 ---
 <html lang="es" class="scroll-smooth">
   <head>
@@ -9,7 +14,19 @@ const { title = 'Química 3 · CCH', description = 'Micrositio de objetos de apr
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    
     <link rel="icon" href={`${Astro.site?.pathname ?? '/'}favicon.svg`} />
   </head>
   <body class="bg-cch-gris text-slate-900">
