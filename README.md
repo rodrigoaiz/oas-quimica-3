@@ -72,3 +72,9 @@ npm run preview
 - Las actividades React usan hydration selectiva (`client:load`)
 - El sitio funciona sin JavaScript para contenido básico
 - Las rutas se generan estáticamente en build time
+
+
+## Guiones
+- https://docs.google.com/document/d/1TdCzJM-7VvErMCoHeIUFAOP8sCj2zoqv/edit
+- https://docs.google.com/document/d/1Xfrao8x1W63h9vZ6Rfl8kEEbwvjilXys/edit
+- https://docs.google.com/document/d/1vUGfk_L5AIur96zfwDWQxcXGw1sVyAEQ/edit
