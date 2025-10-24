@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:prod": "BASE_PATH=/oas-quimica-3/ astro build",
     "preview": "astro preview",
     "lint": "eslint .",
     "format": "prettier -w ."

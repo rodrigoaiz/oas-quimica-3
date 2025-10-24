@@ -23,11 +23,9 @@ export default function BentoGrid({ screens = [] }) {
   const [selectedScreens, setSelectedScreens] = useState([]);
 
   useEffect(() => {
-    console.log('Screens recibidas:', screens);
     // Seleccionar 8 pantallas aleatorias al montar el componente
     const shuffled = shuffleArray(screens);
     const selected = shuffled.slice(0, 8);
-    console.log('Pantallas seleccionadas:', selected);
     setSelectedScreens(selected);
   }, [screens]);
 

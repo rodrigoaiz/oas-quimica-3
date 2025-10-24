@@ -7,6 +7,7 @@
  */
 import OAScreen from '@/layouts/OAScreen.astro';
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
 // Tipos para los metadatos del OA
 interface OAMeta {
@@ -59,7 +60,7 @@ export async function getStaticPaths() {
   for (const [oaSlug, config] of Object.entries(oaConfigs)) {
     for (const screen of config.screens) {
       // Buscar el archivo MDX correspondiente
-      const screenEntry = allScreens.find(entry => 
+      const screenEntry = allScreens.find((entry: CollectionEntry<'objetos'>) => 
         entry.slug === `${oaSlug}/${screen.slug}`
       );
       

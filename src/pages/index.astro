@@ -3,6 +3,7 @@ import Base from '@/layouts/Base.astro';
 import HeroQuimico from '@/components/HeroQuimico.astro';
 import BentoGrid from '@/components/BentoGrid.jsx';
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 
 // Obtener todas las entradas de objetos
 const allObjetos = await getCollection('objetos');
@@ -10,12 +11,12 @@ const allObjetos = await getCollection('objetos');
 // Separar los OAs principales de las pantallas
 // OAs principales: oa1.mdx, oa2.mdx, oa3.mdx (sin "/" en el ID)
 // Pantallas: oa1/introduccion.mdx, oa1/dalton.mdx, etc. (con "/" en el ID)
-const oasPrincipales = allObjetos.filter(obj => !obj.id.includes('/'));
-const pantallas = allObjetos.filter(obj => obj.id.includes('/'));
+const oasPrincipales = allObjetos.filter((obj: CollectionEntry<'objetos'>) => !obj.id.includes('/'));
+const pantallas = allObjetos.filter((obj: CollectionEntry<'objetos'>) => obj.id.includes('/'));
 
 // Crear un mapa de objetos para obtener títulos
 const objetosMap: Record<string, string> = {};
-oasPrincipales.forEach(obj => {
+oasPrincipales.forEach((obj: CollectionEntry<'objetos'>) => {
   const slug = obj.id.replace('.mdx', ''); // "oa1.mdx" -> "oa1"
   objetosMap[slug] = obj.data.title;
 });
@@ -23,18 +24,14 @@ oasPrincipales.forEach(obj => {
 // Preparar las pantallas para el BentoGrid
 // Filtrar solo las que tengan oaSlug y screenSlug definidos
 const screens = pantallas
-  .filter(screen => screen.data.oaSlug && screen.data.screenSlug)
-  .map(screen => ({
+  .filter((screen: CollectionEntry<'objetos'>) => screen.data.oaSlug && screen.data.screenSlug)
+  .map((screen: CollectionEntry<'objetos'>) => ({
     oaSlug: screen.data.oaSlug!,
     oaTitle: objetosMap[screen.data.oaSlug!] || screen.data.oaSlug!,
     screenSlug: screen.data.screenSlug!,
     screenTitle: screen.data.title,
     order: screen.data.order
   }));
-
-console.log('ObjetosMap:', objetosMap);
-console.log('Pantallas count:', pantallas.length);
-console.log('Screens preparadas:', screens.slice(0, 3));
 ---
 <Base title="Química 3 · CCH – Objetos de aprendizaje">
   <HeroQuimico />
