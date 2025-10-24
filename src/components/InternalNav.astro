@@ -26,29 +26,51 @@ const { screens, currentSlug, baseUrl, showIndex = true } = Astro.props;
 const currentIndex = screens.findIndex(s => s.slug === currentSlug);
 const prevScreen = currentIndex > 0 ? screens[currentIndex - 1] : null;
 const nextScreen = currentIndex < screens.length - 1 ? screens[currentIndex + 1] : null;
+
+// URLs para navegación
+const prevUrl = prevScreen ? `${baseUrl}/${prevScreen.slug}` : null;
+const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
 ---
 
-<nav aria-label="Navegación interna del objeto de aprendizaje" class="internal-nav">
+<nav 
+  aria-label="Navegación interna del objeto de aprendizaje" 
+  class="internal-nav"
+  data-prev-url={prevUrl}
+  data-next-url={nextUrl}
+>
+  <!-- Skip link para accesibilidad -->
+  <a href="#contenido" class="skip-link">Saltar a contenido</a>
+
   <!-- Navegación Prev/Next -->
-  <div class="nav-controls">
+  <div class="nav-controls" role="group" aria-label="Navegación entre pantallas">
     {prevScreen ? (
-      <a href={`${baseUrl}/${prevScreen.slug}`} class="nav-btn nav-prev">
+      <a 
+        href={prevUrl} 
+        class="nav-btn nav-prev"
+        aria-label={`Anterior: ${prevScreen.title}`}
+        accesskey="p"
+      >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
         <span class="nav-label">
-          <span class="nav-label-sm">Anterior</span>
+          <span class="nav-label-sm" aria-hidden="true">Anterior</span>
           <span class="nav-label-lg">{prevScreen.title}</span>
         </span>
       </a>
     ) : (
-      <div class="nav-btn-placeholder"></div>
+      <div class="nav-btn-placeholder" aria-hidden="true"></div>
     )}
 
     {nextScreen ? (
-      <a href={`${baseUrl}/${nextScreen.slug}`} class="nav-btn nav-next">
+      <a 
+        href={nextUrl} 
+        class="nav-btn nav-next"
+        aria-label={`Siguiente: ${nextScreen.title}`}
+        accesskey="n"
+      >
         <span class="nav-label">
-          <span class="nav-label-sm">Siguiente</span>
+          <span class="nav-label-sm" aria-hidden="true">Siguiente</span>
           <span class="nav-label-lg">{nextScreen.title}</span>
         </span>
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -56,7 +78,7 @@ const nextScreen = currentIndex < screens.length - 1 ? screens[currentIndex + 1]
         </svg>
       </a>
     ) : (
-      <div class="nav-btn-placeholder"></div>
+      <div class="nav-btn-placeholder" aria-hidden="true"></div>
     )}
   </div>
 
@@ -264,4 +286,134 @@ const nextScreen = currentIndex < screens.length - 1 ? screens[currentIndex + 1]
       padding: 1rem 1.5rem;
     }
   }
+
+  /* Skip link (solo visible al recibir foco) */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    z-index: 999;
+    padding: 1rem;
+    background: #0070f3;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+  }
+
+  /* Indicador de teclas de acceso */
+  .nav-btn::after {
+    content: attr(accesskey);
+    position: absolute;
+    bottom: 0.25rem;
+    right: 0.25rem;
+    font-size: 0.625rem;
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 0.125rem 0.25rem;
+    border-radius: 2px;
+    transition: opacity 0.2s;
+  }
+
+  .nav-btn:focus::after {
+    opacity: 1;
+  }
+
+  /* Mejoras de contraste para accesibilidad */
+  @media (prefers-contrast: high) {
+    .nav-btn {
+      border: 2px solid white;
+    }
+  }
+
+  /* Reducir animaciones si el usuario lo prefiere */
+  @media (prefers-reduced-motion: reduce) {
+    .nav-btn,
+    .index-summary::before,
+    * {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
 </style>
+
+<script>
+  // Soporte de navegación por teclado
+  function setupKeyboardNavigation() {
+    const nav = document.querySelector('.internal-nav') as HTMLElement;
+    if (!nav) return;
+
+    const prevUrl = nav.dataset.prevUrl;
+    const nextUrl = nav.dataset.nextUrl;
+
+    // Función para navegar
+    const navigate = (url: string | null | undefined) => {
+      if (url) {
+        window.location.href = url;
+      }
+    };
+
+    // Listener de teclado
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Ignorar si el usuario está escribiendo en un input/textarea
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || 
+          target.tagName === 'TEXTAREA' || 
+          target.isContentEditable) {
+        return;
+      }
+
+      // Navegación con flechas
+      if (e.key === 'ArrowLeft' && prevUrl) {
+        e.preventDefault();
+        navigate(prevUrl);
+      } else if (e.key === 'ArrowRight' && nextUrl) {
+        e.preventDefault();
+        navigate(nextUrl);
+      }
+      // Alt+Left = Anterior, Alt+Right = Siguiente (estilo navegador)
+      else if (e.altKey && e.key === 'ArrowLeft' && prevUrl) {
+        e.preventDefault();
+        navigate(prevUrl);
+      } else if (e.altKey && e.key === 'ArrowRight' && nextUrl) {
+        e.preventDefault();
+        navigate(nextUrl);
+      }
+      // Teclas P (Previous) y N (Next)
+      else if ((e.key === 'p' || e.key === 'P') && prevUrl && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        navigate(prevUrl);
+      } else if ((e.key === 'n' || e.key === 'N') && nextUrl && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        navigate(nextUrl);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+
+    // Anunciar atajos de teclado disponibles (para lectores de pantalla)
+    const announceShortcuts = () => {
+      const shortcuts: string[] = [];
+      if (prevUrl) shortcuts.push('Flecha izquierda o P para anterior');
+      if (nextUrl) shortcuts.push('Flecha derecha o N para siguiente');
+      
+      if (shortcuts.length > 0) {
+        const announcement = `Atajos de teclado disponibles: ${shortcuts.join(', ')}`;
+        console.log('📚', announcement);
+      }
+    };
+
+    announceShortcuts();
+  }
+
+  // Ejecutar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupKeyboardNavigation);
+  } else {
+    setupKeyboardNavigation();
+  }
+</script>
