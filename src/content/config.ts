@@ -9,7 +9,10 @@ const objetos = defineCollection({
     level: z.string().default('Química 3'),
     order: z.number().default(0),
     summary: z.string().optional(),
-    tags: z.array(z.string()).default([])
+    tags: z.array(z.string()).default([]),
+    // Campos para pantallas individuales
+    oaSlug: z.string().optional(),
+    screenSlug: z.string().optional(),
   })
 });
 
