@@ -7,6 +7,7 @@
  * - currentSlug: string
  * - baseUrl: string (ej: '/objetos/oa1')
  * - showIndex?: boolean (mostrar índice de todas las pantallas)
+ * - compact?: boolean (versión compacta para parte superior)
  */
 
 interface Screen {
@@ -19,9 +20,10 @@ interface Props {
   currentSlug: string;
   baseUrl: string;
   showIndex?: boolean;
+  compact?: boolean;
 }
 
-const { screens, currentSlug, baseUrl, showIndex = true } = Astro.props;
+const { screens, currentSlug, baseUrl, showIndex = true, compact = false } = Astro.props;
 
 const currentIndex = screens.findIndex(s => s.slug === currentSlug);
 const prevScreen = currentIndex > 0 ? screens[currentIndex - 1] : null;
@@ -34,7 +36,7 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
 
 <nav 
   aria-label="Navegación interna del objeto de aprendizaje" 
-  class="internal-nav"
+  class:list={["internal-nav", { "compact": compact }]}
   data-prev-url={prevUrl}
   data-next-url={nextUrl}
 >
@@ -53,13 +55,22 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
-        <span class="nav-label">
-          <span class="nav-label-sm" aria-hidden="true">Anterior</span>
-          <span class="nav-label-lg">{prevScreen.title}</span>
-        </span>
+        {!compact && (
+          <span class="nav-label">
+            <span class="nav-label-sm" aria-hidden="true">Anterior</span>
+            <span class="nav-label-lg">{prevScreen.title}</span>
+          </span>
+        )}
       </a>
     ) : (
       <div class="nav-btn-placeholder" aria-hidden="true"></div>
+    )}
+
+    {/* Indicador de posición en modo compacto */}
+    {compact && (
+      <span class="compact-position" aria-label={`Pantalla ${currentIndex + 1} de ${screens.length}`}>
+        {currentIndex + 1} / {screens.length}
+      </span>
     )}
 
     {nextScreen ? (
@@ -69,10 +80,12 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
         aria-label={`Siguiente: ${nextScreen.title}`}
         accesskey="n"
       >
-        <span class="nav-label">
-          <span class="nav-label-sm" aria-hidden="true">Siguiente</span>
-          <span class="nav-label-lg">{nextScreen.title}</span>
-        </span>
+        {!compact && (
+          <span class="nav-label">
+            <span class="nav-label-sm" aria-hidden="true">Siguiente</span>
+            <span class="nav-label-lg">{nextScreen.title}</span>
+          </span>
+        )}
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
@@ -82,8 +95,8 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
     )}
   </div>
 
-  <!-- Índice de pantallas (opcional) -->
-  {showIndex && screens.length > 1 && (
+  <!-- Índice de pantallas (solo en modo normal) -->
+  {!compact && showIndex && screens.length > 1 && (
     <details class="screen-index" open>
       <summary class="index-summary">
         Índice de pantallas ({currentIndex + 1}/{screens.length})
@@ -114,12 +127,39 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
     border-top: 2px solid #e2e8f0;
   }
 
+  /* Modo compacto para parte superior */
+  .internal-nav.compact {
+    margin-top: 0;
+    padding: 0.5rem 1rem;
+    border-top: none;
+    border-bottom: 1px solid #e2e8f0;
+    background: rgba(255, 255, 255, 0.95);
+    position: sticky;
+    top: 57px; /* Altura aproximada del Nav principal */
+    z-index: 30;
+    backdrop-filter: blur(8px);
+  }
+
   /* Controles Prev/Next */
   .nav-controls {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 1rem;
     margin-bottom: 1.5rem;
+  }
+
+  .compact .nav-controls {
+    margin-bottom: 0;
+    gap: 0.75rem;
+  }
+
+  /* Indicador de posición en modo compacto */
+  .compact-position {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    white-space: nowrap;
   }
 
   .nav-btn {
@@ -137,9 +177,22 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
     max-width: 45%;
   }
 
+  .compact .nav-btn {
+    padding: 0.375rem 0.625rem;
+    min-width: 40px;
+    max-width: none;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 112, 243, 0.2);
+  }
+
   .nav-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 112, 243, 0.4);
+  }
+
+  .compact .nav-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 112, 243, 0.3);
   }
 
   .nav-btn:focus {
@@ -154,6 +207,10 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
   .nav-next {
     flex-direction: row-reverse;
     text-align: right;
+  }
+
+  .compact .nav-next {
+    text-align: left;
   }
 
   .nav-label {
@@ -174,6 +231,10 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
 
   .nav-btn-placeholder {
     flex: 0 0 45%;
+  }
+
+  .compact .nav-btn-placeholder {
+    flex: 0 0 40px;
   }
 
   /* Índice de pantallas */
@@ -254,17 +315,35 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
   /* Mobile optimizations */
   @media (max-width: 640px) {
     .nav-controls {
-      flex-direction: column;
-      gap: 0.75rem;
+      /* Mantener todo en una fila incluso en móvil */
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+
+    .compact .nav-controls {
+      gap: 0.5rem;
     }
 
     .nav-btn {
-      max-width: 100%;
-      width: 100%;
+      /* En modo normal, permitir que crezcan */
+      max-width: 45%;
+      width: auto;
+    }
+
+    .compact .nav-btn {
+      /* En modo compacto, mantener tamaño fijo */
+      max-width: none;
+      width: auto;
+      padding: 0.375rem 0.5rem;
     }
 
     .nav-btn-placeholder {
-      display: none;
+      /* Mostrar placeholder en modo compacto para mantener simetría */
+      display: block;
+    }
+
+    .compact .nav-btn-placeholder {
+      flex: 0 0 40px;
     }
 
     .nav-label-lg {
@@ -273,6 +352,10 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
 
     .nav-label-sm {
       font-size: 0.875rem;
+    }
+
+    .compact-position {
+      font-size: 0.75rem;
     }
   }
 
@@ -341,79 +424,90 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
   }
 </style>
 
-<script>
-  // Soporte de navegación por teclado
-  function setupKeyboardNavigation() {
-    const nav = document.querySelector('.internal-nav') as HTMLElement;
-    if (!nav) return;
+<script is:inline>
+  // Soporte de navegación por teclado - Reiniciar en cada carga de página
+  (function() {
+    // Función para configurar navegación
+    function setupKeyboardNavigation() {
+      // Buscar TODAS las instancias de InternalNav en la página
+      const navElements = document.querySelectorAll('.internal-nav');
+      if (navElements.length === 0) return;
 
-    const prevUrl = nav.dataset.prevUrl;
-    const nextUrl = nav.dataset.nextUrl;
+      // Usar la primera instancia para obtener las URLs (ambas tienen los mismos datos)
+      const firstNav = navElements[0];
+      const prevUrl = firstNav.dataset.prevUrl;
+      const nextUrl = firstNav.dataset.nextUrl;
 
-    // Función para navegar
-    const navigate = (url: string | null | undefined) => {
-      if (url) {
-        window.location.href = url;
+      // Función para navegar
+      const navigate = (url) => {
+        if (url) {
+          window.location.href = url;
+        }
+      };
+
+      // Listener de teclado
+      const handleKeyPress = (e) => {
+        // Ignorar si el usuario está escribiendo en un input/textarea
+        const target = e.target;
+        if (target.tagName === 'INPUT' || 
+            target.tagName === 'TEXTAREA' || 
+            target.isContentEditable) {
+          return;
+        }
+
+        // Navegación con flechas
+        if (e.key === 'ArrowLeft' && prevUrl) {
+          e.preventDefault();
+          navigate(prevUrl);
+        } else if (e.key === 'ArrowRight' && nextUrl) {
+          e.preventDefault();
+          navigate(nextUrl);
+        }
+        // Alt+Left = Anterior, Alt+Right = Siguiente (estilo navegador)
+        else if (e.altKey && e.key === 'ArrowLeft' && prevUrl) {
+          e.preventDefault();
+          navigate(prevUrl);
+        } else if (e.altKey && e.key === 'ArrowRight' && nextUrl) {
+          e.preventDefault();
+          navigate(nextUrl);
+        }
+        // Teclas P (Previous) y N (Next)
+        else if ((e.key === 'p' || e.key === 'P') && prevUrl && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          navigate(prevUrl);
+        } else if ((e.key === 'n' || e.key === 'N') && nextUrl && !e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          navigate(nextUrl);
+        }
+      };
+
+      // Remover listener anterior si existe
+      if (window.__internalNavHandler) {
+        document.removeEventListener('keydown', window.__internalNavHandler);
       }
-    };
 
-    // Listener de teclado
-    const handleKeyPress = (e: KeyboardEvent) => {
-      // Ignorar si el usuario está escribiendo en un input/textarea
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'INPUT' || 
-          target.tagName === 'TEXTAREA' || 
-          target.isContentEditable) {
-        return;
-      }
+      // Guardar referencia al handler y agregarlo
+      window.__internalNavHandler = handleKeyPress;
+      document.addEventListener('keydown', handleKeyPress);
 
-      // Navegación con flechas
-      if (e.key === 'ArrowLeft' && prevUrl) {
-        e.preventDefault();
-        navigate(prevUrl);
-      } else if (e.key === 'ArrowRight' && nextUrl) {
-        e.preventDefault();
-        navigate(nextUrl);
-      }
-      // Alt+Left = Anterior, Alt+Right = Siguiente (estilo navegador)
-      else if (e.altKey && e.key === 'ArrowLeft' && prevUrl) {
-        e.preventDefault();
-        navigate(prevUrl);
-      } else if (e.altKey && e.key === 'ArrowRight' && nextUrl) {
-        e.preventDefault();
-        navigate(nextUrl);
-      }
-      // Teclas P (Previous) y N (Next)
-      else if ((e.key === 'p' || e.key === 'P') && prevUrl && !e.ctrlKey && !e.metaKey) {
-        e.preventDefault();
-        navigate(prevUrl);
-      } else if ((e.key === 'n' || e.key === 'N') && nextUrl && !e.ctrlKey && !e.metaKey) {
-        e.preventDefault();
-        navigate(nextUrl);
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyPress);
-
-    // Anunciar atajos de teclado disponibles (para lectores de pantalla)
-    const announceShortcuts = () => {
-      const shortcuts: string[] = [];
+      // Anunciar atajos de teclado disponibles
+      const shortcuts = [];
       if (prevUrl) shortcuts.push('Flecha izquierda o P para anterior');
       if (nextUrl) shortcuts.push('Flecha derecha o N para siguiente');
       
       if (shortcuts.length > 0) {
-        const announcement = `Atajos de teclado disponibles: ${shortcuts.join(', ')}`;
-        console.log('📚', announcement);
+        console.log('📚', 'Atajos de teclado disponibles:', shortcuts.join(', '));
       }
-    };
+    }
 
-    announceShortcuts();
-  }
+    // Ejecutar cuando el DOM esté listo
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupKeyboardNavigation);
+    } else {
+      setupKeyboardNavigation();
+    }
 
-  // Ejecutar cuando el DOM esté listo
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupKeyboardNavigation);
-  } else {
-    setupKeyboardNavigation();
-  }
+    // También ejecutar en eventos de navegación de Astro (si View Transitions están activas)
+    document.addEventListener('astro:page-load', setupKeyboardNavigation);
+  })();
 </script>

@@ -1,7 +1,7 @@
 ---
 /**
  * Layout para Objetos de Aprendizaje con múltiples pantallas
- * 
+ *
  * Props:
  * - title: string
  * - oaTitle: string (título del OA completo)
@@ -11,10 +11,10 @@
  * - screens: Array<{ slug: string, title: string }>
  * - description?: string
  */
-import Base from './Base.astro';
-import Breadcrumb from '@/components/Breadcrumb.astro';
-import InternalNav from '@/components/InternalNav.astro';
-import ScreenIndex from '@/components/ScreenIndex.astro';
+import Base from "./Base.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import InternalNav from "@/components/InternalNav.astro";
+import ScreenIndex from "@/components/ScreenIndex.astro";
 
 interface Screen {
   slug: string;
@@ -31,14 +31,21 @@ interface Props {
   description?: string;
 }
 
-const { title, oaTitle, oaSlug, screenTitle, screenSlug, screens, description } = Astro.props;
+const {
+  title,
+  oaTitle,
+  oaSlug,
+  screenTitle,
+  screenSlug,
+  screens,
+  description,
+} = Astro.props;
 
 // Construir breadcrumbs
 const breadcrumbItems = [
-  { label: 'Inicio', href: '/' },
-  { label: 'Objetos de aprendizaje', href: '/objetos' },
+  { label: "Inicio", href: "/" },
   { label: oaTitle, href: `/objetos/${oaSlug}` },
-  { label: screenTitle } // último sin href (página actual)
+  { label: screenTitle }, // último sin href (página actual)
 ];
 
 const baseUrl = `/objetos/${oaSlug}`;
@@ -48,30 +55,36 @@ const baseUrl = `/objetos/${oaSlug}`;
   <main id="contenido" class="mx-auto max-w-6xl px-4 py-6">
     <!-- Breadcrumbs -->
     <Breadcrumb items={breadcrumbItems} />
-
+    {
+      screens.length > 0 && (
+        <InternalNav
+          screens={screens}
+          currentSlug={screenSlug}
+          baseUrl={baseUrl}
+          showIndex={false}
+          compact={true}
+        />
+      )
+    }
     <!-- Contenido de la pantalla -->
     <article class="screen-content">
       <header class="screen-header">
         <h1 class="screen-title">{screenTitle}</h1>
       </header>
-      
+
       <div class="contenido-mdx">
         <slot />
       </div>
     </article>
 
     <!-- Índice horizontal de pantallas -->
-    <ScreenIndex 
-      screens={screens} 
-      currentSlug={screenSlug} 
-      baseUrl={baseUrl}
-    />
+    <ScreenIndex screens={screens} currentSlug={screenSlug} baseUrl={baseUrl} />
 
     <!-- Navegación interna (Prev/Next) -->
-    <InternalNav 
-      screens={screens} 
-      currentSlug={screenSlug} 
-      baseUrl={baseUrl} 
+    <InternalNav
+      screens={screens}
+      currentSlug={screenSlug}
+      baseUrl={baseUrl}
       showIndex={false}
     />
   </main>

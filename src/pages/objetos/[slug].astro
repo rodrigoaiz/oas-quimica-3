@@ -1,14 +1,14 @@
 ---
-import Base from '@/layouts/Base.astro';
-import Breadcrumb from '@/components/Breadcrumb.astro';
-import InternalNav from '@/components/InternalNav.astro';
-import ScreenIndex from '@/components/ScreenIndex.astro';
-import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import Base from "@/layouts/Base.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import InternalNav from "@/components/InternalNav.astro";
+import ScreenIndex from "@/components/ScreenIndex.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
-  const objetos = await getCollection('objetos');
-  return objetos.map(entry => ({
+  const objetos = await getCollection("objetos");
+  return objetos.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
   }));
@@ -19,28 +19,30 @@ const { Content } = await entry.render();
 const { data } = entry;
 
 // Obtener todas las pantallas de este OA
-const allObjetos = await getCollection('objetos');
+const allObjetos = await getCollection("objetos");
 const screens = allObjetos
-  .filter((obj: CollectionEntry<'objetos'>) => 
-    obj.id.startsWith(`${entry.slug}/`) && obj.id !== `${entry.slug}.mdx`
+  .filter(
+    (obj: CollectionEntry<"objetos">) =>
+      obj.id.startsWith(`${entry.slug}/`) && obj.id !== `${entry.slug}.mdx`
   )
-  .sort((a: CollectionEntry<'objetos'>, b: CollectionEntry<'objetos'>) => 
-    a.data.order - b.data.order
+  .sort(
+    (a: CollectionEntry<"objetos">, b: CollectionEntry<"objetos">) =>
+      a.data.order - b.data.order
   )
-  .map((screen: CollectionEntry<'objetos'>) => ({
-    slug: screen.id.replace(`${entry.slug}/`, '').replace('.mdx', ''),
-    title: screen.data.title
+  .map((screen: CollectionEntry<"objetos">) => ({
+    slug: screen.id.replace(`${entry.slug}/`, "").replace(".mdx", ""),
+    title: screen.data.title,
   }));
 
 // Construir breadcrumbs
 const breadcrumbItems = [
-  { label: 'Inicio', href: '/' },
-  { label: 'Objetos de aprendizaje', href: '/objetos' },
-  { label: data.title } // último sin href (página actual)
+  { label: "Inicio", href: "/" },
+  { label: data.title }, // último sin href (página actual)
 ];
 
 const baseUrl = `/objetos/${entry.slug}`;
 ---
+
 <Base title={`${data.title} · Química 3`}>
   <main id="contenido" class="mx-auto max-w-6xl px-4 py-6">
     <!-- Breadcrumbs -->
@@ -49,24 +51,30 @@ const baseUrl = `/objetos/${entry.slug}`;
     <header class="mb-6">
       <h1 class="text-3xl font-extrabold text-cch-azul">{data.title}</h1>
       {data.summary && <p class="mt-2 text-slate-700">{data.summary}</p>}
-      <img src={data.cover} alt="" class="w-full aspect-video rounded-2xl mt-4" loading="lazy" />
+      <img
+        src={data.cover}
+        alt=""
+        class="w-full aspect-video rounded-2xl mt-4"
+        loading="lazy"
+      />
     </header>
 
-    
     <article class="contenido-mdx">
       <Content />
     </article>
     <!-- Índice de pantallas -->
     <ScreenIndex screens={screens} baseUrl={baseUrl} currentSlug="" />
-    
+
     <!-- Navegación interna (solo mostrar si hay pantallas) -->
-    {screens.length > 0 && (
-      <InternalNav 
-      screens={screens} 
-      currentSlug="" 
-      baseUrl={baseUrl} 
-      showIndex={false}
-      />
-    )}
+    {
+      screens.length > 0 && (
+        <InternalNav
+          screens={screens}
+          currentSlug=""
+          baseUrl={baseUrl}
+          showIndex={false}
+        />
+      )
+    }
   </main>
 </Base>
