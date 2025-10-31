@@ -1,0 +1,54 @@
+---
+/**
+ * List Component
+ * Wrapper for styled lists in MDX content
+ * 
+ * Types:
+ * - number: Numbered list with circle badges (1, 2, 3...)
+ * - alpha: Alphabetic list with circle badges (a, b, c...)
+ * - disc: Bullet list with custom disc styling
+ * - ul: Simple bullet list (default browser style)
+ * - letra: Simple alphabetic list (default browser style)
+ * 
+ * Props:
+ * - inline: Display items horizontally in a single row (like navigation pills)
+ * - columns: Number of columns for grid layout (use instead of inline for multi-row grids)
+ */
+
+interface Props {
+  type?: 'number' | 'alpha' | 'disc' | 'ul' | 'letra';
+  inline?: boolean;
+  columns?: 2 | 3 | 4;
+  class?: string;
+}
+
+const { 
+  type = 'number', 
+  inline = false,
+  columns,
+  class: className = '' 
+} = Astro.props;
+
+const typeMap = {
+  number: 'ol-number',
+  alpha: 'ol-alpha',
+  disc: 'ul-disc',
+  ul: 'ul',
+  letra: 'ol-letra'
+};
+
+const listClass = typeMap[type];
+const Tag = type === 'ul' || type === 'disc' ? 'ul' : 'ol';
+
+// Determine layout class
+let layoutClass = '';
+if (inline) {
+  layoutClass = 'flex flex-wrap gap-4';
+} else if (columns) {
+  layoutClass = `grid gap-6 md:grid-cols-${columns}`;
+}
+---
+
+<Tag class={`${listClass} ${layoutClass} ${className}`}>
+  <slot />
+</Tag>

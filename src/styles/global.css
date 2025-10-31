@@ -43,3 +43,141 @@ html {
   background-color: var(--color-cch-azul);
   color: white;
 }
+
+/* Custom List Styles for MDX Content */
+.ol-alpha,
+.ol-number,
+.ul-disc {
+  list-style: none;
+  counter-reset: item;
+  padding-left: 0;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.ol-alpha > li,
+.ol-number > li,
+.ul-disc > li {
+  position: relative;
+  counter-increment: item;
+  margin-bottom: 1.25rem;
+  padding-left: 3rem;
+  line-height: 1.7;
+}
+
+/* When in grid layout, reduce bottom margin on items */
+.ol-alpha.grid > li,
+.ol-number.grid > li,
+.ul-disc.grid > li {
+  margin-bottom: 0;
+}
+
+/* When in flex layout (inline), adjust spacing */
+.ol-alpha.flex > li,
+.ol-number.flex > li,
+.ul-disc.flex > li {
+  margin-bottom: 0;
+}
+
+.ol-alpha > li:last-child,
+.ol-number > li:last-child,
+.ul-disc > li:last-child {
+  margin-bottom: 0;
+}
+
+/* Circle badges for counters */
+.ol-alpha > li::before,
+.ol-number > li::before,
+.ul-disc > li::before {
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  background: var(--color-cch-azul);
+  border-radius: 9999px;
+  color: white;
+  min-width: 2rem;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(0, 85, 165, 0.2);
+}
+
+/* Alphabetic list (a, b, c...) */
+.ol-alpha > li::before {
+  content: counter(item, lower-alpha);
+}
+
+/* Numeric list (1, 2, 3...) */
+.ol-number > li::before {
+  content: counter(item);
+}
+
+/* Disc/bullet list */
+.ul-disc > li {
+  padding-left: 2rem;
+}
+
+.ul-disc > li::before {
+  content: "";
+  min-width: 0.625rem;
+  min-height: 0.625rem;
+  max-width: 0.625rem;
+  max-height: 0.625rem;
+  top: 0.6rem;
+}
+
+/* Nested lists inside ul-disc */
+.ul-disc > li ul {
+  list-style: disc;
+  margin-top: 0.75rem;
+  margin-left: 1.5rem;
+  margin-bottom: 0;
+}
+
+.ul-disc > li ul li {
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.ul-disc > li ul li:last-child {
+  padding-bottom: 0;
+}
+
+/* Simple list with default disc */
+.ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ul li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+/* Simple ordered list with letters */
+.ol-letra {
+  list-style: lower-alpha;
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ol-letra li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+  padding-left: 0.5rem;
+}
+
+/* Strong text inside lists */
+.ol-alpha > li strong,
+.ol-number > li strong,
+.ul-disc > li strong {
+  font-weight: 600;
+  color: var(--color-cch-azul);
+}
