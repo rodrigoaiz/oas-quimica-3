@@ -49,12 +49,12 @@ const baseUrl = `/objetos/${entry.slug}`;
     <Breadcrumb items={breadcrumbItems} />
 
     <header class="mb-6">
-      <h1 class="text-3xl font-extrabold text-cch-azul">{data.title}</h1>
+      <h1 class="text-4xl font-extrabold text-cch-azul pt-2">{data.title}</h1>
       {data.summary && <p class="mt-2 text-slate-700">{data.summary}</p>}
       <img
         src={data.cover}
-        alt=""
-        class="w-full aspect-video rounded-2xl mt-4"
+        alt={data.title}
+        class="w-full aspect-video rounded-2xl mt-4 object-cover"
         loading="lazy"
       />
     </header>
