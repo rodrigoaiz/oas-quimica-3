@@ -17,7 +17,7 @@ function shuffleArray(array) {
 }
 
 /**
- * @param {{ screens: Array<{oaSlug: string, oaTitle: string, screenSlug: string, screenTitle: string, order: number}> }} props
+ * @param {{ screens: Array<{oaSlug: string, oaTitle: string, oaCover: string, screenSlug: string, screenTitle: string, order: number}> }} props
  */
 export default function BentoGrid({ screens = [] }) {
   const [selectedScreens, setSelectedScreens] = useState([]);
@@ -68,14 +68,42 @@ export default function BentoGrid({ screens = [] }) {
           <a
             key={`${screen.oaSlug}-${screen.screenSlug}`}
             href={`/objetos/${screen.oaSlug}/${screen.screenSlug}`}
-            className={`${colSpanClass} ${colors.bg} ${colors.text} ${colors.border} border rounded-xl p-6 
-              transition-all duration-300 hover:scale-102 hover:shadow-xl
-              ${isLarge ? 'min-h-[140px] text-lg' : 'min-h-[120px] text-base'}
-              flex flex-col justify-between`}
+            className={`${colSpanClass} relative overflow-hidden
+              border-2 ${colors.border} rounded-xl 
+              transition-all duration-300 hover:scale-102 hover:shadow-2xl hover:border-opacity-60
+              ${isLarge ? 'min-h-[140px]' : 'min-h-[120px]'}
+              group`}
           >
-            <div>
-              <div className="text-sm opacity-75 mb-2">{screen.oaTitle}</div>
-              <div className="font-semibold">{screen.screenTitle}</div>
+            {/* Imagen de fondo sin escalar */}
+            <img 
+              src={screen.oaCover} 
+              alt=""
+              className="absolute inset-0 w-full h-full object-none object-center"
+              style={{ transform: 'scale(1)' }}
+            />
+            
+            {/* Overlay con gradiente glossy */}
+            <div
+              className={`absolute inset-0 bg-linear-to-br ${colors.bg.replace("50", "600/70")} to-white/80
+              backdrop-blur-xs transition-all duration-300 group-hover:backdrop-blur-[2px]`}
+            ></div>
+            
+            {/* Brillo glossy sutil */}
+            <div className="absolute inset-0 bg-linear-to-br from-white/30 via-transparent to-transparent opacity-50"></div>
+            
+            {/* Contenido */}
+            <div className={`relative z-10 p-6 h-full flex flex-col justify-between ${colors.text}`}>
+              <div>
+                <div className="text-sm font-medium opacity-80 mb-2 drop-shadow-sm">{screen.oaTitle}</div>
+                <div className={`font-bold drop-shadow-sm ${isLarge ? 'text-lg' : 'text-base'}`}>
+                  {screen.screenTitle}
+                </div>
+              </div>
+              
+              {/* Indicador de hover */}
+              <div className="mt-auto pt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="text-xs font-semibold">Ver contenido →</span>
+              </div>
             </div>
           </a>
         );
