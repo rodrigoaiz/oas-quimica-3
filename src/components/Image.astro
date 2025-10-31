@@ -1,0 +1,42 @@
+---
+/**
+ * Componente de imagen para contenido MDX
+ *
+ * Props:
+ * - src: string - Ruta de la imagen (ej: "/images/oa1/diagrama.png")
+ * - alt: string - Texto alternativo descriptivo
+ * - caption?: string - Pie de foto opcional
+ * - size?: 'sm' | 'md' | 'lg' | 'full' - Tamaño de la imagen
+ * - rounded?: boolean - Bordes redondeados (default: true)
+ * - shadow?: boolean - Sombra (default: true)
+ * - class?: string - Clases adicionales
+ */
+
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+  size?: "sm" | "md" | "lg" | "full";
+  rounded?: boolean;
+  shadow?: boolean;
+  class?: string;
+}
+
+const { src, alt, caption, size = "md", rounded = true, shadow = true, class: className = "" } = Astro.props;
+
+// Mapear tamaños a clases de Tailwind
+const sizeClasses = {
+  sm: "max-w-sm", // ~384px
+  md: "max-w-2xl", // ~672px
+  lg: "max-w-4xl", // ~896px
+  full: "w-full", // 100%
+};
+
+const roundedClass = rounded ? "" : "rounded-xl";
+const shadowClass = shadow ? "shadow-lg" : "";
+---
+
+<figure class={`my-8 ${sizeClasses[size]} mx-auto ${className}`}>
+  <img src={src} alt={alt} class={`w-full h-auto ${roundedClass} ${shadowClass} transition-transform duration-300 hover:scale-[1.02]`} loading="lazy" />
+  {caption && <figcaption class="mt-3 text-sm text-center text-slate-600 italic">{caption}</figcaption>}
+</figure>
