@@ -1,0 +1,85 @@
+---
+/**
+ * ImageText Component
+ * Displays an image alongside text in a responsive layout
+ * - Mobile: stacked (image on top)
+ * - Desktop: side by side
+ * Text is larger than normal prose
+ */
+
+interface Props {
+  src: string;
+  alt: string;
+  imagePosition?: 'left' | 'right';
+  imageSize?: 'sm' | 'md' | 'lg';
+}
+
+const { 
+  src, 
+  alt, 
+  imagePosition = 'left',
+  imageSize = 'md'
+} = Astro.props;
+
+// Image size classes for desktop
+const sizeClasses = {
+  sm: 'md:w-48',
+  md: 'md:w-64',
+  lg: 'md:w-80'
+};
+
+const imageClass = sizeClasses[imageSize];
+const isImageLeft = imagePosition === 'left';
+---
+
+<div class="image-text-container my-8 md:my-12">
+  <div class={`flex flex-col-reverse ${isImageLeft ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 md:gap-8 items-center`}>
+    <!-- Image -->
+    <div class={`shrink-0 w-64 mx-auto md:mx-0 ${imageClass}`}>
+      <img 
+        src={src} 
+        alt={alt} 
+        loading="lazy"
+        class="w-full h-auto rounded-xl shadow-lg"
+      />
+    </div>
+    
+    <!-- Text Content -->
+    <div class="flex-1 text-content">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .text-content {
+    font-size: 1.125rem; /* 18px - larger than prose */
+    line-height: 1.7;
+    color: rgb(var(--color-text-primary, 31 41 55)); /* text-gray-800 fallback */
+  }
+  
+  .text-content p {
+    margin-bottom: 1rem;
+  }
+  
+  .text-content p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Support for italic text emphasis */
+  .text-content em {
+    font-style: italic;
+    font-weight: 500;
+  }
+  
+  /* Support for bold text */
+  .text-content strong {
+    font-weight: 600;
+  }
+  
+  @media (max-width: 768px) {
+    .text-content {
+      font-size: 1rem; /* 16px on mobile */
+    }
+  }
+</style>

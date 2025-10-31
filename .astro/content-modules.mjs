@@ -19,5 +19,6 @@ export default new Map([
 ["src/content/objetos/oa3/energia.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fobjetos%2Foa3%2Fenergia.mdx&astroContentModuleFlag=true")],
 ["src/content/objetos/oa3/evaluacion.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fobjetos%2Foa3%2Fevaluacion.mdx&astroContentModuleFlag=true")],
 ["src/content/objetos/oa3/evidencias.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fobjetos%2Foa3%2Fevidencias.mdx&astroContentModuleFlag=true")],
-["src/content/objetos/oa3/introduccion.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fobjetos%2Foa3%2Fintroduccion.mdx&astroContentModuleFlag=true")]]);
+["src/content/objetos/oa3/introduccion.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fobjetos%2Foa3%2Fintroduccion.mdx&astroContentModuleFlag=true")],
+["src/content/objetos/oa1/rapidez-reaccion.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fobjetos%2Foa1%2Frapidez-reaccion.mdx&astroContentModuleFlag=true")]]);
 		
