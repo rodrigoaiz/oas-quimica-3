@@ -55,7 +55,11 @@ const isImageLeft = imagePosition === 'left';
   .text-content {
     font-size: 1.125rem; /* 18px - larger than prose */
     line-height: 1.7;
-    color: rgb(var(--color-text-primary, 31 41 55)); /* text-gray-800 fallback */
+    color: #1f2937;
+  }
+  
+  :global(.dark) .text-content {
+    color: #e2e8f0;
   }
   
   .text-content p {
@@ -75,6 +79,10 @@ const isImageLeft = imagePosition === 'left';
   /* Support for bold text */
   .text-content strong {
     font-weight: 600;
+  }
+  
+  :global(.dark) .text-content strong {
+    color: #f1f5f9;
   }
   
   @media (max-width: 768px) {

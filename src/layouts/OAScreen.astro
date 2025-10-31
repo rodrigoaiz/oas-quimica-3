@@ -101,6 +101,10 @@ const baseUrl = `/objetos/${oaSlug}`;
     border-bottom: 3px solid #0070f3;
   }
 
+  :global(.dark) .screen-header {
+    border-bottom-color: #c8a653;
+  }
+
   .screen-title {
     font-size: clamp(1.75rem, 4vw, 2.5rem);
     font-weight: 800;
@@ -109,9 +113,17 @@ const baseUrl = `/objetos/${oaSlug}`;
     margin: 0;
   }
 
+  :global(.dark) .screen-title {
+    color: #f1f5f9;
+  }
+
   /* Tailwind prose override para mejor spacing */
   .prose {
     color: #334155;
+  }
+
+  :global(.dark) .prose {
+    color: #e2e8f0;
   }
 
   .prose :where(h2):not(:where([class~="not-prose"] *)) {
@@ -120,10 +132,18 @@ const baseUrl = `/objetos/${oaSlug}`;
     color: #0070f3;
   }
 
+  :global(.dark) .prose :where(h2):not(:where([class~="not-prose"] *)) {
+    color: #60a5fa;
+  }
+
   .prose :where(h3):not(:where([class~="not-prose"] *)) {
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
     color: #1e40af;
+  }
+
+  :global(.dark) .prose :where(h3):not(:where([class~="not-prose"] *)) {
+    color: #93c5fd;
   }
 
   @media (max-width: 640px) {

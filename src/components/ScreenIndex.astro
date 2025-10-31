@@ -26,8 +26,8 @@ const { screens, baseUrl, currentSlug = '', class: className = '' } = Astro.prop
 ---
 
 {screens.length > 0 && (
-  <nav class={`my-8 p-6 bg-slate-50 rounded-lg border border-slate-200 ${className}`} aria-label="Índice de pantallas">
-    <h2 class="text-xl font-bold text-cch-azul mb-4">📚 Contenido</h2>
+  <nav class={`my-8 p-6 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 ${className}`} aria-label="Índice de pantallas">
+    <h2 class="text-xl font-bold text-cch-azul dark:text-cch-dorado mb-4">📚 Contenido</h2>
     <div class="flex flex-wrap gap-3">
       {screens.map((screen, index) => {
         const isActive = screen.slug === currentSlug;
@@ -37,12 +37,12 @@ const { screens, baseUrl, currentSlug = '', class: className = '' } = Astro.prop
             class:list={[
               "inline-flex items-center gap-2 px-4 py-3 rounded-lg transition-all",
               isActive 
-                ? "bg-cch-azul text-white shadow-md" 
-                : "bg-white hover:bg-cch-azul hover:text-white hover:shadow-md"
+                ? "bg-cch-azul dark:bg-cch-dorado text-white dark:text-slate-900 shadow-md" 
+                : "bg-white dark:bg-slate-700 hover:bg-cch-azul dark:hover:bg-cch-dorado hover:text-white dark:hover:text-slate-900 hover:shadow-md"
             ]}
             aria-current={isActive ? "page" : undefined}
           >
-            <span class="shrink-0 w-6 h-6 flex items-center justify-center rounded-full text-sm font-bold bg-white/20">
+            <span class="shrink-0 w-6 h-6 flex items-center justify-center rounded-full text-sm font-bold bg-white/20 dark:bg-black/20">
               {index + 1}
             </span>
             <span class="font-medium text-sm">

@@ -1,16 +1,79 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
+/* Configurar dark mode con selector de clase */
+@variant dark (&:is(.dark *));
+
 @theme {
   --color-cch-azul: #0055a5;
   --color-cch-dorado: #c8a653;
   --color-cch-gris: #f5f6f7;
+  --color-cch-gris-dark: #1e293b;
 }
+
 @layer components {
   .contenido-mdx {
-    @apply text-slate-900;
+    @apply text-slate-900 dark:text-slate-100;
   }
+}
 
+/* Estilos dark mode para prose (typography plugin) */
+@layer base {
+  :is(.dark .prose) {
+    --tw-prose-body: #e2e8f0;
+    --tw-prose-headings: #f1f5f9;
+    --tw-prose-lead: #cbd5e1;
+    --tw-prose-links: #60a5fa;
+    --tw-prose-bold: #f1f5f9;
+    --tw-prose-counters: #94a3b8;
+    --tw-prose-bullets: #64748b;
+    --tw-prose-hr: #475569;
+    --tw-prose-quotes: #e2e8f0;
+    --tw-prose-quote-borders: #475569;
+    --tw-prose-captions: #94a3b8;
+    --tw-prose-code: #e2e8f0;
+    --tw-prose-pre-code: #cbd5e1;
+    --tw-prose-pre-bg: #1e293b;
+    --tw-prose-th-borders: #475569;
+    --tw-prose-td-borders: #334155;
+  }
+  
+  /* Asegurar que los párrafos tengan buen contraste */
+  :is(.dark .prose) p {
+    color: #e2e8f0 !important;
+  }
+  
+  :is(.dark .prose) h1,
+  :is(.dark .prose) h2,
+  :is(.dark .prose) h3,
+  :is(.dark .prose) h4 {
+    color: #60a5fa !important;
+  }
+  
+  :is(.dark .prose) strong {
+    color: #f1f5f9 !important;
+  }
+  
+  :is(.dark .prose) a {
+    color: #60a5fa !important;
+  }
+  
+  :is(.dark .prose) a:hover {
+    color: #93c5fd !important;
+  }
+  
+  /* Overrides específicos para prose-slate en dark mode */
+  :is(.dark .prose-slate) h2 {
+    color: #60a5fa !important;
+  }
+  
+  :is(.dark .prose-slate) h3 {
+    color: #93c5fd !important;
+  }
+  
+  :is(.dark .prose-slate) h4 {
+    color: #cbd5e1 !important;
+  }
 }
 
 html {
@@ -39,9 +102,19 @@ html {
   color: var(--color-cch-azul);
 }
 
+.dark .btn-secondary {
+  border-color: var(--color-cch-dorado);
+  color: var(--color-cch-dorado);
+}
+
 .btn-secondary:hover {
   background-color: var(--color-cch-azul);
   color: white;
+}
+
+.dark .btn-secondary:hover {
+  background-color: var(--color-cch-dorado);
+  color: #0f172a;
 }
 
 /* Custom List Styles for MDX Content */
@@ -180,4 +253,10 @@ html {
 .ul-disc > li strong {
   font-weight: 600;
   color: var(--color-cch-azul);
+}
+
+.dark .ol-alpha > li strong,
+.dark .ol-number > li strong,
+.dark .ul-disc > li strong {
+  color: var(--color-cch-dorado);
 }

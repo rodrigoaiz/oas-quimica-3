@@ -1,0 +1,128 @@
+---
+/**
+ * ThemeToggle - Botón para alternar entre modo claro y oscuro
+ * Usa localStorage para persistir la preferencia del usuario
+ */
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Alternar modo oscuro"
+  class="theme-toggle-btn"
+>
+  <!-- Icono Sol (modo claro) -->
+  <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5"></circle>
+    <line x1="12" y1="1" x2="12" y2="3"></line>
+    <line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line>
+    <line x1="21" y1="12" x2="23" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+  </svg>
+  
+  <!-- Icono Luna (modo oscuro) -->
+  <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle-btn {
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    background: rgba(0, 85, 165, 0.1);
+    border: 1px solid rgba(0, 85, 165, 0.2);
+    color: #0055a5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  :global(.dark) .theme-toggle-btn {
+    background: rgba(200, 166, 83, 0.1);
+    border-color: rgba(200, 166, 83, 0.3);
+    color: #c8a653;
+  }
+
+  .theme-toggle-btn:hover {
+    background: rgba(0, 85, 165, 0.2);
+    transform: scale(1.05);
+  }
+
+  :global(.dark) .theme-toggle-btn:hover {
+    background: rgba(200, 166, 83, 0.2);
+  }
+
+  .theme-toggle-btn:focus {
+    outline: 2px solid #0055a5;
+    outline-offset: 2px;
+  }
+
+  :global(.dark) .theme-toggle-btn:focus {
+    outline-color: #c8a653;
+  }
+
+  .sun-icon,
+  .moon-icon {
+    position: absolute;
+    transition: all 0.3s ease;
+  }
+
+  /* Por defecto (light mode) - mostrar luna */
+  .sun-icon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0);
+  }
+
+  .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  /* Dark mode - mostrar sol */
+  :global(.dark) .sun-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  :global(.dark) .moon-icon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+  }
+</style>
+
+<script is:inline>
+  // Este script se ejecuta en cada carga de página
+  function initThemeToggle() {
+    const button = document.getElementById('theme-toggle');
+    if (!button) return;
+
+    button.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  }
+
+  // Ejecutar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemeToggle);
+  } else {
+    initThemeToggle();
+  }
+</script>

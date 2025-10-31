@@ -140,6 +140,11 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
     backdrop-filter: blur(8px);
   }
 
+  :global(.dark) .internal-nav.compact {
+    background: rgba(30, 41, 59, 0.95);
+    border-bottom-color: #475569;
+  }
+
   /* Controles Prev/Next */
   .nav-controls {
     display: flex;
@@ -160,6 +165,10 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
     font-weight: 600;
     color: #64748b;
     white-space: nowrap;
+  }
+
+  :global(.dark) .compact-position {
+    color: #94a3b8;
   }
 
   .nav-btn {

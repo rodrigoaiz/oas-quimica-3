@@ -17,6 +17,26 @@ const {
     <meta name="keywords" content={keywords} />
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
     
+    <!-- Prevenir flash de modo incorrecto -->
+    <script is:inline>
+      // Este script debe ejecutarse ANTES de que el body se renderice
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -29,11 +49,11 @@ const {
     
     <link rel="icon" href={`${Astro.site?.pathname ?? '/'}favicon.svg`} />
   </head>
-  <body class="bg-cch-gris text-slate-900">
-    <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 bg-white text-cch-azul p-2 rounded">Saltar al contenido</a>
+  <body class="bg-cch-gris dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+    <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 bg-white dark:bg-slate-800 text-cch-azul dark:text-cch-dorado p-2 rounded">Saltar al contenido</a>
     <Nav current={Astro.url.pathname} />
     <slot />
-    <footer class="mt-16 py-10 text-center text-sm text-slate-600">
+    <footer class="mt-16 py-10 text-center text-sm text-slate-600 dark:text-slate-400">
       <p>Hecho en México | Portal Académico del CCH – UNAM</p>
     </footer>
   </body>
