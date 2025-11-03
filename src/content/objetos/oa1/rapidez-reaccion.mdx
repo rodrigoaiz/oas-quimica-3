@@ -6,7 +6,6 @@ import ImageText from '@/components/ImageText.astro';
 import Prose from '@/components/Prose.astro';
 import Breakout from '@/components/Breakout.astro';
 import List from '@/components/List.astro';
-import MCQ from '@/components/Activity/MCQ.jsx';
 import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
 
 <Prose>
@@ -38,69 +37,67 @@ import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
   ### Verifica tu comprensión
 
   Ahora, te invito a que selecciones ¿cuales son los factores que infliuyen en la rapidez de una reacción química?  
+  
+  <MCQQuiz 
+    client:load
+    questions={[
+      {
+        question: "La combustión de la gasolina para hacer funcionar un automóvil:",
+        options: [
+          "Rápida",
+          "Lenta"
+        ],
+        correctIndex: 0,
+        feedback: {
+          correct: "¡Correcto! La combustión de la gasolina es una reacción rápida que libera energía de forma inmediata.",
+          incorrect: "Revisa las características de las reacciones rápidas y lentas."
+        }
+      },
+      {
+        question: "La oxidación de un trozo de hierro expuesto a la intemperie:",
+        options: [
+          "Rápido",
+          "Lento"
+        ],
+        correctIndex: 1,
+        feedback: {
+          correct: "¡Exacto! La oxidación de un trozo de hierro expuesto a la intemperie es una reacción lenta que ocurre con el tiempo.",
+          incorrect: "Piensa en cuánto tiempo tarda en ocurrir la oxidación del hierro."
+        }
+      },
+      {
+        question: "La reacción que presentan los fuegos artificiales al explotar:",
+        options: [
+          "Rápido",
+          "Lento"
+        ],
+        correctIndex: 0,
+        feedback: {
+          correct: "¡Exacto! La reacción que presentan los fuegos artificiales al explotar es una reacción rápida que ocurre en un instante.",
+          incorrect: "Piensa en cuánto tiempo tarda en ocurrir la explosión de un fuego artificial."
+        }
+      },
+      {
+        question: "La digestión de los alimentos en el estómago:",
+        options: [
+          "Rápido",
+          "Lento"
+        ],
+        correctIndex: 1,
+        feedback: {
+          correct: "¡Correcto! La digestión de los alimentos en el estómago es una reacción lenta que puede tomar horas.",
+          incorrect: "Revisa las características de las reacciones rápidas y lentas."
+        }
+      }     
+    ]}
+  />
 
-<MCQ 
-  client:load 
-  question="La combustión de la gasolina para hacer funcionar un automóvil:" 
-  options={[
-    "Rápida",
-    "Lenta"
-  ]} 
-  correctIndex={0} 
-  feedback={{
-    correct: "¡Exacto! La combustión de la gasolina es una reacción rápida que libera energía de forma inmediata.",
-    incorrect: "Revisa las características de las reacciones rápidas y lentas."
-  }}
-/>
+  ### ¡Muy bien!
+ 
+  Como te diste cuenta, todas las reacciones químicas se llevan a cabo con diferente rapidez, pero ¿existen factores que influyen en ella? La respuesta es sí.
+  
 
-### Cuestionario de práctica
+  La rapidez de una reacción química depende de diversos factores, como son: la concentración de los reactivos, la temperatura, la presión-volumen, específicamente en los gases; la superficie de contacto si es que se habla de sólidos, así como la presencia de catalizadores. A mayor concentración y/o temperatura,  la reacción es más rápida, lo mismo si hablamos de mayor superficie de contacto en el caso de sólidos. Un catalizador también hace posible aumentar la rapidez de una reacción química, pero sin consumirse en ella.
 
-<MCQQuiz 
-  client:load
-  questions={[
-    {
-      question: "¿Qué factor NO influye en la rapidez de una reacción química?",
-      options: [
-        "La temperatura",
-        "La concentración de los reactivos",
-        "El color de los reactivos",
-        "La presencia de un catalizador"
-      ],
-      correctIndex: 2,
-      feedback: {
-        correct: "¡Correcto! El color no afecta la rapidez de la reacción.",
-        incorrect: "Piensa en las propiedades físicas vs las químicas que afectan las reacciones."
-      }
-    },
-    {
-      question: "¿Qué ocurre cuando aumentamos la temperatura en una reacción química?",
-      options: [
-        "La reacción se hace más lenta",
-        "La reacción se hace más rápida",
-        "La temperatura no afecta la velocidad",
-        "La reacción se detiene"
-      ],
-      correctIndex: 1,
-      feedback: {
-        correct: "¡Excelente! Al aumentar la temperatura, las moléculas se mueven más rápido y chocan con mayor frecuencia.",
-        incorrect: "Recuerda que la temperatura afecta la energía cinética de las moléculas."
-      }
-    },
-    {
-      question: "Un catalizador es una sustancia que:",
-      options: [
-        "Se consume durante la reacción",
-        "Aumenta la velocidad de reacción sin consumirse",
-        "Disminuye la velocidad de reacción",
-        "No tiene ningún efecto en la reacción"
-      ],
-      correctIndex: 1,
-      feedback: {
-        correct: "¡Perfecto! Los catalizadores aceleran las reacciones y se recuperan al final sin cambios.",
-        incorrect: "Revisa el concepto de catalizador y su función en las reacciones químicas."
-      }
-    }
-  ]}
-/>
 
 </Prose>
