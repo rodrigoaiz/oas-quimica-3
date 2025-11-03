@@ -2,6 +2,8 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 import icon from 'astro-icon';
 
@@ -10,8 +12,14 @@ const base = (process.env.BASE_PATH?.trim() || '/').replace(/\/$/, '/') ;
 export default defineConfig({
   site: 'https://portalacademico.cch.unam.mx',
   base,
-  integrations: [mdx(), react(), icon({
-    include: {
+  integrations: [
+    mdx({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex],
+    }), 
+    react(), 
+    icon({
+      include: {
         bi: [
           'facebook',
           'twitter-x',
@@ -24,7 +32,8 @@ export default defineConfig({
           'github'
         ]
       }
-  })],
+    })
+  ],
   // Endure the dev/preview server only binds to localhost to avoid external scans hitting your dev port
   server: {
     host: '127.0.0.1',

@@ -74,6 +74,27 @@
   :is(.dark .prose-slate) h4 {
     color: #cbd5e1 !important;
   }
+  
+  /* Estilos para listas en dark mode */
+  :is(.dark .prose) ul > li,
+  :is(.dark .prose) ol > li {
+    color: #e2e8f0 !important;
+  }
+  
+  /* Marcadores/bullets de listas en dark mode */
+  :is(.dark .prose) ul > li::marker {
+    color: #94a3b8 !important;
+  }
+  
+  :is(.dark .prose) ol > li::marker {
+    color: #94a3b8 !important;
+  }
+  
+  /* Listas anidadas */
+  :is(.dark .prose) li > ul,
+  :is(.dark .prose) li > ol {
+    color: #e2e8f0 !important;
+  }
 }
 
 html {
@@ -179,6 +200,22 @@ html {
   box-shadow: 0 2px 8px rgba(0, 85, 165, 0.2);
 }
 
+/* Dark mode para badges de listas personalizadas */
+.dark .ol-alpha > li::before,
+.dark .ol-number > li::before,
+.dark .ul-disc > li::before {
+  background: var(--color-cch-dorado);
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(200, 166, 83, 0.3);
+}
+
+/* Texto de items de lista en dark mode */
+.dark .ol-alpha > li,
+.dark .ol-number > li,
+.dark .ul-disc > li {
+  color: #e2e8f0;
+}
+
 /* Alphabetic list (a, b, c...) */
 .ol-alpha > li::before {
   content: counter(item, lower-alpha);
@@ -259,4 +296,71 @@ html {
 .dark .ol-number > li strong,
 .dark .ul-disc > li strong {
   color: var(--color-cch-dorado);
+}
+
+/* KaTeX Styles - Dark Mode Support */
+/* Inline math */
+.katex {
+  font-size: 1.1em;
+}
+
+/* Display math (block) */
+.katex-display {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Dark mode para KaTeX */
+.dark .katex {
+  color: #e2e8f0;
+}
+
+.dark .katex .mord,
+.dark .katex .mbin,
+.dark .katex .mrel,
+.dark .katex .mop,
+.dark .katex .mpunct,
+.dark .katex .mopen,
+.dark .katex .mclose,
+.dark .katex .minner {
+  color: #e2e8f0 !important;
+}
+
+/* Fracciones y raíces en dark mode */
+.dark .katex .frac-line,
+.dark .katex .sqrt-line {
+  border-bottom-color: #94a3b8;
+}
+
+.dark .katex .sqrt-sign {
+  border-color: #94a3b8;
+}
+
+/* Delimiters (paréntesis, corchetes) en dark mode */
+.dark .katex .delimsizing,
+.dark .katex .delim-size1,
+.dark .katex .delim-size2,
+.dark .katex .delim-size3,
+.dark .katex .delim-size4 {
+  color: #cbd5e1 !important;
+}
+
+/* Mejorar scrollbar en dark mode para ecuaciones largas */
+.dark .katex-display::-webkit-scrollbar {
+  height: 8px;
+}
+
+.dark .katex-display::-webkit-scrollbar-track {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+.dark .katex-display::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+.dark .katex-display::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
 }

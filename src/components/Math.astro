@@ -1,0 +1,50 @@
+---
+/**
+ * Math - Componente para renderizar fórmulas matemáticas con KaTeX
+ * Uso:
+ * <Math formula="E = mc^2" /> - inline
+ * <Math formula="E = mc^2" display /> - display (bloque centrado)
+ */
+
+interface Props {
+  formula: string;
+  display?: boolean;
+  className?: string;
+}
+
+const { formula, display = false, className = '' } = Astro.props;
+
+// Importar KaTeX en el servidor
+import * as katex from 'katex';
+
+// Renderizar la fórmula
+const html = katex.renderToString(formula, {
+  displayMode: display,
+  throwOnError: false,
+  output: 'html',
+  strict: false,
+});
+---
+
+{display ? (
+  <div 
+    class={`katex-display-wrapper my-4 ${className}`}
+    set:html={html}
+  />
+) : (
+  <span 
+    class={`katex-inline-wrapper ${className}`}
+    set:html={html}
+  />
+)}
+
+<style>
+  .katex-display-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  
+  .katex-inline-wrapper {
+    display: inline;
+  }
+</style>

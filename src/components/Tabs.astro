@@ -1,0 +1,171 @@
+---
+/**
+ * Tabs - Componente de pestañas/tabs con navegación
+ * Los children deben tener data-tab="id" para asociarlos con cada tab
+ */
+
+interface Tab {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  tabs: Tab[];
+  defaultTab?: string;
+}
+
+const { tabs = [], defaultTab } = Astro.props;
+const activeTab = defaultTab || tabs[0]?.id || '';
+
+// Generar un ID único para este grupo de tabs
+const tabsId = `tabs-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class="tabs-container my-6 border-2 border-gray-300 dark:border-slate-700 rounded-lg overflow-hidden" data-tabs-id={tabsId}>
+  {/* Navegación de tabs */}
+  <div class="tabs-nav border-b-2 border-gray-300 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50 p-2">
+    <div class="flex flex-wrap gap-2">
+      {tabs.map((tab, index) => (
+        <button
+          type="button"
+          role="tab"
+          aria-selected={tab.id === activeTab ? "true" : "false"}
+          aria-controls={`${tabsId}-panel-${tab.id}`}
+          id={`${tabsId}-tab-${tab.id}`}
+          data-tab-id={tab.id}
+          class:list={[
+            "tab-button px-4 py-2.5 md:px-6 md:py-3 font-semibold text-sm md:text-base rounded-lg transition-all duration-300",
+            tab.id === activeTab
+              ? "bg-blue-500 dark:bg-blue-600 text-white shadow-md"
+              : "bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-slate-700 hover:text-gray-800 dark:hover:text-gray-200"
+          ]}
+        >
+          {tab.label}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  {/* Contenido - usar slot único y filtrar con JS */}
+  <div class="tabs-panels p-4 md:p-6 bg-white dark:bg-slate-900" data-active-tab={activeTab}>
+    <slot />
+  </div>
+</div>
+
+<script>
+  // JavaScript para manejar el cambio de tabs
+  document.addEventListener('DOMContentLoaded', () => {
+    initializeTabs();
+  });
+  
+  // También ejecutar después de navegaciones de Astro
+  document.addEventListener('astro:page-load', () => {
+    initializeTabs();
+  });
+  
+  function initializeTabs() {
+    const tabContainers = document.querySelectorAll('[data-tabs-id]');
+    
+    tabContainers.forEach((container) => {
+      const tabButtons = container.querySelectorAll('.tab-button');
+      const tabsPanel = container.querySelector('.tabs-panels');
+      const activeTabId = tabsPanel?.getAttribute('data-active-tab');
+      
+      // Inicializar paneles: mostrar/ocultar según data-tab
+      if (tabsPanel) {
+        const panels = tabsPanel.querySelectorAll('[data-tab]');
+        panels.forEach((panel) => {
+          const panelId = panel.getAttribute('data-tab');
+          if (panelId === activeTabId) {
+            panel.classList.remove('hidden');
+            panel.classList.add('block');
+          } else {
+            panel.classList.add('hidden');
+            panel.classList.remove('block');
+          }
+        });
+      }
+      
+      tabButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const tabId = button.getAttribute('data-tab-id');
+          
+          // Desactivar todos los tabs
+          tabButtons.forEach((btn) => {
+            btn.classList.remove(
+              'bg-blue-500', 'dark:bg-blue-600', 'text-white', 
+              'border-blue-600', 'dark:border-blue-500', 'shadow-md'
+            );
+            btn.classList.add(
+              'bg-gray-100', 'dark:bg-slate-800', 'text-gray-600', 
+              'dark:text-gray-400', 'border-transparent'
+            );
+            btn.setAttribute('aria-selected', 'false');
+          });
+          
+          // Activar el tab clickeado
+          button.classList.remove(
+            'bg-gray-100', 'dark:bg-slate-800', 'text-gray-600', 
+            'dark:text-gray-400', 'border-transparent'
+          );
+          button.classList.add(
+            'bg-blue-500', 'dark:bg-blue-600', 'text-white', 
+            'border-blue-600', 'dark:border-blue-500', 'shadow-md'
+          );
+          button.setAttribute('aria-selected', 'true');
+          
+          // Ocultar todos los paneles y mostrar el activo
+          if (tabsPanel) {
+            const panels = tabsPanel.querySelectorAll('[data-tab]');
+            panels.forEach((panel) => {
+              const panelId = panel.getAttribute('data-tab');
+              if (panelId === tabId) {
+                panel.classList.remove('hidden');
+                panel.classList.add('block');
+              } else {
+                panel.classList.add('hidden');
+                panel.classList.remove('block');
+              }
+            });
+          }
+        });
+      });
+    });
+  }
+</script>
+
+<style>
+  .tab-button {
+    position: relative;
+  }
+  
+  .tab-button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+  
+  /* Asegurar que los paneles con data-tab estén disponibles */
+  [data-tab] {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  [data-tab].hidden {
+    display: none;
+  }
+  
+  [data-tab].block {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
