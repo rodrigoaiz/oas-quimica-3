@@ -1,0 +1,115 @@
+---
+title: "¿Cómo efectuar reacciones químicas con mayor rapidez?"
+cover: "/images/oa1/portada.png"
+order: 1
+summary: "Este material te permitirá ampliar tu conocimiento sobre el rendimiento de una reacción, se revisará la rapidez de reacción, según la naturaleza de los reactivos y las condiciones de reacción, explicando con base a la teoría de colisiones."
+tags: ["Proceso Haber", "rapidez de reacción", "reversibilidad", "equilibrio químico", "condición de reacción", "Factores que modifican la rapidez de reacción", "catalizadores", "rendimiento", "colisión", "superficie de contacto", "temperatura", "presión", "concentración"]
+level: "Unidad 3"
+---
+
+import Breakout from '@/components/Breakout.astro';
+import Prose from '@/components/Prose.astro';
+import Aprendizajes from '@/components/Aprendizajes.astro';
+import MultiSelect from '@/components/Activity/MultiSelect.jsx';
+import MultiSelectQuiz from '@/components/Activity/MultiSelectQuiz.jsx';
+
+export const aprendizajes = [
+  "(C) Comprende las dificultades que presentan diferentes procesos químicos al analizar información sobre el rendimiento de reacción en la obtención de amoniaco y otros insumos de la industria de los fertilizantes. (N2)",
+  "(C, H) Comprende que las reacciones se realizan con diferente rapidez, según la naturaleza de los reactivos y las condiciones de reacción, al analizar la información obtenida de un experimento.(N2)",
+  "(C, H) Explica con base en la Teoría de Colisiones, el efecto de la superficie de contacto, catalizador,temperatura, presión y concentración sobre la rapidez de las reacciones químicas, a partir de la elaboración de argumentos. (N3)",
+  "(V) Valora el proceso de obtención de algún producto estratégico, desde la perspectiva de su impacto socioeconómico y ambiental en México para desarrollar su pensamiento crítico."
+];
+
+<Prose>
+## Aprendizajes
+</Prose>
+
+<Breakout>
+  <Aprendizajes items={aprendizajes} />
+</Breakout>
+
+<Prose>
+## Ejemplos de componentes MultiSelect
+
+### Ejemplo 1: Una sola pregunta (MultiSelect)
+
+Identifica todos los factores que pueden **aumentar** la rapidez de una reacción química:
+</Prose>
+
+<MultiSelect 
+  client:load
+  question="¿Cuáles de los siguientes factores aumentan la rapidez de una reacción química?"
+  options={[
+    "Aumentar la temperatura",
+    "Disminuir la concentración de reactivos",
+    "Usar un catalizador",
+    "Reducir la superficie de contacto",
+    "Aumentar la concentración de reactivos",
+    "Bajar la temperatura"
+  ]}
+  correctIndexes={[0, 2, 4]}
+  feedback={{
+    correct: "¡Excelente! Identificaste correctamente que aumentar la temperatura, usar catalizadores y aumentar la concentración aceleran las reacciones.",
+    incorrect: "Revisa tu selección. Recuerda que algunos factores disminuyen la rapidez de reacción."
+  }}
+/>
+
+<Prose>
+### Ejemplo 2: Múltiples preguntas (MultiSelectQuiz)
+
+Ahora vamos a evaluar varios conceptos sobre reacciones químicas:
+</Prose>
+
+<MultiSelectQuiz 
+  client:load
+  questions={[
+    {
+      question: "Selecciona las características de una reacción exotérmica:",
+      options: [
+        "Libera energía al ambiente",
+        "Absorbe energía del ambiente",
+        "Los productos tienen menos energía que los reactivos",
+        "Los productos tienen más energía que los reactivos",
+        "ΔH es negativo",
+        "ΔH es positivo"
+      ],
+      correctIndexes: [0, 2, 4],
+      feedback: {
+        correct: "¡Perfecto! Las reacciones exotérmicas liberan energía, sus productos tienen menos energía y ΔH < 0.",
+        incorrect: "Repasa las características de las reacciones exotérmicas."
+      }
+    },
+    {
+      question: "¿Qué condiciones favorecen la síntesis de amoniaco (N₂ + 3H₂ → 2NH₃)?",
+      options: [
+        "Alta presión",
+        "Baja presión",
+        "Alta temperatura (> 500°C)",
+        "Temperatura moderada (400-450°C)",
+        "Uso de catalizador de hierro",
+        "Sin catalizador"
+      ],
+      correctIndexes: [0, 3, 4],
+      feedback: {
+        correct: "¡Correcto! El proceso Haber usa alta presión, temperatura moderada y catalizador de hierro.",
+        incorrect: "Revisa las condiciones óptimas del proceso Haber para la síntesis industrial de amoniaco."
+      }
+    },
+    {
+      question: "Según la teoría de colisiones, ¿qué se necesita para que ocurra una reacción?",
+      options: [
+        "Las partículas deben chocar entre sí",
+        "Las partículas deben tener energía suficiente",
+        "Las partículas deben tener orientación adecuada",
+        "Cualquier choque produce reacción",
+        "Solo importa la concentración",
+        "La temperatura no es relevante"
+      ],
+      correctIndexes: [0, 1, 2],
+      feedback: {
+        correct: "¡Excelente! Para reaccionar se necesitan colisiones con energía suficiente y orientación apropiada.",
+        incorrect: "Recuerda los tres requisitos de la teoría de colisiones: choque, energía y orientación."
+      }
+    }
+  ]}
+/>

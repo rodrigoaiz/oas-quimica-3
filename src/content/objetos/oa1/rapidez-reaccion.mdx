@@ -7,6 +7,7 @@ import Prose from '@/components/Prose.astro';
 import Breakout from '@/components/Breakout.astro';
 import List from '@/components/List.astro';
 import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
+import MultiSelect from '@/components/Activity/MultiSelect.jsx';
 
 <Prose>
   ## ¿Todas esas transformaciones ocurren de la misma forma?
@@ -95,9 +96,33 @@ import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
   ### ¡Muy bien!
  
   Como te diste cuenta, todas las reacciones químicas se llevan a cabo con diferente rapidez, pero ¿existen factores que influyen en ella? La respuesta es sí.
-  
 
   La rapidez de una reacción química depende de diversos factores, como son: la concentración de los reactivos, la temperatura, la presión-volumen, específicamente en los gases; la superficie de contacto si es que se habla de sólidos, así como la presencia de catalizadores. A mayor concentración y/o temperatura,  la reacción es más rápida, lo mismo si hablamos de mayor superficie de contacto en el caso de sólidos. Un catalizador también hace posible aumentar la rapidez de una reacción química, pero sin consumirse en ella.
 
+  ### Ejercicio de seleccionar
 
+  De acuerdo con lo que has leído, te habrás dado cuenta que la rapidez de las reacciones químicas depende de varios factores ¿ya sabes cuáles son ellos? Resuelve el siguiente ejercicio:  
+</Prose>
+<Breakout>
+  <MultiSelect 
+  client:load
+  question="Selecciona los factores que influyen en la rapidez de una reacción química:"
+  options={[
+    "La presión-volumen",
+    "La temperatura",
+    "El color",
+    "La superficie de contacto",
+    "El catalizador",
+    "El brillo de los reactivos",
+    "El enlace químico"
+  ]}
+  correctIndexes={[0, 1, 2, 4, 5]}
+  feedback={{
+    correct: "¡Excelente! Identificaste correctamente que aumentar la temperatura, usar catalizadores y aumentar la concentración aceleran las reacciones.",
+    incorrect: "Revisa tu selección. Recuerda que algunos factores disminuyen la rapidez de reacción."
+  }}
+/>
+</Breakout>
+<Prose>
+ola
 </Prose>
