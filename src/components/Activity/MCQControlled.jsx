@@ -1,16 +1,26 @@
-import { useId, useState } from 'react';
+import { useId } from 'react';
 
-export default function MCQ({ question, options = [], correctIndex = 0, feedback = {}, questionId }) {
-  // Si se proporciona questionId, usarlo; si no, generar uno único
+/**
+ * MCQControlled - Versión controlada de MCQ para usar dentro de MCQQuiz
+ * El estado se maneja externamente
+ */
+export default function MCQControlled({ 
+  question, 
+  options = [], 
+  correctIndex = 0, 
+  feedback = {}, 
+  questionId,
+  answer = null,
+  onChange
+}) {
   const generatedId = useId();
   const name = questionId || generatedId;
-  const [answer, setAnswer] = useState(null);
-  const [selectedOption, setSelectedOption] = useState(null);
   const isCorrect = answer === correctIndex;
 
   const handleAnswer = (index) => {
-    setSelectedOption(index);
-    setAnswer(index);
+    if (answer === null && onChange) {
+      onChange(index);
+    }
   };
 
   return (
@@ -26,7 +36,7 @@ export default function MCQ({ question, options = [], correctIndex = 0, feedback
       <fieldset className="space-y-2 md:space-y-3">
         <legend className="sr-only">Opciones de respuesta</legend>
         {options.map((opt, i) => {
-          const isSelected = selectedOption === i;
+          const isSelected = answer === i;
           const isAnswered = answer !== null;
           const isThisCorrect = i === correctIndex;
           

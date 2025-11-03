@@ -29,17 +29,17 @@ const mainOAs = allObjetos
         <LogoPacch class="w-20 h-auto hidden md:block" />
       </a>
       <a target="_blank" href="https://www.unam.mx/" class="logo-link">
-        <LogoUnam class="w-auto h-12 hidden md:block" />
+        <LogoUnam class="w-auto h-10 hidden md:block" />
       </a>
       <a target="_blank" href="https://cch.unam.mx/" class="logo-link">
-        <LogoCCH class="w-auto h-12 hidden md:block" />
+        <LogoCCH class="w-auto h-10 hidden md:block" />
       </a>
     </div>
-    <ul class="flex items-center justify-center gap-1 sm:gap-4">
+    <ul class="flex items-center justify-center gap-x-1 sm:gap-x-2">
       <li class="relative">
         {/* @ts-ignore */}
         <details class="group">
-          <summary class={clsx("py-1 rounded cursor-pointer flex items-center gap-1 list-none", current.startsWith("/objetos") && "bg-cch-azul dark:bg-cch-dorado text-white dark:text-slate-900")}>
+          <summary class={clsx("px-2 py-1 rounded cursor-pointer flex items-center gap-1 list-none", current.startsWith("/objetos") && "bg-cch-azul dark:bg-cch-dorado text-white dark:text-slate-900")}>
             <span>Materiales</span>
             <svg aria-hidden="true" viewBox="0 0 20 20" class="w-3 h-3 opacity-70 transition-transform group-open:rotate-180">
               <path fill="currentColor" d="M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4Z"></path>
@@ -63,7 +63,7 @@ const mainOAs = allObjetos
         </details>
       </li>
       <li>
-        <a class={clsx(" py-1 rounded", current === "/creditos" && "bg-cch-azul dark:bg-cch-dorado text-white dark:text-slate-900")} href="/creditos">Créditos</a>
+        <a class={clsx("px-2 py-1 rounded", current === "/creditos" && "bg-cch-azul dark:bg-cch-dorado text-white dark:text-slate-900")} href="/creditos">Créditos</a>
       </li>
     </ul>
     <ThemeToggle />

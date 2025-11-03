@@ -7,6 +7,7 @@ import Prose from '@/components/Prose.astro';
 import Breakout from '@/components/Breakout.astro';
 import List from '@/components/List.astro';
 import MCQ from '@/components/Activity/MCQ.jsx';
+import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
 
 <Prose>
   ## ¿Todas esas transformaciones ocurren de la misma forma?
@@ -24,8 +25,8 @@ import MCQ from '@/components/Activity/MCQ.jsx';
 <Breakout>
 
   <List type="disc" columns={2}>
-    <li class="text-xl">¿**Por qué** la reacción que permite encender un fósforo es inmediata, pero el deterioro de los alimentos lleva más tiempo?</li>
-    <li class="text-xl">¿**Por qué** al abrir un refresco que ha sido agitado, se desborda el líquido contenido, pero antes de la agitación no sucede así?</li>
+    <li class="text-xl font-bold">¿Por qué la reacción que permite encender un fósforo es inmediata, pero el deterioro de los alimentos lleva más tiempo?</li>
+    <li class="text-xl font-bold">¿Por qué al abrir un refresco que ha sido agitado, se desborda el líquido contenido, pero antes de la agitación no sucede así?</li>
   </List>
 </Breakout>
 
@@ -36,79 +37,70 @@ import MCQ from '@/components/Activity/MCQ.jsx';
 
   ### Verifica tu comprensión
 
-
+  Ahora, te invito a que selecciones ¿cuales son los factores que infliuyen en la rapidez de una reacción química?  
 
 <MCQ 
   client:load 
-  question="¿Qué postula el modelo de Dalton sobre el átomo?" 
+  question="La combustión de la gasolina para hacer funcionar un automóvil:" 
   options={[
-    "El átomo es divisible en partículas subatómicas",
-    "La materia está compuesta por átomos indivisibles",
-    "Los electrones están en niveles de energía cuantizados"
+    "Rápida",
+    "Lenta"
   ]} 
-  correctIndex={1} 
+  correctIndex={0} 
   feedback={{
-    correct: "¡Exacto! Dalton propuso que los átomos son indivisibles e indestructibles.",
-    incorrect: "Revisa los postulados principales de Dalton. Recuerda que fue el primer modelo científico."
-  }} 
+    correct: "¡Exacto! La combustión de la gasolina es una reacción rápida que libera energía de forma inmediata.",
+    incorrect: "Revisa las características de las reacciones rápidas y lentas."
+  }}
+/>
+
+### Cuestionario de práctica
+
+<MCQQuiz 
+  client:load
+  questions={[
+    {
+      question: "¿Qué factor NO influye en la rapidez de una reacción química?",
+      options: [
+        "La temperatura",
+        "La concentración de los reactivos",
+        "El color de los reactivos",
+        "La presencia de un catalizador"
+      ],
+      correctIndex: 2,
+      feedback: {
+        correct: "¡Correcto! El color no afecta la rapidez de la reacción.",
+        incorrect: "Piensa en las propiedades físicas vs las químicas que afectan las reacciones."
+      }
+    },
+    {
+      question: "¿Qué ocurre cuando aumentamos la temperatura en una reacción química?",
+      options: [
+        "La reacción se hace más lenta",
+        "La reacción se hace más rápida",
+        "La temperatura no afecta la velocidad",
+        "La reacción se detiene"
+      ],
+      correctIndex: 1,
+      feedback: {
+        correct: "¡Excelente! Al aumentar la temperatura, las moléculas se mueven más rápido y chocan con mayor frecuencia.",
+        incorrect: "Recuerda que la temperatura afecta la energía cinética de las moléculas."
+      }
+    },
+    {
+      question: "Un catalizador es una sustancia que:",
+      options: [
+        "Se consume durante la reacción",
+        "Aumenta la velocidad de reacción sin consumirse",
+        "Disminuye la velocidad de reacción",
+        "No tiene ningún efecto en la reacción"
+      ],
+      correctIndex: 1,
+      feedback: {
+        correct: "¡Perfecto! Los catalizadores aceleran las reacciones y se recuperan al final sin cambios.",
+        incorrect: "Revisa el concepto de catalizador y su función en las reacciones químicas."
+      }
+    }
+  ]}
 />
 
 </Prose>
-
-
-
-### Limitaciones del modelo
-
-Aunque revolucionario, el modelo de Dalton no podía explicar:
-
-<List type="disc">
-  <li>¿Por qué los elementos conducen electricidad?</li>
-  <li>¿Por qué algunos materiales son radiactivos?</li>
-  <li>¿Cómo se mantienen unidos los átomos en moléculas?</li>
-</List>     
-
-En la siguiente pantalla veremos cómo **J.J. Thomson** descubrió que el átomo **sí es divisible**.
-
-### Ejemplo de diferentes tipos de listas
-
-**Lista numerada con círculos:**
-<List type="number">
-  <li>**Primer punto importante**: Descripción del primer concepto clave</li>
-  <li>**Segundo punto**: Más información relevante aquí</li>
-  <li>**Tercer punto**: Conclusión o siguiente paso</li>
-</List>
-
-**Lista alfabética en formato horizontal (inline - una sola línea):**
-<List type="alpha" inline>
-  <li>Primera opción</li>
-  <li>Segunda opción</li>
-  <li>Tercera opción</li>
-  <li>Cuarta opción</li>
-</List>
-
-**Lista numerada horizontal (inline - como pills de navegación):**
-<List type="number" inline>
-  <li>**Temperatura**</li>
-  <li>**Concentración**</li>
-  <li>**Catalizador**</li>
-  <li>**Superficie**</li>
-  <li>**Presión**</li>
-  <li>**Naturaleza**</li>
-</List>
-
-**Lista en grid de 3 columnas:**
-<List type="number" columns={2}>
-  <li>**Temperatura**: Afecta la velocidad de las moléculas</li>
-  <li>**Concentración**: Más reactivos, más choques</li>
-  <li>**Catalizador**: Reduce la energía de activación</li>
-  <li>**Superficie**: Mayor área, más reacción</li>
-  <li>**Presión**: En gases aumenta la frecuencia de choques</li>
-  <li>**Naturaleza**: Algunos reactivos son más reactivos</li>
-</List>
-
-**Lista simple con bullets:**
-<List type="ul">
-  <li>Punto simple uno</li>
-  <li>Punto simple dos</li>
-  <li>Punto simple tres</li>
-</List>
