@@ -1,44 +1,61 @@
 ---
-import { clsx } from 'clsx';
-import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
-import ThemeToggle from './ThemeToggle.astro';
+import { clsx } from "clsx";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import ThemeToggle from "./ThemeToggle.astro";
+import LogoPacch from "@/components/logos/logotipo-pacch-color-2024.svg";
+import LogoUnam from "@/components/logos/logo-unam.svg";
+import LogoCCH from "@/components/logos/logo-cch.svg";
 
-const { current = '/' } = Astro.props;
+const { current = "/" } = Astro.props;
 
 // Obtener los OAs principales desde la colección (sin pantallas individuales)
-const allObjetos = await getCollection('objetos');
+const allObjetos = await getCollection("objetos");
 const mainOAs = allObjetos
-  .filter((obj: CollectionEntry<'objetos'>) => !obj.id.includes('/'))
-  .sort((a: CollectionEntry<'objetos'>, b: CollectionEntry<'objetos'>) => a.data.order - b.data.order)
-  .map((oa: CollectionEntry<'objetos'>) => ({
-    slug: oa.id.replace('.mdx', ''),
+  .filter((obj: CollectionEntry<"objetos">) => !obj.id.includes("/"))
+  .sort((a: CollectionEntry<"objetos">, b: CollectionEntry<"objetos">) => a.data.order - b.data.order)
+  .map((oa: CollectionEntry<"objetos">) => ({
+    slug: oa.id.replace(".mdx", ""),
     title: oa.data.title,
-    level: oa.data.level
+    level: oa.data.level,
   }));
 ---
+
 <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-800/80 backdrop-blur border-b dark:border-slate-700">
-  <div class="mx-auto max-w-5xl flex items-center justify-between px-4 py-3">
-    <a href="/" class="font-semibold text-cch-azul dark:text-cch-dorado">Química 3</a>
-    <ul class="flex items-center gap-2 sm:gap-4">
-      <li>
-        <a class={clsx('px-2 py-1 rounded', current === '/' && 'bg-cch-azul dark:bg-cch-dorado text-white dark:text-slate-900')} href="/">Inicio</a>
-      </li>
+  <div class="mx-auto max-w-5xl flex items-center justify-between px-2 py-3">
+    <div class="logos flex items-center gap-5">
+      <a href="/" class="font-semibold text-cch-azul dark:text-cch-dorado text-xl border-cch.dorado border-2 rounded-full px-2">Q<span class="hidden md:inline">uímica</span><sup>3</sup></a>
+      <a target="_blank" href="https://portalacademico.cch.unam.mx/">
+        <LogoPacch class="w-20 h-auto hidden md:block" />
+      </a>
+      <a target="_blank" href="https://www.unam.mx/" class="logo-link">
+        <LogoUnam class="w-auto h-12 hidden md:block" />
+      </a>
+      <a target="_blank" href="https://cch.unam.mx/" class="logo-link">
+        <LogoCCH class="w-auto h-12 hidden md:block" />
+      </a>
+    </div>
+    <ul class="flex items-center justify-center gap-1 sm:gap-4">
       <li class="relative">
+        {/* @ts-ignore */}
         <details class="group">
-          <summary class={clsx('px-2 py-1 rounded cursor-pointer flex items-center gap-1 list-none', current.startsWith('/objetos') && 'bg-cch-azul dark:bg-cch-dorado text-white dark:text-slate-900')}>
-            <span>Objetos</span>
-            <svg aria-hidden="true" viewBox="0 0 20 20" class="w-3 h-3 opacity-70 transition-transform group-open:rotate-180"><path fill="currentColor" d="M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4Z"/></svg>
+          <summary class={clsx("py-1 rounded cursor-pointer flex items-center gap-1 list-none", current.startsWith("/objetos") && "bg-cch-azul dark:bg-cch-dorado text-white dark:text-slate-900")}>
+            <span>Materiales</span>
+            <svg aria-hidden="true" viewBox="0 0 20 20" class="w-3 h-3 opacity-70 transition-transform group-open:rotate-180">
+              <path fill="currentColor" d="M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4Z"></path>
+            </svg>
           </summary>
           <ul class="absolute right-0 mt-2 w-80 max-w-[90vw] bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-xl shadow-lg p-2 max-h-[70vh] overflow-auto z-50">
-            {mainOAs.map(({ slug, title, level }) => (
-              <li>
-                <a class="block px-2 py-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700" href={`/objetos/${slug}`}>
-                  <span class="font-medium">{title}</span>
-                  {level && <span class="ml-1 text-xs text-slate-500 dark:text-slate-400">· {level}</span>}
-                </a>
-              </li>
-            ))}
+            {
+              mainOAs.map(({ slug, title, level }) => (
+                <li>
+                  <a class="block px-2 py-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700" href={`/objetos/${slug}`}>
+                    <span class="font-medium">{title}</span>
+                    {level && <span class="ml-1 text-xs text-slate-500 dark:text-slate-400">· {level}</span>}
+                  </a>
+                </li>
+              ))
+            }
             <li class="mt-1 pt-1 border-t dark:border-slate-700">
               <a class="block px-2 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded" href="/objetos/">Ver todos</a>
             </li>
@@ -46,16 +63,32 @@ const mainOAs = allObjetos
         </details>
       </li>
       <li>
-        <a class={clsx('px-2 py-1 rounded', current === '/creditos' && 'bg-cch-azul dark:bg-cch-dorado text-white dark:text-slate-900')} href="/creditos">Créditos</a>
-      </li>
-      <li>
-        <ThemeToggle />
+        <a class={clsx(" py-1 rounded", current === "/creditos" && "bg-cch-azul dark:bg-cch-dorado text-white dark:text-slate-900")} href="/creditos">Créditos</a>
       </li>
     </ul>
+    <ThemeToggle />
   </div>
 </nav>
 
 <style>
-  summary::-webkit-details-marker { display: none; }
-  summary::marker { display: none; }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::marker {
+    display: none;
+  }
+  
+  /* Cambiar color de logos SVG según tema */
+  .logo-link svg {
+    filter: brightness(0) saturate(100%) invert(22%) sepia(98%) saturate(1742%) hue-rotate(192deg) brightness(92%) contrast(101%);
+    transition: filter 0.3s ease;
+  }
+  
+  :global(.dark) .logo-link svg {
+    filter: brightness(0) saturate(100%) invert(69%) sepia(34%) saturate(462%) hue-rotate(358deg) brightness(95%) contrast(87%);
+  }
+  
+  .logo-link:hover svg {
+    opacity: 0.8;
+  }
 </style>

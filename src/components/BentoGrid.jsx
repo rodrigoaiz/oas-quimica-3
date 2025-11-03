@@ -113,16 +113,18 @@ export default function BentoGrid({ screens = [] }) {
       <a
         href="/objetos"
         className="hidden md:block md:col-span-4 bg-linear-to-br from-cch-azul/10 to-purple-500/10 
-          border-2 border-cch-azul/20 rounded-xl p-8 
+          dark:from-cch-azul/20 dark:to-purple-500/20
+          border-2 border-cch-azul/20 dark:border-cch-azul/30 rounded-xl p-8 
           transition-all duration-300 hover:scale-102 hover:shadow-xl hover:border-cch-azul/40
+          dark:hover:border-cch-azul/50
           min-h-[140px]"
       >
         <div className="flex items-center justify-between h-full">
           <div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">
+            <h3 className="text-2xl font-bold text-gray-800 dark:text-slate-100 mb-2">
               Explora todos los objetos de aprendizaje
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-slate-300">
               Descubre más contenido interactivo sobre química →
             </p>
           </div>

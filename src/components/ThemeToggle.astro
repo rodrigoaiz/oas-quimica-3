@@ -33,18 +33,26 @@
 <style>
   .theme-toggle-btn {
     position: relative;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 0.5rem;
+    border-radius: 0.375rem;
     background: rgba(0, 85, 165, 0.1);
     border: 1px solid rgba(0, 85, 165, 0.2);
     color: #0055a5;
     cursor: pointer;
     transition: all 0.2s ease;
     backdrop-filter: blur(4px);
+  }
+
+  @media (min-width: 640px) {
+    .theme-toggle-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+    }
   }
 
   :global(.dark) .theme-toggle-btn {
@@ -75,6 +83,16 @@
   .moon-icon {
     position: absolute;
     transition: all 0.3s ease;
+    width: 16px;
+    height: 16px;
+  }
+
+  @media (min-width: 640px) {
+    .sun-icon,
+    .moon-icon {
+      width: 20px;
+      height: 20px;
+    }
   }
 
   /* Por defecto (light mode) - mostrar luna */
