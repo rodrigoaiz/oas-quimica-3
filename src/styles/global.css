@@ -9,6 +9,9 @@
   --color-cch-dorado: #c8a653;
   --color-cch-gris: #f5f6f7;
   --color-cch-gris-dark: #1e293b;
+  
+  /* Configurar Quicksand como fuente principal */
+  --font-sans: "Quicksand Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 @layer components {

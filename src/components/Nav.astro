@@ -12,7 +12,14 @@ const { current = "/" } = Astro.props;
 // Obtener los OAs principales desde la colección (sin pantallas individuales)
 const allObjetos = await getCollection("objetos");
 const mainOAs = allObjetos
-  .filter((obj: CollectionEntry<"objetos">) => !obj.id.includes("/"))
+  .filter((obj: CollectionEntry<"objetos">) => {
+    // Solo tomar archivos .mdx en la raíz (oa1.mdx, oa2.mdx, oa3.mdx)
+    // No incluir carpetas (oa1/introduccion.mdx, etc.)
+    const isRoot = !obj.id.includes("/");
+    const isMdx = obj.id.endsWith(".mdx");
+    const isNotExample = obj.id !== "ejemplos.mdx"; // Excluir ejemplos.mdx
+    return isRoot && isMdx && isNotExample;
+  })
   .sort((a: CollectionEntry<"objetos">, b: CollectionEntry<"objetos">) => a.data.order - b.data.order)
   .map((oa: CollectionEntry<"objetos">) => ({
     slug: oa.id.replace(".mdx", ""),
