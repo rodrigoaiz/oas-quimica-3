@@ -5,12 +5,40 @@
 @variant dark (&:is(.dark *));
 
 @theme {
-  --color-cch-azul: #0055a5;
-  --color-cch-dorado: #c8a653;
+  /* ================================================= */
+  /* === COLORES BASE DEFINIDOS EN HSL (Light Mode) === */
+  /* ================================================= */
+  
+  /* CCH AZUL (Principal) -> ~hsl(207, 100%, 32%) */
+  --cch-azul-h: 207;   /* Tono (Hue) */
+  --cch-azul-s: 100%;  /* Saturación */
+  --cch-azul-l: 32%;   /* Brillo (Light Mode) */
+  --color-cch-azul: hsl(var(--cch-azul-h), var(--cch-azul-s), var(--cch-azul-l));
+
+  /* CCH DORADO (Secundario) -> ~hsl(43, 56%, 55%) */
+  --cch-dorado-h: 43; 
+  --cch-dorado-s: 56%; 
+  --cch-dorado-l: 55%;
+  --color-cch-dorado: hsl(var(--cch-dorado-h), var(--cch-dorado-s), var(--cch-dorado-l));
+
   --color-cch-gris: #f5f6f7;
   --color-cch-gris-dark: #1e293b;
+
+  /* ================================================= */
+  /* === VARIABLES DE TEMA DE COLOR DARK MODE FIJAS === */
+  /* ================================================= */
+  /* Valores estáticos que no dependen de la variación de CCH Azul */
+  --color-dark-body: #e2e8f0; /* Texto de párrafos */
+  --color-dark-emphasis: #f1f5f9; /* Texto strong, resalta */
+  --color-dark-heading-tertiary: #cbd5e1; /* H4, delimitadores */
+  --color-dark-border: #94a3b8; /* Líneas de fracción/raíz */
+  --color-dark-bg-block: var(--color-cch-gris-dark); /* Fondo de bloques (pre) */
+  --color-dark-pre-code: #cbd5e1; /* Texto de código */
   
-  /* Configurar Quicksand como fuente principal */
+  /* Definiciones iniciales (se sobrescriben en dark mode) */
+  --color-dark-heading-main: var(--color-cch-azul);
+  --color-dark-heading-secondary: var(--color-cch-azul);
+
   --font-sans: "Quicksand Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
@@ -20,83 +48,97 @@
   }
 }
 
-/* Estilos dark mode para prose (typography plugin) */
+/* ================================================= */
+/* === ESTILOS BASE Y MANIPULACIÓN HSL EN DARK MODE === */
+/* ================================================= */
 @layer base {
+  :is(.dark *) {
+    /* SOBREESCRITURA DE LIGHNESS (L) PARA AZUL CCH EN DARK MODE */
+    --cch-azul-l-dark: 70%; 
+    
+    /* Variables de Heading principales (H1, H2, A, Strong) -> Azul CCH Claro */
+    --color-dark-heading-main: hsl(var(--cch-azul-h), var(--cch-azul-s), var(--cch-azul-l-dark));
+    
+    /* Variables de Heading secundarios (H3, A:hover) -> Azul CCH menos saturado */
+    --color-dark-heading-secondary: hsl(var(--cch-azul-h), 90%, 60%); 
+    
+    /* Strong en Dark Mode (usa un tono muy claro) */
+    --color-dark-strong: var(--color-dark-emphasis); /* O usa un tono de azul CCH claro */
+  }
+  
   :is(.dark .prose) {
-    --tw-prose-body: #e2e8f0;
-    --tw-prose-headings: #f1f5f9;
-    --tw-prose-lead: #cbd5e1;
-    --tw-prose-links: #60a5fa;
-    --tw-prose-bold: #f1f5f9;
-    --tw-prose-counters: #94a3b8;
-    --tw-prose-bullets: #64748b;
+    --tw-prose-body: var(--color-dark-body);
+    --tw-prose-headings: var(--color-dark-emphasis);
+    --tw-prose-links: var(--color-dark-heading-main);
+    --tw-prose-bold: var(--color-dark-strong);
+    --tw-prose-counters: var(--color-dark-border);
+    --tw-prose-pre-code: var(--color-dark-pre-code);
+    --tw-prose-pre-bg: var(--color-dark-bg-block);
+    /* Mantengo los valores de Tailwind para algunos que no necesitan ser variables CCH */
+    --tw-prose-bullets: #64748b; 
     --tw-prose-hr: #475569;
-    --tw-prose-quotes: #e2e8f0;
     --tw-prose-quote-borders: #475569;
-    --tw-prose-captions: #94a3b8;
-    --tw-prose-code: #e2e8f0;
-    --tw-prose-pre-code: #cbd5e1;
-    --tw-prose-pre-bg: #1e293b;
     --tw-prose-th-borders: #475569;
     --tw-prose-td-borders: #334155;
   }
   
-  /* Asegurar que los párrafos tengan buen contraste */
+  /* Sobreescrituras con tus variables HSL generadas */
+  
   :is(.dark .prose) p {
-    color: #e2e8f0 !important;
+    color: var(--color-dark-body) !important;
   }
   
   :is(.dark .prose) h1,
   :is(.dark .prose) h2,
   :is(.dark .prose) h3,
   :is(.dark .prose) h4 {
-    color: #60a5fa !important;
+    color: var(--color-dark-heading-main) !important;
   }
   
   :is(.dark .prose) strong {
-    color: #f1f5f9 !important;
+    color: var(--color-dark-strong) !important;
   }
   
   :is(.dark .prose) a {
-    color: #60a5fa !important;
+    color: var(--color-dark-heading-main) !important;
   }
   
   :is(.dark .prose) a:hover {
-    color: #93c5fd !important;
+    color: var(--color-dark-heading-secondary) !important;
   }
   
   /* Overrides específicos para prose-slate en dark mode */
   :is(.dark .prose-slate) h2 {
-    color: #60a5fa !important;
+    color: var(--color-dark-heading-main) !important;
   }
   
   :is(.dark .prose-slate) h3 {
-    color: #93c5fd !important;
+    color: var(--color-dark-heading-secondary) !important;
   }
   
   :is(.dark .prose-slate) h4 {
-    color: #cbd5e1 !important;
+    color: var(--color-dark-heading-tertiary) !important;
   }
   
   /* Estilos para listas en dark mode */
   :is(.dark .prose) ul > li,
   :is(.dark .prose) ol > li {
-    color: #e2e8f0 !important;
+    color: var(--color-dark-body) !important;
   }
   
   /* Marcadores/bullets de listas en dark mode */
   :is(.dark .prose) ul > li::marker {
-    color: #94a3b8 !important;
+    color: var(--color-dark-border) !important;
   }
   
   :is(.dark .prose) ol > li::marker {
-    color: #94a3b8 !important;
+    color: var(--color-dark-border) !important;
   }
   
   /* Listas anidadas */
   :is(.dark .prose) li > ul,
   :is(.dark .prose) li > ol {
-    color: #e2e8f0 !important;
+    color: var(--color-dark-body) !important;
   }
 }
 
@@ -162,25 +204,7 @@ html {
   line-height: 1.7;
 }
 
-/* When in grid layout, reduce bottom margin on items */
-.ol-alpha.grid > li,
-.ol-number.grid > li,
-.ul-disc.grid > li {
-  margin-bottom: 0;
-}
-
-/* When in flex layout (inline), adjust spacing */
-.ol-alpha.flex > li,
-.ol-number.flex > li,
-.ul-disc.flex > li {
-  margin-bottom: 0;
-}
-
-.ol-alpha > li:last-child,
-.ol-number > li:last-child,
-.ul-disc > li:last-child {
-  margin-bottom: 0;
-}
+/* Omitiendo estilos de grid/flex y last-child para mantener el enfoque en color */
 
 /* Circle badges for counters */
 .ol-alpha > li::before,
@@ -216,75 +240,7 @@ html {
 .dark .ol-alpha > li,
 .dark .ol-number > li,
 .dark .ul-disc > li {
-  color: #e2e8f0;
-}
-
-/* Alphabetic list (a, b, c...) */
-.ol-alpha > li::before {
-  content: counter(item, lower-alpha);
-}
-
-/* Numeric list (1, 2, 3...) */
-.ol-number > li::before {
-  content: counter(item);
-}
-
-/* Disc/bullet list */
-.ul-disc > li {
-  padding-left: 2rem;
-}
-
-.ul-disc > li::before {
-  content: "";
-  min-width: 0.625rem;
-  min-height: 0.625rem;
-  max-width: 0.625rem;
-  max-height: 0.625rem;
-  top: 0.6rem;
-}
-
-/* Nested lists inside ul-disc */
-.ul-disc > li ul {
-  list-style: disc;
-  margin-top: 0.75rem;
-  margin-left: 1.5rem;
-  margin-bottom: 0;
-}
-
-.ul-disc > li ul li {
-  padding-bottom: 0.5rem;
-  padding-left: 0.5rem;
-}
-
-.ul-disc > li ul li:last-child {
-  padding-bottom: 0;
-}
-
-/* Simple list with default disc */
-.ul {
-  list-style: disc;
-  padding-left: 1.5rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.ul li {
-  margin-bottom: 0.5rem;
-  line-height: 1.7;
-}
-
-/* Simple ordered list with letters */
-.ol-letra {
-  list-style: lower-alpha;
-  padding-left: 1.5rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.ol-letra li {
-  margin-bottom: 0.5rem;
-  line-height: 1.7;
-  padding-left: 0.5rem;
+  color: var(--color-dark-body);
 }
 
 /* Strong text inside lists */
@@ -297,26 +253,23 @@ html {
 
 .dark .ol-alpha > li strong,
 .dark .ol-number > li strong,
-.dark .ul-disc > li strong {
+.ul-disc > li strong {
   color: var(--color-cch-dorado);
 }
 
 /* KaTeX Styles - Dark Mode Support */
-/* Inline math */
 .katex {
   font-size: 1.1em;
 }
 
-/* Display math (block) */
 .katex-display {
   margin: 1.5rem 0;
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-/* Dark mode para KaTeX */
 .dark .katex {
-  color: #e2e8f0;
+  color: var(--color-dark-body);
 }
 
 .dark .katex .mord,
@@ -327,17 +280,17 @@ html {
 .dark .katex .mopen,
 .dark .katex .mclose,
 .dark .katex .minner {
-  color: #e2e8f0 !important;
+  color: var(--color-dark-body) !important;
 }
 
 /* Fracciones y raíces en dark mode */
 .dark .katex .frac-line,
 .dark .katex .sqrt-line {
-  border-bottom-color: #94a3b8;
+  border-bottom-color: var(--color-dark-border);
 }
 
 .dark .katex .sqrt-sign {
-  border-color: #94a3b8;
+  border-color: var(--color-dark-border);
 }
 
 /* Delimiters (paréntesis, corchetes) en dark mode */
@@ -346,7 +299,7 @@ html {
 .dark .katex .delim-size2,
 .dark .katex .delim-size3,
 .dark .katex .delim-size4 {
-  color: #cbd5e1 !important;
+  color: var(--color-dark-heading-tertiary) !important;
 }
 
 /* Mejorar scrollbar en dark mode para ecuaciones largas */
@@ -355,7 +308,7 @@ html {
 }
 
 .dark .katex-display::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: var(--color-dark-bg-block);
   border-radius: 4px;
 }
 
