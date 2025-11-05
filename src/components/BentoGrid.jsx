@@ -1,10 +1,80 @@
 import { useState, useEffect } from 'react';
 
-// Colores para los OAs
+// Utilidad para componer clases con soporte condicional y evitar duplicación
+const joinClassList = (tokens) => tokens.filter(Boolean).join(' ');
+
+const createOAStyles = ({
+  lightBg,
+  lightGlassBg,
+  darkBg,
+  darkGlassBg,
+  borderLight,
+  borderDark,
+  textLight,
+  textDark,
+  indicatorLight,
+  indicatorDark,
+  ring,
+  shadow,
+}) => ({
+  labelSurface: joinClassList([
+    lightBg,
+    lightGlassBg && `supports-[backdrop-filter]:${lightGlassBg}`,
+    'supports-[backdrop-filter]:backdrop-blur-md',
+    darkBg && `dark:${darkBg}`,
+    darkGlassBg && `dark:supports-[backdrop-filter]:${darkGlassBg}`,
+  ]),
+  labelBorder: joinClassList([borderLight, borderDark && `dark:${borderDark}`]),
+  labelText: joinClassList([textLight, textDark && `dark:${textDark}`]),
+  indicator: joinClassList([indicatorLight, indicatorDark && `dark:${indicatorDark}`]),
+  ring,
+  shadow,
+});
+
+// Paleta por OA para acentos visuales
 const oaColors = {
-  'oa1': { bg: 'bg-blue-50', text: 'text-blue-900', border: 'border-blue-200' },
-  'oa2': { bg: 'bg-purple-50', text: 'text-purple-900', border: 'border-purple-200' },
-  'oa3': { bg: 'bg-green-50', text: 'text-green-900', border: 'border-green-200' },
+  oa1: createOAStyles({
+    lightBg: 'bg-blue-100/85',
+    lightGlassBg: 'bg-blue-100/55',
+    darkBg: 'bg-blue-500/25',
+    darkGlassBg: 'bg-blue-500/18',
+    borderLight: 'border-blue-200/80',
+    borderDark: 'border-blue-300/25',
+    textLight: 'text-blue-800',
+    textDark: 'text-blue-100',
+    indicatorLight: 'text-blue-700',
+    indicatorDark: 'text-blue-200',
+    ring: 'focus-visible:ring-blue-400/60',
+    shadow: 'hover:shadow-[0_18px_35px_-20px_rgba(37,99,235,0.45)]',
+  }),
+  oa2: createOAStyles({
+    lightBg: 'bg-purple-100/85',
+    lightGlassBg: 'bg-purple-100/55',
+    darkBg: 'bg-purple-500/25',
+    darkGlassBg: 'bg-purple-500/18',
+    borderLight: 'border-purple-200/80',
+    borderDark: 'border-purple-300/25',
+    textLight: 'text-purple-800',
+    textDark: 'text-purple-100',
+    indicatorLight: 'text-purple-700',
+    indicatorDark: 'text-purple-200',
+    ring: 'focus-visible:ring-purple-400/60',
+    shadow: 'hover:shadow-[0_18px_35px_-20px_rgba(147,51,234,0.45)]',
+  }),
+  oa3: createOAStyles({
+    lightBg: 'bg-emerald-100/85',
+    lightGlassBg: 'bg-emerald-100/55',
+    darkBg: 'bg-green-500/20',
+    darkGlassBg: 'bg-green-500/16',
+    borderLight: 'border-emerald-200/80',
+    borderDark: 'border-emerald-300/25',
+    textLight: 'text-emerald-800',
+    textDark: 'text-green-100',
+    indicatorLight: 'text-green-700',
+    indicatorDark: 'text-green-200',
+    ring: 'focus-visible:ring-green-400/60',
+    shadow: 'hover:shadow-[0_18px_35px_-20px_rgba(22,163,74,0.45)]',
+  }),
 };
 
 function shuffleArray(array) {
@@ -62,46 +132,61 @@ export default function BentoGrid({ screens = [] }) {
       {selectedScreens.map((screen, index) => {
         const colSpanClass = bentoPatterns[index % bentoPatterns.length];
         const isLarge = colSpanClass.includes('col-span-2');
-        const colors = oaColors[screen.oaSlug];
+        const colors = oaColors[screen.oaSlug] ?? oaColors.oa1;
         
         return (
           <a
             key={`${screen.oaSlug}-${screen.screenSlug}`}
             href={`/objetos/${screen.oaSlug}/${screen.screenSlug}`}
-            className={`${colSpanClass} relative overflow-hidden
-              border-2 ${colors.border} rounded-xl 
-              transition-all duration-300 hover:scale-102 hover:shadow-2xl hover:border-opacity-60
-              ${isLarge ? 'min-h-[140px]' : 'min-h-[120px]'}
-              group`}
+            className={`${colSpanClass} group relative overflow-hidden rounded-2xl
+              border border-slate-200/70 dark:border-white/10
+              bg-white/5 dark:bg-slate-950/10
+              transition-all duration-300 ease-out
+              hover:-translate-y-1 ${colors.shadow}
+              focus-visible:outline-none focus-visible:ring-2 ${colors.ring}
+              focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950
+              ${isLarge ? 'min-h-40' : 'min-h-32'}`}
           >
             {/* Imagen de fondo con efecto zoom en hover */}
             <img 
               src={screen.oaCover} 
               alt=""
-              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-120"
+              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
             />
             
-            {/* Overlay con gradiente glossy */}
-            <div
-              className={`absolute inset-0 bg-linear-to-br ${colors.bg.replace("50", "600/70")} to-white/80
-              backdrop-blur-xs transition-all duration-300 group-hover:backdrop-blur-[2px]`}
-            ></div>
-            
-            {/* Brillo glossy sutil */}
-            <div className="absolute inset-0 bg-linear-to-br from-white/30 via-transparent to-transparent opacity-50"></div>
-            
+            {/* Capas de refuerzo para contraste */}
+            <div className="absolute inset-0 bg-linear-to-br from-slate-950/30 via-slate-900/20 to-slate-900/5 mix-blend-multiply"></div>
+            <div className="absolute inset-0 bg-linear-to-t from-slate-950/55 via-slate-900/20 to-transparent"></div>
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 group-hover:scale-[1.02]
+              transition-all duration-300 ease-out
+              bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.35),rgba(255,255,255,0.06)_60%)]"></div>
+
             {/* Contenido */}
-            <div className={`relative z-10 p-6 h-full flex flex-col justify-between ${colors.text}`}>
-              <div>
-                <div className="text-sm font-medium opacity-80 mb-2 drop-shadow-sm">{screen.oaTitle}</div>
-                <div className={`font-bold drop-shadow-sm ${isLarge ? 'text-lg' : 'text-base'}`}>
+            <div className="relative z-10 h-full p-4 md:p-6 flex items-end">
+              <div className="w-full">
+                <div className={`inline-flex flex-wrap items-center gap-2 px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.14em] leading-4
+                  rounded-lg md:rounded-full border ${colors.labelBorder}
+                  ${colors.labelSurface} ${colors.labelText}
+                  max-w-full text-left line-clamp-2 overflow-hidden`}
+                >
+                  {screen.oaTitle}
+                </div>
+                <div className={`mt-3 font-bold tracking-tight leading-snug text-slate-50 dark:text-slate-100 ${isLarge ? 'text-xl md:text-2xl' : 'text-lg md:text-xl'}`}>
                   {screen.screenTitle}
                 </div>
-              </div>
-              
-              {/* Indicador de hover */}
-              <div className="mt-auto pt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="text-xs font-semibold">Ver contenido →</span>
+                <div className="mt-4">
+                  <span className={`inline-flex items-center gap-1 text-sm font-medium transition-all duration-300
+                    opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 ${colors.indicator}`}>
+                    Ver contenido
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 20 20"
+                      className="h-3.5 w-3.5 fill-current"
+                    >
+                      <path d="M6.75 4.75a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0v-5.69l-7.22 7.22a.75.75 0 0 1-1.06-1.06l7.22-7.22h-5.69z" />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
           </a>
