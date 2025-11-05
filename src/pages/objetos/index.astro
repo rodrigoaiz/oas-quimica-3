@@ -19,21 +19,25 @@ interface OAWithScreens {
 const allObjetos = await getCollection('objetos');
 
 // Separar los OAs principales de las pantallas
-const oasPrincipales = allObjetos.filter((obj: CollectionEntry<'objetos'>) => !obj.id.includes('/'));
+// OAs principales: oa1.mdx, oa2.mdx, oa3.mdx (sin "/" y que empiecen con "oa")
+const oasPrincipales = allObjetos.filter(
+  (obj: CollectionEntry<'objetos'>) => !obj.id.includes('/') && obj.id.match(/^oa\d+\.mdx$/)
+);
 const pantallas = allObjetos.filter((obj: CollectionEntry<'objetos'>) => obj.id.includes('/'));
 
 // Construir la estructura de datos con OAs y sus pantallas
 const oaData: OAWithScreens[] = oasPrincipales
   .sort((a: CollectionEntry<'objetos'>, b: CollectionEntry<'objetos'>) => a.data.order - b.data.order)
   .map((oa: CollectionEntry<'objetos'>) => {
-    const slug = oa.id.replace('.mdx', '');
+    const slug = oa.id.replace('.mdx', ''); // "oa1.mdx" -> "oa1"
     
     // Obtener todas las pantallas de este OA
+    // Las pantallas están en carpetas como "oa1/introduccion.mdx"
     const screens = pantallas
-      .filter((p: CollectionEntry<'objetos'>) => p.data.oaSlug === slug)
+      .filter((p: CollectionEntry<'objetos'>) => p.id.startsWith(`${slug}/`))
       .sort((a: CollectionEntry<'objetos'>, b: CollectionEntry<'objetos'>) => a.data.order - b.data.order)
       .map((p: CollectionEntry<'objetos'>) => ({
-        slug: p.data.screenSlug!,
+        slug: p.id.replace(`${slug}/`, '').replace('.mdx', ''), // "oa1/introduccion.mdx" -> "introduccion"
         title: p.data.title
       }));
     
@@ -122,7 +126,7 @@ const breadcrumbItems = [
 
               {/* Botón principal */}
               <a 
-                href={`/objetos/${oa.slug}/introduccion`}
+                href={`/objetos/${oa.slug}`}
                 class="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-cch-azul to-blue-600 dark:from-cch-dorado dark:to-yellow-600 text-white dark:text-slate-900 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all"
               >
                 Comenzar objeto de aprendizaje
