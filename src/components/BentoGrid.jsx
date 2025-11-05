@@ -74,12 +74,11 @@ export default function BentoGrid({ screens = [] }) {
               ${isLarge ? 'min-h-[140px]' : 'min-h-[120px]'}
               group`}
           >
-            {/* Imagen de fondo sin escalar */}
+            {/* Imagen de fondo con efecto zoom en hover */}
             <img 
               src={screen.oaCover} 
               alt=""
-              className="absolute inset-0 w-full h-full object-none object-center"
-              style={{ transform: 'scale(1)' }}
+              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-120"
             />
             
             {/* Overlay con gradiente glossy */}
