@@ -1,8 +1,7 @@
 ---
-// Define las variables de color para usar en el script y en los estilos
-const primaryColor = "#0070f3"; // Azul UNAM/moderno
-const secondaryColor = "#00f7c2"; // Cian/Verde brillante
-const textColor = "#333333";
+// Los colores ahora están centralizados en global.css como variables CSS
+// --color-cch-azul (ya existía)
+// --color-hero-cyan (recién agregado)
 ---
 
 <section class="hero-section">
@@ -213,7 +212,7 @@ const textColor = "#333333";
   }
 </script>
 
-<style define:vars={{ primaryColor, secondaryColor, textColor }}>
+<style>
   /* --- SECCIÓN HERO --- */
   .hero-section {
     position: relative;
@@ -222,7 +221,7 @@ const textColor = "#333333";
     padding: 60px 20px;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, var(--primaryColor) 0%, #30c8ff 100%); /* Fondo degradado */
+    background: linear-gradient(135deg, var(--color-cch-azul) 0%, #30c8ff 100%); /* Fondo degradado */
     color: white;
   }
 
@@ -379,7 +378,7 @@ const textColor = "#333333";
     margin-bottom: 0.5rem;
     font-weight: 800;
     span {
-      color: var(--secondaryColor);
+      color: var(--color-hero-cyan);
     }
   }
 
@@ -407,8 +406,8 @@ const textColor = "#333333";
   }
 
   .btn-primary {
-    background-color: var(--secondaryColor);
-    color: var(--primaryColor);
+    background-color: var(--color-hero-cyan);
+    color: var(--color-cch-azul);
     box-shadow: 0 4px 10px rgba(0, 247, 194, 0.4);
   }
 

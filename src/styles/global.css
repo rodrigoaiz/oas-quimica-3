@@ -21,6 +21,9 @@
   --cch-dorado-l: 55%;
   --color-cch-dorado: hsl(var(--cch-dorado-h), var(--cch-dorado-s), var(--cch-dorado-l));
 
+  /* Hero Cyan/Verde (Acento brillante) -> usado en HeroQuimico */
+  --color-hero-cyan: #00f7c2;
+  
   --color-cch-gris: #f5f6f7;
   --color-cch-gris-dark: #1e293b;
 
