@@ -25,17 +25,25 @@ oasPrincipales.forEach((obj: CollectionEntry<'objetos'>) => {
 });
 
 // Preparar las pantallas para el BentoGrid
-// Filtrar solo las que tengan oaSlug y screenSlug definidos
+// Extraer oaSlug y screenSlug del id del archivo (ej: "oa1/introduccion.mdx")
 const screens = pantallas
-  .filter((screen: CollectionEntry<'objetos'>) => screen.data.oaSlug && screen.data.screenSlug)
-  .map((screen: CollectionEntry<'objetos'>) => ({
-    oaSlug: screen.data.oaSlug!,
-    oaTitle: objetosMap[screen.data.oaSlug!]?.title || screen.data.oaSlug!,
-    oaCover: objetosMap[screen.data.oaSlug!]?.cover || '/images/cover-placeholder.jpg',
-    screenSlug: screen.data.screenSlug!,
-    screenTitle: screen.data.title,
-    order: screen.data.order
-  }));
+  .map((screen: CollectionEntry<'objetos'>) => {
+    const parts = screen.id.split('/');
+    if (parts.length !== 2) return null; // Asegurar que tiene formato correcto
+    
+    const oaSlug = parts[0]; // "oa1"
+    const screenSlug = parts[1].replace('.mdx', ''); // "introduccion.mdx" -> "introduccion"
+    
+    return {
+      oaSlug,
+      oaTitle: objetosMap[oaSlug]?.title || oaSlug,
+      oaCover: objetosMap[oaSlug]?.cover || '/images/cover-placeholder.jpg',
+      screenSlug,
+      screenTitle: screen.data.title,
+      order: screen.data.order
+    };
+  })
+  .filter((screen): screen is NonNullable<typeof screen> => screen !== null);
 ---
 <Base title="Química 3 · CCH – Objetos de aprendizaje">
   <HeroQuimico />
