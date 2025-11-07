@@ -47,13 +47,13 @@ export default function MultiSelect({
     [...selectedOptions].every(i => correctSet.has(i));
 
   return (
-    <div className="multiselect-container my-6 p-4 md:p-6 rounded-2xl border-2 border-purple-200 dark:border-purple-800 bg-linear-to-br from-purple-50 to-pink-50 dark:from-slate-800 dark:to-slate-900 shadow-lg">
+    <div className="multiselect-container my-6 p-4 md:p-6 rounded-2xl border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 shadow-lg">
       {/* Pregunta */}
       <div className="mb-4 md:mb-6">
         <p className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 leading-relaxed">
           {question}
         </p>
-        <p className="text-xs md:text-sm text-purple-600 dark:text-purple-400 mt-2 font-medium">
+        <p className="text-xs md:text-sm text-(--color-primary) dark:text-(--color-primary-dark) mt-2 font-medium">
           Selecciona todas las opciones correctas
         </p>
       </div>
@@ -70,8 +70,8 @@ export default function MultiSelect({
           if (!submitted) {
             // Sin enviar
             optionClasses += isSelected
-              ? "border-purple-400 dark:border-purple-500 bg-purple-100 dark:bg-purple-900/30 shadow-md scale-[1.01]"
-              : "border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-purple-400 dark:hover:border-purple-500 hover:shadow-md";
+              ? "border-(--color-primary) dark:border-(--color-primary-dark) bg-(--color-primary)/10 dark:bg-(--color-primary-dark)/20 shadow-md scale-[1.01]"
+              : "border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-(--color-primary) dark:hover:border-(--color-primary-dark) hover:shadow-md";
           } else {
             // Después de enviar
             if (isSelected && isThisCorrect) {
@@ -127,7 +127,7 @@ export default function MultiSelect({
           className={`mt-4 md:mt-6 w-full py-3 rounded-xl font-semibold text-sm md:text-base transition-all ${
             selectedOptions.size === 0
               ? 'bg-gray-200 dark:bg-slate-700 text-gray-400 dark:text-gray-600 cursor-not-allowed'
-              : 'bg-purple-600 dark:bg-purple-500 text-white hover:bg-purple-700 dark:hover:bg-purple-600 hover:scale-[1.02] shadow-md'
+              : 'bg-primary dark:bg-primary-dark text-white hover:bg-primary/90 dark:hover:bg-primary-dark/90 hover:scale-[1.02] shadow-md'
           }`}
         >
           {selectedOptions.size === 0 ? 'Selecciona al menos una opción' : `Verificar (${selectedOptions.size} seleccionada${selectedOptions.size !== 1 ? 's' : ''})`}

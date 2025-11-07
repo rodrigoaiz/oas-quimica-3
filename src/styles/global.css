@@ -52,13 +52,15 @@
   --color-primary-dark-h: 205;
   --color-primary-dark-s: 86%;
   --color-primary-dark-l: 44%;
+  --color-primary-dark: hsl(var(--color-primary-dark-h), var(--color-primary-dark-s), var(--color-primary-dark-l));
 
   /* Textos en dark mode */
   --color-dark-body: #E0FBFC; /* Azul muy claro */
   --color-dark-emphasis: #E0FBFC;
   --color-dark-heading-tertiary: #9AC9C8; /* Texto secundario dark */
   --color-dark-border: #0f80cf; /* Borde dark */
-  --color-dark-bg-block: #023671; /* Fondo de bloques */
+  --color-dark-bg-main: #101828; /* Fondo principal dark */
+  --color-dark-bg-block: #1a263a; /* Fondo de bloques */
   --color-dark-pre-code: #9AC9C8;
   
   /* Definiciones iniciales (se sobrescriben en dark mode) */

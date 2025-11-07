@@ -110,7 +110,7 @@
   </div>
 
   <div class="hero-content bg-slate-800/55 px-5 md:px-10 py-4 md:py-6">
-    <h1 class="hero-title">Materiales de<br> apoyo · <span>Química 3</span></h1>
+    <h1 class="hero-title">Materiales de<br /> apoyo · <span>Química 3</span></h1>
     <p class="hero-subtitle">Objetivo: Desarrollar contenidos interactivos de la asignatura de Química 3, en una plataforma para el reforzamiento de aprendizajes del alumnado del CCH.</p>
     <div class="hero-actions gap-4 flex flex-col md:flex-row">
       <a href="#objetos" class="btn btn-primary">Explorar los materiales</a>
@@ -146,23 +146,28 @@
       const br4 = 40 + Math.random() * 60;
       particle.style.borderRadius = `${br1}% ${br2}% ${br3}% ${br4}%`;
 
-      // Colores aleatorios entre cyan y blanco
+      // Colores aleatorios: verde, rosa, anaranjado, amarillo
       const colorVariant = Math.random();
-      if (colorVariant < 0.3) {
-        // Cyan brillante
-        particle.style.background = "rgba(0, 247, 194, 0.7)";
-        particle.style.border = "2px solid rgba(0, 247, 194, 0.9)";
-        particle.style.boxShadow = "0 0 20px rgba(0, 247, 194, 0.8)";
-      } else if (colorVariant < 0.6) {
-        // Blanco translúcido
-        particle.style.background = "rgba(255, 255, 255, 0.8)";
-        particle.style.border = "2px solid rgba(200, 250, 240, 0.9)";
-        particle.style.boxShadow = "0 0 15px rgba(255, 255, 255, 0.6)";
+      if (colorVariant < 0.25) {
+        // Verde #51e368
+        particle.style.background = "rgba(81, 227, 104, 0.7)";
+        particle.style.border = "2px solid rgba(81, 227, 104, 0.9)";
+        particle.style.boxShadow = "0 0 20px rgba(81, 227, 104, 0.8)";
+      } else if (colorVariant < 0.5) {
+        // Rosa #ec3c7d
+        particle.style.background = "rgba(236, 60, 125, 0.7)";
+        particle.style.border = "2px solid rgba(236, 60, 125, 0.9)";
+        particle.style.boxShadow = "0 0 20px rgba(236, 60, 125, 0.8)";
+      } else if (colorVariant < 0.75) {
+        // Anaranjado #f46b01
+        particle.style.background = "rgba(244, 107, 1, 0.7)";
+        particle.style.border = "2px solid rgba(244, 107, 1, 0.9)";
+        particle.style.boxShadow = "0 0 20px rgba(244, 107, 1, 0.8)";
       } else {
-        // Azul claro
-        particle.style.background = "rgba(100, 200, 255, 0.6)";
-        particle.style.border = "2px solid rgba(150, 220, 255, 0.8)";
-        particle.style.boxShadow = "0 0 18px rgba(100, 200, 255, 0.7)";
+        // Amarillo #ffcc11
+        particle.style.background = "rgba(255, 204, 17, 0.7)";
+        particle.style.border = "2px solid rgba(255, 204, 17, 0.9)";
+        particle.style.boxShadow = "0 0 20px rgba(255, 204, 17, 0.8)";
       }
 
       // Duración de animación aleatoria (10s - 25s)
@@ -239,26 +244,26 @@
   /* Contenedor de moléculas (ahora SVG) */
   .molecule {
     position: absolute;
-    filter: drop-shadow(0 0 15px rgba(0, 247, 194, 0.4));
+    filter: drop-shadow(0 0 15px rgba(81, 227, 104, 0.4));
     z-index: 2;
   }
 
   /* Átomos SVG (círculos) */
   .molecule .atom {
     fill: rgba(255, 255, 255, 0.7);
-    stroke: rgba(0, 247, 194, 0.9);
+    stroke: rgba(81, 227, 104, 0.9);
     stroke-width: 3;
   }
 
   /* Heteroátomos (O, N, etc.) con un tono más marcado */
   .molecule .atom-hetero {
     fill: rgba(255, 255, 255, 0.85);
-    stroke: rgba(255, 120, 120, 0.95);
+    stroke: rgba(236, 60, 125, 0.95);
   }
 
   /* Enlaces SVG (líneas) */
   .molecule .bond {
-    stroke: rgba(0, 247, 194, 0.7);
+    stroke: rgba(81, 227, 104, 0.7);
     stroke-width: 3;
     stroke-linecap: round;
   }
@@ -277,9 +282,9 @@
   .particle {
     position: absolute;
     background: rgba(255, 255, 255, 0.6);
-    border: 2px solid rgba(0, 247, 194, 0.5);
+    border: 2px solid rgba(81, 227, 104, 0.5);
     border-radius: 50%;
-    box-shadow: 0 0 15px rgba(0, 247, 194, 0.4);
+    box-shadow: 0 0 15px rgba(81, 227, 104, 0.4);
   }
 
   /* Contenedor de partículas dinámicas */
@@ -378,7 +383,7 @@
     margin-bottom: 0.5rem;
     font-weight: 800;
     span {
-      color: var(--color-hero-cyan);
+      color: #51e368; /* Verde */
     }
   }
 
@@ -386,6 +391,7 @@
     font-size: clamp(1rem, 2vw, 1.25rem);
     margin-bottom: 1.5rem;
     opacity: 0.9;
+    color: #ffcc11; /* Amarillo */
   }
 
   /* Botones Mobile-First */
@@ -406,15 +412,20 @@
   }
 
   .btn-primary {
-    background-color: var(--color-hero-cyan);
-    color: var(--color-cch-azul);
-    box-shadow: 0 4px 10px rgba(0, 247, 194, 0.4);
+    background-color: #51e368; /* Verde */
+    color: #1a1a1a;
+    box-shadow: 0 4px 10px rgba(81, 227, 104, 0.4);
   }
 
   .btn-secondary {
     background-color: transparent;
     color: white;
-    border: 2px solid white;
+    border: 2px solid #ec3c7d; /* Rosa */
+  }
+
+  .btn-secondary:hover {
+    background-color: rgba(236, 60, 125, 0.1);
+    color: white;
   }
 
   /* Media Query para escritorio (ajustes sutiles) */

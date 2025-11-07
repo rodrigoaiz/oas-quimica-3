@@ -152,7 +152,7 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
               isFirstQuestion
                 ? 'bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-gray-600 cursor-not-allowed'
-                : 'bg-(--color-primary)/10 dark:bg-(--color-primary-dark)/30 text-(--color-primary) dark:text-(--color-primary-dark) hover:bg-(--color-primary)/20 dark:hover:bg-(--color-primary-dark)/50 hover:scale-105'
+                : 'bg-(--color-primary)/10 dark:bg-(--color-primary-dark)/20 text-(--color-primary) dark:text-(--color-primary-dark) hover:bg-(--color-primary)/20 dark:hover:bg-(--color-primary-dark)/30 hover:scale-105 dark:border dark:border-(--color-primary-dark)/40'
             }`}
           >
             <span>←</span>
@@ -169,7 +169,7 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
               isLastQuestion
                 ? 'bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-gray-600 cursor-not-allowed'
-                : 'bg-(--color-primary) dark:bg-(--color-primary-dark) text-white hover:bg-(--color-primary)/90 dark:hover:bg-(--color-primary-dark)/90 hover:scale-105'
+                : 'bg-(--color-primary) dark:bg-(--color-primary-dark)/80 text-white dark:text-white hover:bg-(--color-primary)/90 dark:hover:bg-(--color-primary-dark) hover:scale-105 dark:border dark:border-(--color-primary-dark)'
             }`}
           >
             <span>Siguiente</span>
