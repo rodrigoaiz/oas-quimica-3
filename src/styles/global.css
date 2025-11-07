@@ -9,25 +9,25 @@
   /* === PALETA DE COLORES BASADA EN QUÍMICA (Light Mode) === */
   /* ================================================= */
   
-  /* PRIMARIO: Azul suave para light mode -> hsl(205, 55%, 50%) */
+  /* PRIMARIO: Azul suave para light mode -> hsl(205, 86%, 44%) */
   --color-primary-h: 205;
-  --color-primary-s: 55%;
-  --color-primary-l: 50%;
+  --color-primary-s: 86%;
+  --color-primary-l: 44%;
   --color-primary: hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l));
   
-  /* SECUNDARIO: Coral cálido (#EE6C4D) -> hsl(11, 82%, 62%) */
-  --color-secondary-h: 11;
-  --color-secondary-s: 82%;
-  --color-secondary-l: 62%;
+  /* SECUNDARIO: Coral cálido -> hsl(26, 99%, 48%) */
+  --color-secondary-h: 26;
+  --color-secondary-s: 99%;
+  --color-secondary-l: 48%;
   --color-secondary: hsl(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l));
 
-  /* ACENTO: Amarillo eléctrico (#E9D758) -> hsl(52, 75%, 63%) para dark mode */
-  --color-accent-h: 52;
-  --color-accent-s: 75%;
-  --color-accent-l: 63%;
+  /* ACENTO: Amarillo eléctrico -> hsl(47, 100%, 53%) para dark mode */
+  --color-accent-h: 47;
+  --color-accent-s: 100%;
+  --color-accent-l: 53%;
   --color-accent: hsl(var(--color-accent-h), var(--color-accent-s), var(--color-accent-l));
 
-  /* FONDO: Azul grisáceo claro (#FAF9F6) -> hsl(182, 75%, 94%) */
+  /* FONDO: Azul grisáceo claro -> hsl(182, 75%, 94%) */
   --color-bg-main: #E1FCEE;
   
   /* TEXTO: Gris azulado oscuro (#001219) -> hsl(195, 100%, 5%) */
@@ -40,7 +40,7 @@
   /* Legacy colors (mantener compatibilidad) */
   --color-cch-azul: var(--color-primary);
   --color-cch-dorado: var(--color-secondary);
-  --color-hero-cyan: #0d7ecf; /* Turquesa brillante para hero */
+  --color-hero-cyan: var(--color-primary); /* Turquesa brillante para hero */
   --color-cch-gris: var(--color-bg-main);
   --color-cch-gris-dark: #081C1F; /* Casi negro azulado */
 
@@ -48,17 +48,17 @@
   /* === VARIABLES DE TEMA DARK MODE === */
   /* ================================================= */
   
-  /* Dark mode: Turquesa brillante para primario (#0A9396) -> hsl(182, 83%, 32%) */
-  --color-primary-dark-h: 182;
-  --color-primary-dark-s: 83%;
-  --color-primary-dark-l: 32%;
-  
+  /* Dark mode: Turquesa brillante para primario (#0f80cf) -> hsl(205, 86%, 44%) */
+  --color-primary-dark-h: 205;
+  --color-primary-dark-s: 86%;
+  --color-primary-dark-l: 44%;
+
   /* Textos en dark mode */
   --color-dark-body: #E0FBFC; /* Azul muy claro */
   --color-dark-emphasis: #E0FBFC;
   --color-dark-heading-tertiary: #9AC9C8; /* Texto secundario dark */
-  --color-dark-border: #184E56; /* Borde dark */
-  --color-dark-bg-block: #081C1F; /* Fondo de bloques */
+  --color-dark-border: #0f80cf; /* Borde dark */
+  --color-dark-bg-block: #023671; /* Fondo de bloques */
   --color-dark-pre-code: #9AC9C8;
   
   /* Definiciones iniciales (se sobrescriben en dark mode) */
