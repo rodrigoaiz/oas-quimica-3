@@ -1,9 +1,10 @@
 ---
 /**
  * Componente de imagen para contenido MDX
+ * Encapsula el componente nativo de Astro con props convenientes
  *
  * Props:
- * - src: string - Ruta de la imagen (ej: "/images/oa1/diagrama.png")
+ * - src: ImageMetadata (importación desde assets) o string (ruta a public)
  * - alt: string - Texto alternativo descriptivo
  * - caption?: string - Pie de foto opcional
  * - size?: 'sm' | 'md' | 'lg' | 'full' - Tamaño de la imagen
@@ -12,8 +13,11 @@
  * - class?: string - Clases adicionales
  */
 
+import { Image as AstroImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
-  src: string;
+  src: ImageMetadata | string;
   alt: string;
   caption?: string;
   size?: "sm" | "md" | "lg" | "full";
@@ -32,11 +36,30 @@ const sizeClasses = {
   full: "w-full", // 100%
 };
 
-const roundedClass = rounded ? "" : "rounded-xl";
+const roundedClass = rounded ? "rounded-xl" : "";
 const shadowClass = shadow ? "shadow-lg" : "";
+
+// Determinar si es una importación de assets o una ruta string
+const isAsset = typeof src !== 'string';
 ---
 
 <figure class={`my-8 ${sizeClasses[size]} mx-auto ${className}`}>
-  <img src={src} alt={alt} class={`w-full h-auto ${roundedClass} ${shadowClass} transition-transform duration-300 hover:scale-[1.02]`} loading="lazy" />
-  {caption && <figcaption class="mt-3 text-sm text-center text-slate-800 dark:text-slate-300 italic">{caption}</figcaption>}
+  {isAsset ? (
+    <AstroImage 
+      src={src}
+      alt={alt}
+      class={`w-full h-auto ${roundedClass} ${shadowClass} transition-transform duration-300 hover:scale-[1.02]`}
+      loading="lazy"
+    />
+  ) : (
+    <img 
+      src={src}
+      alt={alt}
+      class={`w-full h-auto ${roundedClass} ${shadowClass} transition-transform duration-300 hover:scale-[1.02]`}
+      loading="lazy"
+    />
+  )}
+  {caption && (
+    <figcaption class="mt-3 text-sm text-center text-slate-800 dark:text-slate-300" set:html={caption} />
+  )}
 </figure>

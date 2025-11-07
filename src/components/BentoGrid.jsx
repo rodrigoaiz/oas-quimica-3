@@ -5,9 +5,7 @@ const joinClassList = (tokens) => tokens.filter(Boolean).join(' ');
 
 const createOAStyles = ({
   lightBg,
-  lightGlassBg,
   darkBg,
-  darkGlassBg,
   borderLight,
   borderDark,
   textLight,
@@ -19,10 +17,7 @@ const createOAStyles = ({
 }) => ({
   labelSurface: joinClassList([
     lightBg,
-    lightGlassBg && `supports-[backdrop-filter]:${lightGlassBg}`,
-    'supports-[backdrop-filter]:backdrop-blur-md',
     darkBg && `dark:${darkBg}`,
-    darkGlassBg && `dark:supports-[backdrop-filter]:${darkGlassBg}`,
   ]),
   labelBorder: joinClassList([borderLight, borderDark && `dark:${borderDark}`]),
   labelText: joinClassList([textLight, textDark && `dark:${textDark}`]),
@@ -34,42 +29,36 @@ const createOAStyles = ({
 // Paleta por OA para acentos visuales
 const oaColors = {
   oa1: createOAStyles({
-    lightBg: 'bg-blue-100/85',
-    lightGlassBg: 'bg-blue-100/55',
-    darkBg: 'bg-blue-500/25',
-    darkGlassBg: 'bg-blue-500/18',
-    borderLight: 'border-blue-200/80',
-    borderDark: 'border-blue-300/25',
-    textLight: 'text-blue-800',
-    textDark: 'text-blue-100',
+    lightBg: 'bg-blue-50/60',
+    darkBg: 'bg-blue-400/25',
+    borderLight: 'border-blue-300/70',
+    borderDark: 'border-blue-400/40',
+    textLight: 'text-blue-900',
+    textDark: 'text-blue-50',
     indicatorLight: 'text-blue-700',
     indicatorDark: 'text-blue-200',
     ring: 'focus-visible:ring-blue-400/60',
     shadow: 'hover:shadow-[0_18px_35px_-20px_rgba(37,99,235,0.45)]',
   }),
   oa2: createOAStyles({
-    lightBg: 'bg-purple-100/85',
-    lightGlassBg: 'bg-purple-100/55',
-    darkBg: 'bg-purple-500/25',
-    darkGlassBg: 'bg-purple-500/18',
-    borderLight: 'border-purple-200/80',
-    borderDark: 'border-purple-300/25',
-    textLight: 'text-purple-800',
-    textDark: 'text-purple-100',
+    lightBg: 'bg-purple-50/60',
+    darkBg: 'bg-purple-400/25',
+    borderLight: 'border-purple-300/70',
+    borderDark: 'border-purple-400/40',
+    textLight: 'text-purple-900',
+    textDark: 'text-purple-50',
     indicatorLight: 'text-purple-700',
     indicatorDark: 'text-purple-200',
     ring: 'focus-visible:ring-purple-400/60',
     shadow: 'hover:shadow-[0_18px_35px_-20px_rgba(147,51,234,0.45)]',
   }),
   oa3: createOAStyles({
-    lightBg: 'bg-emerald-100/85',
-    lightGlassBg: 'bg-emerald-100/55',
-    darkBg: 'bg-green-500/20',
-    darkGlassBg: 'bg-green-500/16',
-    borderLight: 'border-emerald-200/80',
-    borderDark: 'border-emerald-300/25',
-    textLight: 'text-emerald-800',
-    textDark: 'text-green-100',
+    lightBg: 'bg-emerald-50/60',
+    darkBg: 'bg-green-400/23',
+    borderLight: 'border-emerald-300/70',
+    borderDark: 'border-emerald-400/40',
+    textLight: 'text-emerald-900',
+    textDark: 'text-green-50',
     indicatorLight: 'text-green-700',
     indicatorDark: 'text-green-200',
     ring: 'focus-visible:ring-green-400/60',
@@ -167,7 +156,8 @@ export default function BentoGrid({ screens = [] }) {
                 <div className={`inline-flex flex-wrap items-center gap-2 px-3 py-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.14em] leading-4
                   rounded-lg md:rounded-full border ${colors.labelBorder}
                   ${colors.labelSurface} ${colors.labelText}
-                  max-w-full text-left line-clamp-2 overflow-hidden`}
+                  max-w-full text-left line-clamp-2 overflow-hidden
+                  backdrop-blur-xs backdrop-saturate-25 backdrop-contrast-200`}
                 >
                   {screen.oaTitle}
                 </div>
@@ -175,8 +165,8 @@ export default function BentoGrid({ screens = [] }) {
                   {screen.screenTitle}
                 </div>
                 <div className="mt-4">
-                  <span className={`inline-flex items-center gap-1 text-sm font-medium transition-all duration-300
-                    opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 ${colors.indicator}`}>
+                  <span className="inline-flex items-center gap-1 text-sm font-medium transition-all duration-300
+                    opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 text-white drop-shadow-lg">
                     Ver contenido
                     <svg
                       aria-hidden="true"

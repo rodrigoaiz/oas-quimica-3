@@ -6,6 +6,7 @@ screenSlug: "introduccion"
 ---
 import Prose from '@/components/Prose.astro';
 import Image from '@/components/Image.astro';
+import p1img01 from '@/assets/images/oa1/p1-img-01.png';
 
 
 <Prose>
@@ -17,10 +18,10 @@ En 1909, el químico alemán Fritz Haber descubrió cómo sintetizar amoníaco a
 </Prose>
 
 <Image 
-  src="/images/oa1/p1-img-01.png" 
+  src={p1img01}
   alt="Proceso Haber-Bosch: Síntesis de Amoniaco"
   caption="Proceso Haber-Bosch: Síntesis de Amoniaco"
-  size='md'
+  size="md"
 />
 
 <Prose>
