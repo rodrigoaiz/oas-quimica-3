@@ -13,17 +13,17 @@ const footerConfig = footerConfigModule as {
 const { footer, socials, copyright } = footerConfig;
 ---
 
-<footer class="bg-cch-gris dark:bg-slate-900 mt-10 border-t dark:border-slate-700">
+<footer class="bg-(--color-bg-main) dark:bg-slate-900 mt-10 border-t dark:border-slate-700">
   <div class="container mx-auto max-w-5xl px-4">
     <div class="flex flex-col md:flex-row justify-around items-center py-10 gap-8">
       <!-- Logo y marcas -->
       <div class="text-center md:mb-0 md:text-left">
         <div class="w-full flex justify-center mb-6">
-          <a href="/" class="text-xl font-semibold text-cch-azul dark:text-cch-dorado">Química 3</a>
+          <a href="/" class="text-xl font-semibold text-(--color-primary) dark:text-(--color-secondary)">Química 3</a>
         </div>
         <div class="grid grid-cols-3 gap-4 items-center justify-center">
           <a href="https://www.unam.mx/" target="_blank" rel="noreferrer" aria-label="UNAM" class="logo-link">
-            <LogoUnam class="w-10 h-10" />
+            <LogoUnam class="w-10 h-10 fill-amber-500" />
           </a>
           <a href="https://cch.unam.mx/" target="_blank" rel="noreferrer" aria-label="CCH" class="logo-link">
             <LogoCCH class="w-10 h-10" />
@@ -41,7 +41,7 @@ const { footer, socials, copyright } = footerConfig;
             {
               footer.map((menu) => (
                 <li>
-                  <a class="text-slate-700 dark:text-slate-300 hover:text-cch-azul dark:hover:text-cch-dorado transition-all" href={menu.url}>
+                  <a class="text-slate-700 dark:text-slate-300 hover:text-(--color-primary) dark:hover:text-(--color-secondary) transition-all" href={menu.url}>
                     {menu.name}
                   </a>
                 </li>
@@ -59,7 +59,7 @@ const { footer, socials, copyright } = footerConfig;
               socials.map((social) => (
                 <li>
                   <a
-                    class="text-slate-700 dark:text-slate-300 hover:text-cch-azul dark:hover:text-cch-dorado transition-all text-xl"
+                    class="text-slate-700 dark:text-slate-300 hover:text-(--color-primary) dark:hover:text-(--color-secondary) transition-all text-xl"
                     href={social.link}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -83,23 +83,4 @@ const { footer, socials, copyright } = footerConfig;
   </div>
 </footer>
 
-<style>
-  /* Cambiar color de logos SVG según tema */
-  .logo-link svg {
-    filter: brightness(0) saturate(100%) invert(22%) sepia(98%) saturate(1742%) hue-rotate(192deg) brightness(92%) contrast(101%);
-    transition: filter 0.3s ease, opacity 0.3s ease;
-  }
-  
-  :global(.dark) .logo-link svg {
-    filter: brightness(0) saturate(100%) invert(69%) sepia(34%) saturate(462%) hue-rotate(358deg) brightness(95%) contrast(87%);
-  }
-  
-  .logo-link:hover svg {
-    opacity: 0.8;
-  }
-</style>
 
-<script>
-  // Cargar Iconify para los iconos de redes sociales
-  import "iconify-icon";
-</script>

@@ -24,7 +24,7 @@ export default function MCQControlled({
   };
 
   return (
-    <div className="mcq-container my-6 p-4 md:p-6 rounded-2xl border-2 border-blue-200 dark:border-blue-800 bg-linear-to-br from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900 shadow-lg">
+    <div className="mcq-container my-6 p-4 md:p-6 rounded-2xl border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 shadow-lg">
       {/* Pregunta */}
       <div className="mb-4 md:mb-6">
         <p className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 leading-relaxed">
@@ -44,7 +44,7 @@ export default function MCQControlled({
           
           if (!isAnswered) {
             // Sin responder
-            optionClasses += "border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-md hover:scale-[1.02]";
+            optionClasses += "border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-(--color-primary) dark:hover:border-(--color-primary-dark) hover:shadow-md hover:scale-[1.02]";
           } else if (isSelected && isCorrect) {
             // Respuesta correcta seleccionada
             optionClasses += "border-green-500 dark:border-green-400 bg-green-50 dark:bg-green-900/30 shadow-lg scale-[1.02]";
@@ -69,7 +69,7 @@ export default function MCQControlled({
                   checked={isSelected}
                   onChange={() => handleAnswer(i)} 
                   disabled={isAnswered}
-                  className="w-4 h-4 md:w-5 md:h-5 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:bg-slate-700 dark:border-slate-500"
+                  className="w-4 h-4 md:w-5 md:h-5 text-(--color-primary) focus:ring-2 focus:ring-(--color-primary) dark:bg-slate-700 dark:border-slate-500"
                   aria-describedby={answer !== null ? `fb-${name}` : undefined} 
                 />
               </div>

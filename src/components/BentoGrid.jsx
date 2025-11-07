@@ -186,11 +186,11 @@ export default function BentoGrid({ screens = [] }) {
       {/* Celda informativa para llenar el espacio */}
       <a
         href="/objetos"
-        className="hidden md:block md:col-span-4 bg-linear-to-br from-cch-azul/10 to-purple-500/10 
-          dark:from-cch-azul/20 dark:to-purple-500/20
-          border-2 border-cch-azul/20 dark:border-cch-azul/30 rounded-xl p-8 
-          transition-all duration-300 hover:scale-102 hover:shadow-xl hover:border-cch-azul/40
-          dark:hover:border-cch-azul/50
+        className="hidden md:block md:col-span-4 bg-linear-to-br from-(--color-primary)/10 to-purple-500/10 
+          dark:from-(--color-primary-dark)/20 dark:to-purple-500/20
+          border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/30 rounded-xl p-8 
+          transition-all duration-300 hover:scale-102 hover:shadow-xl hover:border-(--color-primary)/40
+          dark:hover:border-(--color-primary-dark)/50
           min-h-[140px]"
       >
         <div className="flex items-center justify-between h-full">

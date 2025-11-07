@@ -62,7 +62,7 @@ const breadcrumbItems = [
     <Breadcrumb items={breadcrumbItems} />
     
     <header class="mb-8">
-      <h1 class="text-3xl font-bold text-cch-azul dark:text-cch-dorado mb-2">Objetos de aprendizaje</h1>
+      <h1 class="text-3xl font-bold text-(--color-primary) dark:text-(--color-secondary) mb-2">Objetos de aprendizaje</h1>
       <p class="text-slate-600 dark:text-slate-400">Explora los temas de Química 3 a través de pantallas interactivas</p>
     </header>
     
@@ -78,7 +78,7 @@ const breadcrumbItems = [
                 class="w-full h-48 md:h-full object-cover"
                 loading="lazy"
               />
-              <div class="absolute top-3 left-3 bg-cch-azul dark:bg-cch-dorado text-white dark:text-slate-900 px-3 py-1 rounded-full text-xs font-semibold">
+              <div class="absolute top-3 left-3 bg-(--color-primary) dark:bg-(--color-secondary) text-white dark:text-slate-900 px-3 py-1 rounded-full text-xs font-semibold">
                 {oa.screens.length} pantallas
               </div>
             </div>
@@ -113,7 +113,7 @@ const breadcrumbItems = [
                   {oa.screens.map((screen: { slug: string; title: string }, index: number) => (
                     <a 
                       href={`/objetos/${oa.slug}/${screen.slug}`}
-                      class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-cch-azul dark:hover:bg-cch-dorado hover:text-white dark:hover:text-slate-900 rounded-lg text-sm font-medium transition-colors group"
+                      class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-(--color-primary) dark:hover:bg-(--color-secondary) hover:text-white dark:hover:text-slate-900 rounded-lg text-sm font-medium transition-colors group"
                     >
                       <span class="text-xs opacity-70 group-hover:opacity-100">
                         {index + 1}
@@ -127,7 +127,8 @@ const breadcrumbItems = [
               {/* Botón principal */}
               <a 
                 href={`/objetos/${oa.slug}`}
-                class="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-cch-azul to-blue-600 dark:from-cch-dorado dark:to-yellow-600 text-white dark:text-slate-900 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all"
+                style="background: linear-gradient(to right, var(--color-primary), hsl(var(--color-primary-h), var(--color-primary-s), calc(var(--color-primary-l) - 10%)));"
+                class="inline-flex items-center gap-2 px-6 py-3 text-white dark:text-slate-900 rounded-lg font-semibold hover:shadow-lg hover:scale-105 transition-all dark:bg-linear-to-r dark:from-(--color-secondary) dark:to-yellow-600"
               >
                 Comenzar objeto de aprendizaje
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">

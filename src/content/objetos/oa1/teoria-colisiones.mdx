@@ -9,6 +9,7 @@ import Breakout from '@/components/Breakout.astro';
 import List from '@/components/List.astro';
 import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
 import MultiSelect from '@/components/Activity/MultiSelect.jsx';
+import Matching from '@/components/Activity/Matching.jsx';
 import Tabs from '@/components/Tabs.astro';
 import VideoLite from '@/components/VideoLite.astro';
 import Math from '@/components/Math.astro';
@@ -129,5 +130,98 @@ import p3img07 from '@/assets/images/oa1/p3-img-07.png';
   
   Desde una mirada de sostenibilidad, es importante entender que, aunque aumentar mucho la temperatura acelera las reacciones, también implica más gasto de energía y más emisiones contaminantes. Por eso, la química moderna busca un equilibrio: lograr que las reacciones sean rápidas y eficientes, pero cuidando al mismo tiempo el ambiente.
 
+  ### Ejercicio de opción múltiple
 
+  Instrucciones:
+  
+  Realiza los siguientes ejercicios, de acuerdo con lo que se pide.
+  
+  Selecciona la respuesta correcta:
+
+
+  <MCQQuiz 
+  client:load
+  questions={[
+    {
+      question: "¿Cuál es la razón principal por la que al aumentar la temperatura de una reacción, aumenta su rapidez?",
+      options: [
+        "Las partículas se mueven más rápido, chocando con mayor frecuencia y energía.",
+        "Las partículas se mueven más lento, dándoles más tiempo para reaccionar.",
+        "La temperatura no influye en la rapidez de una reacción química.",
+        "Las partículas se mueven más lento, permitiendo el choque con mayor eficacia."
+
+      ],
+      correctIndex: 0,
+      feedback: {
+        correct: "La temperatura más alta hace que las partículas se muevan más rápido y con más energía. Así ocurren más colisiones efectivas entre ellas, acelerando la reacción.",
+        incorrect: "Recuerda que al aumentar la temperatura, las partículas ganan energía cinética, lo que incrementa la frecuencia y energía de las colisiones."
+      }
+    },
+    {
+      question: "Completa la frase con la frase correcta. Al aumentar la concentración de los reactivos, ocurren _________ por unidad de tiempo, acelerando la reacción.",
+      options: [
+        "menos colisiones",
+        "colisiones reducidas",
+        "más colisiones",
+        "colisiones lentas"
+      ],
+      correctIndex: 2,
+      feedback: {
+        correct: "Al haber más partículas en el mismo volumen, hay más choques entre ellas por unidad de tiempo. Por eso la reacción sucede más rápido.",
+        incorrect: "Piensa en que al aumentar la concentración, hay más partículas moviéndose en el mismo espacio, lo que incrementa la frecuencia de colisiones."
+      }
+    },
+    {
+      question: "Indica si la siguiente afirmación es verdadera o falsa. En una reacción que involucra gases, la rapidez de la reacción disminuye al incrementar la presión.",
+      options: [
+        "Verdadero",
+        "Falso"
+      ],
+      correctIndex: 1,
+      feedback: {
+        correct: "Al comprimir los gases (aumentar la presión), las moléculas quedan más juntas y chocan con mayor frecuencia. Por eso aumenta la rapidez de reacción.",
+        incorrect: "Recuerda que al aumentar la presión de un gas, es como aumentar su concentración, lo que favorece más colisiones entre las moléculas."
+      }
+    },
+    {
+      question: "La descomposición de peróxido de hidrógeno (H₂O₂) con dióxido de manganeso (MnO₂) como catalizador, genera un burbujeo espontáneo, permitiendo que se genere más rápido Agua (H₂O) y Oxígeno (O₂) ¿A qué se debe esto?",
+      options: [
+        "El MnO₂ se transforma en oxígeno, acelerando la reacción.",
+        "El catalizador MnO₂ disminuye la temperatura de reacción.",
+        "El catalizador MnO₂ permite que más colisiones entre partículas sean efectivas, sin consumirse en la reacción.",
+        "El peróxido de hidrógeno se mezcla con el catalizador y forma agua directamente."
+      ],
+      correctIndex: 2,
+      feedback: {
+        correct: "El MnO₂ actúa como catalizador: acelera la reacción ayudando a que las moléculas de H₂O₂ choquen de forma adecuada y efectiva, sin participar directamente ni consumirse en el proceso. Por eso se libera más rápido el oxígeno (O₂), visible como burbujeo.",
+        incorrect: "Recuerda que un catalizador facilita las colisiones efectivas entre las partículas de los reactivos, acelerando la reacción sin consumirse."
+      }
+    }
+  ]}
+  />
+
+  ### Ejercicio de relación
+
+  Relaciona cada tipo de material con el efecto que tiene sobre la rapidez de una reacción química.
+
+  <Matching
+    client:load
+    question="Relaciona el tipo de material con su efecto en la rapidez de reacción:"
+    items={[
+      { id: 'polvo', content: 'Polvo fino (material pulverizado)' },
+      { id: 'bloque', content: 'Bloque sólido (pieza entera)' }
+    ]}
+    targets={[
+      { id: 'rapida', content: 'Mayor superficie de contacto → reacción más rápida' },
+      { id: 'lenta', content: 'Menor superficie de contacto → reacción más lenta' }
+    ]}
+    correctMatches={{
+      polvo: 'rapida',
+      bloque: 'lenta'
+    }}
+    feedback={{
+      correct: '¡Excelente! Cuando un material está en polvo, ofrece más superficie para que las partículas reaccionantes choquen. Esto permite que ocurran más colisiones efectivas por segundo, haciendo que la reacción sea más rápida. En cambio, un bloque sólido expone menos superficie, por lo que las colisiones son menos frecuentes y la reacción es más lenta.',
+      incorrect: 'Revisa tus respuestas. Piensa en cómo la superficie de contacto afecta la frecuencia de colisiones entre las partículas.'
+    }}
+  />
 </Prose>

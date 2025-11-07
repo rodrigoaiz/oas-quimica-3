@@ -6,41 +6,64 @@
 
 @theme {
   /* ================================================= */
-  /* === COLORES BASE DEFINIDOS EN HSL (Light Mode) === */
+  /* === PALETA DE COLORES BASADA EN QUÍMICA (Light Mode) === */
   /* ================================================= */
   
-  /* CCH AZUL (Principal) -> ~hsl(207, 100%, 32%) */
-  --cch-azul-h: 207;   /* Tono (Hue) */
-  --cch-azul-s: 100%;  /* Saturación */
-  --cch-azul-l: 32%;   /* Brillo (Light Mode) */
-  --color-cch-azul: hsl(var(--cch-azul-h), var(--cch-azul-s), var(--cch-azul-l));
-
-  /* CCH DORADO (Secundario) -> ~hsl(43, 56%, 55%) */
-  --cch-dorado-h: 43; 
-  --cch-dorado-s: 56%; 
-  --cch-dorado-l: 55%;
-  --color-cch-dorado: hsl(var(--cch-dorado-h), var(--cch-dorado-s), var(--cch-dorado-l));
-
-  /* Hero Cyan/Verde (Acento brillante) -> usado en HeroQuimico */
-  --color-hero-cyan: #00f7c2;
+  /* PRIMARIO: Azul suave para light mode -> hsl(205, 55%, 50%) */
+  --color-primary-h: 205;
+  --color-primary-s: 55%;
+  --color-primary-l: 50%;
+  --color-primary: hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l));
   
-  --color-cch-gris: #f5f6f7;
-  --color-cch-gris-dark: #1e293b;
+  /* SECUNDARIO: Coral cálido (#EE6C4D) -> hsl(11, 82%, 62%) */
+  --color-secondary-h: 11;
+  --color-secondary-s: 82%;
+  --color-secondary-l: 62%;
+  --color-secondary: hsl(var(--color-secondary-h), var(--color-secondary-s), var(--color-secondary-l));
+
+  /* ACENTO: Amarillo eléctrico (#E9D758) -> hsl(52, 75%, 63%) para dark mode */
+  --color-accent-h: 52;
+  --color-accent-s: 75%;
+  --color-accent-l: 63%;
+  --color-accent: hsl(var(--color-accent-h), var(--color-accent-s), var(--color-accent-l));
+
+  /* FONDO: Azul grisáceo claro (#FAF9F6) -> hsl(182, 75%, 94%) */
+  --color-bg-main: #E1FCEE;
+  
+  /* TEXTO: Gris azulado oscuro (#001219) -> hsl(195, 100%, 5%) */
+  --color-text-main: #001219;
+  --color-text-secondary: #3A5A69; /* Subtítulos */
+  
+  /* BORDE: Verde agua (#94D2BD) -> hsl(164, 41%, 70%) */
+  --color-border: #94D2BD;
+
+  /* Legacy colors (mantener compatibilidad) */
+  --color-cch-azul: var(--color-primary);
+  --color-cch-dorado: var(--color-secondary);
+  --color-hero-cyan: #0d7ecf; /* Turquesa brillante para hero */
+  --color-cch-gris: var(--color-bg-main);
+  --color-cch-gris-dark: #081C1F; /* Casi negro azulado */
 
   /* ================================================= */
-  /* === VARIABLES DE TEMA DE COLOR DARK MODE FIJAS === */
+  /* === VARIABLES DE TEMA DARK MODE === */
   /* ================================================= */
-  /* Valores estáticos que no dependen de la variación de CCH Azul */
-  --color-dark-body: #e2e8f0; /* Texto de párrafos */
-  --color-dark-emphasis: #f1f5f9; /* Texto strong, resalta */
-  --color-dark-heading-tertiary: #cbd5e1; /* H4, delimitadores */
-  --color-dark-border: #94a3b8; /* Líneas de fracción/raíz */
-  --color-dark-bg-block: var(--color-cch-gris-dark); /* Fondo de bloques (pre) */
-  --color-dark-pre-code: #cbd5e1; /* Texto de código */
+  
+  /* Dark mode: Turquesa brillante para primario (#0A9396) -> hsl(182, 83%, 32%) */
+  --color-primary-dark-h: 182;
+  --color-primary-dark-s: 83%;
+  --color-primary-dark-l: 32%;
+  
+  /* Textos en dark mode */
+  --color-dark-body: #E0FBFC; /* Azul muy claro */
+  --color-dark-emphasis: #E0FBFC;
+  --color-dark-heading-tertiary: #9AC9C8; /* Texto secundario dark */
+  --color-dark-border: #184E56; /* Borde dark */
+  --color-dark-bg-block: #081C1F; /* Fondo de bloques */
+  --color-dark-pre-code: #9AC9C8;
   
   /* Definiciones iniciales (se sobrescriben en dark mode) */
-  --color-dark-heading-main: var(--color-cch-azul);
-  --color-dark-heading-secondary: var(--color-cch-azul);
+  --color-dark-heading-main: var(--color-primary);
+  --color-dark-heading-secondary: var(--color-primary);
 
   --font-sans: "Quicksand Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
@@ -56,17 +79,17 @@
 /* ================================================= */
 @layer base {
   :is(.dark *) {
-    /* SOBREESCRITURA DE LIGHNESS (L) PARA AZUL CCH EN DARK MODE */
-    --cch-azul-l-dark: 70%; 
+    /* SOBREESCRITURA DE LIGHNESS (L) PARA COLOR PRIMARIO EN DARK MODE (turquesa brillante) */
+    --primary-l-dark: 45%; /* Versión más clara de la turquesa para mejor legibilidad */
     
-    /* Variables de Heading principales (H1, H2, A, Strong) -> Azul CCH Claro */
-    --color-dark-heading-main: hsl(var(--cch-azul-h), var(--cch-azul-s), var(--cch-azul-l-dark));
+    /* Variables de Heading principales (H1, H2, A, Strong) -> Turquesa claro */
+    --color-dark-heading-main: hsl(var(--color-primary-dark-h), var(--color-primary-dark-s), var(--primary-l-dark));
     
-    /* Variables de Heading secundarios (H3, A:hover) -> Azul CCH menos saturado */
-    --color-dark-heading-secondary: hsl(var(--cch-azul-h), 90%, 60%); 
+    /* Variables de Heading secundarios (H3, A:hover) -> Turquesa menos saturado */
+    --color-dark-heading-secondary: hsl(var(--color-primary-dark-h), 70%, 50%); 
     
-    /* Strong en Dark Mode (usa un tono muy claro) */
-    --color-dark-strong: var(--color-dark-emphasis); /* O usa un tono de azul CCH claro */
+    /* Strong en Dark Mode (usa el amarillo eléctrico para enfatizar) */
+    --color-dark-strong: hsl(var(--color-accent-h), var(--color-accent-s), var(--color-accent-l)); /* Amarillo eléctrico */
   }
   
   :is(.dark .prose) {
@@ -323,3 +346,25 @@ html {
 .dark .katex-display::-webkit-scrollbar-thumb:hover {
   background: #64748b;
 }
+
+
+/* Cambiar color de logos SVG según tema */
+/* NOTA: Los filtros CSS no pueden usar variables CSS, estos valores están 
+   calculados manualmente para aproximarse a:
+   Light mode: hsl(205, 55%, 50%) - azul suave
+   Dark mode: hsl(11, 82%, 62%) - coral */
+.logo-link svg {
+  transition: filter 0.3s ease, opacity 0.3s ease;
+  /* Light mode: azul suave (aproximado con filtros) */
+  filter: grayscale(100%) brightness(0.5) sepia(100%) hue-rotate(180deg) saturate(9);
+}
+
+/* Dark mode: coral cálido */
+.dark .logo-link svg {
+  filter: grayscale(100%) brightness(0.8) sepia(100%) hue-rotate(340deg) saturate(2.5);
+}
+
+.logo-link:hover svg {
+  opacity: 0.7;
+}
+  
