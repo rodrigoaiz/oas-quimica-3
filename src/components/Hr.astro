@@ -21,19 +21,19 @@ const { variant = 'gradient', class: className = '' } = Astro.props;
 
 {variant === 'gradient' && (
   <div class={`my-12 flex items-center justify-center ${className}`}>
-    <div class="flex-1 h-px bg-linear-to-r from-transparent via-cch-azul/30 dark:via-cch-dorado/30 to-transparent"></div>
+    <div class="flex-1 h-px bg-linear-to-r from-transparent via-(--color-primary)/30 dark:via-(--color-secondary)/30 to-transparent"></div>
     <div class="px-4">
-      <div class="w-2 h-2 rounded-full bg-cch-azul/40 dark:bg-cch-dorado/40 animate-pulse"></div>
+      <div class="w-2 h-2 rounded-full bg-(--color-primary)/40 dark:bg-(--color-secondary)/40 animate-pulse"></div>
     </div>
-    <div class="flex-1 h-px bg-linear-to-r from-transparent via-cch-azul/30 dark:via-cch-dorado/30 to-transparent"></div>
+    <div class="flex-1 h-px bg-linear-to-r from-transparent via-(--color-primary)/30 dark:via-(--color-secondary)/30 to-transparent"></div>
   </div>
 )}
 
 {variant === 'dots' && (
   <div class={`my-12 flex items-center justify-center gap-2 ${className}`}>
-    <div class="w-1.5 h-1.5 rounded-full bg-cch-azul/60 dark:bg-cch-dorado/60"></div>
-    <div class="w-1.5 h-1.5 rounded-full bg-cch-azul/40 dark:bg-cch-dorado/40"></div>
-    <div class="w-1.5 h-1.5 rounded-full bg-cch-azul/60 dark:bg-cch-dorado/60"></div>
+    <div class="w-1.5 h-1.5 rounded-full bg-(--color-primary)/60 dark:bg-(--color-secondary)/60"></div>
+    <div class="w-1.5 h-1.5 rounded-full bg-(--color-primary)/40 dark:bg-(--color-secondary)/40"></div>
+    <div class="w-1.5 h-1.5 rounded-full bg-(--color-primary)/60 dark:bg-(--color-secondary)/60"></div>
   </div>
 )}
 
@@ -51,7 +51,7 @@ const { variant = 'gradient', class: className = '' } = Astro.props;
         fill="none" 
         stroke="currentColor" 
         stroke-width="2"
-        class="text-cch-azul/30 dark:text-cch-dorado/30"
+        class="text-(--color-primary)/30 dark:text-(--color-secondary)/30"
         opacity="0.6"
       />
       <path 
@@ -59,7 +59,7 @@ const { variant = 'gradient', class: className = '' } = Astro.props;
         fill="none" 
         stroke="currentColor" 
         stroke-width="1.5"
-        class="text-cch-azul/20 dark:text-cch-dorado/20"
+        class="text-(--color-primary)/20 dark:text-(--color-secondary)/20"
         opacity="0.4"
       />
     </svg>
@@ -174,17 +174,17 @@ const { variant = 'gradient', class: className = '' } = Astro.props;
 {variant === 'decorative' && (
   <div class={`my-12 flex items-center justify-center ${className}`}>
     <div class="flex items-center gap-3">
-      <svg width="40" height="20" viewBox="0 0 40 20" class="text-cch-azul dark:text-cch-dorado opacity-60">
+      <svg width="40" height="20" viewBox="0 0 40 20" class="text-(--color-primary) dark:text-(--color-secondary) opacity-60">
         <circle cx="10" cy="10" r="2" fill="currentColor" />
         <circle cx="20" cy="10" r="3" fill="currentColor" />
         <circle cx="30" cy="10" r="2" fill="currentColor" />
       </svg>
-      <div class="h-px w-24 bg-linear-to-r from-cch-azul/20 dark:from-cch-dorado/20 to-transparent"></div>
-      <svg width="20" height="20" viewBox="0 0 20 20" class="text-cch-azul/40 dark:text-cch-dorado/40">
+      <div class="h-px w-24 bg-linear-to-r from-(--color-primary)/20 dark:from-(--color-secondary)/20 to-transparent"></div>
+      <svg width="20" height="20" viewBox="0 0 20 20" class="text-(--color-primary)/40 dark:text-(--color-secondary)/40">
         <path d="M10 2 L12 8 L18 10 L12 12 L10 18 L8 12 L2 10 L8 8 Z" fill="currentColor" />
       </svg>
-      <div class="h-px w-24 bg-linear-to-l from-cch-azul/20 dark:from-cch-dorado/20 to-transparent"></div>
-      <svg width="40" height="20" viewBox="0 0 40 20" class="text-cch-azul dark:text-cch-dorado opacity-60">
+      <div class="h-px w-24 bg-linear-to-l from-(--color-primary)/20 dark:from-(--color-secondary)/20 to-transparent"></div>
+      <svg width="40" height="20" viewBox="0 0 40 20" class="text-(--color-primary) dark:text-(--color-secondary) opacity-60">
         <circle cx="10" cy="10" r="2" fill="currentColor" />
         <circle cx="20" cy="10" r="3" fill="currentColor" />
         <circle cx="30" cy="10" r="2" fill="currentColor" />

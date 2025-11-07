@@ -53,7 +53,7 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
     return (
       <div className="space-y-6">
         {/* Header con controles */}
-        <div className="flex items-center justify-between p-4 rounded-xl bg-blue-50 dark:bg-slate-800 border-2 border-blue-200 dark:border-blue-800">
+        <div className="flex items-center justify-between p-4 rounded-xl bg-(--color-primary)/5 dark:bg-slate-800 border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50">
           <div>
             <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100">
               Cuestionario completo
@@ -64,7 +64,7 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
           </div>
           <button
             onClick={toggleViewMode}
-            className="px-3 py-1.5 text-sm rounded-lg bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 border-2 border-blue-200 dark:border-blue-700 font-medium hover:bg-blue-50 dark:hover:bg-slate-600 transition-colors"
+            className="px-3 py-1.5 text-sm rounded-lg bg-white dark:bg-slate-700 text-(--color-primary) dark:text-(--color-primary-dark) border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 font-medium hover:bg-(--color-primary)/5 dark:hover:bg-slate-600 transition-colors"
           >
             Vista una por una
           </button>
@@ -73,7 +73,7 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
         {/* Todas las preguntas */}
         {questions.map((q, index) => (
           <div key={index}>
-            <div className="mb-2 text-sm font-semibold text-blue-600 dark:text-blue-400">
+            <div className="mb-2 text-sm font-semibold text-(--color-primary) dark:text-(--color-primary-dark)">
               Pregunta {index + 1} de {totalQuestions}
             </div>
             <MCQControlled
@@ -97,7 +97,7 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
   return (
     <div className="space-y-3 md:space-y-4">
       {/* Indicador de progreso */}
-      <div className="flex items-center justify-between p-3 md:p-4 rounded-xl bg-blue-50 dark:bg-slate-800 border-2 border-blue-200 dark:border-blue-800">
+      <div className="flex items-center justify-between p-3 md:p-4 rounded-xl bg-(--color-primary)/5 dark:bg-slate-800 border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50">
         <div className="flex items-center gap-2 md:gap-3">
           <span className="text-xl md:text-2xl">📝</span>
           <div>
@@ -111,7 +111,7 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
                   onClick={() => setCurrentQuestion(i)}
                   className={`w-6 md:w-8 h-1.5 md:h-2 rounded-full transition-all ${
                     i === currentQuestion
-                      ? 'bg-blue-600 dark:bg-blue-400 w-8 md:w-12'
+                      ? 'bg-(--color-primary) dark:bg-(--color-primary-dark) w-8 md:w-12'
                       : answers[i] !== undefined
                       ? 'bg-green-400 dark:bg-green-600'
                       : 'bg-gray-300 dark:bg-gray-600'
@@ -125,7 +125,7 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
         {totalQuestions > 1 && (
           <button
             onClick={toggleViewMode}
-            className="px-3 py-1.5 text-xs md:text-sm rounded-lg bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 border-2 border-blue-200 dark:border-blue-700 font-medium hover:bg-blue-50 dark:hover:bg-slate-600 transition-colors"
+            className="px-3 py-1.5 text-xs md:text-sm rounded-lg bg-white dark:bg-slate-700 text-(--color-primary) dark:text-(--color-primary-dark) border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 font-medium hover:bg-(--color-primary)/5 dark:hover:bg-slate-600 transition-colors"
           >
             Ver todas
           </button>
@@ -152,7 +152,7 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
               isFirstQuestion
                 ? 'bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-gray-600 cursor-not-allowed'
-                : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/50 hover:scale-105'
+                : 'bg-(--color-primary)/10 dark:bg-(--color-primary-dark)/30 text-(--color-primary) dark:text-(--color-primary-dark) hover:bg-(--color-primary)/20 dark:hover:bg-(--color-primary-dark)/50 hover:scale-105'
             }`}
           >
             <span>←</span>
@@ -169,7 +169,7 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
               isLastQuestion
                 ? 'bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-gray-600 cursor-not-allowed'
-                : 'bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 hover:scale-105'
+                : 'bg-(--color-primary) dark:bg-(--color-primary-dark) text-white hover:bg-(--color-primary)/90 dark:hover:bg-(--color-primary-dark)/90 hover:scale-105'
             }`}
           >
             <span>Siguiente</span>

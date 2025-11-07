@@ -176,13 +176,13 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1rem;
-    background: linear-gradient(135deg, #0070f3 0%, #00a8ff 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, hsl(var(--color-primary-h), var(--color-primary-s), calc(var(--color-primary-l) + 10%)) 100%);
     color: white;
     text-decoration: none;
     border-radius: 8px;
     font-weight: 600;
     transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 8px rgba(0, 112, 243, 0.3);
+    box-shadow: 0 2px 8px hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.3);
     max-width: 45%;
   }
 
@@ -191,21 +191,21 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
     min-width: 40px;
     max-width: none;
     border-radius: 6px;
-    box-shadow: 0 1px 4px rgba(0, 112, 243, 0.2);
+    box-shadow: 0 1px 4px hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.2);
   }
 
   .nav-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 112, 243, 0.4);
+    box-shadow: 0 4px 12px hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.4);
   }
 
   .compact .nav-btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0, 112, 243, 0.3);
+    box-shadow: 0 2px 6px hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l), 0.3);
   }
 
   .nav-btn:focus {
-    outline: 3px solid #0070f3;
+    outline: 3px solid var(--color-primary);
     outline-offset: 2px;
   }
 
@@ -256,8 +256,8 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
 
   .index-summary {
     cursor: pointer;
-    font-weight: 700;
-    color: #0f172a;
+    font-weight: 600;
+    color: var(--color-text-main);
     list-style: none;
     user-select: none;
     display: flex;
@@ -266,7 +266,7 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
   }
 
   .index-summary:hover {
-    color: #0070f3;
+    color: var(--color-primary);
   }
 
   .index-summary::marker,
@@ -305,19 +305,19 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
   }
 
   .index-link {
-    color: #0070f3;
+    color: var(--color-primary);
     text-decoration: none;
     display: block;
     transition: color 0.2s;
   }
 
   .index-link:hover {
-    color: #0056b3;
+    color: hsl(var(--color-primary-h), var(--color-primary-s), calc(var(--color-primary-l) - 10%));
     text-decoration: underline;
   }
 
   .index-current {
-    color: #0f172a;
+    color: var(--color-text-main);
     display: block;
   }
 
@@ -385,7 +385,7 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
     left: -9999px;
     z-index: 999;
     padding: 1rem;
-    background: #0070f3;
+    background: var(--color-primary);
     color: white;
     text-decoration: none;
     border-radius: 4px;
