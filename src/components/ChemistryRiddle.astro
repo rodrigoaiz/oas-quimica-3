@@ -1,0 +1,92 @@
+---
+import MCQQuiz from './Activity/MCQQuiz.jsx';
+
+const riddleQuestions = [
+  {
+    question: "La química no tiene 'ojo', pero sí tiene...",
+    options: ["Protones", "Electrones", "Neutrones"],
+    correctIndex: 1,
+    feedback: {
+      correct: "¡Exacto! Los electrones son las partículas que 'ven' y forman los enlaces químicos.",
+      incorrect: "Piensa en las partículas que participan en los enlaces químicos..."
+    }
+  },
+  {
+    question: "La química no tiene 'corazón', pero sí tiene...",
+    options: ["Iones", "Enlaces covalentes", "Moléculas"],
+    correctIndex: 1,
+    feedback: {
+      correct: "¡Correcto! Los enlaces covalentes 'unen' átomos como el corazón une emociones.",
+      incorrect: "¿Qué une a los átomos entre sí de manera fuerte?"
+    }
+  },
+  {
+    question: "La química no tiene 'memoria', pero sí tiene...",
+    options: ["Fórmulas", "Ecuaciones", "Tablas periódicas"],
+    correctIndex: 2,
+    feedback: {
+      correct: "¡Perfecto! La tabla periódica 'recuerda' y organiza todos los elementos.",
+      incorrect: "¿Qué herramienta organiza y 'guarda' información de todos los elementos?"
+    }
+  },
+  {
+    question: "La química no tiene 'voz', pero sí tiene...",
+    options: ["Gráficas", "Ecuaciones", "Símbolos"],
+    correctIndex: 1,
+    feedback: {
+      correct: "¡Genial! Las ecuaciones 'hablan' y expresan lo que ocurre en las reacciones.",
+      incorrect: "¿Qué expresa y comunica lo que sucede en una reacción química?"
+    }
+  }
+];
+---
+
+<div class="chemistry-riddle-wrapper bg-white dark:bg-slate-800 backdrop-blur-lg rounded-2xl p-6 shadow-2xl border border-gray-200 dark:border-slate-700 max-w-[500px] animate-slide-in">
+  <div class="riddle-header text-center mb-6 pb-4 border-b-2 border-(--color-primary) dark:border-(--color-primary-dark)">
+    <span class="riddle-emoji text-5xl block mb-2 animate-float">🧪</span>
+    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1 leading-tight">¿Qué tiene la <span class="text-(--color-primary) dark:text-(--color-primary-dark)">Química</span> que no tiene la...?</h3>
+  </div>
+
+  <MCQQuiz
+    client:load
+    questions={riddleQuestions}
+    showAll={false}
+    hideProgress={true}
+  />
+
+  <div class="riddle-footer text-center pt-6 mt-4 border-t-2 border-dashed border-(--color-secondary)/30">
+    <p class="text-sm text-slate-900 dark:text-accent font-semibold italic">💡 ¿Puedes pensar qué otra cosa tiene la química que no tiene...?</p>
+  </div>
+</div>
+
+<style>
+  .animate-slide-in {
+    animation: slideInRight 0.6s ease-out;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+</style>
+
+

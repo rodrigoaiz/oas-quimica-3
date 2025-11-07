@@ -11,7 +11,8 @@ export default function MCQControlled({
   feedback = {}, 
   questionId,
   answer = null,
-  onChange
+  onChange,
+  onReset
 }) {
   const generatedId = useId();
   const name = questionId || generatedId;
@@ -98,7 +99,7 @@ export default function MCQControlled({
           className={`mt-4 md:mt-6 p-3 md:p-4 rounded-xl border-2 ${
             isCorrect 
               ? 'bg-green-50 dark:bg-green-900/20 border-green-300 dark:border-green-700' 
-              : 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700'
+              : 'bg-slate-50 dark:bg-slate-900/20 border-amber-300 dark:border-amber-700'
           }`}
         >
           <div className="flex items-start gap-2 md:gap-3">
@@ -111,15 +112,23 @@ export default function MCQControlled({
                   ? 'text-green-800 dark:text-green-300' 
                   : 'text-amber-800 dark:text-amber-300'
               }`}>
-                {isCorrect ? '¡Excelente!' : 'Intenta de nuevo'}
+                {isCorrect ? '¡Excelente!' : 'Reflexiona tu respuesta'}
               </p>
               <p className={`text-xs md:text-sm ${
                 isCorrect 
                   ? 'text-green-700 dark:text-green-400' 
                   : 'text-amber-700 dark:text-amber-400'
               }`}>
-                {isCorrect ? (feedback.correct || '¡Respuesta correcta!') : (feedback.incorrect || 'Revisa tu respuesta e intenta de nuevo.')}
+                {isCorrect ? (feedback.correct || '¡Respuesta correcta!') : (feedback.incorrect || 'Piensa en la pregunta y tu elección.')}
               </p>
+              {!isCorrect && onReset && (
+                <button
+                  onClick={onReset}
+                  className="mt-3 px-4 py-2 bg-slate-500 hover:bg-slate-600 dark:bg-slate-600 dark:hover:bg-slate-700 text-white rounded-lg font-medium transition-colors text-sm"
+                >
+                  🔄 Intentar de nuevo
+                </button>
+              )}
             </div>
           </div>
         </div>

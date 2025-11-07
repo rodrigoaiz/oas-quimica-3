@@ -7,8 +7,9 @@ import MCQControlled from './MCQControlled.jsx';
  * @param {Object} props
  * @param {Array} props.questions - Array de objetos con: { question, options, correctIndex, feedback }
  * @param {boolean} props.showAll - Mostrar todas las preguntas a la vez (default: false)
+ * @param {boolean} props.hideProgress - Ocultar el header de progreso y navegación (default: false)
  */
-export default function MCQQuiz({ questions = [], showAll = false }) {
+export default function MCQQuiz({ questions = [], showAll = false, hideProgress = false }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [viewMode, setViewMode] = useState(showAll ? 'all' : 'single');
   const [answers, setAnswers] = useState({}); // Guardar respuestas por índice de pregunta
@@ -20,9 +21,17 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
     }));
   };
 
+  const handleReset = (questionIndex) => {
+    setAnswers(prev => {
+      const newAnswers = { ...prev };
+      delete newAnswers[questionIndex];
+      return newAnswers;
+    });
+  };
+
   if (questions.length === 0) {
     return (
-      <div className="p-6 rounded-xl border-2 border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20">
+      <div className="p-6 rounded-xl border-2 border-amber-300 dark:border-amber-700 bg-slate-50 dark:bg-slate-900/20">
         <p className="text-amber-800 dark:text-amber-300">No hay preguntas disponibles.</p>
       </div>
     );
@@ -84,6 +93,7 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
               feedback={q.feedback}
               answer={answers[index] ?? null}
               onChange={(answerIndex) => handleAnswerChange(index, answerIndex)}
+              onReset={() => handleReset(index)}
             />
           </div>
         ))}
@@ -97,40 +107,42 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
   return (
     <div className="space-y-3 md:space-y-4">
       {/* Indicador de progreso */}
-      <div className="flex items-center justify-between p-3 md:p-4 rounded-xl bg-(--color-primary)/5 dark:bg-slate-800 border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50">
-        <div className="flex items-center gap-2 md:gap-3">
-          <span className="text-xl md:text-2xl">📝</span>
-          <div>
-            <p className="font-bold text-sm md:text-base text-gray-900 dark:text-gray-100">
-              Pregunta {currentQuestion + 1} de {totalQuestions}
-            </p>
-            <div className="flex gap-1 mt-1">
-              {questions.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentQuestion(i)}
-                  className={`w-6 md:w-8 h-1.5 md:h-2 rounded-full transition-all ${
-                    i === currentQuestion
-                      ? 'bg-(--color-primary) dark:bg-(--color-primary-dark) w-8 md:w-12'
-                      : answers[i] !== undefined
-                      ? 'bg-green-400 dark:bg-green-600'
-                      : 'bg-gray-300 dark:bg-gray-600'
-                  }`}
-                  aria-label={`Ir a pregunta ${i + 1}`}
-                />
-              ))}
+      {!hideProgress && (
+        <div className="flex items-center justify-between p-3 md:p-4 rounded-xl bg-(--color-primary)/5 dark:bg-slate-800 border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50">
+          <div className="flex items-center gap-2 md:gap-3">
+            <span className="text-xl md:text-2xl">📝</span>
+            <div>
+              <p className="font-bold text-sm md:text-base text-gray-900 dark:text-gray-100">
+                Pregunta {currentQuestion + 1} de {totalQuestions}
+              </p>
+              <div className="flex gap-1 mt-1">
+                {questions.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentQuestion(i)}
+                    className={`w-6 md:w-8 h-1.5 md:h-2 rounded-full transition-all ${
+                      i === currentQuestion
+                        ? 'bg-(--color-primary) dark:bg-(--color-primary-dark) w-8 md:w-12'
+                        : answers[i] !== undefined
+                        ? 'bg-green-400 dark:bg-green-600'
+                        : 'bg-gray-300 dark:bg-gray-600'
+                    }`}
+                    aria-label={`Ir a pregunta ${i + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
+          {totalQuestions > 1 && (
+            <button
+              onClick={toggleViewMode}
+              className="px-3 py-1.5 text-xs md:text-sm rounded-lg bg-white dark:bg-slate-700 text-(--color-primary) dark:text-(--color-primary-dark) border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 font-medium hover:bg-(--color-primary)/5 dark:hover:bg-slate-600 transition-colors"
+            >
+              Ver todas
+            </button>
+          )}
         </div>
-        {totalQuestions > 1 && (
-          <button
-            onClick={toggleViewMode}
-            className="px-3 py-1.5 text-xs md:text-sm rounded-lg bg-white dark:bg-slate-700 text-(--color-primary) dark:text-(--color-primary-dark) border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 font-medium hover:bg-(--color-primary)/5 dark:hover:bg-slate-600 transition-colors"
-          >
-            Ver todas
-          </button>
-        )}
-      </div>
+      )}
 
       {/* Pregunta actual */}
       <MCQControlled
@@ -141,6 +153,7 @@ export default function MCQQuiz({ questions = [], showAll = false }) {
         feedback={currentQ.feedback}
         answer={answers[currentQuestion] ?? null}
         onChange={(answerIndex) => handleAnswerChange(currentQuestion, answerIndex)}
+        onReset={() => handleReset(currentQuestion)}
       />
 
       {/* Navegación */}

@@ -96,20 +96,23 @@ export default function MCQ({ question, options = [], correctIndex = 0, feedback
               {isCorrect ? '🎉' : '💡'}
             </span>
             <div className="flex-1">
-              <p className={`font-semibold mb-1 text-sm md:text-base ${
-                isCorrect 
-                  ? 'text-green-800 dark:text-green-300' 
-                  : 'text-amber-800 dark:text-amber-300'
-              }`}>
-                {isCorrect ? '¡Excelente!' : 'Intenta de nuevo'}
+              <p className="font-bold text-base md:text-lg mb-1 md:mb-2">
+                {isCorrect ? '¡Excelente!' : 'Reflexiona tu respuesta'}
               </p>
-              <p className={`text-xs md:text-sm ${
-                isCorrect 
-                  ? 'text-green-700 dark:text-green-400' 
-                  : 'text-amber-700 dark:text-amber-400'
-              }`}>
-                {isCorrect ? (feedback.correct || '¡Respuesta correcta!') : (feedback.incorrect || 'Revisa tu respuesta e intenta de nuevo.')}
+              <p className="text-sm md:text-base leading-relaxed">
+                {isCorrect ? (feedback.correct || '¡Respuesta correcta!') : (feedback.incorrect || 'Piensa en la pregunta y tu elección.')}
               </p>
+              {!isCorrect && (
+                <button
+                  onClick={() => {
+                    setAnswer(null);
+                    setSelectedOption(null);
+                  }}
+                  className="mt-3 px-4 py-2 bg-amber-500 hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-700 text-white rounded-lg font-medium transition-colors text-sm"
+                >
+                  🔄 Intentar de nuevo
+                </button>
+              )}
             </div>
           </div>
         </div>
