@@ -14,6 +14,7 @@ import Math from '@/components/Math.astro';
 import Image from '@/components/Image.astro';
 import p4img01 from '@/assets/images/oa1/p4-img-01.webp';
 import p4img02 from '@/assets/images/oa1/p4-img-02.webp';
+import MCQ from '@/components/Activity/MCQ.jsx';
 
 <Prose>
   ## ¿Cuáles son los beneficios o perjuicios de promover la eficiencia en los procesos industriales?
@@ -149,148 +150,34 @@ Como te habrás dado cuenta, para que un proceso sea eficiente, es necesario con
 <span class="italic">Mejorar la eficiencia tiene beneficios industriales, económicos y ambientales, esto último al generar menos residuos, menor gasto de energía y menor contaminación. En otras palabras, eficiencia y sostenibilidad están estrechamente vinculadas.</span>
 
 En el método Ostwald, que produce ácido nítrico a partir de amoníaco, se controlan variables como temperatura, presión, catalizadores y recuperación de calor. <span class="italic">Estas medidas no solo aumentan el rendimiento, también permiten disminuir emisiones contaminantes y aprovechar mejor la energía, alineándose con el ODS 12: Producción y consumo responsables.</span>
-</Prose>
 
-<Breakout>
-  <Tabs 
-    tabs={[
-      { id: 'control', label: '🎮 Control' },
-      { id: 'temperatura', label: '🌡️ Temperatura' },
-      { id: 'concentracion', label: '🍶 Concentración' },
-      { id: 'superficie', label: '🗻 Superficie de Contacto' }
-    ]}
-    defaultTab="control"
-  >
-    <div data-tab="control">
-      <Prose>
-        ### Experimento de Control
-        
-        La efervescencia es una reacción química que implica la liberación de gas, en forma de burbujas, en este experimento observarás cómo ocurre la efervescencia de una pastilla en presencia de agua. Observa el cronómetro y registra el tiempo que se lleva la reacción, sin modificar ningún factor.
-        <VideoLite
-          videoId="MeYYU3KWgzw"
-          title="Experimento de Control"
-          autoplay={false}
-          nocookie={true}
-        />
-      </Prose>
-    </div>
+### Ejercicio de arrastrar
 
-    <div data-tab="temperatura">
-      <Prose>
-        ### Efecto de la Temperatura
-        
-        ¿Qué pasa si se altera la temperatura en la cual se lleva a cabo la efervescencia de la pastilla? En este video observarás directamente la manera en que el incremento de la temperatura influye en la rapidez de reacción. Observa el cronómetro y registra el tiempo en el cual se lleva la reacción y compáralo con el tiempo indicado en el control.
+  <p class="text-fuchsia-800 text-center text-xl font-bold">Tomando como ejemplo, la producción de HNO3, completa el siguiente cuadro, arrastrando el nombre de la variable que corresponde en cada descripción.</p>
 
-        <VideoLite
-          videoId="G2oxfGSAXL0"
-          title="Efecto de la Temperatura"
-          autoplay={false}
-          nocookie={true}
-        />
-      </Prose>
-    </div>
+  En la producción de ácido nítrico (HNO<sub>3</sub>), controlar adecuadamente las variables, mejora la eficiencia del proceso, con lo cual disminuye el impacto ambiental, reduce costos y favorece el aprovechamiento responsable de los recursos naturales.
 
-    <div data-tab="concentracion">
-      <Prose>
-        ### Efecto de la Concentración
-        
-        El video que se muestra a continuación muestra lo que sucede cuando al incrementar la concentración la rapidez con la que se lleva a cabo la efervescencia también se modifica. Observa el cronómetro y registra el tiempo en el cual se lleva la reacción y compáralo con el tiempo indicado en el control.
+### Ejercicio de seleccionar
+<p class="text-fuchsia-800 text-center text-xl font-bold">El sistema de absorción controla la reacción:</p>
+<p class="text-fuchsia-800 text-center text-2xl font-bold">3NO<sub>2</sub> + H<sub>2</sub>O     2HNO<sub>3</sub> + NO</p>
+<p class="text-fuchsia-800 text-center text-xl font-bold">Favoreciendo la producción de HNO<sub>3</sub></p>
 
-        <VideoLite
-          videoId="gwIPb9zHz14"
-          title="Efecto de la Concentración"
-          autoplay={false}
-          nocookie={true}
-        />
-      </Prose>
-    </div>
+  <MCQ 
+  client:load 
+  question="Selecciona si es falso o verdadero el enunciado anterior" 
+  options={[
+    "Verdadero",
+    "Falso"
+  ]} 
+  correctIndex={0} 
+  feedback={{
+    correct: "¡Correcto!",
+    incorrect: "Recuerda: El sistema de absorción sí controla la reacción planteada."
+  }} 
+/>
 
-    <div data-tab="superficie">
-      <Prose>
-        ### Efecto de la Superficie de Contacto
-        
-        Otro factor que modifica la rapidez con la que se lleva a cabo una reacción química es la superficie de contacto. El siguiente video presenta la reacción de efervescencia, pero en ahora con la pastilla en polvo, lo cual aumenta la superficie de contacto. Registra el tiempo en el cual se lleva la reacción y compáralo con el tiempo indicado en el control.
+Ahora ya lo sabes, determinar la ***eficiencia de un proceso químico***, es un criterio que permite identificar el aprovechamiento óptimo de todos los insumos. Si la eficiencia es baja, se genera más desperdicio de recursos y por lo tanto, mayor gasto económico. Al conocer la eficiencia, se pueden hacer mejoras en las etapas donde así lo requiera, lo cual promueve procesos mejores y más eficientes.
 
-        <VideoLite
-          videoId="-dcNks2Ir60"
-          title="Efecto de la Superficie de Contacto"
-          autoplay={false}
-          nocookie={true}
-        />
-      </Prose>
-    </div>
-    
-    
-  </Tabs>
-</Breakout>
-
-<Prose>
-
-  Esos factores que modifican la rapidez de una reacción, también afectan el proceso de Haber-Bosch, el cual es un método industrial para la producción de amoníaco (NH₃) a partir de nitrógeno (N₂) e hidrógeno (H₂). Fue desarrollado por Fritz Haber y optimizado por Carl Bosch, para la producción del gas a gran escala a principios del siglo XX. 
-
-  <Math formula="\text{N}_2(\text{g}) + 3\text{H}_2(\text{g}) \rightleftharpoons 2\text{NH}_3(\text{g}) \quad \Delta H = -46.2 \text{ kJ/mol}" display />
-
-  Este procedimiento involucra el calentamiento de los gases hasta los 400ºC y el aumento de la presión hasta las 300 atm, así como la presencia de sustancias  como el Al<sub>2</sub>O<sub>3</sub> y K<sub>2</sub>O como catalizadores que aumentan la rapidez de reacción. 
-
-  La síntesis del amoniaco constituye un proceso esencial para la producción de fertilizantes, cuyo impacto ha sido determinante en el fortalecimiento de la seguridad alimentaria a nivel mundial
-
-  En la industria, controlar estos factores no solo permite mejorar la producción, sino también reducir el consumo de energía y la generación de contaminantes. Por ejemplo, el uso de catalizadores acelera las reacciones y disminuye las condiciones extremas de temperatura o presión, contribuyendo a procesos más sostenibles.
-
-   ### Ejercicio de seleccionar
-
-   A continuación responde lo que se pregunta en referencia al proceso de síntesis del amoniaco (NH₃). Para la producción de NH₃ ¿a qué factor hace referencia?
-
-
-  <MCQQuiz 
-    client:load
-    questions={[
-      {
-        question: "Se requiere calentamiento superior a los 400ºC",
-        options: [
-          "Catalizador",
-          "Presión",
-          "Superficie de contacto",
-          "Temperatura",
-          "Concentración"
-        ],
-        correctIndex: 3,
-        feedback: {
-          correct: "¡Correcto! La temperatura elevada aumenta la energía.",
-          incorrect: "Revisa los factores que influyen en la rapidez de una reacción química."
-        }
-      },
-      {
-        question: "Se utiliza Pt para acelerar la reacción",
-        options: [
-          "Catalizador",
-          "Presión",
-          "Superficie de contacto",
-          "Temperatura",
-          "Concentración"
-        ],
-        correctIndex: 0,
-        feedback: {
-          correct: "¡Exacto! Los catalizadores aumentan la rapidez de reacción sin consumirse.",
-          incorrect: "Revisa los factores que influyen en la rapidez de una reacción química."
-        }
-      },
-      {
-        question: "Es necesario que los gases estén compactados",
-        options: [
-          "Catalizador",
-          "Presión",
-          "Superficie de contacto",
-          "Temperatura",
-          "Concentración"
-        ],
-        correctIndex: 1,
-        feedback: {
-          correct: "¡Muy bien! Aumentar la presión incrementa la frecuencia de colisiones entre moléculas.",
-          incorrect: "Revisa los factores que influyen en la rapidez de una reacción química."
-        }
-      }
-    ]}
-  />
 </Prose>
 
 
