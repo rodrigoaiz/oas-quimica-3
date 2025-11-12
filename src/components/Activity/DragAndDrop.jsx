@@ -1,12 +1,12 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 /**
- * DragAndDrop - Componente para arrastrar elementos a zonas de drop
+ * DragAndDrop - Componente para arrastrar elementos a una zona de drop
  * Compatible con mouse y touch (móviles)
  * 
  * @param {string} question - Pregunta del ejercicio
- * @param {Array<string>} items - Items arrastrables
- * @param {Array<string>} correctAnswers - Respuestas correctas en orden
+ * @param {Array<string>} items - Items distractores (palabras incorrectas)
+ * @param {Array<string>} correctAnswers - Respuestas correctas
  * @param {Object} feedback - Mensajes de retroalimentación
  */
 export default function DragAndDrop({ 
@@ -15,15 +15,33 @@ export default function DragAndDrop({
   correctAnswers = [],
   feedback = {}
 }) {
-  // Estado: items disponibles en el banco
-  const [availableItems, setAvailableItems] = useState([...items]);
-  // Estado: items colocados en las zonas de drop (array de arrays)
-  const [droppedItems, setDroppedItems] = useState(Array(correctAnswers.length).fill(null));
+  // Función para mezclar array (Fisher-Yates shuffle)
+  const shuffleArray = (array) => {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+  };
+
+  // Combinar correctAnswers con distractores (sin mezclar inicialmente)
+  const allItemsUnshuffled = [...correctAnswers, ...items];
+  
+  // Estado: items disponibles en el banco (se mezclará solo en el cliente)
+  const [availableItems, setAvailableItems] = useState(allItemsUnshuffled);
+  // Estado: items colocados en la zona de drop
+  const [droppedItems, setDroppedItems] = useState([]);
   // Estado: verificación
   const [submitted, setSubmitted] = useState(false);
   // Estado: item que se está arrastrando
   const [draggingItem, setDraggingItem] = useState(null);
-  const [draggingSource, setDraggingSource] = useState(null); // 'bank' o índice de zona
+  const [draggingSource, setDraggingSource] = useState(null); // 'bank' o 'drop'
+  
+  // Mezclar solo en el cliente después de la hidratación
+  useEffect(() => {
+    setAvailableItems(shuffleArray(allItemsUnshuffled));
+  }, []);
   
   // Refs para touch events
   const draggedElement = useRef(null);
@@ -35,7 +53,15 @@ export default function DragAndDrop({
     setDraggingItem(item);
     setDraggingSource(source);
     e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', e.target);
+    e.dataTransfer.setData('text/plain', item);
+    
+    // Hacer visible el arrastre
+    e.target.style.opacity = '0.5';
+  };
+
+  // Finalizar arrastre (mouse)
+  const handleDragEnd = (e) => {
+    e.target.style.opacity = '1';
   };
 
   // Manejar inicio de arrastre (touch)
@@ -52,11 +78,12 @@ export default function DragAndDrop({
     draggedElement.current.style.position = 'fixed';
     draggedElement.current.style.pointerEvents = 'none';
     draggedElement.current.style.zIndex = '1000';
-    draggedElement.current.style.opacity = '0.8';
+    draggedElement.current.style.opacity = '0.9';
     draggedElement.current.style.width = target.offsetWidth + 'px';
+    draggedElement.current.style.transform = `translate(${touch.clientX - target.offsetWidth/2}px, ${touch.clientY - target.offsetHeight/2}px)`;
     document.body.appendChild(draggedElement.current);
     
-    target.classList.add('dragging');
+    target.style.opacity = '0.5';
   };
 
   // Manejar movimiento (touch)
@@ -65,10 +92,9 @@ export default function DragAndDrop({
     e.preventDefault();
     
     const touch = e.touches[0];
-    const x = touch.clientX - touchStartPos.current.x;
-    const y = touch.clientY - touchStartPos.current.y;
+    const target = e.currentTarget;
     
-    draggedElement.current.style.transform = `translate(${x}px, ${y}px)`;
+    draggedElement.current.style.transform = `translate(${touch.clientX - target.offsetWidth/2}px, ${touch.clientY - target.offsetHeight/2}px)`;
   };
 
   // Manejar fin de arrastre (touch)
@@ -80,8 +106,7 @@ export default function DragAndDrop({
     const dropZone = dropTarget?.closest('.drop-zone');
     
     if (dropZone) {
-      const zoneIndex = parseInt(dropZone.dataset.zoneIndex);
-      handleDrop(zoneIndex);
+      handleDropAction();
     }
     
     // Limpiar
@@ -90,7 +115,7 @@ export default function DragAndDrop({
       draggedElement.current = null;
     }
     
-    document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
+    document.querySelectorAll('[style*="opacity: 0.5"]').forEach(el => el.style.opacity = '1');
     setDraggingItem(null);
     setDraggingSource(null);
   };
@@ -101,75 +126,59 @@ export default function DragAndDrop({
     e.dataTransfer.dropEffect = 'move';
   };
 
-  // Manejar drop
-  const handleDrop = (zoneIndex) => {
+  // Acción de drop
+  const handleDropAction = () => {
     if (!draggingItem) return;
 
-    const newDroppedItems = [...droppedItems];
-    const newAvailableItems = [...availableItems];
-
-    // Si viene del banco
+    // Si viene del banco, agregarlo a la zona
     if (draggingSource === 'bank') {
-      // Si la zona ya tiene un item, devolverlo al banco
-      if (newDroppedItems[zoneIndex]) {
-        newAvailableItems.push(newDroppedItems[zoneIndex]);
-      }
-      // Colocar el nuevo item
-      newDroppedItems[zoneIndex] = draggingItem;
-      // Quitar del banco
-      const itemIndex = newAvailableItems.indexOf(draggingItem);
-      newAvailableItems.splice(itemIndex, 1);
-    } 
-    // Si viene de otra zona
-    else if (typeof draggingSource === 'number') {
-      // Intercambiar items
-      const temp = newDroppedItems[zoneIndex];
-      newDroppedItems[zoneIndex] = draggingItem;
-      newDroppedItems[draggingSource] = temp;
+      setDroppedItems([...droppedItems, draggingItem]);
+      setAvailableItems(availableItems.filter(item => item !== draggingItem));
     }
+    // Si ya está en la zona, no hacer nada (ya está ahí)
 
-    setDroppedItems(newDroppedItems);
-    setAvailableItems(newAvailableItems);
     setDraggingItem(null);
     setDraggingSource(null);
   };
 
+  // Manejar drop (mouse)
+  const handleDrop = (e) => {
+    e.preventDefault();
+    handleDropAction();
+  };
+
   // Devolver item al banco
-  const returnToBank = (zoneIndex) => {
+  const returnToBank = (item) => {
     if (submitted) return;
     
-    const item = droppedItems[zoneIndex];
-    if (!item) return;
-
-    const newDroppedItems = [...droppedItems];
-    const newAvailableItems = [...availableItems];
-
-    newDroppedItems[zoneIndex] = null;
-    newAvailableItems.push(item);
-
-    setDroppedItems(newDroppedItems);
-    setAvailableItems(newAvailableItems);
+    setDroppedItems(droppedItems.filter(i => i !== item));
+    setAvailableItems([...availableItems, item]);
   };
 
   // Verificar respuestas
   const handleSubmit = () => {
-    // Verificar que todas las zonas estén llenas
-    if (droppedItems.some(item => item === null)) {
-      return;
-    }
+    if (droppedItems.length === 0) return;
     setSubmitted(true);
   };
 
   // Reiniciar
   const handleReset = () => {
-    setAvailableItems([...items]);
-    setDroppedItems(Array(correctAnswers.length).fill(null));
+    setAvailableItems(shuffleArray(allItemsUnshuffled));
+    setDroppedItems([]);
     setSubmitted(false);
   };
 
   // Verificar si está correcto
-  const isCorrect = submitted && droppedItems.every((item, i) => item === correctAnswers[i]);
-  const allFilled = droppedItems.every(item => item !== null);
+  const isCorrect = () => {
+    if (!submitted) return false;
+    // Verificar que todos los items en droppedItems sean correctos
+    const allCorrect = droppedItems.every(item => correctAnswers.includes(item));
+    // Verificar que estén todas las respuestas correctas
+    const allPresent = correctAnswers.every(answer => droppedItems.includes(answer));
+    return allCorrect && allPresent;
+  };
+
+  const correct = isCorrect();
 
   return (
     <div className="drag-drop-container my-6 p-4 md:p-6 rounded-2xl border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 shadow-lg">
@@ -179,60 +188,54 @@ export default function DragAndDrop({
           {question}
         </p>
         <p className="text-xs md:text-sm text-(--color-primary) dark:text-(--color-primary-dark) mt-2 font-medium">
-          Arrastra las palabras a las cajas correspondientes
+          Arrastra las palabras correctas a la caja
         </p>
       </div>
 
-      {/* Zonas de Drop */}
-      <div className="mb-6 space-y-3">
-        {correctAnswers.map((_, index) => {
-          const item = droppedItems[index];
-          const isItemCorrect = submitted && item === correctAnswers[index];
-          const isItemIncorrect = submitted && item && item !== correctAnswers[index];
+      {/* Zona de Drop única */}
+      <div className="mb-6">
+        <div
+          className="drop-zone min-h-32 p-4 rounded-xl border-2 border-dashed bg-gray-50 dark:bg-slate-900 border-gray-300 dark:border-slate-600 transition-all"
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+        >
+          {droppedItems.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {droppedItems.map((item, index) => {
+                const isItemCorrect = submitted && correctAnswers.includes(item);
+                const isItemIncorrect = submitted && !correctAnswers.includes(item);
 
-          return (
-            <div
-              key={index}
-              className={`drop-zone min-h-[3rem] p-3 md:p-4 rounded-xl border-2 border-dashed transition-all ${
-                item 
-                  ? 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600' 
-                  : 'bg-gray-50 dark:bg-slate-900 border-gray-300 dark:border-slate-600'
-              }`}
-              data-zone-index={index}
-              onDragOver={handleDragOver}
-              onDrop={(e) => {
-                e.preventDefault();
-                handleDrop(index);
-              }}
-            >
-              {item ? (
-                <div
-                  className={`drag-item inline-block px-4 py-2 rounded-lg border-2 font-medium text-sm md:text-base ${
-                    isItemCorrect
-                      ? 'correct'
-                      : isItemIncorrect
-                      ? 'incorrect'
-                      : 'bg-(--color-primary)/10 dark:bg-(--color-primary-dark)/20 border-(--color-primary) dark:border-(--color-primary-dark) text-gray-900 dark:text-gray-100'
-                  }`}
-                  draggable={!submitted}
-                  onDragStart={(e) => handleDragStart(e, item, index)}
-                  onTouchStart={(e) => handleTouchStart(e, item, index)}
-                  onTouchMove={handleTouchMove}
-                  onTouchEnd={handleTouchEnd}
-                  onDoubleClick={() => returnToBank(index)}
-                >
-                  {item}
-                  {submitted && isItemCorrect && <span className="ml-2">✓</span>}
-                  {submitted && isItemIncorrect && <span className="ml-2">✗</span>}
-                </div>
-              ) : (
-                <div className="text-gray-400 dark:text-gray-600 text-sm italic">
-                  Arrastra aquí
-                </div>
-              )}
+                return (
+                  <div
+                    key={`${item}-${index}`}
+                    className={`drag-item inline-block px-4 py-2 rounded-lg border-2 font-medium text-sm md:text-base cursor-move transition-all ${
+                      isItemCorrect
+                        ? 'correct bg-green-100 dark:bg-green-900/30 border-green-500 dark:border-green-400 text-green-800 dark:text-green-200'
+                        : isItemIncorrect
+                        ? 'incorrect bg-red-100 dark:bg-red-900/30 border-red-500 dark:border-red-400 text-red-800 dark:text-red-200'
+                        : 'bg-white dark:bg-slate-800 border-(--color-primary) dark:border-(--color-primary-dark) text-gray-900 dark:text-gray-100 hover:shadow-md'
+                    }`}
+                    draggable={!submitted}
+                    onDragStart={(e) => handleDragStart(e, item, 'drop')}
+                    onDragEnd={handleDragEnd}
+                    onTouchStart={(e) => handleTouchStart(e, item, 'drop')}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                    onDoubleClick={() => returnToBank(item)}
+                  >
+                    {item}
+                    {submitted && isItemCorrect && <span className="ml-2">✓</span>}
+                    {submitted && isItemIncorrect && <span className="ml-2">✗</span>}
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
+          ) : (
+            <div className="flex items-center justify-center h-full text-gray-400 dark:text-gray-600 text-sm italic">
+              Arrastra aquí las respuestas correctas
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Banco de palabras */}
@@ -245,9 +248,10 @@ export default function DragAndDrop({
             availableItems.map((item, index) => (
               <div
                 key={`${item}-${index}`}
-                className="drag-item px-4 py-2 rounded-lg border-2 bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 text-gray-900 dark:text-gray-100 font-medium text-sm md:text-base shadow-sm hover:shadow-md"
+                className="drag-item px-4 py-2 rounded-lg border-2 bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 text-gray-900 dark:text-gray-100 font-medium text-sm md:text-base shadow-sm hover:shadow-md cursor-move transition-all"
                 draggable={!submitted}
                 onDragStart={(e) => handleDragStart(e, item, 'bank')}
+                onDragEnd={handleDragEnd}
                 onTouchStart={(e) => handleTouchStart(e, item, 'bank')}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
@@ -267,19 +271,19 @@ export default function DragAndDrop({
       {submitted && (
         <div
           className={`p-4 rounded-xl mb-4 ${
-            isCorrect
+            correct
               ? 'bg-green-50 dark:bg-green-900/30 border-2 border-green-500 dark:border-green-400'
               : 'bg-red-50 dark:bg-red-900/30 border-2 border-red-500 dark:border-red-400'
           }`}
         >
           <p
             className={`text-sm md:text-base font-semibold ${
-              isCorrect
+              correct
                 ? 'text-green-800 dark:text-green-200'
                 : 'text-red-800 dark:text-red-200'
             }`}
           >
-            {isCorrect ? (
+            {correct ? (
               <>
                 <span className="text-xl mr-2">✓</span>
                 {feedback.correct || '¡Excelente! Todas las respuestas son correctas.'}
@@ -287,7 +291,7 @@ export default function DragAndDrop({
             ) : (
               <>
                 <span className="text-xl mr-2">✗</span>
-                {feedback.incorrect || 'Algunas respuestas no son correctas. Revisa las palabras marcadas.'}
+                {feedback.incorrect || 'Algunas respuestas no son correctas. Revisa las palabras marcadas con ✗ y las que faltan.'}
               </>
             )}
           </p>
@@ -299,9 +303,9 @@ export default function DragAndDrop({
         {!submitted ? (
           <button
             onClick={handleSubmit}
-            disabled={!allFilled}
+            disabled={droppedItems.length === 0}
             className={`flex-1 px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-all ${
-              allFilled
+              droppedItems.length > 0
                 ? 'bg-(--color-primary) dark:bg-(--color-primary-dark) text-white hover:opacity-90 shadow-md hover:shadow-lg'
                 : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
             }`}
@@ -311,7 +315,7 @@ export default function DragAndDrop({
         ) : (
           <button
             onClick={handleReset}
-            className="flex-1 px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base bg-(--color-secondary) dark:bg-(--color-accent) text-white hover:opacity-90 transition-all shadow-md hover:shadow-lg"
+            className="flex-1 px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base bg-(--color-secondary) dark:bg-scondary text-white hover:opacity-90 transition-all shadow-md hover:shadow-lg"
           >
             Intentar de nuevo
           </button>
@@ -319,8 +323,8 @@ export default function DragAndDrop({
       </div>
 
       {/* Instrucciones móvil */}
-      <p className="mt-4 text-xs text-gray-500 dark:text-gray-400 text-center md:hidden">
-        💡 Toca y mantén presionado para arrastrar. Doble toque para devolver al banco.
+      <p className="mt-4 text-xs text-gray-500 dark:text-gray-400 text-center">
+        💡 Arrastra las palabras o haz doble clic para moverlas. Solo las respuestas correctas cuentan.
       </p>
     </div>
   );

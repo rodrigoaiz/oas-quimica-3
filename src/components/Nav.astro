@@ -32,8 +32,8 @@ const mainOAs = allObjetos
 ---
 
 <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-800/80 backdrop-blur border-b dark:border-slate-700">
-  <div class="mx-auto max-w-7xl flex items-center justify-between px-2 py-3">
-    <div class="logos flex items-center gap-5">
+  <div class="mx-auto max-w-7xl grid grid-cols-3 items-center px-2 py-3 sm:flex sm:justify-between">
+    <div class="logos flex items-center gap-5 justify-start">
       <a href="/">
         <IconoElectronColor class="h-8 sm:hidden" />
         <LogoElectronAzul class="hidden sm:block dark:hidden h-8" />
@@ -87,6 +87,8 @@ const mainOAs = allObjetos
         <a class={clsx("px-2 py-1 rounded hidden sm:block", current === "/creditos" && "bg-(--color-primary) dark:bg-(--color-secondary) text-white dark:text-slate-900")} href="/creditos">Créditos</a>
       </li>
     </ul>
-    <ThemeToggle />
+    <div class="flex justify-end">
+      <ThemeToggle />
+    </div>
   </div>
 </nav>

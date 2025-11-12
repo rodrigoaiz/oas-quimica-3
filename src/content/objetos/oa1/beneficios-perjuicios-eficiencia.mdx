@@ -20,7 +20,7 @@ import DragAndDrop from '@/components/Activity/DragAndDrop.jsx';
 import Matching from '@/components/Activity/Matching.jsx';
 
 <Prose>
-  ## ¿Cuáles son los beneficios o perjuicios de promover la eficiencia en los procesos industriales?
+  ### ¿Cuáles son los beneficios o perjuicios de promover la eficiencia en los procesos industriales?
 
   <ImageText 
     src={p4img01}
@@ -54,13 +54,8 @@ import Matching from '@/components/Activity/Matching.jsx';
   <Breakout>
     <DragAndDrop
       client:load
-      question="Coloca en las cajas, las palabras que respondan a la pregunta correctamente ¿Qué factores participan en la eficiencia de un proceso industrial?"
+      question="Coloca en la caja las palabras que respondan correctamente: ¿Qué factores participan en la eficiencia de un proceso industrial?"
       items={[
-        "Materias primas",
-        "Tiempo",
-        "Energía",
-        "Maquinaria",
-        "Recursos humanos",
         "Producción",
         "Costos",
         "Productividad",
@@ -74,8 +69,8 @@ import Matching from '@/components/Activity/Matching.jsx';
         "Recursos humanos"
       ]}
       feedback={{
-        correct: "¡Excelente! Identificaste correctamente todas las variables que mejoran la eficiencia en el proceso Ostwald.",
-        incorrect: "Revisa las variables. Recuerda que estamos hablando específicamente de las que mejoran la eficiencia del proceso Ostwald."
+        correct: "¡Excelente! Identificaste correctamente todos los factores que participan en la eficiencia de un proceso industrial.",
+        incorrect: "Revisa los factores. Recuerda que estamos hablando específicamente de los que mejoran la eficiencia del proceso industrial."
       }}
     />
   </Breakout>
@@ -89,7 +84,7 @@ import Matching from '@/components/Activity/Matching.jsx';
 
 #### Producción de HNO<sub>3</sub> a partir de NH<sub>3</sub>, método Ostwald
 
-<div class="bg-amber-200 text-lg leading-relaxed space-y-2 p-8 rounded-lg text-fuchsia-950">
+<div class="bg-amber-200 text-lg leading-relaxed space-y-2 p-8 rounded-lg text-fuchsia-950 overflow-scroll">
   <div class="flex items-center justify-between">
     <span class="whitespace-nowrap">2NH<sub class="text-sm">3</sub> + 5O<sub class="text-sm">2</sub> → 4NO + 6H<sub class="text-sm">2</sub>O</span>
     <span class="text-lg whitespace-nowrap">Catalizada por Pt a 800°C</span>

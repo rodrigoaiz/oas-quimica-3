@@ -444,7 +444,7 @@ html {
 }
 
 .data-table thead {
-  background: var(--color-secondary);
+  background: var(--color-dark-bg-main);
 }
 
 .dark .data-table thead {
@@ -480,7 +480,7 @@ html {
 }
 
 .data-table tbody tr:nth-child(odd) {
-  background: #dce2e7;
+  background: #f4f6f8;
 }
 
 .dark .data-table tbody tr:nth-child(odd) {
@@ -497,7 +497,7 @@ html {
 
 /* Strong/Bold dentro de celdas */
 .data-table strong {
-  color: var(--color-primary);
+  color: var(--color-secondary-dark);
   font-weight: 700;
 }
 
