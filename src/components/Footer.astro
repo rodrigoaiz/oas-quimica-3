@@ -3,6 +3,8 @@ import * as footerConfigModule from "@/config/footer.json";
 import LogoPacch from "@/components/logos/logotipo-pacch-color-2024.svg";
 import LogoUnam from "@/components/logos/logo-unam.svg";
 import LogoCCH from "@/components/logos/logo-cch.svg";
+import LogoElectronBlanco from "@/components/logos/logotipo-blanco.svg";
+import LogoElectronAzul from "@/components/logos/logotipo-azul.svg";
 import { Icon } from "astro-icon/components";
 const footerConfig = footerConfigModule as {
   footer: Array<{ name: string; url: string }>;
@@ -19,17 +21,20 @@ const { footer, socials, copyright } = footerConfig;
       <!-- Logo y marcas -->
       <div class="text-center md:mb-0 md:text-left">
         <div class="w-full flex justify-center mb-6">
-          <a href="/" class="text-xl font-semibold text-(--color-primary) dark:text-(--color-secondary)">Química 3</a>
+          <a href="/">
+            <LogoElectronAzul class="hidden sm:block dark:hidden h-8" />
+            <LogoElectronBlanco class="hidden sm:dark:block h-8" />
+          </a>
         </div>
-        <div class="grid grid-cols-3 gap-4 items-center justify-center">
+        <div class="grid grid-cols-3 gap-4 items-center justify-center justify-items-center">
+          <a href="https://portalacademico.cch.unam.mx/" target="_blank" rel="noreferrer" aria-label="Portal Académico CCH">
+            <LogoPacch class="h-7" />
+          </a>
           <a href="https://www.unam.mx/" target="_blank" rel="noreferrer" aria-label="UNAM" class="logo-link">
-            <LogoUnam class="w-10 h-10 fill-amber-500" />
+            <LogoUnam class="h-10" />
           </a>
           <a href="https://cch.unam.mx/" target="_blank" rel="noreferrer" aria-label="CCH" class="logo-link">
-            <LogoCCH class="w-10 h-10" />
-          </a>
-          <a href="https://portalacademico.cch.unam.mx/" target="_blank" rel="noreferrer" aria-label="Portal Académico CCH" class="logo-link">
-            <LogoPacch class="h-7" />
+            <LogoCCH class="h-10" />
           </a>
         </div>
       </div>
@@ -82,5 +87,3 @@ const { footer, socials, copyright } = footerConfig;
     </div>
   </div>
 </footer>
-
-

@@ -358,7 +358,7 @@ html {
 .logo-link svg {
   transition: filter 0.3s ease, opacity 0.3s ease;
   /* Light mode: azul suave (aproximado con filtros) */
-  filter: grayscale(100%) brightness(0.5) sepia(100%) hue-rotate(180deg) saturate(9);
+  filter: grayscale(100%) brightness(0.5) sepia(100%) hue-rotate(190deg) saturate(9);
 }
 
 /* Dark mode: coral cálido */
@@ -368,5 +368,139 @@ html {
 
 .logo-link:hover svg {
   opacity: 0.7;
+}
+
+/* ================================================= */
+/* === RESPONSIVE TABLE STYLES === */
+/* ================================================= */
+
+/* Tabla responsiva con scroll horizontal */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5rem 0;
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+.dark .table-responsive::-webkit-scrollbar-track {
+  background: var(--color-dark-bg-block);
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.dark .table-responsive::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark .table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Estilos de tabla con buen contraste */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #cbd5e1;
+  background: white;
+  font-size: 0.95rem;
+}
+
+.dark .data-table {
+  border-color: #334155;
+  background: var(--color-dark-bg-block);
+}
+
+.data-table thead {
+  background: var(--color-secondary);
+}
+
+.dark .data-table thead {
+  background: var(--color-secondary-dark);
+}
+
+.data-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.dark .data-table th {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.data-table td {
+  padding: 0.875rem 1rem;
+  border: 1px solid #e2e8f0;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
+.dark .data-table td {
+  border-color: #334155;
+  color: var(--color-dark-body);
+}
+
+.data-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.data-table tbody tr:nth-child(odd) {
+  background: #dce2e7;
+}
+
+.dark .data-table tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.data-table tbody tr:hover {
+  background: #e0f2fe;
+}
+
+.dark .data-table tbody tr:hover {
+  background: rgba(14, 165, 233, 0.1);
+}
+
+/* Strong/Bold dentro de celdas */
+.data-table strong {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.dark .data-table strong {
+  color: var(--color-accent);
+}
+
+/* Subíndices en tablas */
+.data-table sub {
+  font-size: 0.75em;
+}
+
+/* Responsive: En móviles, hacer las celdas más compactas */
+@media (max-width: 640px) {
+  .data-table {
+    font-size: 0.875rem;
+  }
+  
+  .data-table th,
+  .data-table td {
+    padding: 0.75rem 0.5rem;
+  }
 }
   

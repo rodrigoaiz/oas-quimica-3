@@ -15,6 +15,7 @@ import Image from '@/components/Image.astro';
 import p4img01 from '@/assets/images/oa1/p4-img-01.webp';
 import p4img02 from '@/assets/images/oa1/p4-img-02.webp';
 import MCQ from '@/components/Activity/MCQ.jsx';
+import DefinitionTerm from '@/components/DefinitionTerm.astro';
 
 <Prose>
   ## ¿Cuáles son los beneficios o perjuicios de promover la eficiencia en los procesos industriales?
@@ -25,9 +26,9 @@ import MCQ from '@/components/Activity/MCQ.jsx';
     imagePosition="left"
     imageSize="md"
   >
-     ¿Alguna vez has intentado hacer un pastel y aunque respetaste todas las cantidades de los ingredientes para una cantidad determinada de pastel, al final te sobró masa que ya no cupo en el molde?
+    ¿Alguna vez has intentado y aunque respetaste todas las cantidades de los ingredientes para una cantidad determinada de pastel, al final te sobró masa que ya no cupo en el molde?
 
-¿Crees que en una fábrica se aprovecha toda la materia prima o puede haber pérdida?
+    ¿Crees que en una fábrica se aprovecha toda la materia prima o puede haber pérdida?
   </ImageText>
 </Prose>
 
@@ -92,58 +93,60 @@ El **proceso Ostwald** es el método industrial principal para la producción de
 
 En el método de Ostwald intervienen diferentes variables que mejoran la eficiencia del proceso:
 
-<table class="min-w-full border-collapse border border-gray-300">
-  <thead>
-    <tr class="bg-green-400">
-      <th class="px-4 py-2 text-center">**Variable**</th>
-      <th class="px-4 py-2 text-center">**Cómo mejora la eficiencia del proceso**</th>
-    </tr>
-  </thead>
-  <tbody class="divide-y divide-gray-200">
-    <tr class="bg-green-200">
-      <td class="px-4 py-3">**Temperatura**</td>
-      <td class="px-4 py-3">
-        El proceso de oxidación del amoníaco es altamente exotérmico. Se controla la temperatura entre 850-900°C, para maximizar la conversión de amoníaco (NH<sub class="text-xs">3</sub>) a monóxido de nitrógeno (NO).
-      </td>
-    </tr>
-    <tr>
-      <td class="px-4 py-3">**Presión**</td>
-      <td class="px-4 py-3">
-        Se utiliza una presión moderada (~4 a 10 atm) para favorecer las reacciones químicas, especialmente la absorción del dióxido de nitrógeno (NO<sub class="text-xs">2</sub>) en agua.
-      </td>
-    </tr>
-    <tr class="bg-green-200">
-      <td class="px-4 py-3">**Proporción de reactivos (relación NH<sub class="text-xs">3</sub>/O<sub class="text-xs">2</sub>)**</td>
-      <td class="px-4 py-3">
-        Es crucial mantener una relación estequiométrica adecuada (alrededor de 1:10) para asegurar una oxidación completa del amoníaco y evitar subproductos.
-      </td>
-    </tr>
-    <tr>
-      <td class="px-4 py-3">**Velocidad del flujo de gases**</td>
-      <td class="px-4 py-3">
-        Controlar el tiempo de residencia de los gases en los reactores, garantiza la conversión óptima y evita pérdidas por reacciones incompletas.
-      </td>
-    </tr>
-    <tr class="bg-green-200">
-      <td class="px-4 py-3">**Catalizadores**</td>
-      <td class="px-4 py-3">
-        Se utilizan mallas de platino/rodio para acelerar la oxidación de amoníaco (NH<sub class="text-xs">3</sub>) a monóxido de nitrógeno (NO). Se optimiza su diseño, temperatura y tiempo de uso para mantener la actividad catalítica.
-      </td>
-    </tr>
-    <tr>
-      <td class="px-4 py-3">**Sistema de absorción**</td>
-      <td class="px-4 py-3">
-        Se controla la eficiencia de la absorción del dióxido de nitrógeno (NO<sub class="text-xs">2</sub>) en agua para formar ácido nítrico, (HNO<sub class="text-xs">3</sub>), manteniendo condiciones de humedad y temperatura adecuadas.
-      </td>
-    </tr>
-    <tr class="bg-green-200">
-      <td class="px-4 py-3">**Recuperación de calor**</td>
-      <td class="px-4 py-3">
-        Se aprovecha el calor generado para precalentar reactivos o producir vapor, aumentando la eficiencia energética.
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Cómo mejora la eficiencia del proceso</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Temperatura</strong></td>
+        <td>
+          El proceso de oxidación del amoníaco es altamente exotérmico. Se controla la temperatura entre 850-900°C, para maximizar la conversión de amoníaco (NH<sub>3</sub>) a monóxido de nitrógeno (NO).
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Presión</strong></td>
+        <td>
+          Se utiliza una presión moderada (~4 a 10 atm) para favorecer las reacciones químicas, especialmente la absorción del dióxido de nitrógeno (NO<sub>2</sub>) en agua.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Proporción de reactivos (relación NH<sub>3</sub>/O<sub>2</sub>)</strong></td>
+        <td>
+          Es crucial mantener una relación estequiométrica adecuada (alrededor de 1:10) para asegurar una oxidación completa del amoníaco y evitar subproductos.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Velocidad del flujo de gases</strong></td>
+        <td>
+          Controlar el tiempo de residencia de los gases en los reactores, garantiza la conversión óptima y evita pérdidas por reacciones incompletas.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Catalizadores</strong></td>
+        <td>
+          Se utilizan mallas de platino/rodio para acelerar la oxidación de amoníaco (NH<sub>3</sub>) a monóxido de nitrógeno (NO). Se optimiza su diseño, temperatura y tiempo de uso para mantener la actividad catalítica.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Sistema de absorción</strong></td>
+        <td>
+          Se controla la eficiencia de la absorción del dióxido de nitrógeno (NO<sub>2</sub>) en agua para formar ácido nítrico, (HNO<sub>3</sub>), manteniendo condiciones de humedad y temperatura adecuadas.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Recuperación de calor</strong></td>
+        <td>
+          Se aprovecha el calor generado para precalentar reactivos o producir vapor, aumentando la eficiencia energética.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 Como te habrás dado cuenta, para que un proceso sea eficiente, es necesario controlar diferentes variables, como la cantidad de reactivos, la temperatura, el uso de catalizadores, entre otras más. Sin embargo, no siempre es posible controlar todo, lo que lleva a tener procesos con una eficiencia siempre menor al 100%.
 
