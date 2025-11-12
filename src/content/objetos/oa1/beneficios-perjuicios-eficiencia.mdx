@@ -11,263 +11,173 @@ import MultiSelect from '@/components/Activity/MultiSelect.jsx';
 import Tabs from '@/components/Tabs.astro';
 import VideoLite from '@/components/VideoLite.astro';
 import Math from '@/components/Math.astro';
+import Image from '@/components/Image.astro';
+import p4img01 from '@/assets/images/oa1/p4-img-01.webp';
+import p4img02 from '@/assets/images/oa1/p4-img-02.webp';
+import MCQ from '@/components/Activity/MCQ.jsx';
 
 <Prose>
-  ## ¿Todas esas transformaciones ocurren de la misma forma?
+  ## ¿Cuáles son los beneficios o perjuicios de promover la eficiencia en los procesos industriales?
 
   <ImageText 
-    src="/images/oa1/moleculon.jpg" 
+    src={p4img01}
     alt="Molécula de ejemplo"
     imagePosition="left"
     imageSize="md"
   >
-     Una reacción química es la transformación de la materia, pero <span class="font-bold">¿todas esas transformaciones ocurren de la misma forma?</span>
+     ¿Alguna vez has intentado hacer un pastel y aunque respetaste todas las cantidades de los ingredientes para una cantidad determinada de pastel, al final te sobró masa que ya no cupo en el molde?
 
-   <p class="font-bold">¿Por qué la reacción que permite encender un fósforo es inmediata, pero el deterioro de los alimentos lleva más tiempo?</p>
-
-   <p class="font-bold">¿Por qué al abrir un refresco que ha sido agitado, se desborda el líquido contenido, pero antes de la agitación no sucede así?</p>
+¿Crees que en una fábrica se aprovecha toda la materia prima o puede haber pérdida?
   </ImageText>
 </Prose>
 
 <Prose>
-  En los ejemplos anteriores, se puede observar que algunas reacciones ocurren rápido, pero otras, como el caso del deterioro de alimentos, se requiere más tiempo. La rapidez con la que ocurren las reacciones químicas es un tema fascinante porque permite entender no sólo cómo y por qué ocurren estos cambios, sino también cómo es posible controlarlos y establecer las condiciones óptimas para llevar a cabo diferentes procesos.
- 
-  Así pues, ¡prepárate para descubrir cómo el tiempo puede ser un factor decisivo en la transformación de la materia!
+  Estas preguntas hacen referencia a la ***eficiencia de un proceso,*** la cual puede ser tan común como hornear un pastel o de mayor complejidad como el proceso en una fábrica.
 
-  ### Verifica tu comprensión
-
-  Ahora, te invito a que selecciones ¿Cuáles son los factores que influyen en la rapidez de una reacción química?
-  
-  <MCQQuiz 
-    client:load
-    questions={[
-      {
-        question: "La combustión de la gasolina para hacer funcionar un automóvil:",
-        options: [
-          "Rápida",
-          "Lenta"
-        ],
-        correctIndex: 0,
-        feedback: {
-          correct: "¡Correcto! La combustión de la gasolina es una reacción rápida que libera energía de forma inmediata.",
-          incorrect: "Revisa las características de las reacciones rápidas y lentas."
-        }
-      },
-      {
-        question: "La oxidación de un trozo de hierro expuesto a la intemperie:",
-        options: [
-          "Rápido",
-          "Lento"
-        ],
-        correctIndex: 1,
-        feedback: {
-          correct: "¡Exacto! La oxidación de un trozo de hierro expuesto a la intemperie es una reacción lenta que ocurre con el tiempo.",
-          incorrect: "Piensa en cuánto tiempo tarda en ocurrir la oxidación del hierro."
-        }
-      },
-      {
-        question: "La reacción que presentan los fuegos artificiales al explotar:",
-        options: [
-          "Rápido",
-          "Lento"
-        ],
-        correctIndex: 0,
-        feedback: {
-          correct: "¡Exacto! La reacción que presentan los fuegos artificiales al explotar es una reacción rápida que ocurre en un instante.",
-          incorrect: "Piensa en cuánto tiempo tarda en ocurrir la explosión de un fuego artificial."
-        }
-      },
-      {
-        question: "La digestión de los alimentos en el estómago:",
-        options: [
-          "Rápido",
-          "Lento"
-        ],
-        correctIndex: 1,
-        feedback: {
-          correct: "¡Correcto! La digestión de los alimentos en el estómago es una reacción lenta que puede tomar horas.",
-          incorrect: "Revisa las características de las reacciones rápidas y lentas."
-        }
-      }     
-    ]}
+  <Image
+    src={p4img02}
+    title="Industria"
+    caption="La eficiencia de un proceso industrial."
+    alt="La eficiencia de un proceso industrial."
   />
 
-  ### ¡Muy bien!
- 
-  Como te diste cuenta, todas las reacciones químicas se llevan a cabo con diferente rapidez, pero ¿existen factores que influyen en ella? La respuesta es sí.
+La ***eficiencia de un proceso industrial*** se refiere a la capacidad de utilizar, de manera óptima, los recursos disponibles como materias primas, energía, tiempo y maquinaria para obtener el producto deseado; minimizando desperdicios, costos y pérdidas. Mejorar la eficiencia de un proceso tiene una gran importancia técnica, económica, ambiental, con un mínimo de recursos humanos. En otras palabras, se trata de **hacer más con menos**.
 
-  La rapidez de una reacción química depende de diversos factores, como son: la concentración de los reactivos, la temperatura, la presión-volumen, específicamente en los gases; la superficie de contacto si es que se habla de sólidos, así como la presencia de catalizadores. A mayor concentración y/o temperatura,  la reacción es más rápida, lo mismo si hablamos de mayor superficie de contacto en el caso de sólidos. Un catalizador también hace posible aumentar la rapidez de una reacción química, pero sin consumirse en ella.
+Es un concepto clave en la gestión de operaciones y en la mejora continua de cualquier actividad, ya sea en una fábrica, una oficina o incluso en la vida diaria.
 
-  ### Ejercicio de seleccionar
+### Ejercicio de seleccionar
 
-  De acuerdo con lo que has leído, te habrás dado cuenta que la rapidez de las reacciones químicas depende de varios factores ¿ya sabes cuáles son ellos? Resuelve el siguiente ejercicio:  
+  <p class="text-fuchsia-800 text-center text-3xl font-bold">¿Qué factores participan en la eficiencia de un proceso industrial? </p>
 </Prose>
 <Breakout>
   <MultiSelect 
     client:load
-    question="Selecciona los factores que influyen en la rapidez de una reacción química:"
+    question="Selecciona las palabras que respondan a la pregunta correctamente:"
     options={[
-      "La presión-volumen",
-      "La temperatura",
-      "El color",
-      "La superficie de contacto",
-      "El catalizador",
-      "El brillo de los reactivos",
-      "El enlace químico"
+      "materias primas",
+      "tiempo",
+      "energía",
+      "producción",
+      "maquinaria",
+      "competitividad",
+      "recursos humanos"
     ]}
-    correctIndexes={[0, 1, 2, 4, 5]}
+    correctIndexes={[0, 1, 2, 4, 6]}
     feedback={{
-      correct: "¡Excelente! Identificaste correctamente que aumentar la temperatura, usar catalizadores y aumentar la concentración aceleran las reacciones.",
-      incorrect: "Revisa tu selección. Recuerda que algunos factores disminuyen la rapidez de reacción."
+      correct: "¡Excelente! Identificaste correctamente los factores que afectan la eficiencia de un proceso industrial.",
+      incorrect: "Revisa tu selección. Recuerda que la producción y la competitividad no necesariamente afectan la eficiencia."
     }}
   />
 </Breakout>
 <Prose>
-  Ahora, imagínate que estás en un laboratorio de Química, ponte tu bata y tus lentes de seguridad, porque realizaremos un pequeño experimento, en el que podrás observar de manera más cercana, la influencia de estos factores.
- 
-  Presiona cada uno de los botones y observa el material que se te presenta, recuerda que puedes tomar todas las notas que consideres necesarias para complementar tu aprendizaje.
-</Prose>
+  Pero ahora te preguntarás ¿de qué manera es posible controlar la eficiencia de un proceso?  Esto se puede explicar utilizando como ejemplo, el proceso de obtención del Ácido nítrico (HNO<sub>3</sub>) a partir de la oxidación del Amoniaco (NH<sub>3</sub>) (Método Ostwald).
 
-<Breakout>
-  <Tabs 
-    tabs={[
-      { id: 'control', label: '🎮 Control' },
-      { id: 'temperatura', label: '🌡️ Temperatura' },
-      { id: 'concentracion', label: '🍶 Concentración' },
-      { id: 'superficie', label: '🗻 Superficie de Contacto' }
-    ]}
-    defaultTab="control"
-  >
-    <div data-tab="control">
-      <Prose>
-        ### Experimento de Control
-        
-        La efervescencia es una reacción química que implica la liberación de gas, en forma de burbujas, en este experimento observarás cómo ocurre la efervescencia de una pastilla en presencia de agua. Observa el cronómetro y registra el tiempo que se lleva la reacción, sin modificar ningún factor.
-        <VideoLite
-          videoId="MeYYU3KWgzw"
-          title="Experimento de Control"
-          autoplay={false}
-          nocookie={true}
-        />
-      </Prose>
-    </div>
+El **proceso Ostwald** es el método industrial principal para la producción de **ácido nítrico (HNO<sub>3</sub>)**. Este proceso, desarrollado en 1902, utiliza como materia prima el amoníaco (NH<sub>3</sub>) y el oxígeno (O<sub>2</sub>), y se realiza en tres etapas principales, la primer etapa es la oxidación del amoniaco,  la segunda etapa, la  oxidación del óxido nítrico y la tercer etapa la absorción en agua.
 
-    <div data-tab="temperatura">
-      <Prose>
-        ### Efecto de la Temperatura
-        
-        ¿Qué pasa si se altera la temperatura en la cual se lleva a cabo la efervescencia de la pastilla? En este video observarás directamente la manera en que el incremento de la temperatura influye en la rapidez de reacción. Observa el cronómetro y registra el tiempo en el cual se lleva la reacción y compáralo con el tiempo indicado en el control.
+#### Producción de HNO<sub>3</sub> a partir de NH<sub>3</sub>, método Ostwald
 
-        <VideoLite
-          videoId="G2oxfGSAXL0"
-          title="Efecto de la Temperatura"
-          autoplay={false}
-          nocookie={true}
-        />
-      </Prose>
-    </div>
+<div class="bg-amber-200 text-lg leading-relaxed space-y-2 p-8 rounded-lg text-fuchsia-950">
+  <div class="flex items-center justify-between">
+    <span class="whitespace-nowrap">2NH<sub class="text-sm">3</sub> + 5O<sub class="text-sm">2</sub> → 4NO + 6H<sub class="text-sm">2</sub>O</span>
+    <span class="text-lg whitespace-nowrap">Catalizada por Pt a 800°C</span>
+  </div>
+  <div class="flex items-center justify-between">
+    <span class="whitespace-nowrap">2NO + O<sub class="text-sm">2</sub> → 2NO<sub class="text-sm">2</sub></span>
+    <span class="text-lg whitespace-nowrap">Presión 4 - 10 atm</span>
+  </div>
+  <div class="flex items-center justify-between">
+    <span class="whitespace-nowrap">3NO<sub class="text-sm">2</sub> + H<sub class="text-sm">2</sub>O → 2HNO<sub class="text-sm">3</sub> + NO</span>
+  </div>
+</div>
 
-    <div data-tab="concentracion">
-      <Prose>
-        ### Efecto de la Concentración
-        
-        El video que se muestra a continuación muestra lo que sucede cuando al incrementar la concentración la rapidez con la que se lleva a cabo la efervescencia también se modifica. Observa el cronómetro y registra el tiempo en el cual se lleva la reacción y compáralo con el tiempo indicado en el control.
+En el método de Ostwald intervienen diferentes variables que mejoran la eficiencia del proceso:
 
-        <VideoLite
-          videoId="gwIPb9zHz14"
-          title="Efecto de la Concentración"
-          autoplay={false}
-          nocookie={true}
-        />
-      </Prose>
-    </div>
+<table class="min-w-full border-collapse border border-gray-300">
+  <thead>
+    <tr class="bg-green-400">
+      <th class="px-4 py-2 text-center">**Variable**</th>
+      <th class="px-4 py-2 text-center">**Cómo mejora la eficiencia del proceso**</th>
+    </tr>
+  </thead>
+  <tbody class="divide-y divide-gray-200">
+    <tr class="bg-green-200">
+      <td class="px-4 py-3">**Temperatura**</td>
+      <td class="px-4 py-3">
+        El proceso de oxidación del amoníaco es altamente exotérmico. Se controla la temperatura entre 850-900°C, para maximizar la conversión de amoníaco (NH<sub class="text-xs">3</sub>) a monóxido de nitrógeno (NO).
+      </td>
+    </tr>
+    <tr>
+      <td class="px-4 py-3">**Presión**</td>
+      <td class="px-4 py-3">
+        Se utiliza una presión moderada (~4 a 10 atm) para favorecer las reacciones químicas, especialmente la absorción del dióxido de nitrógeno (NO<sub class="text-xs">2</sub>) en agua.
+      </td>
+    </tr>
+    <tr class="bg-green-200">
+      <td class="px-4 py-3">**Proporción de reactivos (relación NH<sub class="text-xs">3</sub>/O<sub class="text-xs">2</sub>)**</td>
+      <td class="px-4 py-3">
+        Es crucial mantener una relación estequiométrica adecuada (alrededor de 1:10) para asegurar una oxidación completa del amoníaco y evitar subproductos.
+      </td>
+    </tr>
+    <tr>
+      <td class="px-4 py-3">**Velocidad del flujo de gases**</td>
+      <td class="px-4 py-3">
+        Controlar el tiempo de residencia de los gases en los reactores, garantiza la conversión óptima y evita pérdidas por reacciones incompletas.
+      </td>
+    </tr>
+    <tr class="bg-green-200">
+      <td class="px-4 py-3">**Catalizadores**</td>
+      <td class="px-4 py-3">
+        Se utilizan mallas de platino/rodio para acelerar la oxidación de amoníaco (NH<sub class="text-xs">3</sub>) a monóxido de nitrógeno (NO). Se optimiza su diseño, temperatura y tiempo de uso para mantener la actividad catalítica.
+      </td>
+    </tr>
+    <tr>
+      <td class="px-4 py-3">**Sistema de absorción**</td>
+      <td class="px-4 py-3">
+        Se controla la eficiencia de la absorción del dióxido de nitrógeno (NO<sub class="text-xs">2</sub>) en agua para formar ácido nítrico, (HNO<sub class="text-xs">3</sub>), manteniendo condiciones de humedad y temperatura adecuadas.
+      </td>
+    </tr>
+    <tr class="bg-green-200">
+      <td class="px-4 py-3">**Recuperación de calor**</td>
+      <td class="px-4 py-3">
+        Se aprovecha el calor generado para precalentar reactivos o producir vapor, aumentando la eficiencia energética.
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-    <div data-tab="superficie">
-      <Prose>
-        ### Efecto de la Superficie de Contacto
-        
-        Otro factor que modifica la rapidez con la que se lleva a cabo una reacción química es la superficie de contacto. El siguiente video presenta la reacción de efervescencia, pero en ahora con la pastilla en polvo, lo cual aumenta la superficie de contacto. Registra el tiempo en el cual se lleva la reacción y compáralo con el tiempo indicado en el control.
+Como te habrás dado cuenta, para que un proceso sea eficiente, es necesario controlar diferentes variables, como la cantidad de reactivos, la temperatura, el uso de catalizadores, entre otras más. Sin embargo, no siempre es posible controlar todo, lo que lleva a tener procesos con una eficiencia siempre menor al 100%.
 
-        <VideoLite
-          videoId="-dcNks2Ir60"
-          title="Efecto de la Superficie de Contacto"
-          autoplay={false}
-          nocookie={true}
-        />
-      </Prose>
-    </div>
-    
-    
-  </Tabs>
-</Breakout>
+<span class="italic">Mejorar la eficiencia tiene beneficios industriales, económicos y ambientales, esto último al generar menos residuos, menor gasto de energía y menor contaminación. En otras palabras, eficiencia y sostenibilidad están estrechamente vinculadas.</span>
 
-<Prose>
+En el método Ostwald, que produce ácido nítrico a partir de amoníaco, se controlan variables como temperatura, presión, catalizadores y recuperación de calor. <span class="italic">Estas medidas no solo aumentan el rendimiento, también permiten disminuir emisiones contaminantes y aprovechar mejor la energía, alineándose con el ODS 12: Producción y consumo responsables.</span>
 
-  Esos factores que modifican la rapidez de una reacción, también afectan el proceso de Haber-Bosch, el cual es un método industrial para la producción de amoníaco (NH₃) a partir de nitrógeno (N₂) e hidrógeno (H₂). Fue desarrollado por Fritz Haber y optimizado por Carl Bosch, para la producción del gas a gran escala a principios del siglo XX. 
+### Ejercicio de arrastrar
 
-  <Math formula="\text{N}_2(\text{g}) + 3\text{H}_2(\text{g}) \rightleftharpoons 2\text{NH}_3(\text{g}) \quad \Delta H = -46.2 \text{ kJ/mol}" display />
+  <p class="text-fuchsia-800 text-center text-xl font-bold">Tomando como ejemplo, la producción de HNO3, completa el siguiente cuadro, arrastrando el nombre de la variable que corresponde en cada descripción.</p>
 
-  Este procedimiento involucra el calentamiento de los gases hasta los 400ºC y el aumento de la presión hasta las 300 atm, así como la presencia de sustancias  como el Al<sub>2</sub>O<sub>3</sub> y K<sub>2</sub>O como catalizadores que aumentan la rapidez de reacción. 
+  En la producción de ácido nítrico (HNO<sub>3</sub>), controlar adecuadamente las variables, mejora la eficiencia del proceso, con lo cual disminuye el impacto ambiental, reduce costos y favorece el aprovechamiento responsable de los recursos naturales.
 
-  La síntesis del amoniaco constituye un proceso esencial para la producción de fertilizantes, cuyo impacto ha sido determinante en el fortalecimiento de la seguridad alimentaria a nivel mundial
+### Ejercicio de seleccionar
+<p class="text-fuchsia-800 text-center text-xl font-bold">El sistema de absorción controla la reacción:</p>
+<p class="text-fuchsia-800 text-center text-2xl font-bold">3NO<sub>2</sub> + H<sub>2</sub>O     2HNO<sub>3</sub> + NO</p>
+<p class="text-fuchsia-800 text-center text-xl font-bold">Favoreciendo la producción de HNO<sub>3</sub></p>
 
-  En la industria, controlar estos factores no solo permite mejorar la producción, sino también reducir el consumo de energía y la generación de contaminantes. Por ejemplo, el uso de catalizadores acelera las reacciones y disminuye las condiciones extremas de temperatura o presión, contribuyendo a procesos más sostenibles.
+  <MCQ 
+  client:load 
+  question="Selecciona si es falso o verdadero el enunciado anterior" 
+  options={[
+    "Verdadero",
+    "Falso"
+  ]} 
+  correctIndex={0} 
+  feedback={{
+    correct: "¡Correcto!",
+    incorrect: "Recuerda: El sistema de absorción sí controla la reacción planteada."
+  }} 
+/>
 
-   ### Ejercicio de seleccionar
+Ahora ya lo sabes, determinar la ***eficiencia de un proceso químico***, es un criterio que permite identificar el aprovechamiento óptimo de todos los insumos. Si la eficiencia es baja, se genera más desperdicio de recursos y por lo tanto, mayor gasto económico. Al conocer la eficiencia, se pueden hacer mejoras en las etapas donde así lo requiera, lo cual promueve procesos mejores y más eficientes.
 
-   A continuación responde lo que se pregunta en referencia al proceso de síntesis del amoniaco (NH₃). Para la producción de NH₃ ¿a qué factor hace referencia?
-
-
-  <MCQQuiz 
-    client:load
-    questions={[
-      {
-        question: "Se requiere calentamiento superior a los 400ºC",
-        options: [
-          "Catalizador",
-          "Presión",
-          "Superficie de contacto",
-          "Temperatura",
-          "Concentración"
-        ],
-        correctIndex: 3,
-        feedback: {
-          correct: "¡Correcto! La temperatura elevada aumenta la energía.",
-          incorrect: "Revisa los factores que influyen en la rapidez de una reacción química."
-        }
-      },
-      {
-        question: "Se utiliza Pt para acelerar la reacción",
-        options: [
-          "Catalizador",
-          "Presión",
-          "Superficie de contacto",
-          "Temperatura",
-          "Concentración"
-        ],
-        correctIndex: 0,
-        feedback: {
-          correct: "¡Exacto! Los catalizadores aumentan la rapidez de reacción sin consumirse.",
-          incorrect: "Revisa los factores que influyen en la rapidez de una reacción química."
-        }
-      },
-      {
-        question: "Es necesario que los gases estén compactados",
-        options: [
-          "Catalizador",
-          "Presión",
-          "Superficie de contacto",
-          "Temperatura",
-          "Concentración"
-        ],
-        correctIndex: 1,
-        feedback: {
-          correct: "¡Muy bien! Aumentar la presión incrementa la frecuencia de colisiones entre moléculas.",
-          incorrect: "Revisa los factores que influyen en la rapidez de una reacción química."
-        }
-      }
-    ]}
-  />
 </Prose>
 
 
