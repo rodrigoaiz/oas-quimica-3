@@ -4,6 +4,7 @@ import 'katex/dist/katex.min.css';
 import '@fontsource-variable/quicksand';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+
 const { 
   title = 'Elctrón · Objetos de aprendizaje del CCH UNAM', 
   description = 'Portal de objetos de aprendizaje del Colegio de Ciencias y Humanidades de la UNAM, enfocado en la enseñanza de la química.', 
@@ -57,5 +58,26 @@ const {
     <Nav current={Astro.url.pathname} />
     <slot />
     <Footer />
+    
+    <!-- Inicializar Twemoji después de que el DOM esté listo -->
+    <script>
+      import twemoji from 'twemoji';
+      
+      // Parsear emojis cuando el DOM esté listo
+      document.addEventListener('DOMContentLoaded', () => {
+        twemoji.parse(document.body, {
+          folder: 'svg',
+          ext: '.svg'
+        });
+      });
+      
+      // También parsear después de navegación (para SPAs/transiciones)
+      document.addEventListener('astro:page-load', () => {
+        twemoji.parse(document.body, {
+          folder: 'svg',
+          ext: '.svg'
+        });
+      });
+    </script>
   </body>
 </html>

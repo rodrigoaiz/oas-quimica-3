@@ -1,0 +1,46 @@
+---
+/**
+ * Componente para agrupar ítems bibliográficos por tipo (libros, artículos, etc.)
+ */
+interface Props {
+  title: string;
+  icon?: string;
+  type?: 'book' | 'article' | 'other';
+}
+
+const { 
+  title,
+  icon,
+  type = 'book'
+} = Astro.props;
+
+const colorScheme = {
+  book: {
+    title: 'text-(--color-primary) dark:text-(--color-primary-dark)',
+    border: 'border-(--color-primary)/20 dark:border-(--color-primary-dark)/30'
+  },
+  article: {
+    title: 'text-(--color-secondary) dark:text-accent',
+    border: 'border-(--color-secondary)/20 dark:border-accent/30'
+  },
+  other: {
+    title: 'text-gray-800 dark:text-gray-200',
+    border: 'border-gray-200 dark:border-slate-700'
+  }
+};
+
+const colors = colorScheme[type] || colorScheme.other;
+---
+
+<div class={`bg-white dark:bg-slate-800 rounded-xl p-4 md:p-6 shadow-md border ${colors.border} mb-6`}>
+  <div class="flex items-center justify-center gap-2 mb-4">
+    {icon && <span class="text-2xl leading-none">{icon}</span>}
+    <span class={`text-2xl font-bold ${colors.title} leading-none`}>
+      {title}
+    </span>
+  </div>
+  
+  <div class="space-y-3">
+    <slot />
+  </div>
+</div>

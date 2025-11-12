@@ -1,0 +1,34 @@
+---
+/**
+ * Componente para el header de la página de bibliografía
+ */
+interface Props {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+}
+
+const { 
+  title = "Bibliografía",
+  subtitle = "Referencias y fuentes consultadas",
+  description = "Fundamentos teóricos del objeto de aprendizaje"
+} = Astro.props;
+---
+
+<div class="bg-(--color-primary)/10 dark:bg-slate-800 rounded-xl p-4 text-center shadow-lg border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 mb-6">
+  <h2 class="text-2xl md:text-3xl font-bold text-(--color-primary) dark:text-(--color-primary-dark) mb-2">
+    {title}
+  </h2>
+  
+  {subtitle && (
+    <p class="text-lg text-gray-700 dark:text-gray-300 mt-2 text-center font-semibold">
+      {subtitle}
+    </p>
+  )}
+  
+  {description && (
+    <p class="text-base text-gray-700 dark:text-gray-400 text-center font-semibold">
+      {description}
+    </p>
+  )}
+</div>

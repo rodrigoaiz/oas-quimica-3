@@ -596,4 +596,42 @@ html {
 .drag-item.shake {
   animation: shake 0.3s ease-in-out;
 }
+
+/* ================================================= */
+/* === ESTILOS PARA TWEMOJI === */
+/* ================================================= */
+
+/* Tamaño por defecto de emojis Twemoji - igual al tamaño del texto */
+img.emoji {
+  height: 1em;
+  width: 1em;
+  margin: 0 0.05em 0 0.1em;
+  vertical-align: -0.1em;
+  display: inline-block;
+}
+
+/* Tamaños específicos para diferentes contextos */
+h1 img.emoji,
+h2 img.emoji,
+h3 img.emoji {
+  vertical-align: -0.2em;
+}
+
+/* Para emojis grandes decorativos (como en los iconos de sección) */
+.emoji-large img.emoji {
+  height: 2em;
+  width: 2em;
+}
+
+.emoji-xl img.emoji {
+  height: 3em;
+  width: 3em;
+}
+
+/* Para emojis en botones o elementos interactivos */
+button img.emoji,
+a img.emoji {
+  vertical-align: -0.15em;
+}
+  
   

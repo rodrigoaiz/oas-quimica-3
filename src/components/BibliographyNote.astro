@@ -1,0 +1,30 @@
+---
+/**
+ * Componente para notas metodológicas o informativas en la bibliografía
+ */
+interface Props {
+  title?: string;
+  icon?: string;
+  message?: string;
+}
+
+const { 
+  title = "Nota metodológica",
+  icon = "📖",
+  message = "Las referencias bibliográficas han sido seleccionadas para proporcionar fundamentos sólidos en química general y procesos industriales específicos."
+} = Astro.props;
+---
+
+<div class="bg-(--color-secondary)/10 dark:bg-slate-800 rounded-xl p-6 shadow-lg border border-(--color-secondary)/30 dark:border-accent/30 mb-8">
+  <div class="text-center">
+    <div class="w-12 h-12 bg-white dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+      <span class="text-2xl">{icon}</span>
+    </div>
+    <h3 class="text-lg font-bold text-(--color-secondary) dark:text-accent mb-2">
+      {title}
+    </h3>
+    <p class="text-gray-800 dark:text-gray-200 max-w-2xl mx-auto">
+      <slot>{message}</slot>
+    </p>
+  </div>
+</div>

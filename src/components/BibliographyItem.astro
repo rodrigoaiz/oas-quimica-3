@@ -1,0 +1,56 @@
+---
+/**
+ * Componente para un ítem bibliográfico individual
+ */
+interface Props {
+  authors: string;
+  year: string | number;
+  title: string;
+  publisher?: string;
+  edition?: string;
+  url?: string;
+  urlLabel?: string;
+  type?: 'book' | 'article';
+}
+
+const { 
+  authors,
+  year,
+  title,
+  publisher,
+  edition,
+  url,
+  urlLabel = "Recuperado de:",
+  type = 'book'
+} = Astro.props;
+
+const bgColor = type === 'book' 
+  ? 'bg-(--color-primary)/5 dark:bg-slate-700/50' 
+  : 'bg-(--color-secondary)/5 dark:bg-slate-700/50';
+
+const borderColor = type === 'book'
+  ? 'border-(--color-primary)/20 dark:border-(--color-primary-dark)/30'
+  : 'border-(--color-secondary)/20 dark:border-accent/30';
+---
+
+<div class={`${bgColor} rounded-lg p-3 border ${borderColor} hover:shadow-md transition-shadow`}>
+  <p class="text-gray-800 dark:text-gray-200 leading-relaxed">
+    <span class="font-semibold">{authors}</span> ({year}). 
+    <em>{title}</em>
+    {publisher && ` ${publisher}.`}
+    {edition && ` ${edition}.`}
+  </p>
+  
+  {url && (
+    <p class="text-sm text-(--color-primary) dark:text-(--color-primary-dark) mt-2">
+      {urlLabel} <a 
+        href={url} 
+        class="hover:underline font-medium" 
+        target="_blank" 
+        rel="noopener noreferrer"
+      >
+        {url}
+      </a>
+    </p>
+  )}
+</div>
