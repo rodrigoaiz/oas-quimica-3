@@ -50,6 +50,12 @@ const baseUrl = `/objetos/${entry.slug}`;
 
     <header class="mb-6">
       <h1 class="text-4xl font-extrabold text-(--color-primary) dark:text-(--color-primary-dark) pt-2">{data.title}</h1>
+      <img
+        src={data.cover}
+        alt={data.title}
+        class="w-full aspect-video rounded-2xl mt-4 object-cover"
+        loading="lazy"
+      />
       
       {data.summary && (
         <div class="mt-10 pb-5 mx-auto max-w-3xl">
@@ -64,12 +70,6 @@ const baseUrl = `/objetos/${entry.slug}`;
         </div>
       )}
       
-      <img
-        src={data.cover}
-        alt={data.title}
-        class="w-full aspect-video rounded-2xl mt-4 object-cover"
-        loading="lazy"
-      />
     </header>
 
     <article class="contenido-mdx">
