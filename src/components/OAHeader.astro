@@ -1,0 +1,15 @@
+---
+const { title, guionDate = "Febrero, 2025", publicationDate = "Noviembre, 2025" } = Astro.props;
+---
+
+<div class="bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 rounded-xl p-6 text-center shadow-lg border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 mb-8">
+  <h1 class="text-2xl md:text-3xl font-bold text-(--color-primary) dark:text-(--color-primary-dark) mb-4">
+    {title}
+  </h1>
+  <p class="text-lg text-gray-700 dark:text-gray-300 mt-4 font-semibold">
+    Elaboración del Guión Instruccional - {guionDate}
+  </p>
+  <p class="text-base text-gray-600 dark:text-gray-400 font-semibold">
+    Publicación del Objeto de Aprendizaje - {publicationDate}
+  </p>
+</div>

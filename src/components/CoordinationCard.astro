@@ -1,0 +1,31 @@
+---
+interface Props {
+  portalCoordinator?: string;
+  workGroupCoordinator?: string;
+}
+
+const { 
+  portalCoordinator = "Claudia Durán Olmos",
+  workGroupCoordinator = "Adriana Jaramillo Alcantar"
+} = Astro.props;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+  <div class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-md border border-(--color-primary)/20 dark:border-slate-700 hover:shadow-lg transition-shadow">
+    <h2 class="text-xl font-bold text-(--color-primary) dark:text-(--color-primary-dark) text-center mb-3">
+      Coordinación del Portal Académico
+    </h2>
+    <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 text-center">
+      {portalCoordinator}
+    </p>
+  </div>
+
+  <div class="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-md border border-(--color-secondary)/20 dark:border-slate-700 hover:shadow-lg transition-shadow">
+    <h2 class="text-xl font-bold text-(--color-secondary) dark:text-accent text-center mb-3">
+      Coordinación del Grupo de Trabajo Institucional
+    </h2>
+    <p class="text-lg font-semibold text-gray-800 dark:text-gray-200 text-center">
+      {workGroupCoordinator}
+    </p>
+  </div>
+</div>

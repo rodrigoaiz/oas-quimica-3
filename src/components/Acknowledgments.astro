@@ -1,0 +1,24 @@
+---
+interface Props {
+  papimeProject?: string;
+}
+
+const { 
+  papimeProject = "PE210825"
+} = Astro.props;
+---
+
+<div class="bg-linear-to-br from-(--color-secondary)/10 to-(--color-secondary)/5 dark:from-slate-800 dark:to-slate-900 rounded-xl p-8 shadow-lg border border-(--color-secondary)/30 dark:border-slate-700 mb-8">
+  <div class="text-center">
+    <div class="w-16 h-16 bg-white dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
+      <span class="text-3xl">🏛️</span>
+    </div>
+    <h2 class="text-2xl font-bold text-(--color-secondary) dark:text-accent mb-4">Agradecimientos</h2>
+    <p class="text-lg text-gray-800 dark:text-gray-200 max-w-3xl mx-auto leading-relaxed">
+      Este proyecto se llevó a cabo gracias al financiamiento y apoyo de la 
+      <span class="font-bold text-(--color-secondary) dark:text-accent"> DGAPA de la UNAM </span>
+      al proyecto 
+      <span class="font-bold text-(--color-primary) dark:text-(--color-primary-dark)">PAPIME {papimeProject}</span>
+    </p>
+  </div>
+</div>

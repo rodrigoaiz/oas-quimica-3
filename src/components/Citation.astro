@@ -1,0 +1,73 @@
+---
+/**
+ * Componente para mostrar la cita en formato APA
+ * Genera automáticamente la cita basándose en los datos del OA
+ */
+
+const { 
+  authors = [],
+  year = new Date().getFullYear(),
+  title,
+  publisher = "UNAM, Colegio de Ciencias y Humanidades",
+  url
+} = Astro.props;
+
+// Formatear autores en estilo APA
+const formatAuthors = (authorsList: string[]) => {
+  if (authorsList.length === 0) return "";
+  if (authorsList.length === 1) return `${authorsList[0]}.`;
+  if (authorsList.length === 2) return `${authorsList[0]} y ${authorsList[1]}.`;
+  
+  // Para 3 o más autores
+  const allButLast = authorsList.slice(0, -1);
+  const last = authorsList[authorsList.length - 1];
+  return `${allButLast.join(', ')}, y ${last}.`;
+};
+
+const authorsFormatted = formatAuthors(authors);
+
+// Construir URL completa para producción
+const site = Astro.site?.toString().replace(/\/$/, '') || '';
+const pathname = Astro.url.pathname;
+const currentUrl = url || `${site}${pathname}`;
+
+const accessDate = new Date().toLocaleDateString('es-MX', { 
+  year: 'numeric', 
+  month: 'long', 
+  day: 'numeric' 
+});
+
+// Construir la cita completa
+const citation = `${authorsFormatted} (${year}). ${title}. ${publisher}. ${currentUrl}`;
+---
+
+<div class="bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 rounded-xl p-6 shadow-lg border border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 mb-8">
+  <div class="text-center mb-4">
+    <div class="w-12 h-12 bg-(--color-primary)/10 dark:bg-(--color-primary-dark)/20 rounded-full flex items-center justify-center mx-auto mb-3">
+      <span class="text-2xl">📚</span>
+    </div>
+    <h3 class="text-xl font-bold text-(--color-primary) dark:text-(--color-primary-dark) mb-2">
+      Cómo citar este material
+    </h3>
+    <p class="text-sm text-gray-600 dark:text-gray-400">Formato APA 7ª edición</p>
+  </div>
+  
+  <div class="bg-white dark:bg-slate-800 rounded-lg p-4 border border-(--color-primary)/20 dark:border-slate-700">
+    <p class="text-gray-800 dark:text-gray-200 text-sm md:text-base leading-relaxed font-mono wrap-break-word">
+      {citation}
+    </p>
+  </div>
+  
+  <p class="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center italic">
+    Consultado el {accessDate}
+  </p>
+  
+  <div class="mt-4 flex justify-center">
+    <button 
+      onclick={`navigator.clipboard.writeText(\`${citation.replace(/`/g, '\\`')}\`); this.textContent = '¡Copiado!'; setTimeout(() => this.textContent = 'Copiar cita', 2000)`}
+      class="px-4 py-2 bg-(--color-primary) dark:bg-(--color-primary-dark) text-white rounded-lg text-sm font-semibold hover:opacity-90 transition-all shadow-md hover:shadow-lg"
+    >
+      Copiar cita
+    </button>
+  </div>
+</div>
