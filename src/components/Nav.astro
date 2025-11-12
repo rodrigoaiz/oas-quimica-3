@@ -6,6 +6,9 @@ import ThemeToggle from "./ThemeToggle.astro";
 import LogoPacch from "@/components/logos/logotipo-pacch-color-2024.svg";
 import LogoUnam from "@/components/logos/logo-unam.svg";
 import LogoCCH from "@/components/logos/logo-cch.svg";
+import LogoElectronBlanco from "@/components/logos/logotipo-blanco.svg";
+import LogoElectronAzul from "@/components/logos/logotipo-azul.svg";
+import IconoElectronColor from "@/components/logos/icono-color.svg";
 
 const { current = "/" } = Astro.props;
 
@@ -29,10 +32,12 @@ const mainOAs = allObjetos
 ---
 
 <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-800/80 backdrop-blur border-b dark:border-slate-700">
-  <div class="mx-auto max-w-5xl flex items-center justify-between px-2 py-3">
+  <div class="mx-auto max-w-7xl flex items-center justify-between px-2 py-3">
     <div class="logos flex items-center gap-5">
-      <a href="/" class="font-semibold text-(--color-primary) dark:text-(--color-secondary) text-xl border-(--color-secondary) border-2 rounded-full px-2">
-        Q<span class="hidden md:inline">uímica</span><sup>3</sup>
+      <a href="/">
+        <IconoElectronColor class="h-8 sm:hidden" />
+        <LogoElectronAzul class="hidden sm:block dark:hidden h-8" />
+        <LogoElectronBlanco class="hidden sm:dark:block h-8" />
       </a>
       <a target="_blank" href="https://portalacademico.cch.unam.mx/">
         <LogoPacch class="w-20 h-auto hidden md:block" />
@@ -76,7 +81,10 @@ const mainOAs = allObjetos
         </details>
       </li>
       <li>
-        <a class={clsx("px-2 py-1 rounded", current === "/creditos" && "bg-(--color-primary) dark:bg-(--color-secondary) text-white dark:text-slate-900")} href="/creditos">Créditos</a>
+        <a class={clsx("px-2 py-1 rounded hidden sm:block", current === "/acerca-de" && "bg-(--color-primary) dark:bg-(--color-secondary) text-white dark:text-slate-900")} href="/acerca-de">Acerca de</a>
+      </li>
+      <li>
+        <a class={clsx("px-2 py-1 rounded hidden sm:block", current === "/creditos" && "bg-(--color-primary) dark:bg-(--color-secondary) text-white dark:text-slate-900")} href="/creditos">Créditos</a>
       </li>
     </ul>
     <ThemeToggle />

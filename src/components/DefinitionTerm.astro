@@ -1,0 +1,186 @@
+---
+/**
+ * definiciontermino - Componente para mostrar términos con definiciones en modal
+ * 
+ * @param {string} termino - El término a definir (texto que aparece subrayado)
+ * @param {string} definicion - La definición del término
+ * @param {string} ejemplo - (Opcional) Ejemplo de uso del término
+ */
+interface Props {
+  termino: string;
+  definicion: string;
+  ejemplo?: string;
+}
+
+const { termino, definicion, ejemplo } = Astro.props;
+// Generar ID único para cada término
+const uniqueId = `def-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<button 
+  class="definicion-trigger inline align-baseline m-0 p-0 text-(--color-primary) dark:text-(--color-primary-dark) font-medium underline decoration-dotted underline-offset-2 hover:decoration-solid cursor-help transition-all hover:text-(--color-secondary) dark:hover:text-(--color-secondary) bg-transparent border-none text-[1em] leading-[inherit]"
+  data-modal-id={uniqueId}
+  data-termino={termino}
+  data-definicion={definicion}
+  data-ejemplo={ejemplo}
+  aria-label={`Ver definición de ${termino}`}
+>
+  {termino}
+</button>
+
+<script>
+  // Inicializar todos los modales en la página
+  document.addEventListener('DOMContentLoaded', () => {
+    const triggers = document.querySelectorAll('.definicion-trigger');
+    
+    triggers.forEach(trigger => {
+      const modalId = trigger.getAttribute('data-modal-id');
+      const termino = trigger.getAttribute('data-termino');
+      const definicion = trigger.getAttribute('data-definicion');
+      const ejemplo = trigger.getAttribute('data-ejemplo');
+      
+      if (!modalId || !termino || !definicion) return;
+      
+      // Crear el modal y agregarlo al body (solo si no existe)
+      if (!document.getElementById(modalId)) {
+        const modalHTML = `
+          <div 
+            id="${modalId}"
+            class="modal-overlay fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4"
+            data-modal
+          >
+            <div 
+              class="modal-content bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-lg w-full mx-auto transform transition-all"
+              role="dialog"
+              aria-labelledby="${modalId}-title"
+            >
+              <div class="modal-header flex items-start justify-between p-6 pb-4 border-b-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/30">
+                <div class="flex items-start gap-3">
+                  <span class="text-3xl">📖</span>
+                  <div>
+                    <h3 
+                      id="${modalId}-title"
+                      class="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100"
+                    >
+                      ${termino}
+                    </h3>
+                    <p class="text-xs md:text-sm text-(--color-secondary) dark:text-(--color-secondary) font-medium mt-1">
+                      Definición
+                    </p>
+                  </div>
+                </div>
+                <button 
+                  class="modal-close text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors text-2xl leading-none p-1"
+                  aria-label="Cerrar definición"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div class="modal-body p-6">
+                <div class="definicion-text text-gray-700 dark:text-gray-300 text-base md:text-lg leading-relaxed mb-4">
+                  ${definicion}
+                </div>
+                
+                ${ejemplo ? `
+                  <div class="ejemplo-box bg-(--color-primary)/5 dark:bg-(--color-primary-dark)/10 border-l-4 border-accent dark:border-accent p-4 rounded-r-lg">
+                    <p class="text-sm font-semibold text-accent dark:text-accent mb-2">
+                      💡 Ejemplo:
+                    </p>
+                    <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 italic">
+                      ${ejemplo}
+                    </p>
+                  </div>
+                ` : ''}
+              </div>
+
+              <div class="modal-footer p-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <button 
+                  class="modal-close-btn w-full bg-(--color-primary) dark:bg-(--color-primary-dark) text-white px-6 py-3 rounded-lg font-medium hover:bg-(--color-primary)/90 dark:hover:bg-(--color-primary-dark)/90 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Entendido
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+      }
+      
+      // Event listener para abrir el modal
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+          document.body.style.overflow = 'hidden';
+          const firstFocusable = modal.querySelector('.modal-close') as HTMLElement;
+          if (firstFocusable) firstFocusable.focus();
+        }
+      });
+    });
+    
+    // Cerrar modal (delegación de eventos)
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('modal-overlay') || 
+          target.classList.contains('modal-close') ||
+          target.classList.contains('modal-close-btn')) {
+        const modal = target.closest('.modal-overlay');
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+    
+    // Cerrar con tecla ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const openModal = document.querySelector('.modal-overlay.flex');
+        if (openModal) {
+          openModal.classList.add('hidden');
+          openModal.classList.remove('flex');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Animación de entrada del modal */
+  .modal-overlay.flex .modal-content {
+    animation: modalSlideIn 0.3s ease-out;
+  }
+
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Animación de salida */
+  .modal-overlay.hidden .modal-content {
+    animation: modalSlideOut 0.2s ease-in;
+  }
+
+  @keyframes modalSlideOut {
+    from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+  }
+</style>
