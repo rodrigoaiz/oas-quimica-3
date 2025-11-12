@@ -207,18 +207,24 @@ import p3img07 from '@/assets/images/oa1/p3-img-07.png';
   <Matching
     client:load
     question="Relaciona el tipo de material con su efecto en la rapidez de reacción:"
-    items={[
-      { id: 'polvo', content: 'Polvo fino (material pulverizado)' },
-      { id: 'bloque', content: 'Bloque sólido (pieza entera)' }
+    pairs={[
+      {
+        description: 'Polvo fino (material pulverizado)',
+        correctAnswer: 'Mayor superficie de contacto → reacción más rápida',
+        options: [
+          'Mayor superficie de contacto → reacción más rápida',
+          'Menor superficie de contacto → reacción más lenta'
+        ]
+      },
+      {
+        description: 'Bloque sólido (pieza entera)',
+        correctAnswer: 'Menor superficie de contacto → reacción más lenta',
+        options: [
+          'Mayor superficie de contacto → reacción más rápida',
+          'Menor superficie de contacto → reacción más lenta'
+        ]
+      }
     ]}
-    targets={[
-      { id: 'rapida', content: 'Mayor superficie de contacto → reacción más rápida' },
-      { id: 'lenta', content: 'Menor superficie de contacto → reacción más lenta' }
-    ]}
-    correctMatches={{
-      polvo: 'rapida',
-      bloque: 'lenta'
-    }}
     feedback={{
       correct: '¡Excelente! Cuando un material está en polvo, ofrece más superficie para que las partículas reaccionantes choquen. Esto permite que ocurran más colisiones efectivas por segundo, haciendo que la reacción sea más rápida. En cambio, un bloque sólido expone menos superficie, por lo que las colisiones son menos frecuentes y la reacción es más lenta.',
       incorrect: 'Revisa tus respuestas. Piensa en cómo la superficie de contacto afecta la frecuencia de colisiones entre las partículas.'

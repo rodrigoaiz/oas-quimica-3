@@ -1,153 +1,147 @@
 import { useState } from 'react';
 
 /**
- * Matching Activity Component
- * Permite relacionar elementos de dos columnas
+ * Matching Activity Component - Versión simplificada
+ * Relaciona descripciones con conceptos mediante dropdowns
  * 
- * @param {Object} props
- * @param {string} props.question - Instrucciones de la actividad
- * @param {Array} props.items - Elementos de la columna izquierda [{id, content}]
- * @param {Array} props.targets - Elementos de la columna derecha [{id, content}]
- * @param {Object} props.correctMatches - Mapeo correcto {itemId: targetId}
- * @param {Object} props.feedback - Mensajes de retroalimentación
+ * @param {string} question - Instrucciones de la actividad
+ * @param {Array} pairs - Array de objetos {description: string, correctAnswer: string, options: string[]}
+ * @param {Object} feedback - Mensajes de retroalimentación {correct, incorrect}
  */
 export default function Matching({ 
   question, 
-  items = [], 
-  targets = [], 
-  correctMatches = {},
+  pairs = [],
   feedback = { correct: '¡Correcto!', incorrect: 'Revisa tus respuestas.' }
 }) {
-  const [matches, setMatches] = useState({});
+  const [answers, setAnswers] = useState(Array(pairs.length).fill(''));
   const [submitted, setSubmitted] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(false);
 
-  const handleMatch = (itemId, targetId) => {
+  const handleSelect = (index, value) => {
     if (submitted) return;
-    
-    setMatches(prev => ({
-      ...prev,
-      [itemId]: targetId
-    }));
+    const newAnswers = [...answers];
+    newAnswers[index] = value;
+    setAnswers(newAnswers);
   };
 
   const handleSubmit = () => {
-    // Verificar si todas las respuestas son correctas
-    const allCorrect = Object.keys(correctMatches).every(
-      itemId => matches[itemId] === correctMatches[itemId]
-    );
-    
-    setIsCorrect(allCorrect);
     setSubmitted(true);
   };
 
   const handleReset = () => {
-    setMatches({});
+    setAnswers(Array(pairs.length).fill(''));
     setSubmitted(false);
-    setIsCorrect(false);
   };
 
-  const allMatched = items.every(item => matches[item.id]);
+  const allAnswered = answers.every(answer => answer !== '');
+  const isCorrect = submitted && pairs.every((pair, i) => answers[i] === pair.correctAnswer);
 
   return (
-    <div className="matching-activity my-8 p-6 bg-linear-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 rounded-2xl border-2 border-purple-200 dark:border-purple-800">
+    <div className="matching-activity my-6 p-4 md:p-6 rounded-2xl border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 shadow-lg">
       {/* Pregunta */}
-      <div className="mb-6">
-        <p className="text-lg font-semibold text-purple-900 dark:text-purple-100">
+      <div className="mb-4 md:mb-6">
+        <p className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 leading-relaxed">
           {question}
         </p>
       </div>
 
-      {/* Grid de matching */}
-      <div className="grid md:grid-cols-2 gap-6 mb-6">
-        {/* Columna izquierda: Items */}
-        <div className="space-y-3">
-          <h3 className="text-sm font-bold uppercase tracking-wide text-purple-700 dark:text-purple-300 mb-3">
-            Conceptos
-          </h3>
-          {items.map(item => (
+      {/* Tabla de matching */}
+      <div className="space-y-3 mb-6">
+        {pairs.map((pair, index) => {
+          const isThisCorrect = submitted && answers[index] === pair.correctAnswer;
+          const isThisIncorrect = submitted && answers[index] && answers[index] !== pair.correctAnswer;
+
+          return (
             <div
-              key={item.id}
-              className={`p-4 rounded-lg border-2 transition-all ${
+              key={index}
+              className={`p-3 md:p-4 rounded-xl border-2 transition-all ${
                 submitted
-                  ? matches[item.id] === correctMatches[item.id]
-                    ? 'bg-green-100 dark:bg-green-900/30 border-green-500'
-                    : 'bg-red-100 dark:bg-red-900/30 border-red-500'
-                  : matches[item.id]
-                  ? 'bg-purple-100 dark:bg-purple-900/30 border-purple-400'
-                  : 'bg-white dark:bg-slate-800 border-purple-200 dark:border-purple-700'
+                  ? isThisCorrect
+                    ? 'bg-green-50 dark:bg-green-900/30 border-green-500 dark:border-green-400'
+                    : isThisIncorrect
+                    ? 'bg-red-50 dark:bg-red-900/30 border-red-500 dark:border-red-400'
+                    : 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600'
+                  : 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600'
               }`}
             >
-              <div className="font-medium text-slate-900 dark:text-slate-100 mb-2">
-                {item.content}
+              {/* Descripción */}
+              <div className="mb-3 text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+                {pair.description}
               </div>
-              
-              {/* Selector de target */}
-              {!submitted && (
+
+              {/* Selector */}
+              <div className="flex items-center gap-3">
+                <label className="text-xs md:text-sm font-semibold text-(--color-primary) dark:text-(--color-primary-dark) whitespace-nowrap">
+                  Variable:
+                </label>
                 <select
-                  value={matches[item.id] || ''}
-                  onChange={(e) => handleMatch(item.id, e.target.value)}
-                  className="w-full p-2 rounded border border-purple-300 dark:border-purple-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 text-sm"
+                  value={answers[index]}
+                  onChange={(e) => handleSelect(index, e.target.value)}
+                  disabled={submitted}
+                  className={`flex-1 p-2 md:p-2.5 rounded-lg border-2 text-sm md:text-base font-medium transition-all ${
+                    submitted
+                      ? isThisCorrect
+                        ? 'bg-green-100 dark:bg-green-900/50 border-green-500 text-green-800 dark:text-green-200'
+                        : isThisIncorrect
+                        ? 'bg-red-100 dark:bg-red-900/50 border-red-500 text-red-800 dark:text-red-200'
+                        : 'bg-gray-100 dark:bg-slate-700 border-gray-300 dark:border-slate-600 text-gray-700 dark:text-gray-300'
+                      : 'bg-white dark:bg-slate-700 border-gray-300 dark:border-slate-600 text-gray-900 dark:text-gray-100 hover:border-(--color-primary) dark:hover:border-(--color-primary-dark)'
+                  } ${submitted ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                 >
-                  <option value="">Selecciona una opción...</option>
-                  {targets.map(target => (
-                    <option key={target.id} value={target.id}>
-                      {target.content}
+                  <option value="">Selecciona...</option>
+                  {pair.options.map((option, optIndex) => (
+                    <option key={optIndex} value={option}>
+                      {option}
                     </option>
                   ))}
                 </select>
-              )}
 
-              {/* Mostrar respuesta seleccionada después de submit */}
-              {submitted && matches[item.id] && (
-                <div className={`mt-2 p-2 rounded text-sm font-medium ${
-                  matches[item.id] === correctMatches[item.id]
-                    ? 'text-green-800 dark:text-green-200'
-                    : 'text-red-800 dark:text-red-200'
-                }`}>
-                  → {targets.find(t => t.id === matches[item.id])?.content}
-                  {matches[item.id] !== correctMatches[item.id] && (
-                    <div className="text-xs mt-1">
-                      Correcto: {targets.find(t => t.id === correctMatches[item.id])?.content}
-                    </div>
-                  )}
+                {/* Indicadores */}
+                {submitted && isThisCorrect && (
+                  <span className="text-green-600 dark:text-green-400 text-xl">✓</span>
+                )}
+                {submitted && isThisIncorrect && (
+                  <span className="text-red-600 dark:text-red-400 text-xl">✗</span>
+                )}
+              </div>
+
+              {/* Mostrar respuesta correcta si es incorrecta */}
+              {submitted && isThisIncorrect && (
+                <div className="mt-2 text-xs md:text-sm text-amber-700 dark:text-amber-300 font-medium">
+                  Respuesta correcta: <strong>{pair.correctAnswer}</strong>
                 </div>
               )}
             </div>
-          ))}
-        </div>
-
-        {/* Columna derecha: Targets (solo referencia visual) */}
-        <div className="space-y-3">
-          <h3 className="text-sm font-bold uppercase tracking-wide text-purple-700 dark:text-purple-300 mb-3">
-            Descripciones
-          </h3>
-          {targets.map(target => (
-            <div
-              key={target.id}
-              className="p-4 rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700"
-            >
-              <div className="text-sm text-slate-700 dark:text-slate-300">
-                {target.content}
-              </div>
-            </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
 
       {/* Retroalimentación */}
       {submitted && (
-        <div className={`mb-4 p-4 rounded-lg ${
-          isCorrect
-            ? 'bg-green-100 dark:bg-green-900/30 border-2 border-green-500'
-            : 'bg-amber-100 dark:bg-amber-900/30 border-2 border-amber-500'
-        }`}>
-          <p className={`font-medium ${
+        <div
+          className={`mb-4 p-4 rounded-xl ${
             isCorrect
-              ? 'text-green-800 dark:text-green-200'
-              : 'text-amber-800 dark:text-amber-200'
-          }`}>
-            {isCorrect ? feedback.correct : feedback.incorrect}
+              ? 'bg-green-50 dark:bg-green-900/30 border-2 border-green-500 dark:border-green-400'
+              : 'bg-red-50 dark:bg-red-900/30 border-2 border-red-500 dark:border-red-400'
+          }`}
+        >
+          <p
+            className={`text-sm md:text-base font-semibold ${
+              isCorrect
+                ? 'text-green-800 dark:text-green-200'
+                : 'text-red-800 dark:text-red-200'
+            }`}
+          >
+            {isCorrect ? (
+              <>
+                <span className="text-xl mr-2">✓</span>
+                {feedback.correct}
+              </>
+            ) : (
+              <>
+                <span className="text-xl mr-2">✗</span>
+                {feedback.incorrect}
+              </>
+            )}
           </p>
         </div>
       )}
@@ -157,11 +151,11 @@ export default function Matching({
         {!submitted ? (
           <button
             onClick={handleSubmit}
-            disabled={!allMatched}
-            className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-              allMatched
-                ? 'bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl hover:scale-105'
-                : 'bg-slate-300 dark:bg-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed'
+            disabled={!allAnswered}
+            className={`flex-1 px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-all ${
+              allAnswered
+                ? 'bg-(--color-primary) dark:bg-(--color-primary-dark) text-white hover:opacity-90 shadow-md hover:shadow-lg'
+                : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
             }`}
           >
             Verificar respuestas
@@ -169,7 +163,7 @@ export default function Matching({
         ) : (
           <button
             onClick={handleReset}
-            className="px-6 py-3 bg-slate-600 hover:bg-slate-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all hover:scale-105"
+            className="flex-1 px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base bg-(--color-secondary) dark:bg-secondary text-white hover:opacity-90 transition-all shadow-md hover:shadow-lg"
           >
             Intentar de nuevo
           </button>
@@ -178,3 +172,4 @@ export default function Matching({
     </div>
   );
 }
+  

@@ -16,6 +16,8 @@ import p4img01 from '@/assets/images/oa1/p4-img-01.webp';
 import p4img02 from '@/assets/images/oa1/p4-img-02.webp';
 import MCQ from '@/components/Activity/MCQ.jsx';
 import DefinitionTerm from '@/components/DefinitionTerm.astro';
+import DragAndDrop from '@/components/Activity/DragAndDrop.jsx';
+import Matching from '@/components/Activity/Matching.jsx';
 
 <Prose>
   ## ¿Cuáles son los beneficios o perjuicios de promover la eficiencia en los procesos industriales?
@@ -42,38 +44,48 @@ import DefinitionTerm from '@/components/DefinitionTerm.astro';
     alt="La eficiencia de un proceso industrial."
   />
 
-La ***eficiencia de un proceso industrial*** se refiere a la capacidad de utilizar, de manera óptima, los recursos disponibles como materias primas, energía, tiempo y maquinaria para obtener el producto deseado; minimizando desperdicios, costos y pérdidas. Mejorar la eficiencia de un proceso tiene una gran importancia técnica, económica, ambiental, con un mínimo de recursos humanos. En otras palabras, se trata de **hacer más con menos**.
+  La ***eficiencia de un proceso industrial*** se refiere a la capacidad de utilizar, de manera óptima, los recursos disponibles como <DefinitionTerm termino='materias primas' definicion='Las materias primas son los materiales o sustancias que se extraen directamente de la naturaleza o se obtienen de fuentes primarias para ser transformados en productos.' />, energía, tiempo y maquinaria para obtener el producto deseado; minimizando desperdicios, costos y pérdidas. Mejorar la eficiencia de un proceso tiene una gran importancia técnica, económica, ambiental, con un <DefinitionTerm termino='mínimo de recursos humanos' definicion='Significa que una organización opera con el menor número de empleados posible para llevar a cabo sus tareas. Esto implica que cada miembro del personal debe ser altamente eficiente y versátil para manejar múltiples responsabilidades.' />. En otras palabras, se trata de **hacer más con menos**.
 
-Es un concepto clave en la gestión de operaciones y en la mejora continua de cualquier actividad, ya sea en una fábrica, una oficina o incluso en la vida diaria.
+  Es un concepto clave en la gestión de operaciones y en la mejora continua de cualquier actividad, ya sea en una fábrica, una oficina o incluso en la vida diaria.
 
-### Ejercicio de seleccionar
+  ### Ejercicio de arrastrar
 
-  <p class="text-fuchsia-800 text-center text-3xl font-bold">¿Qué factores participan en la eficiencia de un proceso industrial? </p>
 </Prose>
-<Breakout>
-  <MultiSelect 
-    client:load
-    question="Selecciona las palabras que respondan a la pregunta correctamente:"
-    options={[
-      "materias primas",
-      "tiempo",
-      "energía",
-      "producción",
-      "maquinaria",
-      "competitividad",
-      "recursos humanos"
-    ]}
-    correctIndexes={[0, 1, 2, 4, 6]}
-    feedback={{
-      correct: "¡Excelente! Identificaste correctamente los factores que afectan la eficiencia de un proceso industrial.",
-      incorrect: "Revisa tu selección. Recuerda que la producción y la competitividad no necesariamente afectan la eficiencia."
-    }}
-  />
-</Breakout>
+  <Breakout>
+    <DragAndDrop
+      client:load
+      question="Coloca en las cajas, las palabras que respondan a la pregunta correctamente ¿Qué factores participan en la eficiencia de un proceso industrial?"
+      items={[
+        "Materias primas",
+        "Tiempo",
+        "Energía",
+        "Maquinaria",
+        "Recursos humanos",
+        "Producción",
+        "Costos",
+        "Productividad",
+        "Calidad"
+      ]}
+      correctAnswers={[
+        "Materias primas",
+        "Tiempo",
+        "Energía",
+        "Maquinaria",
+        "Recursos humanos"
+      ]}
+      feedback={{
+        correct: "¡Excelente! Identificaste correctamente todas las variables que mejoran la eficiencia en el proceso Ostwald.",
+        incorrect: "Revisa las variables. Recuerda que estamos hablando específicamente de las que mejoran la eficiencia del proceso Ostwald."
+      }}
+    />
+  </Breakout>
 <Prose>
+
+
+
   Pero ahora te preguntarás ¿de qué manera es posible controlar la eficiencia de un proceso?  Esto se puede explicar utilizando como ejemplo, el proceso de obtención del Ácido nítrico (HNO<sub>3</sub>) a partir de la oxidación del Amoniaco (NH<sub>3</sub>) (Método Ostwald).
 
-El **proceso Ostwald** es el método industrial principal para la producción de **ácido nítrico (HNO<sub>3</sub>)**. Este proceso, desarrollado en 1902, utiliza como materia prima el amoníaco (NH<sub>3</sub>) y el oxígeno (O<sub>2</sub>), y se realiza en tres etapas principales, la primer etapa es la oxidación del amoniaco,  la segunda etapa, la  oxidación del óxido nítrico y la tercer etapa la absorción en agua.
+  El **proceso Ostwald** es el método industrial principal para la producción de **ácido nítrico (HNO<sub>3</sub>)**. Este proceso, desarrollado en 1902, utiliza como materia prima el amoníaco (NH<sub>3</sub>) y el oxígeno (O<sub>2</sub>), y se realiza en tres etapas principales, la primer etapa es la oxidación del amoniaco,  la segunda etapa, la  oxidación del óxido nítrico y la tercer etapa la absorción en agua.
 
 #### Producción de HNO<sub>3</sub> a partir de NH<sub>3</sub>, método Ostwald
 
@@ -148,36 +160,62 @@ En el método de Ostwald intervienen diferentes variables que mejoran la eficien
   </table>
 </div>
 
-Como te habrás dado cuenta, para que un proceso sea eficiente, es necesario controlar diferentes variables, como la cantidad de reactivos, la temperatura, el uso de catalizadores, entre otras más. Sin embargo, no siempre es posible controlar todo, lo que lleva a tener procesos con una eficiencia siempre menor al 100%.
+  Como te habrás dado cuenta, para que un proceso sea eficiente, es necesario controlar diferentes variables, como la cantidad de reactivos, la temperatura, el uso de catalizadores, entre otras más. Sin embargo, no siempre es posible controlar todo, lo que lleva a tener procesos con una eficiencia siempre menor al 100%.
 
-<span class="italic">Mejorar la eficiencia tiene beneficios industriales, económicos y ambientales, esto último al generar menos residuos, menor gasto de energía y menor contaminación. En otras palabras, eficiencia y sostenibilidad están estrechamente vinculadas.</span>
+  *Mejorar la eficiencia tiene beneficios industriales, económicos y ambientales, esto último al generar menos residuos, menor gasto de energía y menor contaminación. En otras palabras, eficiencia y sostenibilidad están estrechamente vinculadas.*
 
-En el método Ostwald, que produce ácido nítrico a partir de amoníaco, se controlan variables como temperatura, presión, catalizadores y recuperación de calor. <span class="italic">Estas medidas no solo aumentan el rendimiento, también permiten disminuir emisiones contaminantes y aprovechar mejor la energía, alineándose con el ODS 12: Producción y consumo responsables.</span>
+  En el método Ostwald, que produce ácido nítrico a partir de amoníaco, se controlan variables como temperatura, presión, catalizadores y recuperación de calor. *Estas medidas no solo aumentan el rendimiento, también permiten disminuir emisiones contaminantes y aprovechar mejor la energía, alineándose con el ODS 12: Producción y consumo responsables.*
 
-### Ejercicio de arrastrar
+### Ejercicio de relacionar
 
-  <p class="text-fuchsia-800 text-center text-xl font-bold">Tomando como ejemplo, la producción de HNO3, completa el siguiente cuadro, arrastrando el nombre de la variable que corresponde en cada descripción.</p>
 
-  En la producción de ácido nítrico (HNO<sub>3</sub>), controlar adecuadamente las variables, mejora la eficiencia del proceso, con lo cual disminuye el impacto ambiental, reduce costos y favorece el aprovechamiento responsable de los recursos naturales.
+  <Matching
+    client:load
+    question="Tomando como ejemplo la producción de HNO₃, relaciona cada descripción con la variable correspondiente del proceso Ostwald."
+    pairs={[
+      {
+        description: 'Se utiliza una presión moderada (~4 a 10 atmósferas) para favorecer las reacciones químicas, especialmente la absorción del NO₂ en agua.',
+        correctAnswer: 'Presión',
+        options: ['Temperatura', 'Presión', 'Catalizadores', 'Sistema de absorción', 'Recuperación de calor', 'Velocidad del flujo de gases']
+      },
+      {
+        description: 'Controlar el tiempo de residencia de los gases en los reactores es fundamental para garantizar la conversión óptima y evitar pérdidas por reacciones incompletas.',
+        correctAnswer: 'Velocidad del flujo de gases',
+        options: ['Temperatura', 'Presión', 'Catalizadores', 'Sistema de absorción', 'Recuperación de calor', 'Velocidad del flujo de gases']
+      },
+      {
+        description: 'El proceso de oxidación del amoníaco es altamente exotérmico. Se controla la temperatura en torno a 850-900°C para maximizar la conversión de NH₃ a NO.',
+        correctAnswer: 'Temperatura',
+        options: ['Temperatura', 'Presión', 'Catalizadores', 'Sistema de absorción', 'Recuperación de calor', 'Velocidad del flujo de gases']
+      }
+    ]}
+    feedback={{
+      correct: '¡Excelente! Identificaste correctamente todas las variables que mejoran la eficiencia en el proceso Ostwald.',
+      incorrect: 'Revisa las variables. Recuerda las características de cada variable del proceso Ostwald descritas en la tabla anterior.'
+    }}
+  />
 
-### Ejercicio de seleccionar
-<p class="text-fuchsia-800 text-center text-xl font-bold">El sistema de absorción controla la reacción:</p>
-<p class="text-fuchsia-800 text-center text-2xl font-bold">3NO<sub>2</sub> + H<sub>2</sub>O     2HNO<sub>3</sub> + NO</p>
-<p class="text-fuchsia-800 text-center text-xl font-bold">Favoreciendo la producción de HNO<sub>3</sub></p>
 
-  <MCQ 
-  client:load 
-  question="Selecciona si es falso o verdadero el enunciado anterior" 
-  options={[
-    "Verdadero",
-    "Falso"
-  ]} 
-  correctIndex={0} 
-  feedback={{
-    correct: "¡Correcto!",
-    incorrect: "Recuerda: El sistema de absorción sí controla la reacción planteada."
-  }} 
-/>
+  En la producción de ácido nítrico (HNO<sub>3</sub>), controlar adecuadamente las variables mejora la eficiencia del proceso, con lo cual disminuye el impacto ambiental, reduce costos y favorece el aprovechamiento responsable de los recursos naturales.
+
+  ### Ejercicio de falso o verdadero
+  <p class="text-fuchsia-800 text-center text-xl font-bold">El sistema de absorción controla la reacción:</p>
+  <p class="text-fuchsia-800 text-center text-2xl font-bold">3NO<sub>2</sub> + H<sub>2</sub>O     2HNO<sub>3</sub> + NO</p>
+  <p class="text-fuchsia-800 text-center text-xl font-bold">Favoreciendo la producción de HNO<sub>3</sub></p>
+
+    <MCQ 
+    client:load 
+    question="Selecciona si es falso o verdadero el enunciado anterior" 
+    options={[
+      "Verdadero",
+      "Falso"
+    ]} 
+    correctIndex={0} 
+    feedback={{
+      correct: "¡Correcto!",
+      incorrect: "Recuerda: El sistema de absorción sí controla la reacción planteada."
+    }} 
+  />
 
 Ahora ya lo sabes, determinar la ***eficiencia de un proceso químico***, es un criterio que permite identificar el aprovechamiento óptimo de todos los insumos. Si la eficiencia es baja, se genera más desperdicio de recursos y por lo tanto, mayor gasto económico. Al conocer la eficiencia, se pueden hacer mejoras en las etapas donde así lo requiera, lo cual promueve procesos mejores y más eficientes.
 
