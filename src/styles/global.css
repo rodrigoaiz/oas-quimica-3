@@ -351,23 +351,41 @@ html {
 
 
 /* Cambiar color de logos SVG según tema */
-/* NOTA: Los filtros CSS no pueden usar variables CSS, estos valores están 
-   calculados manualmente para aproximarse a:
-   Light mode: hsl(205, 55%, 50%) - azul suave
-   Dark mode: hsl(11, 82%, 62%) - coral */
-.logo-link svg {
-  transition: filter 0.3s ease, opacity 0.3s ease;
-  /* Light mode: azul suave (aproximado con filtros) */
-  filter: grayscale(100%) brightness(0.5) sepia(100%) hue-rotate(190deg) saturate(9);
+.logo-link svg path,
+.logo-link svg circle,
+.logo-link svg rect,
+.logo-link svg polygon {
+  transition: fill 0.3s ease;
+  fill: #277fc3 !important; /* Light mode: azul medio */
 }
 
 /* Dark mode: coral cálido */
-.dark .logo-link svg {
-  filter: grayscale(100%) brightness(0.8) sepia(100%) hue-rotate(340deg) saturate(2.5);
+.dark .logo-link svg path,
+.dark .logo-link svg circle,
+.dark .logo-link svg rect,
+.dark .logo-link svg polygon {
+  fill: #eedf59 !important; /* hsl(11, 82%, 62%) */
+}
+
+.logo-link svg {
+  transition: opacity 0.3s ease;
 }
 
 .logo-link:hover svg {
   opacity: 0.7;
+}
+
+/* Fix para colores del logo Electrón que no se renderizan correctamente */
+.st2 {
+  fill: #277fc3 !important;
+}
+
+.st4 {
+  fill: #1f3a6f !important;
+}
+
+.st5 {
+  fill: #f36d21 !important;
 }
 
 /* ================================================= */
