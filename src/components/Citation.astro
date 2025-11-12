@@ -12,16 +12,31 @@ const {
   url
 } = Astro.props;
 
-// Formatear autores en estilo APA
+// Formatear autores en estilo APA - solo primer apellido e inicial
 const formatAuthors = (authorsList: string[]) => {
   if (authorsList.length === 0) return "";
-  if (authorsList.length === 1) return `${authorsList[0]}.`;
-  if (authorsList.length === 2) return `${authorsList[0]} y ${authorsList[1]}.`;
+  
+  // Convertir "López Recillas, M." a "López, M."
+  const formatSingleAuthor = (author: string) => {
+    const parts = author.split(',');
+    if (parts.length === 2) {
+      const surnames = parts[0].trim().split(' ');
+      const firstSurname = surnames[0]; // Solo el primer apellido
+      const initial = parts[1].trim();
+      return `${firstSurname}, ${initial}`;
+    }
+    return author;
+  };
+  
+  const formattedAuthors = authorsList.map(formatSingleAuthor);
+  
+  if (formattedAuthors.length === 1) return `${formattedAuthors[0]}`;
+  if (formattedAuthors.length === 2) return `${formattedAuthors[0]} y ${formattedAuthors[1]}`;
   
   // Para 3 o más autores
-  const allButLast = authorsList.slice(0, -1);
-  const last = authorsList[authorsList.length - 1];
-  return `${allButLast.join(', ')}, y ${last}.`;
+  const allButLast = formattedAuthors.slice(0, -1);
+  const last = formattedAuthors[formattedAuthors.length - 1];
+  return `${allButLast.join(', ')}, y ${last}`;
 };
 
 const authorsFormatted = formatAuthors(authors);
@@ -37,8 +52,8 @@ const accessDate = new Date().toLocaleDateString('es-MX', {
   day: 'numeric' 
 });
 
-// Construir la cita completa
-const citation = `${authorsFormatted} (${year}). ${title}. ${publisher}. ${currentUrl}`;
+// Construir la cita completa con título en cursivas
+const citation = `${authorsFormatted}. (${year}). <em>${title}</em>. ${publisher}. ${currentUrl}`;
 ---
 
 <div class="bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 rounded-xl p-6 shadow-lg border border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 mb-8">
@@ -53,8 +68,7 @@ const citation = `${authorsFormatted} (${year}). ${title}. ${publisher}. ${curre
   </div>
   
   <div class="bg-white dark:bg-slate-800 rounded-lg p-4 border border-(--color-primary)/20 dark:border-slate-700">
-    <p class="text-gray-800 dark:text-gray-200 text-sm md:text-base leading-relaxed font-mono wrap-break-word">
-      {citation}
+    <p class="text-gray-800 dark:text-gray-200 text-sm md:text-base leading-relaxed font-mono wrap-break-word" set:html={citation}>
     </p>
   </div>
   

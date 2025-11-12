@@ -2,7 +2,7 @@
 // Los colores ahora están centralizados en global.css como variables CSS
 // --color-cch-azul (ya existía)
 // --color-hero-cyan (recién agregado)
-import ChemistryRiddle from './ChemistryRiddle.astro';
+import ChemistryRiddle from "./ChemistryRiddle.astro";
 ---
 
 <section class="hero-section">
@@ -112,8 +112,9 @@ import ChemistryRiddle from './ChemistryRiddle.astro';
 
   <div class="hero-wrapper">
     <div class="hero-content bg-slate-800/55 px-5 md:px-10 py-4 md:py-6">
-      <h1 class="hero-title">Materiales de<br /> apoyo · <span>Química III</span></h1>
-      <p class="hero-subtitle">Objetivo: Desarrollar contenidos interactivos de la asignatura de Química III, en una plataforma para el reforzamiento de aprendizajes del alumnado del CCH.</p>
+      <h1 class="hero-title">ELECTRÓN · <span>Química III</span></h1>
+      <h1 class="hero-subtitle">Materiales de apoyo</h1>
+      <p class="hero-text">Objetivo: Desarrollar contenidos interactivos de la asignatura de Química III, en una plataforma para el reforzamiento de aprendizajes del alumnado del CCH.</p>
       <div class="hero-actions gap-4 flex flex-col md:flex-row">
         <a href="#objetos" class="btn btn-primary">Explorar los materiales</a>
         <a href="#como-funciona" class="btn btn-secondary">Cómo funciona</a>
@@ -422,7 +423,7 @@ import ChemistryRiddle from './ChemistryRiddle.astro';
   }
 
   .hero-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
     margin-bottom: 0.5rem;
     font-weight: 800;
     span {
@@ -436,6 +437,12 @@ import ChemistryRiddle from './ChemistryRiddle.astro';
     opacity: 0.9;
     color: #ffcc11; /* Amarillo */
   }
+
+  .hero-text {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  } 
 
   /* Botones Mobile-First */
   .btn {
