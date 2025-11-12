@@ -1,122 +1,107 @@
 ---
 /**
  * Componente Hr - Separador horizontal elegante
- * 
+ *
  * Props:
  * - variant?: 'default' | 'gradient' | 'dots' | 'wave' | 'decorative'
  * - class?: string - Clases adicionales
  */
 
 interface Props {
-  variant?: 'default' | 'gradient' | 'dots' | 'wave' | 'decorative';
+  variant?: "default" | "gradient" | "dots" | "wave" | "decorative";
   class?: string;
 }
 
-const { variant = 'gradient', class: className = '' } = Astro.props;
+const { variant = "gradient", class: className = "" } = Astro.props;
 ---
 
-{variant === 'default' && (
-  <hr class={`my-12 border-0 h-px bg-linear-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent ${className}`} />
-)}
+{variant === "default" && <hr class={`my-12 border-0 h-px bg-linear-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent ${className}`} />}
 
-{variant === 'gradient' && (
-  <div class={`my-12 flex items-center justify-center ${className}`}>
-    <div class="flex-1 h-px bg-linear-to-r from-transparent via-(--color-primary)/30 dark:via-(--color-secondary)/30 to-transparent"></div>
-    <div class="px-4">
-      <div class="w-2 h-2 rounded-full bg-(--color-primary)/40 dark:bg-(--color-secondary)/40 animate-pulse"></div>
+{
+  variant === "gradient" && (
+    <div class={`my-12 flex items-center justify-center ${className}`}>
+      <div class="flex-1 h-px bg-linear-to-r from-transparent via-(--color-primary)/30 dark:via-(--color-secondary)/30 to-transparent" />
+      <div class="px-4">
+        <div class="w-2 h-2 rounded-full bg-(--color-primary)/40 dark:bg-(--color-secondary)/40 animate-pulse" />
+      </div>
+      <div class="flex-1 h-px bg-linear-to-r from-transparent via-(--color-primary)/30 dark:via-(--color-secondary)/30 to-transparent" />
     </div>
-    <div class="flex-1 h-px bg-linear-to-r from-transparent via-(--color-primary)/30 dark:via-(--color-secondary)/30 to-transparent"></div>
-  </div>
-)}
+  )
+}
 
-{variant === 'dots' && (
-  <div class={`my-12 flex items-center justify-center gap-2 ${className}`}>
-    <div class="w-1.5 h-1.5 rounded-full bg-(--color-primary)/60 dark:bg-(--color-secondary)/60"></div>
-    <div class="w-1.5 h-1.5 rounded-full bg-(--color-primary)/40 dark:bg-(--color-secondary)/40"></div>
-    <div class="w-1.5 h-1.5 rounded-full bg-(--color-primary)/60 dark:bg-(--color-secondary)/60"></div>
-  </div>
-)}
-
-{variant === 'wave' && (
-  <div class={`my-12 relative h-20 overflow-hidden ${className}`}>
-    {/* Onda de fondo */}
-    <svg 
-      class="absolute inset-0 w-full h-full" 
-      viewBox="0 0 1200 80" 
-      preserveAspectRatio="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path 
-        d="M0,40 Q300,30 600,40 T1200,40" 
-        fill="none" 
-        stroke="currentColor" 
-        stroke-width="2"
-        class="text-(--color-primary)/30 dark:text-(--color-secondary)/30"
-        opacity="0.6"
-      />
-      <path 
-        d="M0,40 Q300,50 600,40 T1200,40" 
-        fill="none" 
-        stroke="currentColor" 
-        stroke-width="1.5"
-        class="text-(--color-primary)/20 dark:text-(--color-secondary)/20"
-        opacity="0.4"
-      />
-    </svg>
-    
-    {/* Moléculas animadas */}
-    <div class="absolute inset-0 flex justify-around items-end">
-      {/* Molécula 1 - H2O */}
-      <svg class="molecule molecule-1" width="30" height="30" viewBox="0 0 30 30">
-        <circle cx="15" cy="15" r="5" fill="currentColor" class="text-red-400/60 dark:text-red-300/60"/>
-        <circle cx="8" cy="8" r="3" fill="currentColor" class="text-blue-300/60 dark:text-blue-200/60"/>
-        <circle cx="22" cy="8" r="3" fill="currentColor" class="text-blue-300/60 dark:text-blue-200/60"/>
-        <line x1="15" y1="15" x2="8" y2="8" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60"/>
-        <line x1="15" y1="15" x2="22" y2="8" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60"/>
-      </svg>
-      
-      {/* Molécula 2 - NH3 */}
-      <svg class="molecule molecule-2" width="28" height="28" viewBox="0 0 28 28">
-        <circle cx="14" cy="14" r="5" fill="currentColor" class="text-blue-400/60 dark:text-blue-300/60"/>
-        <circle cx="7" cy="7" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60"/>
-        <circle cx="21" cy="7" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60"/>
-        <circle cx="14" cy="23" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60"/>
-        <line x1="14" y1="14" x2="7" y2="7" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60"/>
-        <line x1="14" y1="14" x2="21" y2="7" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60"/>
-        <line x1="14" y1="14" x2="14" y2="23" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60"/>
-      </svg>
-      
-      {/* Molécula 3 - CO2 */}
-      <svg class="molecule molecule-3" width="35" height="20" viewBox="0 0 35 20">
-        <circle cx="10" cy="10" r="4" fill="currentColor" class="text-red-400/60 dark:text-red-300/60"/>
-        <circle cx="17.5" cy="10" r="5" fill="currentColor" class="text-slate-600/60 dark:text-slate-400/60"/>
-        <circle cx="25" cy="10" r="4" fill="currentColor" class="text-red-400/60 dark:text-red-300/60"/>
-        <line x1="10" y1="10" x2="17.5" y2="10" stroke="currentColor" stroke-width="2" class="text-slate-400/60"/>
-        <line x1="17.5" y1="10" x2="25" y2="10" stroke="currentColor" stroke-width="2" class="text-slate-400/60"/>
-      </svg>
-      
-      {/* Molécula 4 - O2 */}
-      <svg class="molecule molecule-4" width="25" height="15" viewBox="0 0 25 15">
-        <circle cx="8" cy="7.5" r="4" fill="currentColor" class="text-red-400/60 dark:text-red-300/60"/>
-        <circle cx="17" cy="7.5" r="4" fill="currentColor" class="text-red-400/60 dark:text-red-300/60"/>
-        <line x1="8" y1="7.5" x2="17" y2="7.5" stroke="currentColor" stroke-width="2.5" class="text-slate-400/60"/>
-      </svg>
-      
-      {/* Molécula 5 - CH4 */}
-      <svg class="molecule molecule-5" width="32" height="32" viewBox="0 0 32 32">
-        <circle cx="16" cy="16" r="5" fill="currentColor" class="text-slate-600/60 dark:text-slate-400/60"/>
-        <circle cx="8" cy="8" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60"/>
-        <circle cx="24" cy="8" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60"/>
-        <circle cx="8" cy="24" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60"/>
-        <circle cx="24" cy="24" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60"/>
-        <line x1="16" y1="16" x2="8" y2="8" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60"/>
-        <line x1="16" y1="16" x2="24" y2="8" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60"/>
-        <line x1="16" y1="16" x2="8" y2="24" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60"/>
-        <line x1="16" y1="16" x2="24" y2="24" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60"/>
-      </svg>
+{
+  variant === "dots" && (
+    <div class={`my-12 flex items-center justify-center gap-2 ${className}`}>
+      <div class="w-1.5 h-1.5 rounded-full bg-(--color-primary)/60 dark:bg-(--color-secondary)/60" />
+      <div class="w-1.5 h-1.5 rounded-full bg-(--color-primary)/40 dark:bg-(--color-secondary)/40" />
+      <div class="w-1.5 h-1.5 rounded-full bg-(--color-primary)/60 dark:bg-(--color-secondary)/60" />
     </div>
-  </div>
-)}
+  )
+}
+
+{
+  variant === "wave" && (
+    <div class={`my-12 relative h-20 overflow-hidden ${className}`}>
+      {/* Onda de fondo */}
+      <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1200 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 Q300,30 600,40 T1200,40" fill="none" stroke="currentColor" stroke-width="2" class="text-(--color-primary)/30 dark:text-(--color-secondary)/30" opacity="0.6" />
+        <path d="M0,40 Q300,50 600,40 T1200,40" fill="none" stroke="currentColor" stroke-width="1.5" class="text-(--color-primary)/20 dark:text-(--color-secondary)/20" opacity="0.4" />
+      </svg>
+
+      {/* Moléculas animadas */}
+      <div class="absolute inset-0 flex justify-around items-end">
+        {/* Molécula 1 - H2O */}
+        <svg class="molecule molecule-1" width="30" height="30" viewBox="0 0 30 30">
+          <circle cx="15" cy="15" r="5" fill="currentColor" class="text-red-400/60 dark:text-red-300/60" />
+          <circle cx="8" cy="8" r="3" fill="currentColor" class="text-blue-300/60 dark:text-blue-200/60" />
+          <circle cx="22" cy="8" r="3" fill="currentColor" class="text-blue-300/60 dark:text-blue-200/60" />
+          <line x1="15" y1="15" x2="8" y2="8" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60" />
+          <line x1="15" y1="15" x2="22" y2="8" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60" />
+        </svg>
+
+        {/* Molécula 2 - NH3 */}
+        <svg class="molecule molecule-2" width="28" height="28" viewBox="0 0 28 28">
+          <circle cx="14" cy="14" r="5" fill="currentColor" class="text-blue-400/60 dark:text-blue-300/60" />
+          <circle cx="7" cy="7" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60" />
+          <circle cx="21" cy="7" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60" />
+          <circle cx="14" cy="23" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60" />
+          <line x1="14" y1="14" x2="7" y2="7" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60" />
+          <line x1="14" y1="14" x2="21" y2="7" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60" />
+          <line x1="14" y1="14" x2="14" y2="23" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60" />
+        </svg>
+
+        {/* Molécula 3 - CO2 */}
+        <svg class="molecule molecule-3" width="35" height="20" viewBox="0 0 35 20">
+          <circle cx="10" cy="10" r="4" fill="currentColor" class="text-red-400/60 dark:text-red-300/60" />
+          <circle cx="17.5" cy="10" r="5" fill="currentColor" class="text-slate-600/60 dark:text-slate-400/60" />
+          <circle cx="25" cy="10" r="4" fill="currentColor" class="text-red-400/60 dark:text-red-300/60" />
+          <line x1="10" y1="10" x2="17.5" y2="10" stroke="currentColor" stroke-width="2" class="text-slate-400/60" />
+          <line x1="17.5" y1="10" x2="25" y2="10" stroke="currentColor" stroke-width="2" class="text-slate-400/60" />
+        </svg>
+
+        {/* Molécula 4 - O2 */}
+        <svg class="molecule molecule-4" width="25" height="15" viewBox="0 0 25 15">
+          <circle cx="8" cy="7.5" r="4" fill="currentColor" class="text-red-400/60 dark:text-red-300/60" />
+          <circle cx="17" cy="7.5" r="4" fill="currentColor" class="text-red-400/60 dark:text-red-300/60" />
+          <line x1="8" y1="7.5" x2="17" y2="7.5" stroke="currentColor" stroke-width="2.5" class="text-slate-400/60" />
+        </svg>
+
+        {/* Molécula 5 - CH4 */}
+        <svg class="molecule molecule-5" width="32" height="32" viewBox="0 0 32 32">
+          <circle cx="16" cy="16" r="5" fill="currentColor" class="text-slate-600/60 dark:text-slate-400/60" />
+          <circle cx="8" cy="8" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60" />
+          <circle cx="24" cy="8" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60" />
+          <circle cx="8" cy="24" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60" />
+          <circle cx="24" cy="24" r="2.5" fill="currentColor" class="text-slate-300/60 dark:text-slate-200/60" />
+          <line x1="16" y1="16" x2="8" y2="8" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60" />
+          <line x1="16" y1="16" x2="24" y2="8" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60" />
+          <line x1="16" y1="16" x2="8" y2="24" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60" />
+          <line x1="16" y1="16" x2="24" y2="24" stroke="currentColor" stroke-width="1.5" class="text-slate-400/60" />
+        </svg>
+      </div>
+    </div>
+  )
+}
 
 <style>
   .molecule {
@@ -124,45 +109,45 @@ const { variant = 'gradient', class: className = '' } = Astro.props;
     animation: float-up 4s ease-in infinite;
     opacity: 0;
   }
-  
+
   .molecule-1 {
     left: 15%;
     animation-delay: 0s;
   }
-  
+
   .molecule-2 {
     left: 32%;
     animation-delay: 0.8s;
   }
-  
+
   .molecule-3 {
     left: 50%;
     animation-delay: 1.6s;
   }
-  
+
   .molecule-4 {
     left: 68%;
     animation-delay: 2.4s;
   }
-  
+
   .molecule-5 {
     left: 85%;
     animation-delay: 3.2s;
   }
-  
+
   @keyframes float-up {
     0% {
       transform: translateY(0) scale(0.8);
       opacity: 0;
     }
     15% {
-      opacity: 0.6;
+      opacity: 0.8;
     }
     50% {
-      opacity: 0.4;
+      opacity: 0.7;
     }
     85% {
-      opacity: 0.2;
+      opacity: 0.5;
     }
     100% {
       transform: translateY(-80px) scale(1.2);
@@ -171,24 +156,14 @@ const { variant = 'gradient', class: className = '' } = Astro.props;
   }
 </style>
 
-{variant === 'decorative' && (
-  <div class={`my-12 flex items-center justify-center ${className}`}>
-    <div class="flex items-center gap-3">
-      <svg width="40" height="20" viewBox="0 0 40 20" class="text-(--color-primary) dark:text-(--color-secondary) opacity-60">
-        <circle cx="10" cy="10" r="2" fill="currentColor" />
-        <circle cx="20" cy="10" r="3" fill="currentColor" />
-        <circle cx="30" cy="10" r="2" fill="currentColor" />
-      </svg>
-      <div class="h-px w-24 bg-linear-to-r from-(--color-primary)/20 dark:from-(--color-secondary)/20 to-transparent"></div>
-      <svg width="20" height="20" viewBox="0 0 20 20" class="text-(--color-primary)/40 dark:text-(--color-secondary)/40">
-        <path d="M10 2 L12 8 L18 10 L12 12 L10 18 L8 12 L2 10 L8 8 Z" fill="currentColor" />
-      </svg>
-      <div class="h-px w-24 bg-linear-to-l from-(--color-primary)/20 dark:from-(--color-secondary)/20 to-transparent"></div>
-      <svg width="40" height="20" viewBox="0 0 40 20" class="text-(--color-primary) dark:text-(--color-secondary) opacity-60">
-        <circle cx="10" cy="10" r="2" fill="currentColor" />
-        <circle cx="20" cy="10" r="3" fill="currentColor" />
-        <circle cx="30" cy="10" r="2" fill="currentColor" />
-      </svg>
+{
+  variant === "decorative" && (
+    <div class="text-center mt-12 pt-8 border-t dark:border-blue-200 border-blue-600">
+      <div class="flex justify-center space-x-4 mb-4">
+        <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+        <div class="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
+      </div>
     </div>
-  </div>
-)}
+  )
+}
