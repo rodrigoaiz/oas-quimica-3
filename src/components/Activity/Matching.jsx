@@ -69,39 +69,41 @@ export default function Matching({
               </div>
 
               {/* Selector */}
-              <div className="flex items-center gap-3">
-                <label className="text-xs md:text-sm font-semibold text-(--color-primary) dark:text-(--color-primary-dark) whitespace-nowrap">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <label className="text-xs md:text-sm font-semibold text-(--color-primary) dark:text-(--color-primary-dark) sm:whitespace-nowrap shrink-0">
                   Variable:
                 </label>
-                <select
-                  value={answers[index]}
-                  onChange={(e) => handleSelect(index, e.target.value)}
-                  disabled={submitted}
-                  className={`flex-1 p-2 md:p-2.5 rounded-lg border-2 text-sm md:text-base font-medium transition-all ${
-                    submitted
-                      ? isThisCorrect
-                        ? 'bg-green-100 dark:bg-green-900/50 border-green-500 text-green-800 dark:text-green-200'
-                        : isThisIncorrect
-                        ? 'bg-red-100 dark:bg-red-900/50 border-red-500 text-red-800 dark:text-red-200'
-                        : 'bg-gray-100 dark:bg-slate-700 border-gray-300 dark:border-slate-600 text-gray-700 dark:text-gray-300'
-                      : 'bg-white dark:bg-slate-700 border-gray-300 dark:border-slate-600 text-gray-900 dark:text-gray-100 hover:border-(--color-primary) dark:hover:border-(--color-primary-dark)'
-                  } ${submitted ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-                >
-                  <option value="">Selecciona...</option>
-                  {pair.options.map((option, optIndex) => (
-                    <option key={optIndex} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
+                <div className="flex items-center gap-2 flex-1 min-w-0">
+                  <select
+                    value={answers[index]}
+                    onChange={(e) => handleSelect(index, e.target.value)}
+                    disabled={submitted}
+                    className={`flex-1 min-w-0 p-2 md:p-2.5 rounded-lg border-2 text-sm md:text-base font-medium transition-all ${
+                      submitted
+                        ? isThisCorrect
+                          ? 'bg-green-100 dark:bg-green-900/50 border-green-500 text-green-800 dark:text-green-200'
+                          : isThisIncorrect
+                          ? 'bg-red-100 dark:bg-red-900/50 border-red-500 text-red-800 dark:text-red-200'
+                          : 'bg-gray-100 dark:bg-slate-700 border-gray-300 dark:border-slate-600 text-gray-700 dark:text-gray-300'
+                        : 'bg-white dark:bg-slate-700 border-gray-300 dark:border-slate-600 text-gray-900 dark:text-gray-100 hover:border-(--color-primary) dark:hover:border-(--color-primary-dark)'
+                    } ${submitted ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                  >
+                    <option value="">Selecciona...</option>
+                    {pair.options.map((option, optIndex) => (
+                      <option key={optIndex} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
 
-                {/* Indicadores */}
-                {submitted && isThisCorrect && (
-                  <span className="text-green-600 dark:text-green-400 text-xl">✓</span>
-                )}
-                {submitted && isThisIncorrect && (
-                  <span className="text-red-600 dark:text-red-400 text-xl">✗</span>
-                )}
+                  {/* Indicadores */}
+                  {submitted && isThisCorrect && (
+                    <span className="text-green-600 dark:text-green-400 text-xl shrink-0">✓</span>
+                  )}
+                  {submitted && isThisIncorrect && (
+                    <span className="text-red-600 dark:text-red-400 text-xl shrink-0">✗</span>
+                  )}
+                </div>
               </div>
 
               {/* Mostrar respuesta correcta si es incorrecta */}
