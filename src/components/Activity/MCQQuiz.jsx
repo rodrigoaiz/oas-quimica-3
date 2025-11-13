@@ -110,7 +110,11 @@ export default function MCQQuiz({ questions = [], showAll = false, hideProgress 
       {!hideProgress && (
         <div className="flex items-center justify-between p-3 md:p-4 rounded-xl bg-(--color-primary)/5 dark:bg-slate-800 border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50">
           <div className="flex items-center gap-2 md:gap-3">
-            <span className="text-xl md:text-2xl">📝</span>
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-(--color-primary)/10 dark:bg-(--color-primary-dark)/20 flex items-center justify-center shrink-0">
+              <svg className="w-4 h-4 md:w-5 md:h-5 text-(--color-primary) dark:text-(--color-primary-dark)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
             <div>
               <p className="font-bold text-sm md:text-base text-gray-900 dark:text-gray-100">
                 Pregunta {currentQuestion + 1} de {totalQuestions}
