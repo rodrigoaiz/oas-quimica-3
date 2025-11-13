@@ -28,9 +28,10 @@ export default function MCQControlled({
     <div className="mcq-container my-6 p-4 md:p-6 rounded-2xl border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 shadow-lg">
       {/* Pregunta */}
       <div className="mb-4 md:mb-6">
-        <p className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 leading-relaxed">
-          {question}
-        </p>
+        <p 
+          className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: question }}
+        />
       </div>
 
       {/* Opciones */}
