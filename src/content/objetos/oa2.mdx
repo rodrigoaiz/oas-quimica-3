@@ -1,49 +1,27 @@
 ---
-title: "Enlaces químicos y propiedades"
+title: "¿De dónde procede la energía involucrada en una reacción?"
 cover: "/images/oa2/portada.png"
 order: 2
-summary: "Iónico, covalente y metálico con visualizaciones simples."
-tags: ["enlaces químicos", "enlace iónico", "enlace covalente", "enlace metálico", "propiedades químicas", "electronegatividad"]
+summary: "Este material te ayudará a comprender de dónde procede la energía involucrada en una reacción química, al analizar la energía de activación, la ruptura y formación de enlaces y la diferencia entre reacciones exotérmicas y endotérmicas. Mediante analogías, diagramas energéticos, simuladores y casos industriales como el proceso Haber–Bosch, identificarás el papel de los catalizadores e interpretarás la variación de entalpía (ΔH). Además, reflexionarás sobre cómo el control de la energía en los procesos químicos contribuye a la sostenibilidad: procesos más eficientes consumen menos energía, reducen emisiones contaminantes y apoyan el cumplimiento del ODS 12 (producción y consumo responsables)."
+tags: ["Energía y reacción química", "Diagramas de energía", "Energía de activación", "Catalizador y sus funciones", "Energía y enlace químico", "Energías de formación y ruptura de enlaces químicos", "Relación entre la energía de reacción y la ruptura o formación de enlaces en una reacción", "Reacciones exotérmicas y endotérmicas", "Concepto de entalpía de reacción", "Diagramas de energía de reacciones endotérmicas y exotérmicas"]
 level: "Química III"
+duration: "2 horas"
 ---
 
-## Exploración
-Comparativa visual de tipos de enlace y consecuencias en propiedades.
+import Breakout from '@/components/Breakout.astro';
+import Prose from '@/components/Prose.astro';
+import Aprendizajes from '@/components/Aprendizajes.astro';
 
-## Interactivo 2: relaciona pares (ligero)
+export const aprendizajes = [
+  "(C, H) Comprende el concepto de energía de activación y lo asocia con la función de los catalizadores al analizar diagramas de energía de reacciones. (N2)",
+  "(C, H) Comprende que la energía involucrada en una reacción química está relacionada con la ruptura y formación de enlaces, al analizar datos de energías de enlace. (N2)",
+  "(C, H) Explica el carácter exotérmico y endotérmico de las reacciones, al interpretar diagramas de energía para construir argumentos que permitan comprender el comportamiento energético de las sustancias en las reacciones químicas. (N3)"
+];
 
-<div class="card">
-  <p class="font-medium">Arrastra para relacionar (simulado con select para accesibilidad móvil):</p>
-  <ul class="space-y-2 mt-3">
-    <li class="flex items-center gap-2">
-      <span class="w-40">Enlace iónico</span>
-      <select class="border rounded p-1">
-        <option>Selecciona…</option>
-        <option>Entre no metales</option>
-        <option>Entre metal y no metal</option>
-        <option>Entre metales</option>
-      </select>
-    </li>
-    <li class="flex items-center gap-2">
-      <span class="w-40">Enlace covalente</span>
-      <select class="border rounded p-1">
-        <option>Selecciona…</option>
-        <option>Entre no metales</option>
-        <option>Entre metal y no metal</option>
-        <option>Entre metales</option>
-      </select>
-    </li>
-    <li class="flex items-center gap-2">
-      <span class="w-40">Enlace metálico</span>
-      <select class="border rounded p-1">
-        <option>Selecciona…</option>
-        <option>Entre no metales</option>
-        <option>Entre metal y no metal</option>
-        <option>Entre metales</option>
-      </select>
-    </li>
-  </ul>
-</div>
+<Prose>
+## Aprendizajes
+</Prose>
 
-## Cierre
-Resalta estructura-propiedad-función.
+<Breakout>
+  <Aprendizajes items={aprendizajes} />
+</Breakout>
