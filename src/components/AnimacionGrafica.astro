@@ -1,0 +1,430 @@
+---
+import { Image } from 'astro:assets';
+
+const { imageSrc = "" } = Astro.props;
+
+// Detectar si imageSrc es un import de imagen de Astro o una URL string
+const isAstroImage = typeof imageSrc === 'object' && imageSrc.src;
+---
+
+<div class="animation-wrapper">
+  <div class="controles">
+    <button id="btnReactivos">Reactivos</button>
+    <button id="btnIntermedio">Intermedio</button>
+    <button id="btnProductos">Productos</button>
+  </div>
+
+  <div class="grafica-container" id="grafica">
+    {isAstroImage ? (
+      <Image class="grafica-fondo" src={imageSrc} alt="Diagrama energía de reacción" />
+    ) : (
+      <img class="grafica-fondo" src={imageSrc} alt="Diagrama energía de reacción" />
+    )}
+    <div class="hex-group">
+      <!-- Enlaces entre hexágonos -->
+      <div class="bond bond-1-2"></div>
+      <div class="bond bond-2-3"></div>
+      <div class="bond bond-3-4"></div>
+      <div class="bond bond-4-5"></div>
+      <div class="bond bond-5-6"></div>
+      <div class="bond bond-6-7"></div>
+      <div class="bond bond-7-8"></div>
+
+      <!-- Hexágonos -->
+      <div class="hexagon hex-1"></div>
+      <div class="hexagon hex-2"></div>
+      <div class="hexagon hex-3"></div>
+      <div class="hexagon hex-4"></div>
+      <div class="hexagon hex-5"></div>
+      <div class="hexagon hex-6"></div>
+      <div class="hexagon hex-7"></div>
+      <div class="hexagon hex-8"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  :root {
+    --hex-color: #f4b000;
+  }
+
+  .animation-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .controles {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  button {
+    border: none;
+    padding: .5rem 1rem;
+    cursor: pointer;
+    border-radius: 999px;
+    background: #333;
+    color: #fff;
+    font-size: .9rem;
+    transition: all 0.2s ease;
+  }
+
+  button:hover {
+    background: #555;
+    transform: scale(1.05);
+  }
+
+  :global(.dark) button {
+    background: #c8a653;
+    color: #1a1a1a;
+  }
+
+  :global(.dark) button:hover {
+    background: #d4b66a;
+  }
+
+  .grafica-container {
+    position: relative;
+    width: min(95vw, 900px);
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .1);
+  }
+
+  :global(.dark) .grafica-container {
+    background: #2a2a2a;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .4);
+  }
+
+  .grafica-fondo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hex-group {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .hexagon {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background: var(--hex-color);
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .3);
+    transition: transform 1.2s ease, left 1.2s ease, top 1.2s ease;
+    transform: translate(-50%, -50%);
+    z-index: 12;
+  }
+
+  .bond {
+    position: absolute;
+    height: 4px;
+    background: #000;
+    border-radius: 999px;
+    opacity: 1;
+    transition: left 1.2s ease, top 1.2s ease, width 1.2s ease, opacity 1.2s ease, transform 1.2s ease, rotate 1.2s ease;
+    transform-origin: left center;
+    z-index: 11;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+  }
+
+  :global(.dark) .bond {
+    background: #000;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8);
+  }
+
+  /* ============================================
+     ESTADO INICIAL: REACTIVOS (Polisacárido)
+     Cadena completa conectada
+     ============================================ */
+  
+  /* Posiciones de hexágonos en reactivos */
+  .hex-1 { left: 13%; top: 55%; }
+  .hex-2 { left: 17%; top: 53%; }
+  .hex-3 { left: 21%; top: 51%; }
+  .hex-4 { left: 25%; top: 49%; }
+  .hex-5 { left: 29%; top: 47%; }
+  .hex-6 { left: 33%; top: 45%; }
+  .hex-7 { left: 37%; top: 43%; }
+  .hex-8 { left: 41%; top: 41%; }
+
+  /* Enlaces conectando todos los hexágonos con rotación diagonal */
+  .bond-1-2 {
+    left: 13%;
+    top: 55%;
+    width: 4.5%;
+    rotate: -26deg;
+  }
+
+  .bond-2-3 {
+    left: 17%;
+    top: 53%;
+    width: 4.5%;
+    rotate: -26deg;
+  }
+
+  .bond-3-4 {
+    left: 21%;
+    top: 51%;
+    width: 4.5%;
+    rotate: -26deg;
+  }
+
+  .bond-4-5 {
+    left: 25%;
+    top: 49%;
+    width: 4.5%;
+    rotate: -26deg;
+  }
+
+  .bond-5-6 {
+    left: 29%;
+    top: 47%;
+    width: 4.5%;
+    rotate: -26deg;
+  }
+
+  .bond-6-7 {
+    left: 33%;
+    top: 45%;
+    width: 4.5%;
+    rotate: -26deg;
+  }
+
+  .bond-7-8 {
+    left: 37%;
+    top: 43%;
+    width: 4.5%;
+    rotate: -26deg;
+  }
+
+  /* ============================================
+     ESTADO INTERMEDIO
+     2 columnas con 2 pares cada una (centrado y arriba)
+     Columna izquierda: pares 1-2 y 3-4
+     Columna derecha: pares 5-6 y 7-8
+     ============================================ */
+  
+  /* Columna izquierda - Par 1-2 (arriba) */
+  .grafica-container.estado-intermedio .hex-1 {
+    left: 45%;
+    top: 18%;
+  }
+
+  .grafica-container.estado-intermedio .hex-2 {
+    left: 49%;
+    top: 16%;
+  }
+
+  /* Columna izquierda - Par 3-4 (abajo) */
+  .grafica-container.estado-intermedio .hex-3 {
+    left: 45%;
+    top: 24%;
+  }
+
+  .grafica-container.estado-intermedio .hex-4 {
+    left: 49%;
+    top: 22%;
+  }
+
+  /* Columna derecha - Par 5-6 (arriba) */
+  .grafica-container.estado-intermedio .hex-5 {
+    left: 55%;
+    top: 18%;
+  }
+
+  .grafica-container.estado-intermedio .hex-6 {
+    left: 59%;
+    top: 16%;
+  }
+
+  /* Columna derecha - Par 7-8 (abajo) */
+  .grafica-container.estado-intermedio .hex-7 {
+    left: 55%;
+    top: 24%;
+  }
+
+  .grafica-container.estado-intermedio .hex-8 {
+    left: 59%;
+    top: 22%;
+  }
+
+  /* Enlaces solo entre pares */
+  .grafica-container.estado-intermedio .bond-1-2 {
+    left: 45%;
+    top: 18%;
+    width: 4.5%;
+    rotate: -26deg;
+    opacity: 1;
+  }
+
+  .grafica-container.estado-intermedio .bond-2-3 {
+    opacity: 0;
+  }
+
+  .grafica-container.estado-intermedio .bond-3-4 {
+    left: 45%;
+    top: 24%;
+    width: 4.5%;
+    rotate: -26deg;
+    opacity: 1;
+  }
+
+  .grafica-container.estado-intermedio .bond-4-5 {
+    opacity: 0;
+  }
+
+  .grafica-container.estado-intermedio .bond-5-6 {
+    left: 55%;
+    top: 18%;
+    width: 4.5%;
+    rotate: -26deg;
+    opacity: 1;
+  }
+
+  .grafica-container.estado-intermedio .bond-6-7 {
+    opacity: 0;
+  }
+
+  .grafica-container.estado-intermedio .bond-7-8 {
+    left: 55%;
+    top: 24%;
+    width: 4.5%;
+    rotate: -26deg;
+    opacity: 1;
+  }
+
+  /* ============================================
+     ESTADO PRODUCTOS
+     Todos dispersos más abajo (zona de productos)
+     ============================================ */
+
+  .grafica-container.estado-productos .hex-1 {
+    left: 64%;
+    top: 72%;
+  }
+
+  .grafica-container.estado-productos .hex-2 {
+    left: 72%;
+    top: 68%;
+  }
+
+  .grafica-container.estado-productos .hex-3 {
+    left: 78%;
+    top: 74%;
+  }
+
+  .grafica-container.estado-productos .hex-4 {
+    left: 85%;
+    top: 70%;
+  }
+
+  .grafica-container.estado-productos .hex-5 {
+    left: 68%;
+    top: 64%;
+  }
+
+  .grafica-container.estado-productos .hex-6 {
+    left: 82%;
+    top: 62%;
+  }
+
+  .grafica-container.estado-productos .hex-7 {
+    left: 75%;
+    top: 76%;
+  }
+
+  .grafica-container.estado-productos .hex-8 {
+    left: 88%;
+    top: 65%;
+  }
+
+  /* Todos los enlaces desaparecen en productos (mantienen posición intermedia) */
+  .grafica-container.estado-productos .bond-1-2 {
+    left: 45%;
+    top: 18%;
+    opacity: 0;
+  }
+
+  .grafica-container.estado-productos .bond-2-3 {
+    opacity: 0;
+  }
+
+  .grafica-container.estado-productos .bond-3-4 {
+    left: 45%;
+    top: 24%;
+    opacity: 0;
+  }
+
+  .grafica-container.estado-productos .bond-4-5 {
+    opacity: 0;
+  }
+
+  .grafica-container.estado-productos .bond-5-6 {
+    left: 55%;
+    top: 18%;
+    opacity: 0;
+  }
+
+  .grafica-container.estado-productos .bond-6-7 {
+    opacity: 0;
+  }
+
+  .grafica-container.estado-productos .bond-7-8 {
+    left: 55%;
+    top: 24%;
+    opacity: 0;
+  }
+
+  @media (max-width: 640px) {
+    .hexagon {
+      width: 22px;
+      height: 22px;
+    }
+
+    .bond {
+      height: 2px;
+    }
+  }
+</style>
+
+<script>
+  const grafica = document.getElementById('grafica');
+  const btnReactivos = document.getElementById('btnReactivos');
+  const btnIntermedio = document.getElementById('btnIntermedio');
+  const btnProductos = document.getElementById('btnProductos');
+
+  const limpiarEstados = () => {
+    grafica?.classList.remove('estado-intermedio', 'estado-productos');
+  };
+
+  btnReactivos?.addEventListener('click', () => {
+    limpiarEstados();
+  });
+
+  btnIntermedio?.addEventListener('click', () => {
+    limpiarEstados();
+    grafica?.classList.add('estado-intermedio');
+  });
+
+  btnProductos?.addEventListener('click', () => {
+    limpiarEstados();
+    grafica?.classList.add('estado-productos');
+  });
+</script>
