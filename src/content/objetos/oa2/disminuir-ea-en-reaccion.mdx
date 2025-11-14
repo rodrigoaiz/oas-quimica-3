@@ -1,0 +1,36 @@
+---
+title: "Disminuir Ea de una reacción"
+order: 3
+---
+import AnimacionGrafica from '@/components/AnimacionGrafica.astro';
+import p3img01 from '@/assets/images/oa2/p3-img-01.png';
+import Image from '@/components/Image.astro';
+import Prose from '@/components/Prose.astro';
+import Breakout from '@/components/Breakout.astro';
+
+<Prose>
+  ### ¿Cómo podemos disminuir la Ea de una reacción?
+
+  En la industria se emplean sustancias llamadas catalizadores para reducir la Energía de activación (Ea) en las reacciones químicas, con la finalidad de hacer los procesos más rentables, es decir, menor gasto energético y menos emisiones. Cabe señalar que éstos no se consumen durante el proceso, de modo que pueden reutilizarse indefinidamente.
+
+  <Image src={p3img01} alt="Diagrama de energía con y sin catalizador" class="my-6 rounded-lg shadow-lg" />
+
+  Para efectos de una mejor comprensión del papel de los catalizadores y la energía en las reacciones químicas, utilizaremos los llamados diagramas de energía. Donde en el eje vertical se representa la energía, y en el eje horizontal, el avance de la reacción.
+  
+  Si la energía final de los productos es mayor que la de los reactivos, hablamos de una reacción endotérmica (absorbe calor), mientras que si es menor, es exotérmica (libera calor).
+</Prose>
+<Breakout>
+  <div class="flex md:flex-row justify-center items-center gap-5">
+    <Image src={p3img01} caption="Reacción exotérmica" alt="Grafica de reacción exotérmica" title="Reacción exotérmica" />
+    <Image src={p3img01} caption="Reacción endotérmica" alt="Grafica de reacción endotérmica" title="Reacción endotérmica" />
+  </div>
+  <Prose>
+    Algunos ejemplos de lo anterior los puedes observar en procesos bioquímicos donde las enzimas funcionan como catalizadores biológicos.
+  </Prose>
+  <AnimacionGrafica imageSrc={p3img01} />
+
+  <Prose>
+    Otro ejemplo del uso de catalizadores se relaciona con la descomposición del peróxido de hidrógeno (muy utilizado como desinfectante), donde el óxido de manganeso (IV) actúa como catalizador, ve el siguiente video muestra.
+  </Prose>
+  <AnimacionGrafica imageSrc={p3img01} />
+</Breakout>
