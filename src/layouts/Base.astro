@@ -53,7 +53,7 @@ const {
     
     <link rel="icon" href={`${Astro.site?.pathname ?? '/'}favicon.svg`} />
   </head>
-  <body class="bg-(--color-bg-main) dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+  <body class="bg-(--color-bg-main) dark:bg-(--color-dark-bg-main) text-slate-900 dark:text-slate-100 transition-colors duration-200">
     <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 bg-white dark:bg-slate-800 text-(--color-primary) dark:text-(--color-secondary) p-2 rounded">Saltar al contenido</a>
     <Nav current={Astro.url.pathname} />
     <slot />
