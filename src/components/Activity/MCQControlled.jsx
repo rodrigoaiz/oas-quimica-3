@@ -5,11 +5,13 @@ import { useId } from 'react';
  * El estado se maneja externamente
  */
 export default function MCQControlled({ 
+  questionId, 
   question, 
+  image, 
+  imageAlt, 
   options = [], 
   correctIndex = 0, 
   feedback = {}, 
-  questionId,
   answer = null,
   onChange,
   onReset
@@ -28,10 +30,24 @@ export default function MCQControlled({
     <div className="mcq-container my-6 p-4 md:p-6 rounded-2xl border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 shadow-lg">
       {/* Pregunta */}
       <div className="mb-4 md:mb-6">
-        <p 
-          className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: question }}
-        />
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3" 
+            dangerouslySetInnerHTML={{ __html: question }} />
+        
+        {/* Imagen de la pregunta */}
+        {image && (
+          <div className="mb-2">
+            <img 
+              src={image.src || image}
+              alt={imageAlt || "Imagen de la pregunta"}
+              className="w-50 max-w-md mx-auto rounded-lg shadow-md border border-gray-200 dark:border-gray-600"
+            />
+            {imageAlt && (
+              <p className="text-sm text-gray-600 dark:text-gray-400 text-center mt-2 italic">
+                {imageAlt}
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Opciones */}
