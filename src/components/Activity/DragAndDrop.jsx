@@ -1,331 +1,225 @@
 import { useState, useRef, useEffect } from 'react';
 
 /**
- * DragAndDrop - Componente para arrastrar elementos a una zona de drop
- * Compatible con mouse y touch (móviles)
+ * DragAndDrop - Componente para ejercicios de arrastrar y soltar con imágenes
  * 
- * @param {string} question - Pregunta del ejercicio
- * @param {Array<string>} items - Items distractores (palabras incorrectas)
- * @param {Array<string>} correctAnswers - Respuestas correctas
- * @param {Object} feedback - Mensajes de retroalimentación
+ * @param {Object} props
+ * @param {string} props.question - Pregunta o instrucciones del ejercicio
+ * @param {string} props.backgroundImage - Imagen de fondo del esquema
+ * @param {string} props.backgroundAlt - Texto alternativo para la imagen de fondo
+ * @param {Array} props.items - Array de elementos arrastrables con {id, image, alt, label}
+ * @param {Array} props.dropZones - Array de zonas de destino con {id, x, y, width, height, correctItemId}
+ * @param {Object} props.feedback - Objeto con mensajes {correct, incorrect}
  */
 export default function DragAndDrop({ 
-  question, 
+  question = "", 
+  backgroundImage,
+  backgroundAlt = "Esquema para completar",
   items = [], 
-  correctAnswers = [],
-  feedback = {}
+  dropZones = [], 
+  feedback = { correct: "¡Correcto!", incorrect: "Inténtalo de nuevo" }
 }) {
-  // Función para mezclar array (Fisher-Yates shuffle)
-  const shuffleArray = (array) => {
-    const newArray = [...array];
-    for (let i = newArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-    }
-    return newArray;
-  };
+  const [draggedItem, setDraggedItem] = useState(null);
+  const [droppedItems, setDroppedItems] = useState({});
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const containerRef = useRef(null);
 
-  // Combinar correctAnswers con distractores (sin mezclar inicialmente)
-  const allItemsUnshuffled = [...correctAnswers, ...items];
-  
-  // Estado: items disponibles en el banco (se mezclará solo en el cliente)
-  const [availableItems, setAvailableItems] = useState(allItemsUnshuffled);
-  // Estado: items colocados en la zona de drop
-  const [droppedItems, setDroppedItems] = useState([]);
-  // Estado: verificación
-  const [submitted, setSubmitted] = useState(false);
-  // Estado: item que se está arrastrando
-  const [draggingItem, setDraggingItem] = useState(null);
-  const [draggingSource, setDraggingSource] = useState(null); // 'bank' o 'drop'
-  
-  // Mezclar solo en el cliente después de la hidratación
-  useEffect(() => {
-    setAvailableItems(shuffleArray(allItemsUnshuffled));
-  }, []);
-  
-  // Refs para touch events
-  const draggedElement = useRef(null);
-  const touchStartPos = useRef({ x: 0, y: 0 });
-
-  // Manejar inicio de arrastre (mouse)
-  const handleDragStart = (e, item, source) => {
-    if (submitted) return;
-    setDraggingItem(item);
-    setDraggingSource(source);
+  const handleDragStart = (e, item) => {
+    setDraggedItem(item);
     e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/plain', item);
-    
-    // Hacer visible el arrastre
-    e.target.style.opacity = '0.5';
   };
 
-  // Finalizar arrastre (mouse)
-  const handleDragEnd = (e) => {
-    e.target.style.opacity = '1';
-  };
-
-  // Manejar inicio de arrastre (touch)
-  const handleTouchStart = (e, item, source) => {
-    if (submitted) return;
-    const touch = e.touches[0];
-    touchStartPos.current = { x: touch.clientX, y: touch.clientY };
-    setDraggingItem(item);
-    setDraggingSource(source);
-    
-    // Clonar el elemento para arrastre visual
-    const target = e.currentTarget;
-    draggedElement.current = target.cloneNode(true);
-    draggedElement.current.style.position = 'fixed';
-    draggedElement.current.style.pointerEvents = 'none';
-    draggedElement.current.style.zIndex = '1000';
-    draggedElement.current.style.opacity = '0.9';
-    draggedElement.current.style.width = target.offsetWidth + 'px';
-    draggedElement.current.style.transform = `translate(${touch.clientX - target.offsetWidth/2}px, ${touch.clientY - target.offsetHeight/2}px)`;
-    document.body.appendChild(draggedElement.current);
-    
-    target.style.opacity = '0.5';
-  };
-
-  // Manejar movimiento (touch)
-  const handleTouchMove = (e) => {
-    if (!draggingItem || !draggedElement.current) return;
-    e.preventDefault();
-    
-    const touch = e.touches[0];
-    const target = e.currentTarget;
-    
-    draggedElement.current.style.transform = `translate(${touch.clientX - target.offsetWidth/2}px, ${touch.clientY - target.offsetHeight/2}px)`;
-  };
-
-  // Manejar fin de arrastre (touch)
-  const handleTouchEnd = (e) => {
-    if (!draggingItem) return;
-    
-    const touch = e.changedTouches[0];
-    const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
-    const dropZone = dropTarget?.closest('.drop-zone');
-    
-    if (dropZone) {
-      handleDropAction();
-    }
-    
-    // Limpiar
-    if (draggedElement.current) {
-      draggedElement.current.remove();
-      draggedElement.current = null;
-    }
-    
-    document.querySelectorAll('[style*="opacity: 0.5"]').forEach(el => el.style.opacity = '1');
-    setDraggingItem(null);
-    setDraggingSource(null);
-  };
-
-  // Permitir drop
   const handleDragOver = (e) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
   };
 
-  // Acción de drop
-  const handleDropAction = () => {
-    if (!draggingItem) return;
-
-    // Si viene del banco, agregarlo a la zona
-    if (draggingSource === 'bank') {
-      setDroppedItems([...droppedItems, draggingItem]);
-      setAvailableItems(availableItems.filter(item => item !== draggingItem));
-    }
-    // Si ya está en la zona, no hacer nada (ya está ahí)
-
-    setDraggingItem(null);
-    setDraggingSource(null);
-  };
-
-  // Manejar drop (mouse)
-  const handleDrop = (e) => {
+  const handleDrop = (e, zone) => {
     e.preventDefault();
-    handleDropAction();
-  };
-
-  // Devolver item al banco
-  const returnToBank = (item) => {
-    if (submitted) return;
     
-    setDroppedItems(droppedItems.filter(i => i !== item));
-    setAvailableItems([...availableItems, item]);
+    if (!draggedItem) return;
+
+    // Actualizar el estado de elementos soltados
+    setDroppedItems(prev => ({
+      ...prev,
+      [zone.id]: draggedItem
+    }));
+
+    setDraggedItem(null);
   };
 
-  // Verificar respuestas
-  const handleSubmit = () => {
-    if (droppedItems.length === 0) return;
-    setSubmitted(true);
-  };
-
-  // Reiniciar
   const handleReset = () => {
-    setAvailableItems(shuffleArray(allItemsUnshuffled));
-    setDroppedItems([]);
-    setSubmitted(false);
+    setDroppedItems({});
+    setShowFeedback(false);
+    setIsCorrect(false);
   };
 
-  // Verificar si está correcto
-  const isCorrect = () => {
-    if (!submitted) return false;
-    // Verificar que todos los items en droppedItems sean correctos
-    const allCorrect = droppedItems.every(item => correctAnswers.includes(item));
-    // Verificar que estén todas las respuestas correctas
-    const allPresent = correctAnswers.every(answer => droppedItems.includes(answer));
-    return allCorrect && allPresent;
+  const handleCheck = () => {
+    // Verificar si todas las zonas están completadas correctamente
+    const allCorrect = dropZones.every(zone => {
+      const droppedItem = droppedItems[zone.id];
+      return droppedItem && droppedItem.id === zone.correctItemId;
+    });
+
+    setIsCorrect(allCorrect);
+    setShowFeedback(true);
   };
 
-  const correct = isCorrect();
+  const getAvailableItems = () => {
+    const usedItemIds = Object.values(droppedItems).map(item => item.id);
+    return items.filter(item => !usedItemIds.includes(item.id));
+  };
+
+  const removeFromZone = (zoneId) => {
+    setDroppedItems(prev => {
+      const updated = { ...prev };
+      delete updated[zoneId];
+      return updated;
+    });
+  };
 
   return (
-    <div className="drag-drop-container my-6 p-4 md:p-6 rounded-2xl border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 shadow-lg">
+    <div className="drag-and-drop-container p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
       {/* Pregunta */}
-      <div className="mb-4 md:mb-6">
-        <p className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 leading-relaxed">
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           {question}
-        </p>
-        <p className="text-xs md:text-sm text-(--color-primary) dark:text-(--color-primary-dark) mt-2 font-medium">
-          Arrastra las palabras correctas a la caja
-        </p>
+        </h3>
       </div>
 
-      {/* Zona de Drop única */}
-      <div className="mb-6">
-        <div
-          className="drop-zone min-h-32 p-4 rounded-xl border-2 border-dashed bg-gray-50 dark:bg-slate-900 border-gray-300 dark:border-slate-600 transition-all"
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-        >
-          {droppedItems.length > 0 ? (
-            <div className="flex flex-wrap gap-2">
-              {droppedItems.map((item, index) => {
-                const isItemCorrect = submitted && correctAnswers.includes(item);
-                const isItemIncorrect = submitted && !correctAnswers.includes(item);
-
-                return (
-                  <div
-                    key={`${item}-${index}`}
-                    className={`drag-item inline-block px-4 py-2 rounded-lg border-2 font-medium text-sm md:text-base cursor-move transition-all ${
-                      isItemCorrect
-                        ? 'correct bg-green-100 dark:bg-green-900/30 border-green-500 dark:border-green-400 text-green-800 dark:text-green-200'
-                        : isItemIncorrect
-                        ? 'incorrect bg-red-100 dark:bg-red-900/30 border-red-500 dark:border-red-400 text-red-800 dark:text-red-200'
-                        : 'bg-white dark:bg-slate-800 border-(--color-primary) dark:border-(--color-primary-dark) text-gray-900 dark:text-gray-100 hover:shadow-md'
-                    }`}
-                    draggable={!submitted}
-                    onDragStart={(e) => handleDragStart(e, item, 'drop')}
-                    onDragEnd={handleDragEnd}
-                    onTouchStart={(e) => handleTouchStart(e, item, 'drop')}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
-                    onDoubleClick={() => returnToBank(item)}
-                  >
-                    {item}
-                    {submitted && isItemCorrect && <span className="ml-2">✓</span>}
-                    {submitted && isItemIncorrect && <span className="ml-2">✗</span>}
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="flex items-center justify-center h-full text-gray-400 dark:text-gray-600 text-sm italic">
-              Arrastra aquí las respuestas correctas
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Banco de palabras */}
-      <div className="mb-6">
-        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-          Palabras disponibles:
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {availableItems.length > 0 ? (
-            availableItems.map((item, index) => (
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* Elementos arrastrables */}
+        <div className="lg:col-span-1">
+          <h4 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-3">
+            Elementos disponibles:
+          </h4>
+          <div className="space-y-3">
+            {getAvailableItems().map((item) => (
               <div
-                key={`${item}-${index}`}
-                className="drag-item px-4 py-2 rounded-lg border-2 bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 text-gray-900 dark:text-gray-100 font-medium text-sm md:text-base shadow-sm hover:shadow-md cursor-move transition-all"
-                draggable={!submitted}
-                onDragStart={(e) => handleDragStart(e, item, 'bank')}
-                onDragEnd={handleDragEnd}
-                onTouchStart={(e) => handleTouchStart(e, item, 'bank')}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
+                key={item.id}
+                draggable
+                onDragStart={(e) => handleDragStart(e, item)}
+                className="draggable-item flex items-center p-3 bg-blue-50 dark:bg-blue-900/30 border-2 border-blue-200 dark:border-blue-700 rounded-lg cursor-move hover:bg-blue-100 dark:hover:bg-blue-800/40 transition-colors"
               >
-                {item}
+                {item.image && (
+                  <img 
+                    src={item.image.src || item.image} 
+                    alt={item.alt} 
+                    className="w-8 h-8 mr-3 object-contain"
+                  />
+                )}
+                <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
+                  {item.label}
+                </span>
               </div>
-            ))
-          ) : (
-            <p className="text-gray-500 dark:text-gray-400 text-sm italic">
-              {submitted ? 'Todas las palabras han sido colocadas' : 'No hay palabras disponibles'}
-            </p>
-          )}
+            ))}
+          </div>
         </div>
+
+        {/* Área del esquema */}
+        <div className="lg:col-span-2">
+          <h4 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-3">
+            Esquema para completar:
+          </h4>
+          <div 
+            ref={containerRef}
+            className="relative w-full bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden"
+            style={{ paddingBottom: '60%' }} // Aspect ratio 5:3
+          >
+            {/* Imagen de fondo */}
+            {backgroundImage && (
+              <img 
+                src={backgroundImage.src || backgroundImage}
+                alt={backgroundAlt}
+                className="absolute inset-0 w-full h-full object-contain"
+              />
+            )}
+
+            {/* Zonas de destino */}
+            {dropZones.map((zone) => (
+              <div
+                key={zone.id}
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, zone)}
+                className="absolute border-2 border-dashed border-gray-400 dark:border-gray-500 bg-white/20 dark:bg-gray-800/20 rounded flex items-center justify-center hover:bg-blue-100/30 dark:hover:bg-blue-800/30 transition-colors"
+                style={{
+                  left: `${zone.x}%`,
+                  top: `${zone.y}%`,
+                  width: `${zone.width}%`,
+                  height: `${zone.height}%`
+                }}
+              >
+                {droppedItems[zone.id] ? (
+                  <div className="flex items-center justify-center relative group">
+                    {droppedItems[zone.id].image && (
+                      <img 
+                        src={droppedItems[zone.id].image.src || droppedItems[zone.id].image}
+                        alt={droppedItems[zone.id].alt}
+                        className="w-6 h-6 object-contain"
+                      />
+                    )}
+                    <button
+                      onClick={() => removeFromZone(zone.id)}
+                      className="absolute -top-2 -right-2 w-5 h-5 bg-red-500 text-white rounded-full text-xs opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ) : (
+                  <span className="text-xs text-gray-500 dark:text-gray-400 text-center px-1">
+                    Arrastra aquí
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Botones de acción */}
+      <div className="flex justify-center space-x-4 mt-6">
+        <button
+          onClick={handleCheck}
+          disabled={Object.keys(droppedItems).length === 0}
+          className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+        >
+          Verificar respuesta
+        </button>
+        <button
+          onClick={handleReset}
+          className="px-6 py-2 bg-gray-500 text-white font-medium rounded-lg hover:bg-gray-600 transition-colors"
+        >
+          Reiniciar
+        </button>
       </div>
 
       {/* Feedback */}
-      {submitted && (
-        <div
-          className={`p-4 rounded-xl mb-4 ${
-            correct
-              ? 'bg-green-50 dark:bg-green-900/30 border-2 border-green-500 dark:border-green-400'
-              : 'bg-red-50 dark:bg-red-900/30 border-2 border-red-500 dark:border-red-400'
-          }`}
-        >
-          <p
-            className={`text-sm md:text-base font-semibold ${
-              correct
-                ? 'text-green-800 dark:text-green-200'
+      {showFeedback && (
+        <div className={`mt-6 p-4 rounded-lg ${
+          isCorrect 
+            ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800' 
+            : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800'
+        }`}>
+          <div className="flex items-start">
+            <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center mr-3 mt-0.5 ${
+              isCorrect ? 'bg-green-500' : 'bg-red-500'
+            }`}>
+              <span className="text-white text-sm font-bold">
+                {isCorrect ? '✓' : '✗'}
+              </span>
+            </div>
+            <p className={`text-sm leading-relaxed ${
+              isCorrect 
+                ? 'text-green-800 dark:text-green-200' 
                 : 'text-red-800 dark:text-red-200'
-            }`}
-          >
-            {correct ? (
-              <>
-                <span className="text-xl mr-2">✓</span>
-                {feedback.correct || '¡Excelente! Todas las respuestas son correctas.'}
-              </>
-            ) : (
-              <>
-                <span className="text-xl mr-2">✗</span>
-                {feedback.incorrect || 'Algunas respuestas no son correctas. Revisa las palabras marcadas con ✗ y las que faltan.'}
-              </>
-            )}
-          </p>
+            }`}>
+              {isCorrect ? feedback.correct : feedback.incorrect}
+            </p>
+          </div>
         </div>
       )}
-
-      {/* Botones */}
-      <div className="flex gap-3">
-        {!submitted ? (
-          <button
-            onClick={handleSubmit}
-            disabled={droppedItems.length === 0}
-            className={`flex-1 px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base transition-all ${
-              droppedItems.length > 0
-                ? 'bg-(--color-primary) dark:bg-(--color-primary-dark) text-white hover:opacity-90 shadow-md hover:shadow-lg'
-                : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
-            }`}
-          >
-            Verificar respuestas
-          </button>
-        ) : (
-          <button
-            onClick={handleReset}
-            className="flex-1 px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base bg-(--color-secondary) dark:bg-scondary text-white hover:opacity-90 transition-all shadow-md hover:shadow-lg"
-          >
-            Intentar de nuevo
-          </button>
-        )}
-      </div>
-
-      {/* Instrucciones móvil */}
-      <p className="mt-4 text-xs text-gray-500 dark:text-gray-400 text-center">
-        💡 Arrastra las palabras o haz doble clic para moverlas. Solo las respuestas correctas cuentan.
-      </p>
     </div>
   );
 }

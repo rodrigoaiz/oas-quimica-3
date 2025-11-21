@@ -6,10 +6,15 @@ import Prose from '@/components/Prose.astro';
 import Image from '@/components/Image.astro';
 import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
 import oa2p3img01 from '@/assets/images/oa2/oa2p3-img01.webp';
-import oa2p1img02 from '@/assets/images/oa2/oa2p1-img02.webp';
-import pregunta1img from '@/assets/images/oa2/oa2p1-img03.webp';
-import pregunta3img from '@/assets/images/oa2/oa2p1-img04.webp';
-
+import Matching from '@/components/Activity/Matching.jsx';
+import DragAndDrop from '@/components/Activity/DragAndDrop.jsx';
+import Breakout from '@/components/Breakout.astro';
+// Importar las imágenes para el ejercicio de arrastrar
+import backgroundSchema from '@/assets/images/oa2/p3-img-02.webp';
+import reactivosIcon from '@/assets/images/oa2/reactivos.webp';
+import productosIcon from '@/assets/images/oa2/productos.webp';
+import eaCatalizadorIcon from '@/assets/images/oa2/ea-catalizador.webp';
+import eaSinCatalizadorIcon from '@/assets/images/oa2/ea-sin-catalizador.webp';
 
 <Prose>
 ### ¿Cuál fue el problema que resolvieron Haber-Bosch para producir amoníaco a escala industrial?
@@ -30,74 +35,102 @@ La solución encontrada por Haber-Bosch, fue emplear catalizadores de hierro u �
 />
 
 <Prose>
-  <div class="bg-stone-50 dark:bg-dark-bg-block text-md text-teal-800 dark:text-teal-950 border-2 border-dashed border-teal-900 p-6">
-    Para comprender este concepto utilizaremos la siguiente analogía: Imagina que quisiéramos empujar una piedra cuesta arriba para que, al llegar a la cima, ruede hacia abajo. Si no aplicamos la fuerza suficiente para superar la "cima", la piedra nunca se moverá por sí sola. De modo similar, en química, la "cima de la colina" representa la barrera de energía; sin la Ea adecuada, la reacción no sucede.
-  </div>
-</Prose>
+  ### Ejercicio de seleccionar
 
-<Image 
-  src={oa2p1img02}
-  alt="Energía de activación (Ea)"
-  caption="Energía de activación (Ea)"
-  size="xl"
-/>
-<Prose>
-En el diagrama anterior, la altura de la “colina” representa la energía de activación, cuanto más alta sea esa barrera, más energía se necesita y más lenta será la reacción. Por el contrario, una barrera más baja requiere menor energía y favorece una rapidez mayor.
-
-### ¿Qué es la energía de activación?
-
-A continuación responde las siguientes preguntas seleccionando la opción que consideres correcta.
-
-
-  <MCQQuiz 
+  <Matching
     client:load
-    questions={[
+    question="Completa las siguientes frases eligiendo la opción que consideres correcta."
+    pairs={[
       {
-        question: "La línea que representa la energía de activación (E<sub>a</sub>) de esta reacción es",
-        image: pregunta1img,
-        imageAlt: "Diagrama de energía de activación con líneas A, B, C y D marcadas",
-        options: [
-          "Línea A",
-          "Línea C", 
-          "Línea D",
-          "Línea B"
-        ],
-        correctIndex: 0,
-        feedback: {
-          correct: "¡Correcto! La línea que representa la energía de activación (Ea) es la que marca la barrera que deben superar los reactivos para transformarse en productos. Reconociste que la Ea siempre corresponde al punto más alto de la 'colina' en el diagrama de energía.",
-          incorrect: "La línea que representa la energía de activación (Ea) es la que marca la barrera que deben superar los reactivos para transformarse en productos. Si te equivocaste, recuerda que no se trata de la energía inicial ni final, sino de la máxima energía que requiere la reacción para comenzar."
-        }
+        description: 'El principal problema que resolvieron en el proceso Haber fue la __________ Ea de la reacción de obtención de amoniaco.',
+        correctAnswer: 'alta',
+        options: ['alta', 'baja', 'catalizador', 'producto']
       },
       {
-        question: "En las reacciones químicas, la electricidad, una chispa y la luz solar son formas en las que se puede proporcionar _______________.",
-        options: [
-          "catalizadores",
-          "energía de activación",
-          "reactivos", 
-          "productos"
-        ],
-        correctIndex: 1,
-        feedback: {
-          correct: "¡Exacto! La electricidad, una chispa o la luz solar son ejemplos de fuentes que proporcionan energía de activación, ya que aportan la chispa inicial necesaria para que los reactivos superen la barrera energética.",
-          incorrect: "La electricidad, una chispa o la luz solar son ejemplos de fuentes que proporcionan energía de activación, ya que aportan la chispa inicial necesaria para que los reactivos superen la barrera energética. Recuerda que los catalizadores no añaden energía, sino que reducen la barrera; los reactivos y productos ya forman parte de la reacción, pero no son el factor que 'enciende' el proceso."
-        }
-      },
-      {
-        question: "Si se produce una fuga de gas pero no ocurre una combustión, ¿cuál de los siguientes factores está impidiendo que se lleve a cabo la reacción?",
-        image: pregunta3img,
-        imageAlt: "Representación visual del efecto de la presión en gases",
-        options: [
-          "tiempo",
-          "energía de activación",
-          "reactivos", 
-          "productos"
-        ],
-        correctIndex: 1,
-        feedback: {
-          correct: "¡Muy bien! Si hay una fuga de gas pero no ocurre combustión, lo que está faltando es energía de activación. Aunque estén presentes los reactivos (gas y oxígeno), sin una chispa o calor inicial la reacción no comienza.",
-          incorrect: "Si hay una fuga de gas pero no ocurre combustión, lo que está faltando es energía de activación. Aunque estén presentes los reactivos (gas y oxígeno), sin una chispa o calor inicial la reacción no comienza. Recuerda que el tiempo por sí solo no inicia la reacción, y que los productos solo aparecen una vez que la reacción se lleva a cabo."
-        }
+        description: 'El problema se resolvió con la adición de ______________.',
+        correctAnswer: 'catalizador',
+        options: ['alta', 'baja', 'catalizador', 'producto']
       }
     ]}
+    feedback={{
+      correct: '¡Excelente! La producción de amoniaco a partir de nitrógeno e hidrógeno presentaba una alta energía de activación, lo que impedía que la reacción ocurriera de manera espontánea, aun cuando los reactivos estuvieran disponibles. El uso de un catalizador (hierro u óxidos metálicos) permitió reducir esa barrera energética y hacer posible la reacción en condiciones industriales.',
+      incorrect: 'La producción de amoniaco a partir de nitrógeno e hidrógeno presentaba una alta energía de activación, lo que impedía que la reacción ocurriera de manera espontánea, aun cuando los reactivos estuvieran disponibles. El uso de un catalizador (hierro u óxidos metálicos) permitió reducir esa barrera energética y hacer posible la reacción en condiciones industriales. Si confundiste tu respuesta con “baja” o “producto”, recuerda que el reto principal era superar la gran estabilidad de los enlaces en N₂ y H₂, y que el catalizador no se consume, sino que acelera la reacción al disminuir la energía de activación.'
+    }}
   />
+
+### Ejercicio de arrastrar
+
 </Prose>
+
+<Breakout>
+  <DragAndDrop
+    client:load
+    question="Arrastra los elementos al esquema del proceso Haber-Bosch para completar los factores que optimizan la producción de amoníaco:"
+    backgroundImage={backgroundSchema}
+    backgroundAlt="Esquema del proceso Haber-Bosch con zonas para completar"
+    items={[
+      {
+        id: "reactivos",
+        image: reactivosIcon,
+        alt: "Reactivos",
+        label: "Reactivos (N₂ y H₂)"
+      },
+      {
+        id: "productos", 
+        image: productosIcon,
+        alt: "Productos",
+        label: "Alta presión"
+      },
+      {
+        id: "eaCatalizadorIcon",
+        image: eaCatalizadorIcon,
+        alt: "Energía de activación con catalizador",
+        label: "Ea con catalizador"
+      },
+      {
+        id: "eaSinCatalizadorIcon",
+        image: eaSinCatalizadorIcon,
+        alt: "Energía de activación sin catalizador",
+        label: "Ea sin catalizador"
+      }
+    ]}
+    dropZones={[
+      {
+        id: "reactivos-zone",
+        x: 45,
+        y: 30,
+        width: 15,
+        height: 10,
+        correctItemId: "reactivos"
+      },
+      {
+        id: "productos-zone", 
+        x: 20,
+        y: 60,
+        width: 15,
+        height: 10,
+        correctItemId: "productos"
+      },
+      {
+        id: "eaCatalizadorIcon-zone",
+        x: 70,
+        y: 60, 
+        width: 15,
+        height: 10,
+        correctItemId: "eaCatalizadorIcon"
+      },
+      {
+        id: "eaSinCatalizadorIcon-zone",
+        x: 45,
+        y: 80,
+        width: 15,
+        height: 10,
+        correctItemId: "eaSinCatalizadorIcon"
+      }
+    ]}
+    feedback={{
+      correct: "¡Excelente! Has completado correctamente el esquema del proceso Haber-Bosch. El catalizador de hierro reduce la energía de activación, la alta presión favorece la formación de amoníaco, y la temperatura controlada optimiza la velocidad de reacción.",
+      incorrect: "Reactivos - sustancias iniciales en la reacción. Productos - sustancias resultantes una vez completada la reacción. Energía de activación - energía mínima necesaria para que ocurra la reacción. Catalizador - sustancia que reduce la energía de activación sin consumirse"
+    }}
+  />
+</Breakout>
