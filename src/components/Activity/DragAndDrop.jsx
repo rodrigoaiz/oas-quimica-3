@@ -157,7 +157,7 @@ export default function DragAndDrop({
                       <img 
                         src={droppedItems[zone.id].image.src || droppedItems[zone.id].image}
                         alt={droppedItems[zone.id].alt}
-                        className="w-6 h-6 object-contain"
+                        className="object-contain"
                       />
                     )}
                     <button
