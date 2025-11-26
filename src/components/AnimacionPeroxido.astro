@@ -1,0 +1,313 @@
+---
+import { Image } from "astro:assets";
+
+const { imageSrc = "" } = Astro.props;
+
+// Detectar si imageSrc es un import de imagen de Astro o una URL string
+const isAstroImage = typeof imageSrc === "object" && imageSrc.src;
+---
+
+<style>
+  :root {
+    --hex-color: #f4b000;
+  }
+
+  .animation-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .controles {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  button {
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 999px;
+    background: #333;
+    color: #fff;
+    font-size: 0.9rem;
+  }
+
+  button.secondary {
+    background: #999;
+  }
+
+  .grafica-container {
+    position: relative;
+    width: min(95vw, 900px);
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .grafica-fondo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  /* ===== SEGUNDO DIAGRAMA: 2 H2O2 → 2 H2O + O2 ===== */
+
+  .grafica-container-h2o2 {
+    position: relative;
+    width: min(95vw, 900px);
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    margin: 1.5rem auto 0;
+  }
+
+  .grafica-fondo-h2o2 {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  .molecula-group {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .atomo {
+    position: absolute;
+    width: 3.5vw;
+    max-width: 40px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+    transition:
+      left 1.2s ease,
+      top 1.2s ease;
+  }
+
+  .atomo.O {
+    background: #2b6cb0;
+  }
+  .atomo.H {
+    background: #e53e3e;
+  }
+
+  /* Reactivos: dos moléculas de H2O2 a la izquierda (más compactas) */
+  .grafica-container-h2o2 .O-a1 {
+    left: 16%;
+    top: 40%;
+  }
+  .grafica-container-h2o2 .O-a2 {
+    left: 19.5%;
+    top: 40%;
+  }
+  .grafica-container-h2o2 .H-a1 {
+    left: 13.5%;
+    top: 38%;
+  }
+  .grafica-container-h2o2 .H-a2 {
+    left: 22%;
+    top: 38%;
+  }
+
+  .grafica-container-h2o2 .O-b1 {
+    left: 16%;
+    top: 58%;
+  }
+  .grafica-container-h2o2 .O-b2 {
+    left: 19.5%;
+    top: 58%;
+  }
+  .grafica-container-h2o2 .H-b1 {
+    left: 13.5%;
+    top: 56%;
+  }
+  .grafica-container-h2o2 .H-b2 {
+    left: 22%;
+    top: 56%;
+  }
+
+  .grafica-container-h2o2 .enlace-a-o1o2 {
+    left: 16%;
+    top: 40%;
+    width: 8%;
+  }
+  .grafica-container-h2o2 .enlace-a-h1o1 {
+    left: 13%;
+    top: 38%;
+    width: 4%;
+  }
+  .grafica-container-h2o2 .enlace-a-o2h2 {
+    left: 22%;
+    top: 38%;
+    width: 4%;
+  }
+
+  .grafica-container-h2o2 .enlace-b-o1o2 {
+    left: 16%;
+    top: 58%;
+    width: 8%;
+  }
+  .grafica-container-h2o2 .enlace-b-h1o1 {
+    left: 13%;
+    top: 56%;
+    width: 4%;
+  }
+  .grafica-container-h2o2 .enlace-b-o2h2 {
+    left: 22%;
+    top: 56%;
+    width: 4%;
+  }
+
+  /* Intermedio: los átomos se acercan y algunos enlaces se debilitan */
+  .grafica-container-h2o2.estado-intermedio .O-a1 {
+    left: 35%;
+    top: 42%;
+  }
+  .grafica-container-h2o2.estado-intermedio .O-a2 {
+    left: 41%;
+    top: 42%;
+  }
+  .grafica-container-h2o2.estado-intermedio .H-a1 {
+    left: 32%;
+    top: 39%;
+  }
+  .grafica-container-h2o2.estado-intermedio .H-a2 {
+    left: 44%;
+    top: 39%;
+  }
+
+  .grafica-container-h2o2.estado-intermedio .O-b1 {
+    left: 35%;
+    top: 56%;
+  }
+  .grafica-container-h2o2.estado-intermedio .O-b2 {
+    left: 41%;
+    top: 56%;
+  }
+  .grafica-container-h2o2.estado-intermedio .H-b1 {
+    left: 32%;
+    top: 53%;
+  }
+  .grafica-container-h2o2.estado-intermedio .H-b2 {
+    left: 44%;
+    top: 53%;
+  }
+
+  .grafica-container-h2o2.estado-intermedio .enlace-a-o1o2,
+  .grafica-container-h2o2.estado-intermedio .enlace-b-o1o2 {
+    opacity: 0.4;
+    width: 6%;
+  }
+
+  /* Productos: 2 H2O + O2 a la derecha (más compactos) */
+  .grafica-container-h2o2.estado-productos .O-a1 {
+    left: 66%;
+    top: 42%;
+  }
+  .grafica-container-h2o2.estado-productos .H-a1 {
+    left: 63.5%;
+    top: 40%;
+  }
+  .grafica-container-h2o2.estado-productos .H-a2 {
+    left: 68.5%;
+    top: 40%;
+  }
+
+  .grafica-container-h2o2.estado-productos .O-b1 {
+    left: 66%;
+    top: 58%;
+  }
+  .grafica-container-h2o2.estado-productos .H-b1 {
+    left: 63.5%;
+    top: 56%;
+  }
+  .grafica-container-h2o2.estado-productos .H-b2 {
+    left: 68.5%;
+    top: 56%;
+  }
+
+  /* O2 al centro-derecha (más junto) */
+  .grafica-container-h2o2.estado-productos .O-a2 {
+    left: 82%;
+    top: 50%;
+  }
+  .grafica-container-h2o2.estado-productos .O-b2 {
+    left: 85%;
+    top: 50%;
+  }
+
+  .grafica-container-h2o2.estado-productos .enlace-h2o2 {
+    opacity: 0;
+  }
+
+  @media (max-width: 480px) {
+    .atomo {
+      width: 5vw;
+    }
+  }
+</style>
+
+<!-- CONTROLES SEGUNDO DIAGRAMA: 2 H2O2 → 2 H2O + O2 -->
+<div class="animation-wrapper">
+  <div class="controles">
+    <button id="btnH2O2Reactivos">Reactivos (2 H₂O₂)</button>
+    <button id="btnH2O2Productos">Productos (2 H₂O + O₂)</button>
+  </div>
+
+  <div class="grafica-container-h2o2" id="graficaH2O2">
+    <img class="grafica-fondo-h2o2" src="diagrama-h2o2.png" alt="Diagrama descomposición H2O2" />
+    <div class="molecula-group">
+      <!-- Átomos molécula A -->
+      <div class="atomo O O-a1">O</div>
+      <div class="atomo O O-a2">O</div>
+      <div class="atomo H H-a1">H</div>
+      <div class="atomo H H-a2">H</div>
+
+      <!-- Átomos molécula B -->
+      <div class="atomo O O-b1">O</div>
+      <div class="atomo O O-b2">O</div>
+      <div class="atomo H H-b1">H</div>
+      <div class="atomo H H-b2">H</div>
+    </div>
+  </div>
+</div>
+<script>
+  const graficaH2O2 = document.getElementById("graficaH2O2");
+  const btnH2O2Reactivos = document.getElementById("btnH2O2Reactivos");
+  const btnH2O2Productos = document.getElementById("btnH2O2Productos");
+
+  const limpiarEstadosH2O2 = () => {
+    graficaH2O2?.classList.remove("estado-intermedio", "estado-productos");
+  };
+
+  btnH2O2Reactivos?.addEventListener("click", () => {
+    limpiarEstadosH2O2();
+  });
+
+  btnH2O2Productos?.addEventListener("click", () => {
+    limpiarEstadosH2O2();
+    graficaH2O2?.classList.add("estado-productos");
+  });
+</script>

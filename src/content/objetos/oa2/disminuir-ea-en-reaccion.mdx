@@ -3,6 +3,7 @@ title: "Disminuir Ea de una reacción"
 order: 2
 ---
 import AnimacionGrafica from '@/components/AnimacionGrafica.astro';
+import AnimacionPeroxido from '@/components/AnimacionPeroxido.astro';
 import Image from '@/components/Image.astro';
 import Prose from '@/components/Prose.astro';
 import Breakout from '@/components/Breakout.astro';
@@ -34,9 +35,13 @@ import pregunta1img from '@/assets/images/oa2/oa2p1-img03.webp';
 
 <Prose>
   Otro ejemplo del uso de catalizadores se relaciona con la descomposición del peróxido de hidrógeno (muy utilizado como desinfectante), donde el óxido de manganeso (IV) actúa como catalizador, ve el siguiente video muestra.
+</Prose>
 
-ANIMACIÓN AQUÍ 
+<Breakout>
+  <AnimacionPeroxido imageSrc={oa2p2img03} />
+</Breakout>
 
+<Prose>
   ### Ejercicio de opción múltiple
 
   De acuerdo con la información que revisaste, contesta las siguientes preguntas.
