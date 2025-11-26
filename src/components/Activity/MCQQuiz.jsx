@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import MCQControlled from './MCQControlled.jsx';
 
 /**
@@ -13,6 +13,7 @@ export default function MCQQuiz({ questions = [], showAll = false, hideProgress 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [viewMode, setViewMode] = useState(showAll ? 'all' : 'single');
   const [answers, setAnswers] = useState({}); // Guardar respuestas por índice de pregunta
+  const questionRef = useRef(null);
 
   const handleAnswerChange = (questionIndex, answerIndex) => {
     setAnswers(prev => ({
@@ -41,15 +42,23 @@ export default function MCQQuiz({ questions = [], showAll = false, hideProgress 
   const isFirstQuestion = currentQuestion === 0;
   const isLastQuestion = currentQuestion === totalQuestions - 1;
 
+  const scrollToQuestion = () => {
+    if (questionRef.current) {
+      questionRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   const goToNext = () => {
     if (!isLastQuestion) {
       setCurrentQuestion(currentQuestion + 1);
+      setTimeout(scrollToQuestion, 100);
     }
   };
 
   const goToPrevious = () => {
     if (!isFirstQuestion) {
       setCurrentQuestion(currentQuestion - 1);
+      setTimeout(scrollToQuestion, 100);
     }
   };
 
@@ -151,9 +160,10 @@ export default function MCQQuiz({ questions = [], showAll = false, hideProgress 
       )}
 
       {/* Pregunta actual */}
-      <MCQControlled
-        questionId={`quiz-single-q${currentQuestion}`}
-        question={currentQ.question}
+      <div ref={questionRef}>
+        <MCQControlled
+          questionId={`quiz-single-q${currentQuestion}`}
+          question={currentQ.question}
         image={currentQ.image}
         imageAlt={currentQ.imageAlt}
         options={currentQ.options}
@@ -163,6 +173,7 @@ export default function MCQQuiz({ questions = [], showAll = false, hideProgress 
         onChange={(answerIndex) => handleAnswerChange(currentQuestion, answerIndex)}
         onReset={() => handleReset(currentQuestion)}
       />
+      </div>
 
       {/* Navegación */}
       {totalQuestions > 1 && (
@@ -173,11 +184,11 @@ export default function MCQQuiz({ questions = [], showAll = false, hideProgress 
             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
               isFirstQuestion
                 ? 'bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-gray-600 cursor-not-allowed'
-                : 'bg-(--color-primary)/10 dark:bg-(--color-primary-dark)/20 text-(--color-primary) dark:text-(--color-primary-dark) hover:bg-(--color-primary)/20 dark:hover:bg-(--color-primary-dark)/30 hover:scale-105 dark:border dark:border-(--color-primary-dark)/40'
+                : 'bg-(--color-secondary) dark:bg-slate-700 text-white dark:text-gray-200 hover:bg-(--color-secondary)/90 dark:hover:bg-slate-600 hover:scale-105'
             }`}
           >
             <span>←</span>
-            <span>Anterior</span>
+            <span>Pregunta anterior</span>
           </button>
 
           <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
@@ -190,10 +201,10 @@ export default function MCQQuiz({ questions = [], showAll = false, hideProgress 
             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
               isLastQuestion
                 ? 'bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-gray-600 cursor-not-allowed'
-                : 'bg-(--color-primary) dark:bg-(--color-primary-dark)/80 text-white dark:text-white hover:bg-(--color-primary)/90 dark:hover:bg-(--color-primary-dark) hover:scale-105 dark:border dark:border-(--color-primary-dark)'
+                : 'bg-(--color-secondary) dark:bg-slate-700 text-white dark:text-gray-200 hover:bg-(--color-secondary)/90 dark:hover:bg-slate-600 hover:scale-105'
             }`}
           >
-            <span>Siguiente</span>
+            <span>Siguiente pregunta</span>
             <span>→</span>
           </button>
         </div>
