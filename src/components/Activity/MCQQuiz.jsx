@@ -88,6 +88,8 @@ export default function MCQQuiz({ questions = [], showAll = false, hideProgress 
             <MCQControlled
               questionId={`quiz-all-q${index}`}
               question={q.question}
+              image={q.image}
+              imageAlt={q.imageAlt}
               options={q.options}
               correctIndex={q.correctIndex}
               feedback={q.feedback}
@@ -152,6 +154,8 @@ export default function MCQQuiz({ questions = [], showAll = false, hideProgress 
       <MCQControlled
         questionId={`quiz-single-q${currentQuestion}`}
         question={currentQ.question}
+        image={currentQ.image}
+        imageAlt={currentQ.imageAlt}
         options={currentQ.options}
         correctIndex={currentQ.correctIndex}
         feedback={currentQ.feedback}

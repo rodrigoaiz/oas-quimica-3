@@ -1,0 +1,148 @@
+---
+title: "Ruptura y formación de enlaces"
+order: 4
+---
+import Prose from '@/components/Prose.astro';
+import Image from '@/components/Image.astro';
+import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
+import oa2p4img01 from '@/assets/images/oa2/oa2p4-img01.webp';
+import Matching from '@/components/Activity/Matching.jsx';
+import DefinitionTerm from '@/components/DefinitionTerm.astro';
+import DragAndDrop from '@/components/Activity/DragAndDrop.jsx';
+import Breakout from '@/components/Breakout.astro';
+import FillInBlanks from '@/components/Activity/FillInTheBlanks.jsx';
+// Importar las imágenes para el ejercicio de arrastrar
+import backgroundSchema from '@/assets/images/oa2/p3-img-02.webp';
+import reactivosIcon from '@/assets/images/oa2/reactivos.webp';
+import productosIcon from '@/assets/images/oa2/productos.webp';
+import eaCatalizadorIcon from '@/assets/images/oa2/ea-catalizador.webp';
+import eaSinCatalizadorIcon from '@/assets/images/oa2/ea-sin-catalizador.webp';
+
+<Prose>
+### ¿Cuál fue el problema que resolvieron Haber-Bosch para producir amoníaco a escala industrial?
+
+La energía involucrada en una reacción química se relaciona directamente con la **ruptura de enlaces en los reactivos** y la **formación de nuevos enlaces en los productos.** Al romper un enlace se requiere energía (endotérmico), mientras que formar un enlace **libera energía (exotérmico)**, tal y como se observa en las siguientes animaciones:
+
+ANIMACIÓN AQUÍ  1
+
+ANIMACIÓN AQUÍ  2
+
+En la formación de amoniaco (NH₃) es importante considerar la alta estabilidad del triple enlace del nitrógeno (N≡N), así como la estabilidad del enlace simple del hidrógeno (H–H). Debido a esto, se requiere un aporte considerable de energía para romper dichos enlaces y permitir que ocurra la reacción. Para comprender mejor este fenómeno, resulta útil analizar las energías de enlace de cada molécula involucrada. 
+
+</Prose>
+
+<Image 
+  src={oa2p4img01}
+  alt="Energías de enlace."
+  caption="Energías de enlace."
+  size="lg"
+/>
+
+<Prose>
+Para calcular la variación de <DefinitionTerm termino='entalpía' definicion='Es la energía total de un sistema, que incluye su energía interna más la energía asociada a la presión y el volumen. <br> Se utiliza principalmente para medir la variación de energía (ΔH) en forma de calor que se libera o absorbe durante una reacción química a presión constante.' /> (ΔH) en una reacción química, debemos restar la energía total requerida para romper los enlaces en los reactivos de la energía liberada durante la formación de nuevos enlaces en los productos. Matemáticamente, esto se expresa como:
+
+Δ𝐻=Energía absorbida (ruptura de enlaces en reactivos)−Energía liberada (formación de enlaces en productos)
+
+En el caso de la formación del amoniaco (NH₃), se rompe el triple enlace del nitrógeno (N≡N) y tres enlaces simples en las moléculas de hidrógeno (H–H). Posteriormente, se forman seis nuevos enlaces N–H en dos moléculas de amoniaco. Realizando estos cálculos, para la formación de amoniaco, se obtiene un ΔH final de –46.2 kJ/mol para la reacción, indicando claramente que, aunque inicialmente requiere energía para romper los enlaces, el proceso global es exotérmico, liberando energía neta al entorno.
+
+Es por lo cual que, el alto costo energético de romper los enlaces de N₂ e H₂ explica por qué se requiere la ayuda de catalizadores para disminuir la Ea para que el amoniaco (NH₃) se forme con éxito, aun cuando, en términos globales, la reacción resulta ser exotérmica. 
+
+La energía en la ruptura y formación de enlaces permite a la industria diseñar procesos más eficientes, primero a partir del aprovechamiento energético para la reducción de costos, y segundo al disminuir el impacto ambiental al evitar pérdidas de energía en forma de calor o emisiones innecesarias.
+
+### Ejercicio de completar
+
+Instrucción: Completa las siguientes oraciones con los términos adecuados: 
+
+"energía de activación", "requiere", "libera", "exotérmica", "endotérmica", "catalizador", "estables"
+
+1. Para que ocurra la reacción entre N₂ e H₂, es necesario superar la _______________, ya que el triple enlace de N₂ y el enlace de H₂ son muy _______________.
+
+2. Formar un nuevo enlace _______________ energía, mientras que romper un enlace _______________ energía.
+
+3. En la formación de amoniaco, la reacción global es _______________, pero no ocurre de inmediato porque se necesita un _______________.
+
+RETROALIMENTACIÓN: 
+Comprender los conceptos de energía de activación y la estabilidad de los enlaces químicos permite explicar por qué algunas reacciones ocurren fácilmente y otras necesitan condiciones especiales. En este caso, aunque la formación de amoniaco es una reacción exotérmica (libera energía), no sucede de inmediato porque las moléculas de nitrógeno e hidrógeno son muy estables y requieren un aporte inicial de energía para reaccionar. 
+
+### Ejercicio de relacionar
+
+
+  <Matching
+    client:load
+    question="Relaciona cada enunciado con el término que mejor lo describe"
+    pairs={[
+      {
+        description: 'Cantidad de energía adicional que deben superar los reactivos para que ocurra la reacción.',
+        correctAnswer: 'Energía de activación',
+        options: ['Entalpía (ΔH), Energía de activación, Catalizador, Ruptura de enlaces']
+      },
+      {
+        description: 'Magnitud que indica si la reacción libera o absorbe energía.',
+        correctAnswer: 'Entalpía (ΔH)',
+        options: ['Entalpía (ΔH), Energía de activación, Catalizador, Ruptura de enlaces']
+      },
+      {
+        description: 'Proceso que requiere energía para separar átomos.',
+        correctAnswer: 'Ruptura de enlaces',
+        options: ['Entalpía (ΔH), Energía de activación, Catalizador, Ruptura de enlaces']
+      },
+      {
+        description: 'Sustancia que disminuye la barrera energética sin consumirse.',
+        correctAnswer: 'Catalizador',
+        options: ['Entalpía (ΔH), Energía de activación, Catalizador, Ruptura de enlaces']
+      }
+    ]}
+    feedback={{
+      correct: '¡Excelente! Al relacionar correctamente los enunciados, reconoces que la entalpía (ΔH) indica si la reacción libera o absorbe energía; la energía de activación corresponde a la barrera mínima que los reactivos deben superar; el catalizador es la sustancia que reduce dicha barrera sin consumirse; y la ruptura de enlaces siempre requiere un aporte de energía.',
+      incorrect: 'Si cometiste algún error, recuerda que cada concepto describe un aspecto distinto del proceso energético de las reacciones químicas y comprender sus diferencias te permitirá interpretar mejor los diagramas y predecir el comportamiento de las sustancias.'
+    }}
+  />
+
+</Prose>
+
+<FillInBlanks
+  question="Completa las siguientes oraciones sobre la formación de enlaces y la energía involucrada:"
+  sentences={[
+    {
+      text: "La formación de un enlace químico _______________ energía.",
+      blanks: [
+        {
+          placeholder: "libera o requiere",
+          correctAnswer: "libera"
+        }
+      ]
+    },
+    {
+      text: "Romper un enlace químico _______________ energía.",
+      blanks: [
+        {
+          placeholder: "libera o requiere",
+          correctAnswer: "requiere"
+        }
+      ]
+    },
+    {
+      text: "La reacción para formar amoniaco (NH₃) a partir de nitrógeno (N₂) e hidrógeno (H₂) es _______________, lo que significa que libera energía al entorno.",
+      blanks: [
+        {
+          placeholder: "exotérmica o endotérmica",
+          correctAnswer: "exotérmica"
+        }
+      ]
+    },
+    {
+      text: "El alto costo energético de romper los enlaces de N₂ e H₂ se debe a que estos enlaces son muy _______________, requiriendo un catalizador para facilitar la reacción.",
+      blanks: [
+        {
+          placeholder: "estables o inestables",
+          correctAnswer: "estables"
+        }
+      ]
+    }
+  ]}
+  wordBank={["exotérmica", "endotérmica", "catalizador", "estables"]}
+  feedback={{ correct: "¡Correcto!", incorrect: "Inténtalo de nuevo" }}
+  showWordBank={true}
+/>
+
+

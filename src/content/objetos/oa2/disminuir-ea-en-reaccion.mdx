@@ -1,36 +1,77 @@
 ---
 title: "Disminuir Ea de una reacción"
-order: 3
+order: 2
 ---
 import AnimacionGrafica from '@/components/AnimacionGrafica.astro';
-import p3img01 from '@/assets/images/oa2/p3-img-01.png';
 import Image from '@/components/Image.astro';
 import Prose from '@/components/Prose.astro';
 import Breakout from '@/components/Breakout.astro';
+import oa2p2img01 from '@/assets/images/oa2/oa2p2-img01.webp';
+import oa2p2img02 from '@/assets/images/oa2/oa2p2-img02.webp';
+import oa2p2img03 from '@/assets/images/oa2/oa2p2-img03.webp';
+import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
+import pregunta1img from '@/assets/images/oa2/oa2p1-img03.webp';
 
 <Prose>
   ### ¿Cómo podemos disminuir la Ea de una reacción?
 
   En la industria se emplean sustancias llamadas catalizadores para reducir la Energía de activación (Ea) en las reacciones químicas, con la finalidad de hacer los procesos más rentables, es decir, menor gasto energético y menos emisiones. Cabe señalar que éstos no se consumen durante el proceso, de modo que pueden reutilizarse indefinidamente.
 
-  <Image src={p3img01} alt="Diagrama de energía con y sin catalizador" class="my-6 rounded-lg shadow-lg" />
+  <Image src={oa2p2img01} alt="Diagrama de energía con y sin catalizador" class="my-6 rounded-lg shadow-lg" />
 
   Para efectos de una mejor comprensión del papel de los catalizadores y la energía en las reacciones químicas, utilizaremos los llamados diagramas de energía. Donde en el eje vertical se representa la energía, y en el eje horizontal, el avance de la reacción.
   
   Si la energía final de los productos es mayor que la de los reactivos, hablamos de una reacción endotérmica (absorbe calor), mientras que si es menor, es exotérmica (libera calor).
-</Prose>
-<Breakout>
-  <div class="flex md:flex-row justify-center items-center gap-5">
-    <Image src={p3img01} caption="Reacción exotérmica" alt="Grafica de reacción exotérmica" title="Reacción exotérmica" />
-    <Image src={p3img01} caption="Reacción endotérmica" alt="Grafica de reacción endotérmica" title="Reacción endotérmica" />
-  </div>
-  <Prose>
-    Algunos ejemplos de lo anterior los puedes observar en procesos bioquímicos donde las enzimas funcionan como catalizadores biológicos.
-  </Prose>
-  <AnimacionGrafica imageSrc={p3img01} />
 
-  <Prose>
-    Otro ejemplo del uso de catalizadores se relaciona con la descomposición del peróxido de hidrógeno (muy utilizado como desinfectante), donde el óxido de manganeso (IV) actúa como catalizador, ve el siguiente video muestra.
-  </Prose>
-  <AnimacionGrafica imageSrc={p3img01} />
+  <Image src={oa2p2img02} alt="Reacción exotérmica/endotérmica" class="my-6 rounded-lg shadow-lg" />
+
+  Algunos ejemplos de lo anterior los puedes observar en procesos bioquímicos donde las enzimas funcionan como catalizadores biológicos.
+</Prose>
+
+<Breakout>
+  <AnimacionGrafica imageSrc={oa2p2img03} />
 </Breakout>
+
+<Prose>
+  Otro ejemplo del uso de catalizadores se relaciona con la descomposición del peróxido de hidrógeno (muy utilizado como desinfectante), donde el óxido de manganeso (IV) actúa como catalizador, ve el siguiente video muestra.
+
+ANIMACIÓN AQUÍ 
+
+  ### Ejercicio de opción múltiple
+
+  De acuerdo con la información que revisaste, contesta las siguientes preguntas.
+
+  <MCQQuiz 
+    client:load
+    questions={[
+      {
+        question: "Si se añadiera un catalizador a esta reacción, ¿qué líneas cambiarían?",
+        image: pregunta1img,
+        imageAlt: "Diagrama de energía de activación con líneas A, B, C y D marcadas",
+        options: [
+          "Línea C",
+          "Línea D", 
+          "Línea A",
+          "Línea B"
+        ],
+        correctIndex: 2,
+        feedback: {
+          correct: "¡Correcto! La presencia de un catalizador modifica la línea de la energía de activación (Ea), reduciendo su altura en el diagrama. Esto significa que la reacción necesita menos energía para iniciarse y, por lo tanto, ocurre con mayor rapidez.",
+          incorrect: "La presencia de un catalizador modifica la línea de la energía de activación (Ea), reduciendo su altura en el diagrama. Esto significa que la reacción necesita menos energía para iniciarse y, por lo tanto, ocurre con mayor rapidez. Recuerda que ni los reactivos ni los productos cambian su nivel energético: lo único que se altera es la barrera de energía que deben superar."
+        }
+      },
+      {
+        question: "La principal función de los catalizadores es ____________________ la energía de activación.",
+        options: [
+          "disminuir",
+          "aumentar"
+        ],
+        correctIndex: 0,
+        feedback: {
+          correct: "¡Exacto! La función principal de un catalizador es disminuir la energía de activación, sin consumirse en la reacción. Gracias a ello, los procesos químicos se vuelven más eficientes y se pueden realizar en condiciones más suaves de temperatura o presión.",
+          incorrect: "La función principal de un catalizador es disminuir la energía de activación, sin consumirse en la reacción. Gracias a ello, los procesos químicos se vuelven más eficientes y se pueden realizar en condiciones más suaves de temperatura o presión. Si pensaste que aumentan la energía, revisa la idea: los catalizadores no añaden energía, sino que hacen que la \"colina\" sea más baja para que la reacción ocurra con mayor facilidad."
+        }
+      }
+    ]}
+  />
+</Prose>

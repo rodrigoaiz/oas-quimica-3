@@ -1,0 +1,132 @@
+---
+title: "Amoníaco a escala industrial"
+order: 3
+---
+import Prose from '@/components/Prose.astro';
+import Image from '@/components/Image.astro';
+import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
+import oa2p3img01 from '@/assets/images/oa2/oa2p3-img01.webp';
+import Matching from '@/components/Activity/Matching.jsx';
+import DragAndDrop from '@/components/Activity/DragAndDrop.jsx';
+import Breakout from '@/components/Breakout.astro';
+// Importar las imágenes para el ejercicio de arrastrar
+import backgroundSchema from '@/assets/images/oa2/p3-img-02.webp';
+import reactivosIcon from '@/assets/images/oa2/reactivos.webp';
+import productosIcon from '@/assets/images/oa2/productos.webp';
+import eaCatalizadorIcon from '@/assets/images/oa2/ea-catalizador.webp';
+import eaSinCatalizadorIcon from '@/assets/images/oa2/ea-sin-catalizador.webp';
+
+<Prose>
+### ¿Cuál fue el problema que resolvieron Haber-Bosch para producir amoníaco a escala industrial?
+
+En el caso de la formación del amoniaco (NH₃), las moléculas de N₂ e H₂ no disponen de la energía suficiente para superar la elevada barrera de activación y reaccionar por sí mismas, esto debido a la alta estabilidad de los enlaces de los reactivos.
+
+ANIMACIÓN AQUÍ 
+
+La solución encontrada por Haber-Bosch, fue emplear catalizadores de hierro u óxidos metálicos para reducir la alta energía de activación del nitrógeno, haciendo viable la producción de amoniaco a gran escala. Aunque este proceso fue vital para garantizar la alimentación mundial, también consume entre el 1–2% de la energía global y genera importantes emisiones de CO₂. Por ello, actualmente se investiga cómo hacerlo más sostenible, usando hidrógeno verde y catalizadores más eficientes. Este fenómeno se describe en el siguiente diagrama que compara la reacción con y sin catalizador.
+
+</Prose>
+
+<Image 
+  src={oa2p3img01}
+  alt="Diagrama de la reacción del proceso Haber-Bosch con y sin catalizador."
+  caption="Diagrama de la reacción del proceso Haber-Bosch con y sin catalizador."
+  size="lg"
+/>
+
+<Prose>
+  ### Ejercicio de seleccionar
+
+  <Matching
+    client:load
+    question="Completa las siguientes frases eligiendo la opción que consideres correcta."
+    pairs={[
+      {
+        description: 'El principal problema que resolvieron en el proceso Haber fue la __________ Ea de la reacción de obtención de amoniaco.',
+        correctAnswer: 'alta',
+        options: ['alta', 'baja', 'catalizador', 'producto']
+      },
+      {
+        description: 'El problema se resolvió con la adición de ______________.',
+        correctAnswer: 'catalizador',
+        options: ['alta', 'baja', 'catalizador', 'producto']
+      }
+    ]}
+    feedback={{
+      correct: '¡Excelente! La producción de amoniaco a partir de nitrógeno e hidrógeno presentaba una alta energía de activación, lo que impedía que la reacción ocurriera de manera espontánea, aun cuando los reactivos estuvieran disponibles. El uso de un catalizador (hierro u óxidos metálicos) permitió reducir esa barrera energética y hacer posible la reacción en condiciones industriales.',
+      incorrect: 'La producción de amoniaco a partir de nitrógeno e hidrógeno presentaba una alta energía de activación, lo que impedía que la reacción ocurriera de manera espontánea, aun cuando los reactivos estuvieran disponibles. El uso de un catalizador (hierro u óxidos metálicos) permitió reducir esa barrera energética y hacer posible la reacción en condiciones industriales. Si confundiste tu respuesta con “baja” o “producto”, recuerda que el reto principal era superar la gran estabilidad de los enlaces en N₂ y H₂, y que el catalizador no se consume, sino que acelera la reacción al disminuir la energía de activación.'
+    }}
+  />
+
+### Ejercicio de arrastrar
+
+</Prose>
+
+<Breakout>
+  <DragAndDrop
+    client:load
+    question="Arrastra los elementos al esquema del proceso Haber-Bosch para completar los factores que optimizan la producción de amoníaco:"
+    backgroundImage={backgroundSchema}
+    backgroundAlt="Esquema del proceso Haber-Bosch con zonas para completar"
+    items={[
+      {
+        id: "reactivos",
+        image: reactivosIcon,
+        alt: "Reactivos"
+      },
+      {
+        id: "productos", 
+        image: productosIcon,
+        alt: "Productos"
+      },
+      {
+        id: "eaCatalizadorIcon",
+        image: eaCatalizadorIcon,
+        alt: "Energía de activación con catalizador"
+      },
+      {
+        id: "eaSinCatalizadorIcon",
+        image: eaSinCatalizadorIcon,
+        alt: "Energía de activación sin catalizador"
+      }
+    ]}
+    dropZones={[
+      {
+        id: "reactivos-zone",
+        x: 45,
+        y: 30,
+        width: 15,
+        height: 10,
+        correctItemId: "reactivos"
+      },
+      {
+        id: "productos-zone", 
+        x: 20,
+        y: 60,
+        width: 15,
+        height: 10,
+        correctItemId: "productos"
+      },
+      {
+        id: "eaCatalizadorIcon-zone",
+        x: 70,
+        y: 60, 
+        width: 15,
+        height: 10,
+        correctItemId: "eaCatalizadorIcon"
+      },
+      {
+        id: "eaSinCatalizadorIcon-zone",
+        x: 45,
+        y: 80,
+        width: 15,
+        height: 10,
+        correctItemId: "eaSinCatalizadorIcon"
+      }
+    ]}
+    feedback={{
+      correct: "¡Excelente! Has completado correctamente el esquema del proceso Haber-Bosch. El catalizador de hierro reduce la energía de activación, la alta presión favorece la formación de amoníaco, y la temperatura controlada optimiza la velocidad de reacción.",
+      incorrect: "Reactivos - sustancias iniciales en la reacción. Productos - sustancias resultantes una vez completada la reacción. Energía de activación - energía mínima necesaria para que ocurra la reacción. Catalizador - sustancia que reduce la energía de activación sin consumirse"
+    }}
+  />
+</Breakout>
