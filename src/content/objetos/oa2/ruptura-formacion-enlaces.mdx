@@ -7,8 +7,10 @@ import Image from '@/components/Image.astro';
 import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
 import oa2p4img01 from '@/assets/images/oa2/oa2p4-img01.webp';
 import Matching from '@/components/Activity/Matching.jsx';
+import DefinitionTerm from '@/components/DefinitionTerm.astro';
 import DragAndDrop from '@/components/Activity/DragAndDrop.jsx';
 import Breakout from '@/components/Breakout.astro';
+import FillInBlanks from '@/components/Activity/FillInTheBlanks.jsx';
 // Importar las imágenes para el ejercicio de arrastrar
 import backgroundSchema from '@/assets/images/oa2/p3-img-02.webp';
 import reactivosIcon from '@/assets/images/oa2/reactivos.webp';
@@ -31,104 +33,116 @@ En la formación de amoniaco (NH₃) es importante considerar la alta estabilida
 
 <Image 
   src={oa2p4img01}
-  alt="Diagrama de la reacción del proceso Haber-Bosch con y sin catalizador."
-  caption="Diagrama de la reacción del proceso Haber-Bosch con y sin catalizador."
+  alt="Energías de enlace."
+  caption="Energías de enlace."
   size="lg"
 />
 
 <Prose>
-  ### Ejercicio de seleccionar
+Para calcular la variación de <DefinitionTerm termino='entalpía' definicion='Es la energía total de un sistema, que incluye su energía interna más la energía asociada a la presión y el volumen. <br> Se utiliza principalmente para medir la variación de energía (ΔH) en forma de calor que se libera o absorbe durante una reacción química a presión constante.' /> (ΔH) en una reacción química, debemos restar la energía total requerida para romper los enlaces en los reactivos de la energía liberada durante la formación de nuevos enlaces en los productos. Matemáticamente, esto se expresa como:
+
+Δ𝐻=Energía absorbida (ruptura de enlaces en reactivos)−Energía liberada (formación de enlaces en productos)
+
+En el caso de la formación del amoniaco (NH₃), se rompe el triple enlace del nitrógeno (N≡N) y tres enlaces simples en las moléculas de hidrógeno (H–H). Posteriormente, se forman seis nuevos enlaces N–H en dos moléculas de amoniaco. Realizando estos cálculos, para la formación de amoniaco, se obtiene un ΔH final de –46.2 kJ/mol para la reacción, indicando claramente que, aunque inicialmente requiere energía para romper los enlaces, el proceso global es exotérmico, liberando energía neta al entorno.
+
+Es por lo cual que, el alto costo energético de romper los enlaces de N₂ e H₂ explica por qué se requiere la ayuda de catalizadores para disminuir la Ea para que el amoniaco (NH₃) se forme con éxito, aun cuando, en términos globales, la reacción resulta ser exotérmica. 
+
+La energía en la ruptura y formación de enlaces permite a la industria diseñar procesos más eficientes, primero a partir del aprovechamiento energético para la reducción de costos, y segundo al disminuir el impacto ambiental al evitar pérdidas de energía en forma de calor o emisiones innecesarias.
+
+### Ejercicio de completar
+
+Instrucción: Completa las siguientes oraciones con los términos adecuados: 
+
+"energía de activación", "requiere", "libera", "exotérmica", "endotérmica", "catalizador", "estables"
+
+1. Para que ocurra la reacción entre N₂ e H₂, es necesario superar la _______________, ya que el triple enlace de N₂ y el enlace de H₂ son muy _______________.
+
+2. Formar un nuevo enlace _______________ energía, mientras que romper un enlace _______________ energía.
+
+3. En la formación de amoniaco, la reacción global es _______________, pero no ocurre de inmediato porque se necesita un _______________.
+
+RETROALIMENTACIÓN: 
+Comprender los conceptos de energía de activación y la estabilidad de los enlaces químicos permite explicar por qué algunas reacciones ocurren fácilmente y otras necesitan condiciones especiales. En este caso, aunque la formación de amoniaco es una reacción exotérmica (libera energía), no sucede de inmediato porque las moléculas de nitrógeno e hidrógeno son muy estables y requieren un aporte inicial de energía para reaccionar. 
+
+### Ejercicio de relacionar
+
 
   <Matching
     client:load
-    question="Completa las siguientes frases eligiendo la opción que consideres correcta."
+    question="Relaciona cada enunciado con el término que mejor lo describe"
     pairs={[
       {
-        description: 'El principal problema que resolvieron en el proceso Haber fue la __________ Ea de la reacción de obtención de amoniaco.',
-        correctAnswer: 'alta',
-        options: ['alta', 'baja', 'catalizador', 'producto']
+        description: 'Cantidad de energía adicional que deben superar los reactivos para que ocurra la reacción.',
+        correctAnswer: 'Energía de activación',
+        options: ['Entalpía (ΔH), Energía de activación, Catalizador, Ruptura de enlaces']
       },
       {
-        description: 'El problema se resolvió con la adición de ______________.',
-        correctAnswer: 'catalizador',
-        options: ['alta', 'baja', 'catalizador', 'producto']
+        description: 'Magnitud que indica si la reacción libera o absorbe energía.',
+        correctAnswer: 'Entalpía (ΔH)',
+        options: ['Entalpía (ΔH), Energía de activación, Catalizador, Ruptura de enlaces']
+      },
+      {
+        description: 'Proceso que requiere energía para separar átomos.',
+        correctAnswer: 'Ruptura de enlaces',
+        options: ['Entalpía (ΔH), Energía de activación, Catalizador, Ruptura de enlaces']
+      },
+      {
+        description: 'Sustancia que disminuye la barrera energética sin consumirse.',
+        correctAnswer: 'Catalizador',
+        options: ['Entalpía (ΔH), Energía de activación, Catalizador, Ruptura de enlaces']
       }
     ]}
     feedback={{
-      correct: '¡Excelente! La producción de amoniaco a partir de nitrógeno e hidrógeno presentaba una alta energía de activación, lo que impedía que la reacción ocurriera de manera espontánea, aun cuando los reactivos estuvieran disponibles. El uso de un catalizador (hierro u óxidos metálicos) permitió reducir esa barrera energética y hacer posible la reacción en condiciones industriales.',
-      incorrect: 'La producción de amoniaco a partir de nitrógeno e hidrógeno presentaba una alta energía de activación, lo que impedía que la reacción ocurriera de manera espontánea, aun cuando los reactivos estuvieran disponibles. El uso de un catalizador (hierro u óxidos metálicos) permitió reducir esa barrera energética y hacer posible la reacción en condiciones industriales. Si confundiste tu respuesta con “baja” o “producto”, recuerda que el reto principal era superar la gran estabilidad de los enlaces en N₂ y H₂, y que el catalizador no se consume, sino que acelera la reacción al disminuir la energía de activación.'
+      correct: '¡Excelente! Al relacionar correctamente los enunciados, reconoces que la entalpía (ΔH) indica si la reacción libera o absorbe energía; la energía de activación corresponde a la barrera mínima que los reactivos deben superar; el catalizador es la sustancia que reduce dicha barrera sin consumirse; y la ruptura de enlaces siempre requiere un aporte de energía.',
+      incorrect: 'Si cometiste algún error, recuerda que cada concepto describe un aspecto distinto del proceso energético de las reacciones químicas y comprender sus diferencias te permitirá interpretar mejor los diagramas y predecir el comportamiento de las sustancias.'
     }}
   />
-
-### Ejercicio de arrastrar
 
 </Prose>
 
-<Breakout>
-  <DragAndDrop
-    client:load
-    question="Arrastra los elementos al esquema del proceso Haber-Bosch para completar los factores que optimizan la producción de amoníaco:"
-    backgroundImage={backgroundSchema}
-    backgroundAlt="Esquema del proceso Haber-Bosch con zonas para completar"
-    items={[
-      {
-        id: "reactivos",
-        image: reactivosIcon,
-        alt: "Reactivos"
-      },
-      {
-        id: "productos", 
-        image: productosIcon,
-        alt: "Productos"
-      },
-      {
-        id: "eaCatalizadorIcon",
-        image: eaCatalizadorIcon,
-        alt: "Energía de activación con catalizador"
-      },
-      {
-        id: "eaSinCatalizadorIcon",
-        image: eaSinCatalizadorIcon,
-        alt: "Energía de activación sin catalizador"
-      }
-    ]}
-    dropZones={[
-      {
-        id: "reactivos-zone",
-        x: 45,
-        y: 30,
-        width: 15,
-        height: 10,
-        correctItemId: "reactivos"
-      },
-      {
-        id: "productos-zone", 
-        x: 20,
-        y: 60,
-        width: 15,
-        height: 10,
-        correctItemId: "productos"
-      },
-      {
-        id: "eaCatalizadorIcon-zone",
-        x: 70,
-        y: 60, 
-        width: 15,
-        height: 10,
-        correctItemId: "eaCatalizadorIcon"
-      },
-      {
-        id: "eaSinCatalizadorIcon-zone",
-        x: 45,
-        y: 80,
-        width: 15,
-        height: 10,
-        correctItemId: "eaSinCatalizadorIcon"
-      }
-    ]}
-    feedback={{
-      correct: "¡Excelente! Has completado correctamente el esquema del proceso Haber-Bosch. El catalizador de hierro reduce la energía de activación, la alta presión favorece la formación de amoníaco, y la temperatura controlada optimiza la velocidad de reacción.",
-      incorrect: "Reactivos - sustancias iniciales en la reacción. Productos - sustancias resultantes una vez completada la reacción. Energía de activación - energía mínima necesaria para que ocurra la reacción. Catalizador - sustancia que reduce la energía de activación sin consumirse"
-    }}
-  />
-</Breakout>
+<FillInBlanks
+  question="Completa las siguientes oraciones sobre la formación de enlaces y la energía involucrada:"
+  sentences={[
+    {
+      text: "La formación de un enlace químico _______________ energía.",
+      blanks: [
+        {
+          placeholder: "libera o requiere",
+          correctAnswer: "libera"
+        }
+      ]
+    },
+    {
+      text: "Romper un enlace químico _______________ energía.",
+      blanks: [
+        {
+          placeholder: "libera o requiere",
+          correctAnswer: "requiere"
+        }
+      ]
+    },
+    {
+      text: "La reacción para formar amoniaco (NH₃) a partir de nitrógeno (N₂) e hidrógeno (H₂) es _______________, lo que significa que libera energía al entorno.",
+      blanks: [
+        {
+          placeholder: "exotérmica o endotérmica",
+          correctAnswer: "exotérmica"
+        }
+      ]
+    },
+    {
+      text: "El alto costo energético de romper los enlaces de N₂ e H₂ se debe a que estos enlaces son muy _______________, requiriendo un catalizador para facilitar la reacción.",
+      blanks: [
+        {
+          placeholder: "estables o inestables",
+          correctAnswer: "estables"
+        }
+      ]
+    }
+  ]}
+  wordBank={["exotérmica", "endotérmica", "catalizador", "estables"]}
+  feedback={{ correct: "¡Correcto!", incorrect: "Inténtalo de nuevo" }}
+  showWordBank={true}
+/>
+
+
