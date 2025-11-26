@@ -1,0 +1,241 @@
+---
+import { Image } from "astro:assets";
+
+const { imageSrc = "" } = Astro.props;
+
+// Detectar si imageSrc es un import de imagen de Astro o una URL string
+const isAstroImage = typeof imageSrc === "object" && imageSrc.src;
+---
+
+<style>
+  .animation-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .controles {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  button {
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 999px;
+    background: #333;
+    color: #fff;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+
+  button:hover {
+    background: #555;
+    transform: scale(1.05);
+  }
+
+  :global(.dark) button {
+    background: #c8a653;
+    color: #1a1a1a;
+  }
+
+  :global(.dark) button:hover {
+    background: #d4b66a;
+  }
+
+  .grafica-container-nh3 {
+    position: relative;
+    width: min(95vw, 900px);
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    margin: 1.5rem auto 0;
+  }
+
+  :global(.dark) .grafica-container-nh3 {
+    background: #2a2a2a;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .grafica-fondo-nh3 {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  .molecula-group {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .atomo {
+    position: absolute;
+    width: 3.5vw;
+    max-width: 40px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+    transition:
+      left 1.2s ease,
+      top 1.2s ease;
+  }
+
+  .atomo.N {
+    background: #2b6cb0;
+  }
+  .atomo.H {
+    background: #e53e3e;
+  }
+
+  /* ===== REACTIVOS: N2 + 3 H2 ===== */
+  
+  /* N2: dos nitrógenos juntos arriba-izquierda */
+  .grafica-container-nh3 .N-1 {
+    left: 15%;
+    top: 35%;
+  }
+  .grafica-container-nh3 .N-2 {
+    left: 18.5%;
+    top: 35%;
+  }
+
+  /* H2 primera molécula (medio-izquierda) */
+  .grafica-container-nh3 .H2-1a {
+    left: 14%;
+    top: 50%;
+  }
+  .grafica-container-nh3 .H2-1b {
+    left: 17%;
+    top: 50%;
+  }
+
+  /* H2 segunda molécula (abajo-izquierda) */
+  .grafica-container-nh3 .H2-2a {
+    left: 14%;
+    top: 60%;
+  }
+  .grafica-container-nh3 .H2-2b {
+    left: 17%;
+    top: 60%;
+  }
+
+  /* H2 tercera molécula (más abajo) */
+  .grafica-container-nh3 .H2-3a {
+    left: 20%;
+    top: 68%;
+  }
+  .grafica-container-nh3 .H2-3b {
+    left: 23%;
+    top: 68%;
+  }
+
+  /* ===== PRODUCTOS: 2 NH3 ===== */
+  
+  /* Primera molécula NH3: N central con 3 H alrededor */
+  .grafica-container-nh3.estado-productos .N-1 {
+    left: 70%;
+    top: 42%;
+  }
+  .grafica-container-nh3.estado-productos .H2-1a {
+    left: 67%;
+    top: 38%;
+  }
+  .grafica-container-nh3.estado-productos .H2-1b {
+    left: 73%;
+    top: 38%;
+  }
+  .grafica-container-nh3.estado-productos .H2-2a {
+    left: 70%;
+    top: 46%;
+  }
+
+  /* Segunda molécula NH3 */
+  .grafica-container-nh3.estado-productos .N-2 {
+    left: 70%;
+    top: 58%;
+  }
+  .grafica-container-nh3.estado-productos .H2-2b {
+    left: 67%;
+    top: 54%;
+  }
+  .grafica-container-nh3.estado-productos .H2-3a {
+    left: 73%;
+    top: 54%;
+  }
+  .grafica-container-nh3.estado-productos .H2-3b {
+    left: 70%;
+    top: 62%;
+  }
+
+  @media (max-width: 480px) {
+    .atomo {
+      width: 5vw;
+    }
+  }
+</style>
+
+<!-- CONTROLES: N2 + 3 H2 → 2 NH3 -->
+<div class="animation-wrapper">
+  <div class="controles">
+    <button id="btnNH3Reactivos">Reactivos (N₂ + 3 H₂)</button>
+    <button id="btnNH3Productos">Productos (2 NH₃)</button>
+  </div>
+
+  <div class="grafica-container-nh3" id="graficaNH3">
+    {isAstroImage ? (
+      <Image class="grafica-fondo-nh3" src={imageSrc} alt="Diagrama formación NH3" />
+    ) : (
+      imageSrc && <img class="grafica-fondo-nh3" src={imageSrc} alt="Diagrama formación NH3" />
+    )}
+    <div class="molecula-group">
+      <!-- Átomos de nitrógeno (N2) -->
+      <div class="atomo N N-1">N</div>
+      <div class="atomo N N-2">N</div>
+
+      <!-- Átomos de hidrógeno (3 moléculas H2 = 6 átomos H) -->
+      <div class="atomo H H2-1a">H</div>
+      <div class="atomo H H2-1b">H</div>
+      <div class="atomo H H2-2a">H</div>
+      <div class="atomo H H2-2b">H</div>
+      <div class="atomo H H2-3a">H</div>
+      <div class="atomo H H2-3b">H</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const graficaNH3 = document.getElementById("graficaNH3");
+  const btnNH3Reactivos = document.getElementById("btnNH3Reactivos");
+  const btnNH3Productos = document.getElementById("btnNH3Productos");
+
+  const limpiarEstadosNH3 = () => {
+    graficaNH3?.classList.remove("estado-productos");
+  };
+
+  btnNH3Reactivos?.addEventListener("click", () => {
+    limpiarEstadosNH3();
+  });
+
+  btnNH3Productos?.addEventListener("click", () => {
+    limpiarEstadosNH3();
+    graficaNH3?.classList.add("estado-productos");
+  });
+</script>
