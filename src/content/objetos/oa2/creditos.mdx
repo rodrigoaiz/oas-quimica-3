@@ -1,0 +1,92 @@
+---
+title: "Créditos"
+order: 7
+---
+import PersonCard from '@/components/PersonCard.astro';
+import RoleCard from '@/components/RoleCard.astro';
+import Section from '@/components/Section.astro';
+import OAHeader from '@/components/OAHeader.astro';
+import Citation from '@/components/Citation.astro';
+import CoordinationCard from '@/components/CoordinationCard.astro';
+import Acknowledgments from '@/components/Acknowledgments.astro';
+import Hr from '@/components/Hr.astro';
+
+export const oaData = {
+  title: "¿De dónde procede la energía involucrada en una reacción?",
+  authors: [
+    "López Recillas, M.",
+    "Jaramillo Alcantar, A.",
+    "Guzmán Aguirre, S.",
+    "Platas Jiménez, G. I.",
+    "Lira Vázquez, G.",
+    "Morales Galicia, M. L.",
+    "Botello Pozos, J. C.",
+    "Nicasio Collazo, J. A.",
+    "Medina Cabrera, J."
+  ],
+  year: 2025
+};
+
+<div class="max-w-5xl mx-auto px-4 py-8">
+   
+  {/* Header principal */}
+  <OAHeader title={oaData.title} />
+
+  {/* Coordinación */}
+  <CoordinationCard />
+
+  {/* Autores */}
+  <Section title="Autoras y autores">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <PersonCard name="Maritza López Recillas" />
+      <PersonCard name="Adriana Jaramillo Alcantar" />
+      <PersonCard name="Sandra Guzmán Aguirre" />
+      <PersonCard name="Guillermo Itzamna Platas Jiménez" />
+      <PersonCard name="Gilberto Lira Vázquez" />
+      <PersonCard name="Marina Lucía Morales Galicia" />
+      <PersonCard name="Julio César Botello Pozos" />
+      <PersonCard name="Juan Antonio Nicasio Collazo" />
+      <PersonCard name="Jesús Medina Cabrera" />
+    </div>
+  </Section>
+
+  {/* Equipo de Diseño */}
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <RoleCard 
+      icon="📚"
+      title="Diseño Instruccional"
+      name="Yadira Jannet Jiménez Taboada"
+    />
+
+    <RoleCard 
+      icon="⚙️"
+      title="Diseño y desarrollo integral del sitio"
+      name="Jesús Rodrigo Aizpuru Parra"
+    />
+
+    <RoleCard 
+      icon="🎨"
+      title="Diseño web y coordinación editorial"
+      name="Karla Gabriela Moreno Vega"
+    />
+  </div>
+
+  {/* Agradecimientos */}
+  <Acknowledgments />
+
+  {/* Cómo citar */}
+  <Citation 
+    title={oaData.title}
+    authors={oaData.authors}
+    year={oaData.year}
+  />
+
+
+  <div class="text-center mt-12 pt-8 border-t border-gray-200 dark:border-slate-700">
+    <Hr variant='decorative' />
+    <p class="text-gray-600 dark:text-gray-400 text-sm">
+      Objeto de Aprendizaje - Química CCH • 2025
+    </p>
+  </div>
+
+</div>

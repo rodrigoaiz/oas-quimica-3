@@ -1,0 +1,86 @@
+---
+title: "Bibliografía"
+order: 6
+---
+import Prose from '@/components/Prose.astro';
+import Hr from '@/components/Hr.astro';
+import BibliographyHeader from '@/components/BibliographyHeader.astro';
+import BibliographySection from '@/components/BibliographySection.astro';
+import BibliographyItem from '@/components/BibliographyItem.astro';
+import BibliographyNote from '@/components/BibliographyNote.astro';
+
+<Prose>
+   
+  {/* Header principal */}
+  <BibliographyHeader />
+
+  {/* Libros */}
+  <BibliographySection title="Libros" icon="📚" type="book">
+    <BibliographyItem 
+      authors="Burns, R. A."
+      year={2012}
+      title="Fundamentos de química."
+      publisher="Pearson, Prentice Hall"
+      type="book"
+    />
+    
+    <BibliographyItem 
+      authors="Chang, R."
+      year={2013}
+      title="Química, 6ª edición."
+      publisher="McGraw Hill"
+      type="book"
+    />
+    
+    <BibliographyItem 
+      authors="Garritz, A. y Gasque, A. Martínez, L. A."
+      year={2005}
+      title="Química Universitaria."
+      publisher="Pearson Prentice Hall"
+      type="book"
+    />
+    
+    <BibliographyItem 
+      authors="JoVE"
+      year={2020}
+      title="Activation energy, transition states and enzymes. JoVE Science Education."
+      url="https://app.jove.com/science-education/10731/activation-energy-transition-states-and-enzymes?trialstart=1"
+      type="book"
+    />
+    
+    <BibliographyItem 
+      authors="Sudhangshu B."
+      year={2007}
+      title="Chapter 2 - Fundamental Concepts, High Temperature Coatings."
+      url="https://doi.org/10.1016/B978-075068252-7/50003-2"
+      type="book"
+    />
+
+  </BibliographySection>
+
+  {/* Artículos */}
+  <BibliographySection title="Simuladores" icon="🔬" type="article">
+
+    <BibliographyItem 
+      authors="American Chemical Society"
+      year={2020}
+      title="Exothermic reaction [Simulador interactivo]. En Middle School Chemistry – Simulations."
+      url="https://assets.acs.org/v3.0/acs-bootstrap/imageds/simulations/chapter6/lesson7/exothermic-reaction/index.html"
+      type="article"
+    />
+
+    <BibliographyItem 
+      authors="American Chemical Society"
+      year={2020}
+      title="Endothermic reaction [Simulador interactivo]. En Middle School Chemistry – Simulations."
+      url="https://assets.acs.org/v3.0/acs-bootstrap/images/simulations/chapter6/lesson7/endothermic-reaction/index.html"
+      type="article"
+    />
+  </BibliographySection>
+
+  {/* Nota metodológica */}
+  <BibliographyNote />
+
+
+
+</Prose>
