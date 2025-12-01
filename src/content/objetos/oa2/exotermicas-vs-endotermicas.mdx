@@ -1,0 +1,126 @@
+---
+title: "Exotérmicas vs. Endotérmicas"
+order: 5
+---
+import Prose from '@/components/Prose.astro';
+import Image from '@/components/Image.astro';
+import Breakout from '@/components/Breakout.astro';
+import Matching from '@/components/Activity/Matching.jsx';
+import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
+import oa2p5img01 from '@/assets/images/oa2/oa2p5-img01.webp';
+import oa2p5img02 from '@/assets/images/oa2/oa2p5-img02.webp';
+// Imágenes para las preguntas del quiz
+import pregunta1img from '@/assets/images/oa2/oa2p5-q1.webp';
+import pregunta2img from '@/assets/images/oa2/oa2p5-q2.webp';
+import pregunta3img from '@/assets/images/oa2/oa2p5-q3.webp';
+import pregunta4img from '@/assets/images/oa2/oa2p5-q4.webp';
+
+<Prose>
+## ¿Cómo Interviene la Entalpía?
+
+Las reacciones químicas pueden clasificarse en exotérmicas, donde se libera energía al medio (ΔH​ < 0), o endotérmicas , donde se absorbe energía del entorno (ΔH > 0). La magnitud que usamos para describir estos cambios energéticos es la entalpía de reacción (ΔH​). Esto se observa en las siguientes imágenes. 
+
+</Prose>
+<Image 
+  src={oa2p5img01}
+  alt="Reacción exotérmica VS endotérmica"
+  caption="Reacción exotérmica VS endotérmica"
+  size="lg"
+/>
+
+<Prose>
+
+Para visualizar mejor estos conceptos, es muy útil recurrir a diagramas de energía.  
+
+</Prose>
+<Image 
+  src={oa2p5img02}
+  alt="Reacción exotérmica VS endotérmica (diagrama)"
+  caption="Las reacciones exotérmicas muestran un cambio de entalpía negativo a medida que se libera energía. Mientras que, las reacciones endotérmicas muestran un cambio de entalpía positivo a medida que se absorbe energía."
+  size="lg"
+/>
+
+<Prose>
+
+### Ejercicio de relacionar
+
+
+  <Matching
+    client:load
+    question="Relaciona el tipo de reacción con su característica principal. Observa las imágenes anteriores para ayudarte."
+    pairs={[
+      {
+        description: 'El contenido energético de los productos es mayor que el de los reactivos, ΔH>0.',
+        correctAnswer: 'Reacción Endotérmica',
+        options: ['Reacción Endotérmica', 'Reacción Exotérmica']
+      },
+      {
+        description: 'El contenido energético de los productos es menor que el de los reactivos, ΔH<0.',
+        correctAnswer: 'Reacción Exotérmica',
+        options: ['Reacción Endotérmica', 'Reacción Exotérmica']
+      }
+    ]}
+    feedback={{
+      correct: '¡Excelente! Cuando una reacción es exotérmica, los productos tienen menor energía que los reactivos, lo que se refleja en un valor de entalpía negativo (ΔH < 0). Esto significa que durante el proceso se libera energía al entorno en forma de calor o luz. En una reacción endotérmica, los productos tienen mayor energía que los reactivos, lo que se traduce en un valor de entalpía positivo (ΔH > 0). En este caso, el sistema debe absorber energía del entorno para que la reacción ocurra.',
+      incorrect: 'Cuando una reacción es exotérmica, los productos tienen menor energía que los reactivos, lo que se refleja en un valor de entalpía negativo (ΔH < 0). Esto significa que durante el proceso se libera energía al entorno en forma de calor o luz. Si elegiste otra opción, recuerda que lo característico de estas reacciones es que la energía almacenada en los enlaces de los reactivos es mayor, y al transformarse en productos más estables, el excedente se desprende hacia el medio. En una reacción endotérmica, los productos tienen mayor energía que los reactivos, lo que se traduce en un valor de entalpía positivo (ΔH > 0). En este caso, el sistema debe absorber energía del entorno para que la reacción ocurra. Si te confundiste, ten presente que lo distintivo de estas reacciones es la necesidad de un “aporte externo” de energía, ya que los productos requieren más energía para formarse que la que liberan los reactivos al romper sus enlaces.'}}
+  />
+
+  ### Ejercicio de seleccionar
+
+  Clasifica cada situación como proceso exotérmico o endotérmico:
+
+  <MCQQuiz 
+    client:load
+    questions={[
+      {
+        image: pregunta1img,
+        options: [
+          "Exotérmico",
+          "Endotérmico"
+        ],
+        correctIndex: 0,
+        feedback: {
+          correct: "¡Correcto! Al clasificar correctamente los casos, identificas que en una reacción exotérmica los productos tienen menor energía que los reactivos y, por lo tanto, se libera energía al entorno (ΔH < 0), mientras que en una reacción endotérmica los productos tienen mayor energía que los reactivos, lo que significa que el sistema debe absorber energía del medio (ΔH > 0).",
+          incorrect: "Recuerda que en una reacción exotérmica los productos tienen menor energía que los reactivos y, por lo tanto, se libera energía al entorno (ΔH < 0), mientras que en una reacción endotérmica los productos tienen mayor energía que los reactivos, lo que significa que el sistema debe absorber energía del medio (ΔH > 0)."
+        }
+      },
+      {
+        image: pregunta2img,
+        options: [
+          "Exotérmico",
+          "Endotérmico"
+        ],
+        correctIndex: 0,
+        feedback: {
+          correct: "¡Exacto! Al clasificar correctamente los casos, identificas que en una reacción exotérmica los productos tienen menor energía que los reactivos y, por lo tanto, se libera energía al entorno (ΔH < 0), mientras que en una reacción endotérmica los productos tienen mayor energía que los reactivos, lo que significa que el sistema debe absorber energía del medio (ΔH > 0).",
+          incorrect: "Recuerda que en una reacción exotérmica los productos tienen menor energía que los reactivos y, por lo tanto, se libera energía al entorno (ΔH < 0), mientras que en una reacción endotérmica los productos tienen mayor energía que los reactivos, lo que significa que el sistema debe absorber energía del medio (ΔH > 0)."
+        }
+      },
+      {
+        image: pregunta3img,
+        options: [
+          "Exotérmico",
+          "Endotérmico"
+        ],
+        correctIndex: 1,
+        feedback: {
+          correct: "¡Exacto! Al clasificar correctamente los casos, identificas que en una reacción exotérmica los productos tienen menor energía que los reactivos y, por lo tanto, se libera energía al entorno (ΔH < 0), mientras que en una reacción endotérmica los productos tienen mayor energía que los reactivos, lo que significa que el sistema debe absorber energía del medio (ΔH > 0).",
+          incorrect: "Recuerda que en una reacción exotérmica los productos tienen menor energía que los reactivos y, por lo tanto, se libera energía al entorno (ΔH < 0), mientras que en una reacción endotérmica los productos tienen mayor energía que los reactivos, lo que significa que el sistema debe absorber energía del medio (ΔH > 0)."
+        }
+      },
+      {
+        image: pregunta4img,
+        options: [
+          "Exotérmico",
+          "Endotérmico"
+        ],
+        correctIndex: 1,
+        feedback: {
+          correct: "¡Correcto! Al clasificar correctamente los casos, identificas que en una reacción exotérmica los productos tienen menor energía que los reactivos y, por lo tanto, se libera energía al entorno (ΔH < 0), mientras que en una reacción endotérmica los productos tienen mayor energía que los reactivos, lo que significa que el sistema debe absorber energía del medio (ΔH > 0).",
+          incorrect: "Recuerda que en una reacción exotérmica los productos tienen menor energía que los reactivos y, por lo tanto, se libera energía al entorno (ΔH < 0), mientras que en una reacción endotérmica los productos tienen mayor energía que los reactivos, lo que significa que el sistema debe absorber energía del medio (ΔH > 0)."
+        }
+      }     
+    ]}
+  />
+
+</Prose>
