@@ -288,7 +288,11 @@ const isAstroImage = typeof imageSrc === "object" && imageSrc.src;
   </div>
 
   <div class="grafica-container-h2o2" id="graficaH2O2">
-    <img class="grafica-fondo-h2o2" src="diagrama-h2o2.png" alt="Diagrama descomposición H2O2" />
+    {isAstroImage ? (
+      <Image class="grafica-fondo-h2o2" src={imageSrc} alt="Diagrama descomposición H2O2" />
+    ) : (
+      <img class="grafica-fondo-h2o2" src={imageSrc} alt="Diagrama descomposición H2O2" />
+    )}
     <div class="molecula-group">
       <!-- Átomos molécula A -->
       <div class="atomo O O-a1">O</div>
