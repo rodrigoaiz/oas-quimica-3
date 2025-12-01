@@ -9,6 +9,7 @@ import Matching from '@/components/Activity/Matching.jsx';
 import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
 import oa2p5img01 from '@/assets/images/oa2/oa2p5-img01.webp';
 import oa2p5img02 from '@/assets/images/oa2/oa2p5-img02.webp';
+import oa2p5img03 from '@/assets/images/oa2/oa2p5-img03.webp';
 // Imágenes para las preguntas del quiz
 import pregunta1img from '@/assets/images/oa2/oa2p5-q1.webp';
 import pregunta2img from '@/assets/images/oa2/oa2p5-q2.webp';
@@ -120,6 +121,112 @@ Para visualizar mejor estos conceptos, es muy útil recurrir a diagramas de ener
           incorrect: "Recuerda que en una reacción exotérmica los productos tienen menor energía que los reactivos y, por lo tanto, se libera energía al entorno (ΔH < 0), mientras que en una reacción endotérmica los productos tienen mayor energía que los reactivos, lo que significa que el sistema debe absorber energía del medio (ΔH > 0)."
         }
       }     
+    ]}
+  />
+
+  ### Ejercicio de seleccionar
+
+Los perfiles de entalpía de **A - D**, representan cuatro diferentes reacciones.
+
+</Prose>
+
+<Image 
+  src={oa2p5img03}
+  alt="Perfiles de entalpía de reacciones A - D"
+  caption="Perfiles de entalpía de reacciones A - D"
+  size="xl"
+/>
+
+<Prose>
+A partir de los diaagramas anteriores, selecciona la respuesta correcta. 
+
+  <MCQQuiz 
+    client:load
+    questions={[
+      {
+        question: "¿Representan reacciones endotérmicas?",
+        options: [
+          "A y B",
+          "A y C", 
+          "A y D",
+          "C y D"
+        ],
+        correctIndex: 2,
+        feedback: {
+          correct: "¡Correcto!",
+          incorrect: "Revisa los diagramas una vez más."
+        }
+      },
+      {
+        question: "¿Representan reacciones exotérmicas?",
+        options: [
+          "A y D",
+          "B y D", 
+          "B y C",
+          "A y B"
+        ],
+        correctIndex: 2,
+        feedback: {
+          correct: "¡Exacto!",
+          incorrect: "Revisa los diagramas una vez más."
+        }
+      },
+      {
+        question: "¿Muestra la mayor entalpía de activación?",
+        options: [
+          "A",
+          "B", 
+          "C",
+          "D"
+        ],
+        correctIndex: 3,
+        feedback: {
+          correct: "¡Muy bien!",
+          incorrect: "Revisa los diagramas una vez más."
+        }
+      },
+      {
+        question: "¿Muestra la menor entalpía de activación?",
+        options: [
+          "A",
+          "B", 
+          "C",
+          "D"
+        ],
+        correctIndex: 1,
+        feedback: {
+          correct: "¡Correcto!",
+          incorrect: "Revisa los diagramas una vez más."
+        }
+      },
+      {
+        question: "¿Representa la reacción más exotérmica?",
+        options: [
+          "A",
+          "B", 
+          "C",
+          "D"
+        ],
+        correctIndex: 1,
+        feedback: {
+          correct: "¡Excelente!",
+          incorrect: "Revisa los diagramas una vez más."
+        }
+      },
+      {
+        question: "¿Representa la reacción más endotérmica?",
+        options: [
+          "A",
+          "B", 
+          "C",
+          "D"
+        ],
+        correctIndex: 3,
+        feedback: {
+          correct: "¡Excelente!",
+          incorrect: "Revisa los diagramas una vez más."
+        }
+      }
     ]}
   />
 
