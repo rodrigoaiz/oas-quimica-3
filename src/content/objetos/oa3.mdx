@@ -1,20 +1,25 @@
 ---
-title: "Reacciones químicas y energía"
+title: "¿En todas las reacciones químicas se consumen completamente los reactivos?"
 cover: "/images/oa3/portada.png"
 order: 3
-summary: "Endotérmicas y exotérmicas, conservación de masa y evidencias de reacción."
-tags: ["reacciones químicas", "energía", "balanceo de ecuaciones", "reacciones exotérmicas", "reacciones endotérmicas", "estequiometría"]
+summary: "Con este material conocerás lo qué es la concentración de solutos en una disolución, que estos se pueden hacer reaccionar y que existen reacciones que llegan a un estado que se conoce como equilibrio químico el cual puede ser alterado y cuando esto ocurre se cumple lo que se conoce como el principio de LeChatelier, unos sistemas de interés que se comportan de esta manera son aquellos en los que están presentes ácidos y bases, conocerás algunas de sus características, para tomar decisiones que favorecen procesos más limpios: optimizar condiciones para usar menos energía y reactivos, generar menos residuos (ODS 4 y 12)."
+tags: ["Concentración", "equilibrio químico", "ácido-base", "pH", "constante de equilibrio", "Ka", "Principio de Le Châtelier"]
 level: "Química III"
 ---
 
-## Observa
-Ejemplos cotidianos (hielo, combustión, etc.) y pistas de reacción.
+import Breakout from '@/components/Breakout.astro';
+import Prose from '@/components/Prose.astro';
+import Aprendizajes from '@/components/Aprendizajes.astro';
 
-## Interactivo 3: verdadero/falso
+export const aprendizajes = [
+  "A7. (C, H) Comprende la reversibilidad de las reacciones al comparar el valor de la constante de equilibrio de ácidos fuertes y débiles, y relacionarlo con la concentración de iones hidrógeno. (N2)",
+  "A8. (C, H) Predice hacia dónde se desplaza el equilibrio químico, con ayuda del principio de Le Châtelier, al analizar cambios en la presión, temperatura o concentración de algunas reacciones químicas. (N3)"
+];
 
-import MCQ from '@/components/Activity/MCQ.jsx';
+<Prose>
+## Aprendizajes
+</Prose>
 
-<MCQ client:load question="En una reacción exotérmica el sistema libera energía al entorno." options={["Verdadero","Falso"]} correctIndex={0} />
-
-## Para practicar
-Balanceo básico con ejemplos guiados.
+<Breakout>
+  <Aprendizajes items={aprendizajes} />
+</Breakout>
