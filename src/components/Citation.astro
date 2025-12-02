@@ -41,12 +41,10 @@ const formatAuthors = (authorsList: string[]) => {
 
 const authorsFormatted = formatAuthors(authors);
 
-// Construir URL completa usando el origin actual (funciona en dev y producción)
-const origin = Astro.url.origin;
+// La URL se construirá en el cliente para usar el dominio actual
 const pathname = Astro.url.pathname;
 // Remover el último segmento de la ruta (ej: /objetos/oa1/creditos -> /objetos/oa1)
 const parentPath = pathname.split('/').slice(0, -1).join('/') || '/';
-const currentUrl = url || `${origin}${parentPath}`;
 
 const accessDate = new Date().toLocaleDateString('es-MX', { 
   year: 'numeric', 
@@ -54,8 +52,8 @@ const accessDate = new Date().toLocaleDateString('es-MX', {
   day: 'numeric' 
 });
 
-// Construir la cita completa con título en cursivas
-const citation = `${authorsFormatted}. (${year}). <em>${title}</em>. ${publisher}. ${currentUrl}`;
+// Construir la cita sin URL (se agregará con JS del cliente)
+const citationBase = `${authorsFormatted}. (${year}). <em>${title}</em>. ${publisher}.`;
 ---
 
 <div class="bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 rounded-xl p-6 shadow-lg border border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 mb-8">
@@ -70,7 +68,8 @@ const citation = `${authorsFormatted}. (${year}). <em>${title}</em>. ${publisher
   </div>
   
   <div class="bg-white dark:bg-slate-800 rounded-lg p-4 border border-(--color-primary)/20 dark:border-slate-700">
-    <p class="text-gray-800 dark:text-gray-200 text-sm md:text-base leading-relaxed font-mono wrap-break-word" set:html={citation}>
+    <p id="citation-text" class="text-gray-800 dark:text-gray-200 text-sm md:text-base leading-relaxed font-mono wrap-break-word">
+      <span set:html={citationBase}></span> <span id="citation-url"></span>
     </p>
   </div>
   
@@ -80,10 +79,36 @@ const citation = `${authorsFormatted}. (${year}). <em>${title}</em>. ${publisher
   
   <div class="mt-4 flex justify-center">
     <button 
-      onclick={`navigator.clipboard.writeText(\`${citation.replace(/`/g, '\\`')}\`); this.textContent = '¡Copiado!'; setTimeout(() => this.textContent = 'Copiar cita', 2000)`}
+      id="copy-citation-btn"
       class="px-4 py-2 bg-(--color-primary) dark:bg-(--color-primary-dark) text-white rounded-lg text-sm font-semibold hover:opacity-90 transition-all shadow-md hover:shadow-lg"
     >
       Copiar cita
     </button>
   </div>
 </div>
+
+<script define:vars={{ parentPath, citationBase }}>
+  // Construir URL con el origin del navegador (client-side)
+  const currentUrl = window.location.origin + parentPath;
+  const fullCitation = citationBase + ' ' + currentUrl;
+  
+  // Actualizar la URL en el DOM
+  const urlElement = document.getElementById('citation-url');
+  if (urlElement) {
+    urlElement.textContent = currentUrl;
+  }
+  
+  // Configurar botón de copiar
+  const copyBtn = document.getElementById('copy-citation-btn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      // Copiar versión sin HTML para el portapapeles
+      const plainCitation = fullCitation.replace(/<em>/g, '').replace(/<\/em>/g, '');
+      navigator.clipboard.writeText(plainCitation);
+      copyBtn.textContent = '¡Copiado!';
+      setTimeout(() => {
+        copyBtn.textContent = 'Copiar cita';
+      }, 2000);
+    });
+  }
+</script>
