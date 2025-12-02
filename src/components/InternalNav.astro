@@ -50,7 +50,7 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
         href={prevUrl} 
         class="nav-btn nav-prev"
         aria-label={`Anterior: ${prevScreen.title}`}
-        accesskey="p"
+        {...(!compact && { accesskey: "p" })}
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="15 18 9 12 15 6"></polyline>
@@ -78,7 +78,7 @@ const nextUrl = nextScreen ? `${baseUrl}/${nextScreen.slug}` : null;
         href={nextUrl} 
         class="nav-btn nav-next"
         aria-label={`Siguiente: ${nextScreen.title}`}
-        accesskey="n"
+        {...(!compact && { accesskey: "n" })}
       >
         {!compact && (
           <span class="nav-label">
