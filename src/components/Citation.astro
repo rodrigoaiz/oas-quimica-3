@@ -41,12 +41,12 @@ const formatAuthors = (authorsList: string[]) => {
 
 const authorsFormatted = formatAuthors(authors);
 
-// Construir URL completa para producción
-const site = Astro.site?.toString().replace(/\/$/, '') || '';
+// Construir URL completa usando el origin actual (funciona en dev y producción)
+const origin = Astro.url.origin;
 const pathname = Astro.url.pathname;
 // Remover el último segmento de la ruta (ej: /objetos/oa1/creditos -> /objetos/oa1)
 const parentPath = pathname.split('/').slice(0, -1).join('/') || '/';
-const currentUrl = url || `${site}${parentPath}`;
+const currentUrl = url || `${origin}${parentPath}`;
 
 const accessDate = new Date().toLocaleDateString('es-MX', { 
   year: 'numeric', 
