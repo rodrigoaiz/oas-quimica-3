@@ -12,6 +12,7 @@ import Breakout from '@/components/Breakout.astro';
 import AnimacionAmoniaco from '@/components/AnimacionAmoniaco.astro';
 
 import oa2p2img03 from '@/assets/images/oa2/oa2p2-img03.webp';
+import oa2p3img02 from '@/assets/images/oa2/oa2p3-img02.png';
 // Importar las imágenes para el ejercicio de arrastrar
 import backgroundSchema from '@/assets/images/oa2/p3-img-02.webp';
 import reactivosIcon from '@/assets/images/oa2/reactivos.webp';
@@ -27,7 +28,7 @@ En el caso de la formación del amoniaco (NH₃), las moléculas de N₂ e H₂ 
 </Prose>
 
 <Breakout>
-  <AnimacionAmoniaco imageSrc={oa2p2img03} />
+  <AnimacionAmoniaco imageSrc={oa2p3img02} />
 </Breakout>
 
 <Prose>
@@ -102,32 +103,32 @@ La solución encontrada por Haber-Bosch, fue emplear catalizadores de hierro u �
     dropZones={[
       {
         id: "reactivos-zone",
-        x: 45,
-        y: 30,
-        width: 15,
+        x: 23,
+        y: 55,
+        width: 18,
         height: 10,
         correctItemId: "reactivos"
       },
       {
         id: "productos-zone", 
-        x: 20,
-        y: 60,
+        x: 70,
+        y: 80,
         width: 15,
         height: 10,
         correctItemId: "productos"
       },
       {
         id: "eaCatalizadorIcon-zone",
-        x: 70,
-        y: 60, 
+        x: 40,
+        y: 40, 
         width: 15,
         height: 10,
         correctItemId: "eaCatalizadorIcon"
       },
       {
         id: "eaSinCatalizadorIcon-zone",
-        x: 45,
-        y: 80,
+        x: 55,
+        y: 27,
         width: 15,
         height: 10,
         correctItemId: "eaSinCatalizadorIcon"
