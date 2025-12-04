@@ -11,7 +11,7 @@ export interface Props {
   posterquality?: "default" | "mqdefault" | "hqdefault" | "sddefault" | "maxresdefault";
 }
 
-const { videoId, title = "YouTube video player", width = "col-lg-10", autoplay = false, nocookie = true, className = "", posterquality = "hqdefault" } = Astro.props;
+const { videoId, title = "YouTube video player", width = "w-full", autoplay = false, nocookie = true, className = "", posterquality = "hqdefault" } = Astro.props;
 ---
 
 <div class={`${width} mx-auto ${className}`.trim()}>

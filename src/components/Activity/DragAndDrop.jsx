@@ -107,7 +107,7 @@ export default function DragAndDrop({
                   <img 
                     src={item.image.src || item.image} 
                     alt={item.alt} 
-                    className="w-8 h-8 mr-3 object-contain"
+                    className="mr-3 object-contain"
                   />
                 )}
                 <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
