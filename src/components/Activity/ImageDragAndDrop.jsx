@@ -25,23 +25,27 @@ export default function ImageDragAndDrop({
   disableOnMobile = false,
   mobileMessage = "Este ejercicio interactivo requiere un dispositivo de escritorio con mouse para funcionar correctamente."
 }) {
-  // Detectar si es dispositivo táctil
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  // Detectar si es resolución móvil
+  const [isMobileResolution, setIsMobileResolution] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     // Marcar como montado para evitar errores de hidratación
     setMounted(true);
     
-    // Detectar dispositivo táctil
-    const checkTouch = () => {
-      return (
-        ('ontouchstart' in window) ||
-        (navigator.maxTouchPoints > 0) ||
-        (navigator.msMaxTouchPoints > 0)
-      );
+    // Detectar resolución móvil (< 768px)
+    const checkMobileResolution = () => {
+      return window.matchMedia('(max-width: 767px)').matches;
     };
-    setIsTouchDevice(checkTouch());
+    
+    setIsMobileResolution(checkMobileResolution());
+    
+    // Escuchar cambios en el tamaño de pantalla
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const handleChange = (e) => setIsMobileResolution(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   // Función para mezclar array (Fisher-Yates shuffle)
@@ -252,7 +256,7 @@ export default function ImageDragAndDrop({
   };
 
   // Mostrar mensaje en dispositivos móviles si está deshabilitado
-  if (disableOnMobile && isTouchDevice && mounted) {
+  if (disableOnMobile && isMobileResolution && mounted) {
     return (
       <div className="my-6 p-6 md:p-8 rounded-2xl border-2 border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 shadow-lg">
         <div className="flex items-start gap-4">
