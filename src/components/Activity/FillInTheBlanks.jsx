@@ -24,21 +24,25 @@ export default function FillInBlanks({
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [draggedWord, setDraggedWord] = useState(null);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [isMobileResolution, setIsMobileResolution] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     
-    // Detectar dispositivo táctil
-    const checkTouch = () => {
-      return (
-        ('ontouchstart' in window) ||
-        (navigator.maxTouchPoints > 0) ||
-        (navigator.msMaxTouchPoints > 0)
-      );
+    // Detectar resolución móvil (< 768px)
+    const checkMobileResolution = () => {
+      return window.matchMedia('(max-width: 767px)').matches;
     };
-    setIsTouchDevice(checkTouch());
+    
+    setIsMobileResolution(checkMobileResolution());
+    
+    // Escuchar cambios en el tamaño de pantalla
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const handleChange = (e) => setIsMobileResolution(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   const handleDragStart = (e, word) => {
@@ -235,8 +239,8 @@ export default function FillInBlanks({
     );
   }
 
-  // Mostrar mensaje si está deshabilitado en móvil
-  if (disableOnMobile && isTouchDevice) {
+  // Mostrar mensaje si está deshabilitado en resolución móvil
+  if (disableOnMobile && isMobileResolution) {
     return (
       <div className="p-6 rounded-xl border-2 border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20">
         <div className="flex items-start gap-3">
