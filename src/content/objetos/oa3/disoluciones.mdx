@@ -1,0 +1,129 @@
+---
+title: "Disoluciones"
+order: 1
+oaSlug: "oa3"
+screenSlug: "disoluciones"
+---
+
+import Prose from '@/components/Prose.astro';
+import Image from '@/components/Image.astro';
+import Math from '@/components/Math.astro';
+import QuestionSet from '@/components/Activity/QuestionSet.astro';
+import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
+import Question from '@/components/Activity/Question.astro';
+import oa3p1img01 from '@/assets/images/oa3/oa3p1-img01.webp';
+
+
+<Prose>
+ Abre la alacena de tu casa y busca la botella de vinagre, en ella podrás leer que en <em>ingredientes</em> se menciona: ácido acético al 5 % <em>¿qué significa esto?</em>.
+
+ Así como el vinagre en casa, puedes encontrar muchas disoluciones (mezclas homogéneas) con diferentes ingredientes, cada uno de estos se encuentra en una concentración, es decir una cantidad del compuesto en un volumen determinado de la disolución o mezcla. En el caso del vinagre 5 % significa que hay 5 g de ácido acético disueltos en 100 mL de agua, a esto se le conoce como concentración porcentual y se expresa de esta manera para que el público comprenda el contenido.
+
+</Prose>
+
+<Image 
+  src={oa3p1img01}
+  alt="Personaje electrón vamos a explorar"
+  size="sm"
+/>
+
+<Prose>
+  En química existe una forma usual en la que los profesionales de esta área expresan las concentraciones haciendo un cambio de unidad de gramos a mol por litro de disolución.
+
+  Para hacer el cambio de gramos a mol se emplea la masa molar, por ejemplo, para el ácido acético <Math formula='(CH_3COOH)' /> su masa molar es de 60.05 g/mol
+
+  <Math formula='5 \text{ g CH}_3\text{COOH} \left( \frac{1 \text{ mol CH}_3\text{COOH}}{60.05 \text{ g CH}_3\text{COOH}} \right) = 0.08333 \text{ mol CH}_3\text{COOH}' display />
+
+  por lo que para cambiar la concentración de 5 % a molar se realiza lo siguiente:
+</Prose>
+
+  <Math formula='\frac{0.08333 \text{ mol CH}_3\text{COOH}}{100 \text{ mL disolución}} \left( \frac{1000 \text{ mL disolución}}{1 \text{ L disolución}} \right) = \frac{0.833 \text{ mol CH}_3\text{COOH}}{1 \text{ L disolución}} = 0.833 \text{ M}' display />
+
+<Prose>
+  ### Ejercicio práctico
+
+  <QuestionSet>
+    <p slot="title">
+      Para los siguientes ejercicios, <strong>realiza los cálculos necesarios</strong> para obtener la respuesta solicitada.
+    </p>
+    
+    <Question>
+      <p slot="question">
+        El mal llamado "cloro", que se emplea como blanqueador y para la limpieza en casa, es en realidad una disolución hipoclorito de sodio (<Math formula='NaClO' />, masa molar de 74.44 g/mol) al 5%, determina la concentración molar (M) de esta disolución.
+      </p>
+
+      <p slot="answer">
+        Respuesta: <Math formula='0.6717 \text{ M}' />
+      </p>
+      
+      <div slot="content">
+        <p><strong>Datos:</strong></p>
+        <ul>
+          <li>Masa molar de <Math formula='NaClO:' /> 74.44 g/mol</li>
+          <li>Concentración: 5%</li>
+        </ul>
+      </div>
+      
+      <div slot="feedback">
+        <p>Para realizar el cambio de unidades de concentración es necesario saber qué concentración molar son mol/L (concentración deseada) y que % son gramos/100 mL (concentración reportada), por ello se emplean los factores que permiten el cambio de unidades de gramos a mol, con la masa molar del <Math formula='NaClO,' /> y se requiere el factor que permita cambiar de unidades de mL a L.</p>
+        
+        <Math formula='5 \text{ g NaClO} \left( \frac{1 \text{ mol NaClO}}{74.44 \text{ g NaClO}} \right) = 0.06717 \text{ mol NaClO}' display />
+        
+        <p>por lo que para cambiar la concentración de 5 % a molar se realiza lo siguiente:</p>
+
+        <Math formula='\frac{0.06717 \text{ mol NaClO}}{100 \text{ mL disolución}} \left( \frac{1000 \text{ mL disolución}}{1 \text{ L disolución}} \right) = \frac{0.6717 \text{ mol NaClO}}{1 \text{ L disolución}} = 0.6717 \text{ M}' display />
+
+      </div>
+    </Question>
+
+    <Question>
+      <p slot="question">
+        El ácido cítrico (<Math formula='C_6H_8O_7' />, masa molar de 192.12) se adiciona a algunos alimentos y bebidas procesados como conservador, y en algunos casos como en refrescos de limón para apoyar al sabor de la bebida (acidulante). Considera que en un refresco se tiene presente a este compuesto químico en una concentración de 0.17 % ¿Qué concentración molar se tendrá de ácido cítrico en el refresco?
+      </p>
+
+      <p slot="answer">
+        Respuesta: <Math formula='8.8486x10^{-3} \text{ M}' />
+      </p>
+      
+      <div slot="content">
+        <p><strong>Datos:</strong></p>
+        <ul>
+          <li>Masa molar de <Math formula='C_6H_8O_7' /> 192.12 g/mol</li>
+          <li>Concentración 0.17 %</li>
+        </ul>
+      </div>
+      
+      <div slot="feedback">
+        <p>Para realizar el cambio de unidades de concentración es necesario saber qué concentración molar son mol/L (concentración deseada) y que % son gramos/100 mL (concentración reportada), por ello se emplean los factores que permiten el cambio de unidades de gramos a mol, con la masa molar del <Math formula='C_6H_8O_7' />, y se requiere el factor que permita cambiar de unidades de mL a L.</p>
+        <p>0.17 % = 0.17 g <Math formula='C_6H_8O_7' /> /100 mL de disolución</p>
+        <Math formula='0.17 \text{ g C}_6\text{H}_8\text{O}_7 \left( \frac{1 \text{ mol C}_6\text{H}_8\text{O}_7}{192.12 \text{ g C}_6\text{H}_8\text{O}_7} \right) = 8.8486 \times 10^{-4} \text{ mol C}_6\text{H}_8\text{O}_7' display />
+        <p>Para obtener la concentración molar:</p>
+        <Math formula='\frac{8.8486 \times 10^{-4} \text{ mol C}_6\text{H}_8\text{O}_7}{100 \text{ mL disolución}} \left( \frac{1000 \text{ mL disolución}}{1 \text{ L disolución}} \right) = \frac{8.8486 \times 10^{-3} \text{ mol C}_6\text{H}_8\text{O}_7}{1 \text{ L disolución}} = 8.8486 \times 10^{-3} \text{ M}' display />
+      </div>
+    </Question>
+  </QuestionSet>
+
+  ### Ejercicio de opción múltiple
+  <MCQQuiz 
+      client:load
+      questions={[
+        {
+          question: "A continuación, responde la siguiente pregunta seleccionando la opción que  consideres correcta. ¿Concentración química es?",
+          options: [
+            "La cantidad de sustancia en un volumen determinado.",
+            "La cantidad de soluto igual a un volumen.",
+            "La cantidad de soluto en una cantidad de disolvente determinada.",
+            "La cantidad de solutos que se tienen en una disolución."
+
+          ],
+          correctIndex: 2,
+          feedback: {
+            correct: "Al preparar una disolución cada soluto estará en una determinada concentración que se refiere a la cantidad de soluto (en moles, gramos, mililitros etc.) que se tendrá por volumen de disolución o de disolvente.",
+            incorrect: "La concentración de una disolución se refiere a la cantidad de soluto en un volumen determinado de disolución o disolvente, por lo que las otras opciones no son correctas."
+          }
+        },
+      ]}
+    />
+
+</Prose>
+

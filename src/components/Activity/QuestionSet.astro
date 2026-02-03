@@ -1,0 +1,32 @@
+<div class="question-set-container my-8">
+  <!-- Slot para el título (permite HTML y componentes) -->
+  <div class="mb-6">
+    <div class="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100">
+      <slot name="title">
+        Para los siguientes ejercicios, realiza los cálculos necesarios para obtener la respuesta solicitada.
+      </slot>
+    </div>
+  </div>
+  
+  <!-- Slot para las preguntas -->
+  <div class="space-y-6">
+    <slot />
+  </div>
+</div>
+
+<script>
+  // Auto-numerar las preguntas dentro del set
+  document.addEventListener('DOMContentLoaded', () => {
+    const questionSets = document.querySelectorAll('.question-set-container');
+    
+    questionSets.forEach(set => {
+      const questions = set.querySelectorAll('.single-question-container');
+      questions.forEach((question, index) => {
+        const numberSpan = question.querySelector('.question-number');
+        if (numberSpan) {
+          numberSpan.textContent = `${index + 1}.`;
+        }
+      });
+    });
+  });
+</script>

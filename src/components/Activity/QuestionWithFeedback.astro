@@ -1,0 +1,91 @@
+---
+interface Props {
+  question: string;
+  answer: string;
+  buttonText?: string;
+}
+
+const { question, answer, buttonText = "Ver retroalimentación" } = Astro.props;
+const uniqueId = `question-${Math.random().toString(36).substring(2, 9)}`;
+---
+
+<div class="question-container my-6 p-4 md:p-6 rounded-2xl border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 shadow-lg">
+  <!-- Pregunta -->
+  <div class="mb-4 md:mb-6">
+    <p class="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 leading-relaxed mb-3">
+      {question}
+    </p>
+    
+    <!-- Contenido de la pregunta (slot para datos, fórmulas, etc.) -->
+    <div class="question-content text-sm md:text-base text-gray-800 dark:text-gray-200 space-y-2">
+      <slot name="content" />
+    </div>
+  </div>
+
+  <!-- Botón para mostrar retroalimentación -->
+  <button
+    id={`btn-${uniqueId}`}
+    class="feedback-toggle-btn w-full md:w-auto px-4 md:px-6 py-2 md:py-3 rounded-xl font-semibold text-sm md:text-base transition-all duration-300 bg-(--color-primary) dark:bg-(--color-primary-dark) text-white hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-(--color-primary)/50 dark:focus:ring-(--color-primary-dark)/50 focus:ring-offset-2"
+  >
+    {buttonText}
+  </button>
+
+  <!-- Panel de retroalimentación (inicialmente oculto) -->
+  <div
+    id={`feedback-${uniqueId}`}
+    class="feedback-panel hidden mt-4 md:mt-6 p-4 md:p-5 rounded-xl bg-(--color-primary)/10 dark:bg-slate-800 border-2 border-(--color-primary)/30 dark:border-(--color-primary-dark)/50 animate-fadeIn"
+  >
+    <div class="flex items-start gap-3">
+      <div class="shrink-0 text-2xl">💡</div>
+      <div class="flex-1 space-y-3">
+        <p class="font-semibold text-(--color-primary) dark:text-(--color-primary-dark) text-sm md:text-base">
+          Respuesta: {answer}
+        </p>
+        
+        <!-- Slot para contenido adicional de retroalimentación (procedimiento, explicaciones, etc.) -->
+        <div class="feedback-content text-sm md:text-base text-gray-800 dark:text-gray-200 space-y-2">
+          <slot name="feedback" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ uniqueId }}>
+  const button = document.getElementById(`btn-${uniqueId}`);
+  const feedbackPanel = document.getElementById(`feedback-${uniqueId}`);
+  
+  if (button && feedbackPanel) {
+    button.addEventListener('click', () => {
+      const isHidden = feedbackPanel.classList.contains('hidden');
+      
+      if (isHidden) {
+        feedbackPanel.classList.remove('hidden');
+        button.textContent = 'Ocultar retroalimentación';
+      } else {
+        feedbackPanel.classList.add('hidden');
+        button.textContent = button.getAttribute('data-original-text') || 'Ver retroalimentación';
+      }
+    });
+    
+    // Guardar el texto original del botón
+    button.setAttribute('data-original-text', button.textContent);
+  }
+</script>
+
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+  }
+</style>
