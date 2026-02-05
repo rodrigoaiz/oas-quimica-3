@@ -95,24 +95,25 @@ export default function DragAndDrop({
           <h4 className="text-md font-medium text-gray-700 dark:text-gray-300 mb-3">
             Elementos disponibles:
           </h4>
-          <div className="space-y-3">
+          <div className="flex flex-wrap gap-3">
             {getAvailableItems().map((item) => (
               <div
                 key={item.id}
                 draggable
                 onDragStart={(e) => handleDragStart(e, item)}
-                className="draggable-item flex items-center p-3 bg-blue-50 dark:bg-blue-900/30 border-2 border-blue-200 dark:border-blue-700 rounded-lg cursor-move hover:bg-blue-100 dark:hover:bg-blue-800/40 transition-colors"
+                className="draggable-item inline-flex items-center p-3 bg-blue-50 dark:bg-blue-900/30 border-2 border-blue-200 dark:border-blue-700 rounded-lg cursor-move hover:bg-blue-100 dark:hover:bg-blue-800/40 transition-colors"
               >
                 {item.image && (
                   <img 
                     src={item.image.src || item.image} 
                     alt={item.alt} 
-                    className="mr-3 object-contain"
+                    className="mr-3 object-contain pointer-events-none"
                   />
                 )}
-                <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                  {item.label}
-                </span>
+                <span 
+                  className="text-sm font-medium text-gray-800 dark:text-gray-200 pointer-events-none"
+                  dangerouslySetInnerHTML={{ __html: item.label }}
+                />
               </div>
             ))}
           </div>

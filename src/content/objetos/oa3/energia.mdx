@@ -1,96 +1,109 @@
 ---
-title: "Reacciones endotérmicas y exotérmicas"
+title: "Teoría ácido base de Brὄnsted-Lowry"
 order: 3
 oaSlug: "oa3"
 screenSlug: "energia"
 ---
 
-## Energía en las reacciones químicas
+import Prose from '@/components/Prose.astro';
+import Math from '@/components/Math.astro';
+import Image from '@/components/Image.astro';
+import Modal from '@/components/Modal.astro';
+import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
+import Matching from '@/components/Activity/Matching.jsx';
 
-Todas las reacciones implican **cambios de energía**: se rompen enlaces (requiere energía) y se forman nuevos enlaces (libera energía).
+import imgoa3p301 from '@/assets/images/oa3/o3p3img01.webp';
+import imgoa3p302 from '@/assets/images/oa3/o3p3img02.webp';
 
-### Reacciones exotérmicas 🔥
 
-**Liberan** energía al entorno (calor, luz):
-- Balance energético: energía liberada > energía absorbida
-- El entorno se **calienta**
 
-**Ejemplos:**
-- Combustión: CH₄ + 2O₂ → CO₂ + 2H₂O + **energía**
-- Respiración celular: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + **ATP**
-- Neutralización: HCl + NaOH → NaCl + H₂O + **calor**
-- Oxidación de metales: 4Fe + 3O₂ → 2Fe₂O₃ + **calor**
+<Prose>
+  En general, tendemos a asociar a los ácidos con el sabor amargo de algunos frutos, como, por ejemplo, el limón, las naranjas o las toronjas. En realidad, la palabra ácido, se origina del latín acidus que significa “agrio”. El vinagre tiene un sabor agrio porque contiene ácido acético, el ácido cítrico provoca el sabor ácido del limón.
 
-### Reacciones endotérmicas ❄️
+  Algunos ácidos se conocen desde hace mucho tiempo, como el vitriolo que actualmente se sabe que se refiere al ácido sulfúrico y que tiene una función importante en los acumuladores de los automotores; el ácido muriático o ácido clorhídrico para uso comercial, es empleado por los plomeros para remover sarro de los pisos, por ejemplo.
 
-**Absorben** energía del entorno:
-- Balance energético: energía absorbida > energía liberada
-- El entorno se **enfría**
+  Entre las teorías para explicar lo que es un ácido, surgió en 1923, una propuesta por J. N. Brønsted y T. M. Lowry, quienes propusieron que un ácido es un donador de protones (H+) y una base es un receptor de protones.
 
-**Ejemplos:**
-- Fotosíntesis: 6CO₂ + 6H₂O + **luz solar** → C₆H₁₂O₆ + 6O₂
-- Descomposición del agua: 2H₂O + **electricidad** → 2H₂ + O₂
-- Paquetes de frío instantáneo (nitrato de amonio)
-- Cocción de alimentos (requiere calor continuo)
+  <Image
+    src={imgoa3p301}
+    alt="Teoria de Brønsted-Lowry"
+    caption="Teoría ácido base de Brønsted-Lowry. Nicolaus Brønsted (1879 -1947; izquierda) and Thomas Martin Lowry (1874 -1936; derecha)"
+  />
 
-### Diagrama de energía
+  Veamos el caso de agregar ácido acético en agua, se tendrá la siguiente reacción al interactuar con el agua:
 
-**Exotérmica:**
-```
-Energía
-  ↑
-  │    Reactivos
-  │    ╱╲
-  │   ╱  ╲  ΔH < 0
-  │  ╱    ╲
-  │ ╱      ╲
-  │╱        Productos
-  └──────────────> Progreso
-```
+  <Math formula="CH_3COOH_{(ac)} + H_2O_{(/)} \rightleftharpoons H_3O^+_{(ac)} + CH_3COO^-_{(ac)}" display />
 
-**Endotérmica:**
-```
-Energía
-  ↑         Productos
-  │        ╱
-  │       ╱  ΔH > 0
-  │      ╱
-  │     ╱
-  │    ╱
-  │Reactivos
-  └──────────────> Progreso
-```
+  Aquí se nota claramente cómo el <Math formula="CH_3COOH_{(ac)}" /> dona o cede, un ion hidrógeno <Math formula="H+" /> al agua, para formar un ion hidronio <Math formula="H_3O^+" /> y un ion acetato <Math formula="CH_3COO^-" />; el agua funciona como receptor del protón donado. 
 
-### Verifica tu comprensión
+  Es importante mencionar que por simplicidad se escribe, en las ecuaciones químicas, el ion hidronio como <Math formula="H+" /> en lugar del <Math formula="H_3O^+" />, pero realmente no existe así en disolución acuosa.
+  
+  Si retomamos la definición de Brønsted y Lowry, cuando un ácido dona un ion hidrógeno se forma una base a la que le llama base conjugada o lo que es lo mismo es lo que se forma después de que el ácido ha cedido el protón. Hay que recordar que al ser una reacción en equilibrio químico estarán presentes en la disolución tanto reactivos como productos, véase la siguiente figura para comprender el concepto.
 
-import MCQ from '@/components/Activity/MCQ.jsx';
+  <Image
+    src={imgoa3p302}
+    alt="Equilibrio acido base Brønsted Lowry"
+    size='xl'
+  />
 
-<MCQ 
-  client:load 
-  question="En una reacción exotérmica, el sistema libera energía al entorno." 
-  options={[
-    "Verdadero",
-    "Falso"
-  ]} 
-  correctIndex={0} 
-  feedback={{
-    correct: "¡Correcto! Exotérmica significa 'hacia afuera' (exo-). El sistema libera calor.",
-    incorrect: "Recuerda: EXOtérmica = Energía sale (EXOpuesto al sistema)."
-  }} 
-/>
+   Para reforzar tus aprendizajes sobre la constante de equilibrio te invitamos a ver el siguiente vídeo
 
-<MCQ 
-  client:load 
-  question="¿Cuál de estas reacciones es endotérmica?" 
-  options={[
-    "Quemar madera",
-    "Fotosíntesis (plantas producen glucosa con luz solar)",
-    "Respiración celular",
-    "Mezclar ácido con base"
-  ]} 
-  correctIndex={1} 
-  feedback={{
-    correct: "¡Perfecto! La fotosíntesis ABSORBE energía solar para convertir CO₂ y H₂O en glucosa.",
-    incorrect: "Piensa: ¿cuál proceso NECESITA energía externa para ocurrir?"
-  }} 
-/>
+  <Modal triggerClass='mx-auto' id="mi-modal" title="Brønsted-Lowry Acids and Bases" triggerText="Mira el video sobre la constante de equilibrio">
+    <iframe id="embed-iframe" allowTransparency="true" allow="encrypted-media *" allowfullscreen height="415" width="460" border="0" scrolling="no" frameborder="0" marginwheight="0" marginwidth="0" src="https://app.jove.com/es/embed/player?id=11733&access=b37956b70a&language=es&t=1&s=1&fpv=1"></iframe>
+    <p>Liga al <a href="https://app.jove.com/science-education/v/11733/brnsted-lowry-acids-and-bases" target='_blank'>video</a>.</p>
+  </Modal>
+
+   ### Ejercicio de opción múltiple
+
+  Responde la siguiente pregunta seleccionando la opción que consideres correcta.
+  
+  <MCQQuiz 
+      client:load
+      questions={[
+        {
+          question: "Un ácido de acuerdo con de Brønsted y Lowry es un:",
+          options: [
+            "Donador de iones H<sup>+</sup>",
+            "Receptor de iones H<sup>+</sup>"
+          ],
+          correctIndex: 0,
+          feedback: {
+            correct: "Es importante recordar la definición de Brønsted y Lowry, para un ácido, que se refiere a una especie química que cede o dona iones hidrógeno.",
+            incorrect: "No es correcto, recuerda que un ácido es una especie química que dona o cede iones hidrógeno."
+          }
+        },
+      ]}
+    />
+
+### Ejercicio de seleccionar
+
+
+  Definir las especies considerando las siguientes ecuaciones químicas:
+
+  <Math formula="NH_4 + H_2O \rightleftharpoons H_3O^+ + NH_3" display />
+  <Math formula="HCN + H_2O \rightleftharpoons H_3O^+ + CN^-" display />
+
+
+  <Matching
+    client:load
+    question="Completa los enunciados correctamente con una de las opciones que se muestran."
+    pairs={[
+      {
+        description: '__________________________ del NH<sub>4</sub><sup>+</sup>.',
+        correctAnswer: 'NH<sub>3</sub> es la base conjugada',
+        options: ['NH<sub>3</sub> es la base conjugada', 'NH<sub>4</sub><sup>+</sup> es el ácido conjugado', 'HCN es el ácido conjugado', 'H<sub>3</sub>O<sup>+</sup> es la base conjugada']
+      },
+      {
+        description: ':__________________________ del CN<sup>-</sup>.',
+        correctAnswer: 'HCN es el ácido conjugado',
+        options: ['NH<sub>3</sub> es la base conjugada', 'NH<sub>4</sub><sup>+</sup> es el ácido conjugado', 'HCN es el ácido conjugado', 'H<sub>3</sub>O<sup>+</sup> es la base conjugada']
+      }
+    ]}
+    feedback={{
+    correct: ' La razón por la que el amoniaco, NH<sub>3</sub>, es la base conjugada del ion amonio, NH<sub>4</sub><sup>+</sup>, es porque en la ecuación inversa, en la parte que corresponde a los productos, se observa como el amoniaco es capaz de aceptar un ion hidrógeno que proviene del ion hidronio, H<sub>3</sub>O<sup>+</sup>. En la reacción directa, en los reactivos, el ácido cianhídrico, que es un ácido por supuesto, cede un ion hidrógeno al agua, de manera que su base conjugada es el ion cianuro, CN<sup>-</sup>.',
+      incorrect: 'No es correcto, intenta de nuevo.'
+    }}
+  />
+
+
+</Prose>

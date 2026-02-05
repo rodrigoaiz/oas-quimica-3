@@ -91,9 +91,10 @@ export default function MCQControlled({
                   aria-describedby={answer !== null ? `fb-${name}` : undefined} 
                 />
               </div>
-              <span className="flex-1 text-sm md:text-base text-gray-800 dark:text-gray-200 font-medium leading-relaxed">
-                {opt}
-              </span>
+              <span 
+                className="flex-1 text-sm md:text-base text-gray-800 dark:text-gray-200 font-medium leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: opt }}
+              />
               {/* Indicadores visuales */}
               {isAnswered && isSelected && isCorrect && (
                 <span className="text-green-600 dark:text-green-400 text-lg md:text-xl">✓</span>
@@ -131,13 +132,16 @@ export default function MCQControlled({
               }`}>
                 {isCorrect ? '¡Excelente!' : 'Reflexiona tu respuesta'}
               </p>
-              <p className={`text-xs md:text-sm ${
-                isCorrect 
-                  ? 'text-green-700 dark:text-green-400' 
-                  : 'text-amber-700 dark:text-amber-400'
-              }`}>
-                {isCorrect ? (feedback.correct || '¡Respuesta correcta!') : (feedback.incorrect || 'Piensa en la pregunta y tu elección.')}
-              </p>
+              <p 
+                className={`text-xs md:text-sm ${
+                  isCorrect 
+                    ? 'text-green-700 dark:text-green-400' 
+                    : 'text-amber-700 dark:text-amber-400'
+                }`}
+                dangerouslySetInnerHTML={{ 
+                  __html: isCorrect ? (feedback.correct || '¡Respuesta correcta!') : (feedback.incorrect || 'Piensa en la pregunta y tu elección.') 
+                }}
+              />
               {!isCorrect && onReset && (
                 <button
                   onClick={onReset}

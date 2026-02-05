@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
 /**
  * Matching Activity Component - Versión simplificada
@@ -13,6 +13,22 @@ export default function Matching({
   pairs = [],
   feedback = { correct: '¡Correcto!', incorrect: 'Revisa tus respuestas.' }
 }) {
+  // Función para convertir HTML a caracteres Unicode
+  const htmlToUnicode = (str) => {
+    const subMap = { '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄', '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉' };
+    const supMap = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '+': '⁺', '-': '⁻' };
+    
+    return str
+      .replace(/<sub>([^<]+)<\/sub>/g, (match, content) => 
+        content.split('').map(c => subMap[c] || c).join('')
+      )
+      .replace(/<sup>([^<]+)<\/sup>/g, (match, content) => 
+        content.split('').map(c => supMap[c] || c).join('')
+      )
+      .replace(/<\/?em>/g, '')
+      .replace(/<\/?strong>/g, '')
+      .replace(/<[^>]+>/g, ''); // Remover cualquier otra etiqueta HTML
+  };
   // Función para mezclar un array (Fisher-Yates shuffle)
   const shuffleArray = (array) => {
     const shuffled = [...array];
@@ -23,16 +39,23 @@ export default function Matching({
     return shuffled;
   };
 
-  // Mezclar las opciones una sola vez al montar el componente
-  const shuffledPairs = useMemo(() => {
-    return pairs.map(pair => ({
+  // Estado para detectar si estamos en el cliente
+  const [isClient, setIsClient] = useState(false);
+  const [shuffledPairs, setShuffledPairs] = useState(pairs);
+  const [answers, setAnswers] = useState(Array(pairs.length).fill(''));
+  const [submitted, setSubmitted] = useState(false);
+
+  // Mezclar solo después de la hydration
+  useEffect(() => {
+    setIsClient(true);
+    setShuffledPairs(pairs.map(pair => ({
       ...pair,
       options: shuffleArray(pair.options)
-    }));
-  }, [pairs]);
+    })));
+  }, []); // Solo se ejecuta una vez en el cliente
 
-  const [answers, setAnswers] = useState(Array(shuffledPairs.length).fill(''));
-  const [submitted, setSubmitted] = useState(false);
+  // Usar pares mezclados si estamos en cliente, sino usar originales
+  const displayPairs = isClient ? shuffledPairs : pairs;
 
   const handleSelect = (index, value) => {
     if (submitted) return;
@@ -46,12 +69,12 @@ export default function Matching({
   };
 
   const handleReset = () => {
-    setAnswers(Array(shuffledPairs.length).fill(''));
+    setAnswers(Array(displayPairs.length).fill(''));
     setSubmitted(false);
   };
 
   const allAnswered = answers.every(answer => answer !== '');
-  const isCorrect = submitted && shuffledPairs.every((pair, i) => answers[i] === pair.correctAnswer);
+  const isCorrect = submitted && displayPairs.every((pair, i) => answers[i] === pair.correctAnswer);
 
   return (
     <div className="matching-activity my-6 p-4 md:p-6 rounded-2xl border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 shadow-lg">
@@ -65,7 +88,7 @@ export default function Matching({
 
       {/* Tabla de matching */}
       <div className="space-y-3 mb-6">
-        {shuffledPairs.map((pair, index) => {
+        {displayPairs.map((pair, index) => {
           const isThisCorrect = submitted && answers[index] === pair.correctAnswer;
           const isThisIncorrect = submitted && answers[index] && answers[index] !== pair.correctAnswer;
 
@@ -111,7 +134,7 @@ export default function Matching({
                     <option value="">Selecciona...</option>
                     {pair.options.map((option, optIndex) => (
                       <option key={optIndex} value={option}>
-                        {option}
+                        {htmlToUnicode(option)}
                       </option>
                     ))}
                   </select>
