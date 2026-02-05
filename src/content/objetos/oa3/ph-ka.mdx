@@ -1,0 +1,178 @@
+---
+title: "pH y pKa"
+order: 4
+oaSlug: "oa3"
+screenSlug: "ph-ka"
+---
+
+import Prose from '@/components/Prose.astro';
+import Breakout from '@/components/Breakout.astro';
+import Math from '@/components/Math.astro';
+import Image from '@/components/Image.astro';
+import Callout from '@/components/Callout.astro';
+import Modal from '@/components/Modal.astro';
+import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
+import Matching from '@/components/Activity/Matching.jsx';
+
+<Prose>
+  Hace más de 120 años, Svante Arrhenius descubrió que algunas disoluciones conducían la electricidad, debido a que el soluto que contenían se disolvía inmediatamente formando partículas con carga llamadas iones, pero otros no conducían tanto porque estaban disociados de manera parcial ¿Te fijaste que se ha empleado una nueva palabra?: *disociación*, es un proceso por el cual los iones de un compuesto, por ejemplo, el caso de una sal, se separan al disolverse en el agua, así que la *ionización* es la formación de iones.
+
+  Si deseamos representar el proceso de la disociación, tendremos:
+
+  <Math formula='NaCl_{(s)} + H_2O_{(l)} \xrightarrow{} Na^+(H_2O)_n + Cl^-(H_2O)_n' display />
+
+  Aquí vemos como hay una gran cantidad de moléculas de agua rodeando a los iones que anteriormente formaban parte del cloruro de sodio y ahora los miramos disociados.
+  
+  Una forma simplificada de escribir la ecuación anterior es omitir el agua, pero se debe sobrentender que siempre está presente:
+
+  <Math formula='NaCl_{(s)} + H_2O_{(l)} \xrightarrow{} Na^+_{(ac)} + Cl^-_{(ac)}' display />
+</Prose>
+<Breakout>
+  <Callout variant='warning' title='Toma en cuenta'>
+    Te fijaste que en cada ion aparece un subíndice (ac) que significa acuosa, es decir indica que las especies están en disolución acuosa, en lo subsecuente lo omitiremos, pero debes recordar que son especies disueltas.
+  </Callout>
+</Breakout>
+<Prose>
+  Cuando el compuesto se disocia completamente recibe el nombre de electrolito fuerte. Entonces, un electrolito es una especie química capaz de conducir la corriente eléctrica.
+  
+  Hay algunos otros electrolitos que, primeramente, se disocian poco y son malas conductoras de la electricidad y se denominan electrolitos débiles.
+  
+  Hace un momento comentamos que un ejemplo de estos compuestos que proveen iones son las sales, pero también hay ácidos que dependiendo de qué tanto se disocian se clasifican como ácidos fuertes y ácidos débiles. 
+  
+  Algunos ejemplos de ácidos fuertes son el ácido clorhídrico, <Math formula='HCl' />; el ácido nítrico, <Math formula='HNO_3' />; el ácido perclórico, <Math formula='HClO_4' />; el ácido bromhídrico <Math formula='HBr' />, entre otros.
+  
+  Como ejemplos de ácidos débiles encontramos el ácido acético, <Math formula='CH_3COOH' />; el ácido cítrico, <Math formula='C_6H_8O_7' />; el ácido oxálico, <Math formula='H_2C_2O_4' />; el ácido carbónico, <Math formula='H_2CO_3' />, por mencionar algunos.
+  
+  De manera general, la disociación de un electrolito débil se representa como una ecuación de equilibrio, tal como lo vimos en el tema de Equilibrio químico, con una doble flecha, que indica que a la vez se encuentran las formas disociada y no disociada o que es lo mismo ionizada y no ionizada
+  
+  Para ejemplificar un ácido fuerte, donde hay disociación total, el ácido clorhídrico diluido en agua, se escribe una sola flecha, porque todo se ha disociado o ionizado:
+
+  <Math formula='HCl \xrightarrow{} H^+ + Cl^-' display />
+
+  Para el caso de un ácido débil, como el ácido acético, se comentó anteriormente que no se disocia totalmente y se emplea la doble flecha (reacción en equilibrio):
+
+  <Math formula='CH_3COOH \rightleftharpoons H^+ + CH_3COO^-' display />
+
+  ### Ejemplos
+
+  <ol class="ol-number">
+    <li>
+      Escribir las ecuaciones de disociación para el ácido nítrico (ácido fuerte) y para el ácido nitroso (ácido débil):
+
+      <Math formula='HNO_3 \xrightarrow{} H^+ + NO_3^-' display />
+
+      <Math formula='HNO_2 \rightleftharpoons H^+ + NO_2^-' display />
+    </li>
+    <li>
+      Ahora hagamos lo mismo pero para el ácido bromhídrico <Math formula='(HBr)' />, que es fuerte y el ácido bórico <Math formula='H_3BO_3' />, que es débil.
+      <Math formula='HBr \xrightarrow{} H^+ + Br^-' display />
+      <Math formula='H_3BO_3 \rightleftharpoons H^+ + H_2BO_3^-' display />
+    </li>
+  </ol>
+
+  Retomemos el hecho de que algunos ácidos se disocian poco y que se encuentra tanto lo disuelto como lo no disuelto. Recuerda que la doble flecha es indicativa de la existencia de equilibrio químico y por lo tanto habrá una constante de equilibrio; manifestamos este hecho con la ley de acción de masas, en la que la constante de equilibrio recibe el nombre de constante de acidez y la representamos como <Math formula='K_a' />.
+  
+  Para un ácido débil, pongamos un ejemplo general, se tiene el ácido acético, su disociación queda como:
+
+  <Math formula='CH_3COOH \rightleftharpoons H^+ + CH_3COO^-' display />
+
+  Y la constante de equilibrio queda como: 
+
+  <Math formula='K_{eq} = K_a = 1.8 \times 10^{-5} = \frac{[H^+][\text{CH}_3\text{COO}^-]}{[\text{H}_3\text{COOH}]}' display />
+
+  Como todas las constantes de equilibrio tiene un valor. Tú podrás buscar en algún texto o en internet las tablas de constante de equilibrio para ácidos débiles. 
+
+  ### Ejemplos
+
+  Escribir primeramente la ecuación de disociación y posteriormente la constante de equilibrio para los siguientes ácidos débiles.
+
+  <ol class="ol-number">
+    <li>
+      El ácido sulfhídrico <Math formula='(H_2S)' />
+      <Math formula='H_2S \rightleftharpoons H^+ + HS^-' display />
+      <Math formula='K_a = \frac{[H^+][\text{HS}^-]}{[\text{H}_2\text{S}]}' display />
+    </li>
+    <li>
+     El ácido carbónico <Math formula='(H_2CO_3)' />
+      <Math formula='H_2CO_3 \rightleftharpoons H^+ + HCO_3^-' display />
+      <Math formula='K_a = \frac{[H^+][\text{HCO}_3^-]}{[\text{H}_2\text{CO}_3}]' display />
+    </li>
+  </ol>
+
+  Hemos visto cómo la disociación de los ácidos es diferente, en cuanto a la escritura de las ecuaciones de las disociaciones (para los fuertes se emplea una flecha y para los débiles dos flechas), a la cantidad de protones que cede al medio acuoso, ya se trate de un ácido fuerte o un ácido débil y al empleo de la ley de acción de masas para los ácidos débiles. Pero ¿Por qué es importante revisar este tema? Tiene que ver con la acidez de las sustancias, por ejemplo, seguramente habrás escuchado que algunas personas padecen de acidez estomacal o que algunos productos lácteos deben mantener cierta acidez para que se conserven o que la acidez de algunos productos de limpieza es importante porque determina su capacidad para eliminar cierto tipo de suciedad.
+
+  Pues todo eso que acabas de leer se relaciona con la cantidad de iones hidrógeno, iones hidronio o protones que una disolución ácida libera al medio acuoso. Entonces si un ácido es fuerte, queda completamente disociado y la cantidad de protones es donados al medio es total, estaríamos hablando de un 100 % de disociación, pero ¿qué pasa con un ácido débil?, vimos que no se disocia completamente y la ionización es parcial. Entonces, ¿en qué cantidad se disociará? Porque a partir de la cantidad de ionización se podría establecer la acidez de una sustancia.
+  
+  La cantidad de iones hidronio, protones o ion hidrógeno liberados por un ácido determina la acidez de la disolución que lo contenga. La cantidad que mencionamos aquí se conoce como concentración molar y se emplea una fórmula matemática conocida como pH, y a través de un cálculo sencillo se cambia de concentración molar de iones <Math formula='H^+' /> a unidades de pH, de acuerdo con la siguiente ecuación:
+
+  <Math formula='pH = -\log[H^+]' display />
+
+  Te preguntarás por qué se emplea la escala logarítmica para determinar el pH de una disolución, pues porque las concentraciones de iones hidrógeno es tan variada, es decir desde concentraciones con valores pequeños hasta demasiado grandes. La escala toma valores desde cero hasta 14.
+
+  Entonces, si se tiene una disolución de ácido clorhídrico, un ácido fuerte, con una concentración 0.1 M ¿cuál será su pH? Para resolver este dilema, primeramente, representaremos la ecuación química, recuerda que al ser un ácido fuerte, hay una ionización total, es decir, todo el ácido se convertirá en protones y en iones cloruro.
+
+  <Math formula='HCl \xrightarrow{} H^+ + Cl^-' display />
+
+  Si la concentración es 0.1 M, ya no hay HCl y todo se ha transformado en los productos, así que la concentración tanto de protón como de ion cloruro es 0.1 M. Si aplicamos la ecuación de pH, entonces solamente se requiere el valor en concentración de los protones presentes y quedaría como:
+
+  <Math formula='pH = -\log[H^+]' display />
+  <Math formula='pH = -\log(0.1)' display />
+  <Math formula='pH = 1' display />
+</Prose>
+<Breakout>
+  <Callout variant='info'>
+    <p class="mx-auto text-xl text-center">¿Ocurrirá lo mismo con un ácido débil a la misma concentración?</p>
+  </Callout>
+</Breakout>
+<Prose>
+  Pensemos en el ácido acético, con concentración también 0.1 M. Escribiremos primeramente la disociación y luego como sabemos que es débil, representaremos la ley de acción de masas ¿Recuerdas que tiene un valor de Ka?
+  <Math formula='CH_3COOH \rightleftharpoons H^+ + CH_3COO^-' display />
+  <Math formula='K_a = 1.8 x 10^{-5} = \frac{[H^+][\text{CH}_3\text{COO}^-]}{[\text{CH}_3\text{COOH}]}' display />
+</Prose>
+<Breakout>
+  <Callout variant='info'>
+    <p class="mx-auto text-xl text-center">¿Será posible saber la cantidad en concentración molar que se tiene de iones hidrógeno?</p>
+  </Callout>
+</Breakout>
+<Prose>
+  De manera directa, no, porque la disociación es parcial, entonces tenemos que resolver de otra manera. Como no sabemos cuánto de disocia, asumiremos que es una incógnita y la representaremos como x, para ambos iones porque también recordarás que en el equilibrio la cantidad de iones hidrógeno es la misma que la del ion acetato, ya que en la ecuación el coeficiente estequiométrico en uno para ambos iones. También tenemos que reflexionar que el ácido acético como no se disocia totalmente, la mayor parte de él queda con la misma concentración, o sea 0.1 M.
+
+  <Math formula='[H^+] = [CH_3COO^-]' display />
+  <Math formula='[x] = [x]' display />
+
+  Así que en la ley de acción de masas quedaría como:
+
+  <Math formula='1.8 x 10^{-5} = \frac{[x][x]}{0.1}' display />
+
+  Resolvamos la ecuación matemática,
+
+  <Math formula='1.8 x 10^{-5} = \frac{[x][x]}{0.1}' display />
+  <Math formula='1.8 x 10^{-5} = \frac{x^2}{0.1}' display />
+  <Math formula='1.8 x 10^{-5} x 0.1 = x^2' display />
+  <Math formula='x=4.24x10-4' display />
+  <Math formula='x=[H^+]' display />
+  <Math formula='[H^+]=4.24 x 10^{-4}' display />
+</Prose>
+<Breakout>
+  <Callout variant='warning' title='Importante'>
+    <p class="mx-auto text-xl text-center">La consideración de que la concentración inicial para el ácido prácticamente no cambia es válida solo si el ácido se disocia poco y esto se da a concentraciones relativamente grandes, en general mayores a 0.1 M</p>
+  </Callout>
+</Breakout>
+<Prose>
+  Esta cantidad tiene unidades de molaridad porque acuérdate que la ley de acción de masas implica concentraciones molares.
+  
+  Ahora bien, si tenemos el valor de la concentración de iones hidrógeno, entonces podremos calcular el pH del ácido acético.
+
+  <Math formula='pH = -\log[H^+]' display />
+  <Math formula='pH = -\log(4.24 x 10^{-4})' display />
+  <Math formula='pH = 3.37' display />
+</Prose>
+<Breakout>
+  <Callout variant='info' title='Importante'>
+    ¡Qué diferencia tan grande entre el pH de un ácido fuerte y un ácido débil!
+    
+    ¡Ambos a la misma concentración!
+    
+    ¿Qué te hacen pensar estos resultados?
+  </Callout>
+</Breakout>

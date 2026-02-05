@@ -41,10 +41,18 @@ const html = katex.renderToString(formula, {
 <style>
   .katex-display-wrapper {
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: visible;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
   }
   
   .katex-inline-wrapper {
     display: inline;
+    vertical-align: baseline;
+  }
+  
+  /* Asegurar que el contenido de KaTeX no se corte */
+  :global(.katex) {
+    overflow: visible !important;
   }
 </style>

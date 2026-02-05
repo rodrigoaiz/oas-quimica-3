@@ -1,0 +1,157 @@
+---
+/**
+ * Callout Component
+ * Componente para destacar texto importante con diseño juvenil y colorido
+ * Sigue el mismo estilo que ImageText variant="card"
+ * 
+ * @param variant - "info" (verde agua - default) | "success" (verde) | "warning" (amarillo) | "note" (azul)
+ * @param title - Título opcional para el callout
+ */
+
+interface Props {
+  variant?: 'info' | 'success' | 'warning' | 'note';
+  title?: string;
+  class?: string;
+}
+
+const { 
+  variant = 'info',
+  title,
+  class: className = ''
+} = Astro.props;
+---
+
+<div class={`callout callout-${variant} ${className}`}>
+  {title && <div class="callout-title">{title}</div>}
+  <div class="callout-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .callout {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    padding: 1.5rem 2rem;
+    border-radius: 1.5rem;
+    border: 3px solid;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    position: relative;
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+  
+  /* Efecto de brillo sutil */
+  .callout::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .callout-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  
+  .callout-content {
+    display: flow-root;
+  }
+  
+  .callout-content :global(p) {
+    margin-bottom: 0.75rem;
+  }
+  
+  .callout-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  
+  .callout-content :global(strong) {
+    font-weight: 600;
+  }
+  
+  .callout-content :global(em) {
+    font-style: italic;
+    font-weight: 500;
+  }
+  
+  /* Variant: Info (verde agua - default) */
+  .callout-info {
+    color: var(--color-text-main);
+    background: linear-gradient(135deg, var(--color-bg-main) 0%, #C4F1E0 100%);
+    border-color: var(--color-border);
+    box-shadow: 0 4px 6px -1px rgb(148 210 189 / 0.2), 0 2px 4px -2px rgb(148 210 189 / 0.15);
+  }
+  
+  :global(.dark) .callout-info {
+    color: var(--color-dark-body);
+    background: linear-gradient(135deg, var(--color-dark-bg-main) 0%, var(--color-dark-bg-block) 100%);
+    border-color: var(--color-dark-border);
+    box-shadow: 0 4px 6px -1px rgb(15 128 207 / 0.3), 0 2px 4px -2px rgb(15 128 207 / 0.2);
+  }
+  
+  :global(.dark) .callout-info::before {
+    background: radial-gradient(circle, hsl(var(--color-primary-dark-h), var(--color-primary-dark-s), var(--color-primary-dark-l), 0.15) 0%, transparent 70%);
+  }
+  
+  /* Variant: Success (verde) */
+  .callout-success {
+    color: #065f46;
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+    border-color: #34d399;
+    box-shadow: 0 4px 6px -1px rgb(52 211 153 / 0.2), 0 2px 4px -2px rgb(52 211 153 / 0.15);
+  }
+  
+  :global(.dark) .callout-success {
+    color: #d1fae5;
+    background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+    border-color: #10b981;
+    box-shadow: 0 4px 6px -1px rgb(16 185 129 / 0.3), 0 2px 4px -2px rgb(16 185 129 / 0.2);
+  }
+  
+  /* Variant: Warning (amarillo/naranja) */
+  .callout-warning {
+    color: #92400e;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-color: #fbbf24;
+    box-shadow: 0 4px 6px -1px rgb(251 191 36 / 0.2), 0 2px 4px -2px rgb(251 191 36 / 0.15);
+  }
+  
+  :global(.dark) .callout-warning {
+    color: #fef3c7;
+    background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+    border-color: #f59e0b;
+    box-shadow: 0 4px 6px -1px rgb(245 158 11 / 0.3), 0 2px 4px -2px rgb(245 158 11 / 0.2);
+  }
+  
+  /* Variant: Note (azul) */
+  .callout-note {
+    color: #1e3a8a;
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border-color: #60a5fa;
+    box-shadow: 0 4px 6px -1px rgb(96 165 250 / 0.2), 0 2px 4px -2px rgb(96 165 250 / 0.15);
+  }
+  
+  :global(.dark) .callout-note {
+    color: #dbeafe;
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    border-color: #3b82f6;
+    box-shadow: 0 4px 6px -1px rgb(59 130 246 / 0.3), 0 2px 4px -2px rgb(59 130 246 / 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    .callout {
+      font-size: 1rem;
+      padding: 1.25rem 1.5rem;
+    }
+    
+    .callout-title {
+      font-size: 1.125rem;
+    }
+  }
+</style>

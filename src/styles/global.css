@@ -212,32 +212,76 @@ html {
 }
 
 /* Custom List Styles for MDX Content */
+.prose .ol-alpha,
+.prose .ol-number,
+.prose .ul-disc,
 .ol-alpha,
 .ol-number,
 .ul-disc {
-  list-style: none;
+  list-style: none !important;
   counter-reset: item;
-  padding-left: 0;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  padding-left: 0 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
 }
 
+.prose .ol-alpha > li,
+.prose .ol-number > li,
+.prose .ul-disc > li,
 .ol-alpha > li,
 .ol-number > li,
 .ul-disc > li {
   position: relative;
   counter-increment: item;
-  margin-bottom: 1.25rem;
-  padding-left: 3rem;
+  margin-bottom: 1.25rem !important;
+  padding-left: 3rem !important;
   line-height: 1.7;
 }
 
-/* Omitiendo estilos de grid/flex y last-child para mantener el enfoque en color */
-
 /* Circle badges for counters */
-.ol-alpha > li::before,
-.ol-number > li::before,
+.prose .ol-number > li::before,
+.ol-number > li::before {
+  content: counter(item);
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  background: var(--color-cch-azul);
+  border-radius: 9999px;
+  color: white;
+  min-width: 2rem;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(0, 85, 165, 0.2);
+}
+
+.prose .ol-alpha > li::before,
+.ol-alpha > li::before {
+  content: counter(item, lower-alpha);
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  background: var(--color-cch-azul);
+  border-radius: 9999px;
+  color: white;
+  min-width: 2rem;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(0, 85, 165, 0.2);
+}
+
+.prose .ul-disc > li::before,
 .ul-disc > li::before {
+  content: "•";
   position: absolute;
   left: 0;
   top: 0.15rem;
@@ -256,6 +300,9 @@ html {
 }
 
 /* Dark mode para badges de listas personalizadas */
+.dark .prose .ol-alpha > li::before,
+.dark .prose .ol-number > li::before,
+.dark .prose .ul-disc > li::before,
 .dark .ol-alpha > li::before,
 .dark .ol-number > li::before,
 .dark .ul-disc > li::before {
@@ -265,6 +312,9 @@ html {
 }
 
 /* Texto de items de lista en dark mode */
+.dark .prose .ol-alpha > li,
+.dark .prose .ol-number > li,
+.dark .prose .ul-disc > li,
 .dark .ol-alpha > li,
 .dark .ol-number > li,
 .dark .ul-disc > li {
@@ -272,6 +322,9 @@ html {
 }
 
 /* Strong text inside lists */
+.prose .ol-alpha > li strong,
+.prose .ol-number > li strong,
+.prose .ul-disc > li strong,
 .ol-alpha > li strong,
 .ol-number > li strong,
 .ul-disc > li strong {
@@ -279,6 +332,9 @@ html {
   color: var(--color-cch-azul);
 }
 
+.dark .prose .ol-alpha > li strong,
+.dark .prose .ol-number > li strong,
+.dark .prose .ul-disc > li strong,
 .dark .ol-alpha > li strong,
 .dark .ol-number > li strong,
 .ul-disc > li strong {
