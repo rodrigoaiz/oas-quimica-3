@@ -5,27 +5,32 @@
  * - Mobile: stacked (image on top)
  * - Desktop: side by side
  * Text is larger than normal prose
+ * 
+ * @param variant - "default" (sin fondo) o "card" (con fondo, borde y sombra)
  */
 
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 
 interface Props {
   src: ImageMetadata | string;
   alt: string;
+  caption?: string;
   imagePosition?: 'left' | 'right';
   imageSize?: 'sm' | 'md' | 'lg';
+  variant?: 'default' | 'card';
 }
 
 const { 
   src, 
-  alt, 
+  alt,
+  caption,
   imagePosition = 'left',
-  imageSize = 'md'
-} = Astro.props;
+  imageSize = 'md',
+  variant = 'default'
+} = Astro.props as Props;
 
 // Image size classes for desktop
-const sizeClasses = {
+const sizeClasses: Record<'sm' | 'md' | 'lg', string> = {
   sm: 'md:w-48',
   md: 'md:w-64',
   lg: 'md:w-80'
@@ -34,12 +39,13 @@ const sizeClasses = {
 const imageClass = sizeClasses[imageSize];
 const isImageLeft = imagePosition === 'left';
 const isAsset = typeof src !== 'string';
+const isCard = variant === 'card';
 ---
 
 <div class="image-text-container my-8 md:my-12">
-  <div class={`flex flex-col-reverse ${isImageLeft ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 md:gap-8 items-center`}>
+  <div class={`flex flex-col-reverse ${isImageLeft ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 md:gap-8 ${isCard ? 'md:items-stretch' : 'items-center'}`}>
     <!-- Image -->
-    <div class={`shrink-0 w-64 mx-auto md:mx-0 ${imageClass}`}>
+    <figure class={`shrink-0 w-64 mx-auto md:mx-0 ${imageClass}`}>
       {isAsset ? (
         <Image 
           src={src}
@@ -55,16 +61,20 @@ const isAsset = typeof src !== 'string';
           class="w-full h-auto rounded-xl shadow-lg"
         />
       )}
-    </div>
+      {caption && (
+        <figcaption class="figcaption-text mt-3 text-sm text-center text-slate-800 dark:text-slate-300" set:html={caption} />
+      )}
+    </figure>
     
     <!-- Text Content -->
-    <div class="flex-1 text-content">
+    <div class={`flex-1 ${isCard ? 'text-content-card' : 'text-content'}`}>
       <slot />
     </div>
   </div>
 </div>
 
 <style>
+  /* Default variant - sin fondo */
   .text-content {
     font-size: 1.125rem; /* 18px - larger than prose */
     line-height: 1.7;
@@ -83,24 +93,92 @@ const isAsset = typeof src !== 'string';
     margin-bottom: 0;
   }
   
+  /* Card variant - diseño juvenil y colorido */
+  .text-content-card {
+    font-size: 1.25rem; /* 20px - más grande */
+    line-height: 1.7;
+    color: #001219;
+    background: linear-gradient(135deg, #E1FCEE 0%, #C4F1E0 100%); /* Verde agua suave */
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 3px solid #94D2BD; /* Borde verde agua */
+    box-shadow: 0 4px 6px -1px rgb(148 210 189 / 0.2), 0 2px 4px -2px rgb(148 210 189 / 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Efecto de brillo sutil en la esquina */
+  .text-content-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  :global(.dark) .text-content-card {
+    color: #E0FBFC;
+    background: linear-gradient(135deg, #0a1f23 0%, #163339 100%); /* Azul oscuro verdoso */
+    border-color: #0f80cf; /* Turquesa brillante */
+    box-shadow: 0 4px 6px -1px rgb(15 128 207 / 0.3), 0 2px 4px -2px rgb(15 128 207 / 0.2);
+  }
+  
+  :global(.dark) .text-content-card::before {
+    background: radial-gradient(circle, rgba(15, 128, 207, 0.15) 0%, transparent 70%);
+  }
+  
+  .text-content-card p {
+    margin-bottom: 1.25rem;
+  }
+  
+  .text-content-card p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Figcaption - Prevenir overflow con URLs largas */
+  .figcaption-text {
+    overflow-wrap: break-word;
+  }
+  
+  /* URLs y enlaces largos en figcaption */
+  .figcaption-text :global(a),
+  .figcaption-text :global(.break-words) {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+  
   /* Support for italic text emphasis */
-  .text-content em {
+  .text-content em,
+  .text-content-card em {
     font-style: italic;
     font-weight: 500;
   }
   
   /* Support for bold text */
-  .text-content strong {
+  .text-content strong,
+  .text-content-card strong {
     font-weight: 600;
   }
   
-  :global(.dark) .text-content strong {
+  :global(.dark) .text-content strong,
+  :global(.dark) .text-content-card strong {
     color: #f1f5f9;
   }
   
   @media (max-width: 768px) {
     .text-content {
       font-size: 1rem; /* 16px on mobile */
+    }
+    
+    .text-content-card {
+      font-size: 1.125rem; /* 18px on mobile - un poco más grande que default */
+      padding: 1.5rem;
     }
   }
 </style>

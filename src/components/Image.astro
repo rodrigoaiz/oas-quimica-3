@@ -14,7 +14,6 @@
  */
 
 import { Image as AstroImage } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 
 interface Props {
   src: ImageMetadata | string;
@@ -26,10 +25,10 @@ interface Props {
   class?: string;
 }
 
-const { src, alt, caption, size = "md", rounded = true, shadow = true, class: className = "" } = Astro.props;
+const { src, alt, caption, size = "md", rounded = true, shadow = true, class: className = "" } = Astro.props as Props;
 
 // Mapear tamaños a clases de Tailwind
-const sizeClasses = {
+const sizeClasses: Record<"sm" | "md" | "lg" | "full", string> = {
   sm: "max-w-sm", // ~384px
   md: "max-w-xl", // ~672px
   lg: "max-w-2xl", // ~896px

@@ -1,50 +1,116 @@
 ---
-title: "Evidencias de reacción"
+title: "Equilibrio químico"
 order: 2
 oaSlug: "oa3"
-screenSlug: "evidencias"
+screenSlug: "equilibrio-quimico"
 ---
 
-## ¿Cómo saber si ocurrió una reacción química?
+import Prose from '@/components/Prose.astro';
+import Math from '@/components/Math.astro';
+import Image from '@/components/Image.astro';
+import ImageText from '@/components/ImageText.astro';
+import VideoModal from '@/components/VideoModal.astro';
+import Modal from '@/components/Modal.astro';
+import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
+import Matching from '@/components/Activity/Matching.jsx';
+import oa3p2img01 from '@/assets/images/oa3/oa3p2-img01.jpg';
 
-Existen indicadores observables que revelan transformaciones químicas:
+## Constante de Equilibrio
 
-### 1. Cambio de color 🎨
-- Oxidación del hierro: gris metálico → rojo óxido
-- Maduración de frutas: verde → amarillo/rojo
-- Indicadores ácido-base: fenolftaleína incolora → rosa
+<Prose>
+  Siempre nos han enseñado que las reacciones químicas se llevan a cabo partiendo de reactivos para formar productos, pero ¿alguna vez te has llegado a imaginar que al formarse los productos estos interactúan entre sí y se forman reactivos?
 
-### 2. Formación de precipitado ☁️
-- Mezcla de soluciones forma sólido insoluble
-- Ejemplo: AgNO₃ + NaCl → AgCl↓ (precipitado blanco)
+  Cuando así ocurre se dice que se tiene una reacción reversible (en las ecuaciones químicas se representa por medio de dos flechas, ⇄), esto sucede cuando la reacción se lleva a cabo en disolución, estas reacciones tienen una peculiaridad y es que después de un tiempo las concentraciones de las especies tanto productos como reactivos permanecerán constantes (no implica que sean iguales) y se dice que se ha alcanzado el “equilibrio químico”.
 
-### 3. Formación de gas 💨
-- Burbujas en reacciones
-- Vinagre + bicarbonato → CO₂ (burbujas)
-- Digestión de alimentos → gases intestinales
+  Los noruegos Cato Guldberg y Peter Waage en 1864 establecieron una ley que permite tener un parámetro que describe la condición de equilibrio químico y es conocida como la “ley de acción de masas” y el parámetro es conocido como la “constante de equilibrio <Math formula="(K_{eq})" /> en términos de la ley de acción de masas” y establece que:
+</Prose>
+<ImageText
+  src={oa3p2img01}
+  alt="Ecuacion quimica equilibrio"
+  imagePosition="left"
+  imageSize="md"
+  variant='card'
+  caption='Peter Waage (Noruega 1833-1900, izquierda) y Cato Guldberg (Noruega 1836-1902, derecha) 
+  https://images.app.goo.gl/jtEejHSMVr3njH438'
+>
+  <p class="text-xl">La constante de equilibrio será igual a  la multiplicación de las concentraciones de los productos divididas entre la multiplicación de las concentraciones de los reactivos cada una de ellas elevadas a su coeficiente estequiométrico</p>
+</ImageText>
+<Prose>
+  Para comprender mejor lo anterior, veamos un ejemplo.
+  
+  El amoniaco, un gas, es posible producirlo a través de una reacción entre hidrógeno y nitrógeno gaseosos, como ya se revisó anteriormente, en la literatura se puede encontrar que esta reacción se representa por medio de la siguiente ecuación química:
 
-### 4. Cambio de temperatura 🌡️
-- **Exotérmica**: libera calor (se calienta)
-- **Endotérmica**: absorbe calor (se enfría)
+  <Math formula='3H_2(g) + N_2(g) \rightleftharpoons 2NH_3(g)' display />
 
-### 5. Emisión de luz ✨
-- Combustión (fuego)
-- Quimioluminiscencia (luciérnagas, glow sticks)
+  El valor de la constante de equilibrio <Math formula="(K_{eq})" /> a 200°C es 6,727,865.16, la expresión de ley de acción de masas para la constante es:
 
-import MCQ from '@/components/Activity/MCQ.jsx';
+  <Math formula='K_{eq} = 6727865.16 = \frac{[NH_{3(g)}]^2}{[H_{2(g)}]^3[N_{2(g)}]}' display />
 
-<MCQ 
-  client:load 
-  question="¿Cuál NO es evidencia de una reacción química?" 
-  options={[
-    "Cambio de color",
-    "Cambio de estado (hielo→agua)",
-    "Formación de gas",
-    "Cambio de temperatura"
-  ]} 
-  correctIndex={1} 
-  feedback={{
-    correct: "¡Correcto! El cambio de estado (fusión) es un cambio físico, no químico. Las moléculas siguen siendo H₂O.",
-    incorrect: "Piensa: ¿en un cambio físico se forman nuevas sustancias? ¿O solo cambia la forma/estado?"
-  }} 
-/>
+  El valor de la constante de equilibrio al ser mayor que uno implica que el valor del numerador es mayor que el del denominador, por tanto, implica que se tienen en mayor proporción a los productos o bien que la concentración de estos es mayor con respecto a los reactivos, es decir, la reacción se ve favorecida hacia la formación de productos.
+
+  Cuando se tiene una Keq menor a la unidad implica que el denominador es mayor que el numerador, por tanto, las concentraciones de reactivos son mayores que las de productos, es decir la reacción se favorece hacia reactivos. De acuerdo con el valor de la constante de equilibrio se pueden identificar dos tipos de reacciones:
+
+  - <Math formula="(K_{eq}) ≥ 1" />, la reacción es <em>espontánea</em>, es decir se ve favorecida la formación de productos (especies químicas a la derecha de la ecuación química).
+  - <Math formula="(K_{eq}) < 1" />, la reacción es <em>no espontánea</em>, es decir se ve favorecida la formación de reactivos (especies químicas a la izquierda de la ecuación química).
+  
+  Para reforzar tus aprendizajes sobre la constante de equilibrio te invitamos a ver el siguiente video. Nota: Recuerda activar los subtítulos del video en español.
+  <Modal triggerClass='mx-auto' id="mi-modal" title="The Equilibrium Constant" triggerText="Mira el video sobre la constante de equilibrio">
+    <iframe id="embed-iframe" allowTransparency="true" allow="encrypted-media *" allowfullscreen height="415" width="460" border="0" scrolling="no" frameborder="0" marginwheight="0" marginwidth="0" src="https://app.jove.com/embed/player?id=11386&access=5d16ed0a46&t=1&s=1&fpv=1"></iframe>
+    <p>Liga al <a href="https://app.jove.com/science-education/v/11386/the-equilibrium-constant" target='_blank'>video</a>.</p>
+  </Modal>
+
+  ### Ejercicio de opción múltiple
+
+  Responde la siguiente pregunta seleccionando la opción que consideres correcta.
+  
+  <MCQQuiz 
+      client:load
+      questions={[
+        {
+          question: "El equilibrio químico en una reacción reversible que se tiene cuando:",
+          options: [
+            "Las concentraciones de productos son mayores que las de reactivos.",
+            "Las concentraciones de reactivos y productos son constantes.",
+            "Las concentraciones de reactivos son mayores que las de productos.",
+            "Las concentraciones de reactivos y productos son iguales."
+          ],
+          correctIndex: 1,
+          feedback: {
+            correct: "En el equilibrio químico los reactivos forman productos y los productos forman reactivos y llega un momento en que las concentraciones tanto de reactivos como de productos ya no cambian y se dice que permanecen constantes.",
+            incorrect: "No es correcto, en el equilibrio químico las concentraciones de reactivos y productos permanecen constantes, no necesariamente son iguales o unas mayores que otras."
+          }
+        },
+      ]}
+    />
+
+### Ejercicio de seleccionar
+
+
+  <Matching
+    client:load
+    question="Completa los enunciados correctamente con una de las opciones que se muestran."
+    pairs={[
+      {
+        description: 'Una reacción en equilibrio con K<em>eq</em> = 25000 se considera que es una ______________.',
+        correctAnswer: 'reacción espontánea',
+        options: ['reacción espontánea', 'reacción no simultánea', 'reacción no espontánea', 'reacción simultánea']
+      },
+      {
+        description: 'Una reacción en equilibrio con K<em>eq</em> = 25000 se considera que es una ______________.',
+        correctAnswer: 'reacción no espontánea',
+        options: ['reacción espontánea', 'reacción no simultánea', 'reacción no espontánea', 'reacción simultánea']
+      }
+    ]}
+    feedback={{
+    correct: ' Las reacciones en equilibrio químico tienen asociada una constante de equilibrio (K<em>eq</em>) la cual tiene siempre valores positivos que pueden ser menores a uno o mayores que uno y con base en ello se establece que: K<em>eq</em>>1 la reacción se considera es espontánea, es decir se tendrán más productos que reactivos K<em>eq</em><1 la reacción se considera es NO espontánea, es decir se tendrán más reactivos que productos',
+      incorrect: 'No es correcto, vuelve a intentarlo.'
+    }}
+  />
+
+
+</Prose>
+
+
+
+
+

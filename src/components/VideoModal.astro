@@ -1,0 +1,292 @@
+---
+/**
+ * VideoModal Component
+ * Modal nativo con <dialog> para mostrar videos embebidos
+ * 
+ * @param id - ID único para el modal
+ * @param triggerText - Texto del botón que abre el modal
+ * @param videoUrl - URL del video (YouTube, Vimeo, etc.)
+ * @param title - Título del video (opcional)
+ */
+
+interface Props {
+  id: string;
+  triggerText: string;
+  videoUrl: string;
+  title?: string;
+  triggerClass?: string;
+}
+
+const { id, triggerText, videoUrl, title, triggerClass = '' } = Astro.props as Props;
+
+// Convertir URLs de YouTube a embed
+function getEmbedUrl(url: string): string {
+  // YouTube watch URLs
+  if (url.includes('youtube.com/watch')) {
+    const videoId = new URL(url).searchParams.get('v');
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+  // YouTube short URLs
+  if (url.includes('youtu.be/')) {
+    const videoId = url.split('youtu.be/')[1].split('?')[0];
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+  // Vimeo URLs
+  if (url.includes('vimeo.com/')) {
+    const videoId = url.split('vimeo.com/')[1].split('?')[0];
+    return `https://player.vimeo.com/video/${videoId}`;
+  }
+  // Asumir que ya es embed URL
+  return url;
+}
+
+const embedUrl = getEmbedUrl(videoUrl);
+---
+
+<button 
+  type="button"
+  class={`video-modal-trigger ${triggerClass}`}
+  data-modal-id={id}
+>
+  {triggerText}
+</button>
+
+<dialog id={id} class="video-modal">
+  <div class="modal-content">
+    <header class="modal-header">
+      {title && <h3 class="modal-title">{title}</h3>}
+      <button 
+        type="button"
+        class="modal-close"
+        aria-label="Cerrar modal"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </header>
+    
+    <div class="video-container">
+      <iframe
+        src={embedUrl}
+        title={title || "Video"}
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .video-modal-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0a7abf 100%);
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+  }
+  
+  .video-modal-trigger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(15, 128, 207, 0.3);
+  }
+  
+  .video-modal-trigger:active {
+    transform: translateY(0);
+  }
+  
+  :global(.dark) .video-modal-trigger {
+    background: linear-gradient(135deg, #0f80cf 0%, #0a5a8f 100%);
+  }
+  
+  /* Dialog nativo */
+  .video-modal {
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 900px;
+    padding: 0;
+    border: none;
+    border-radius: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    background: white;
+    overflow: hidden;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  :global(.dark) .video-modal {
+    background: #0a1f23;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Backdrop del dialog */
+  .video-modal::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+  }
+  
+  :global(.dark) .video-modal::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+  }
+  
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #E1FCEE 0%, #C4F1E0 100%);
+    border-bottom: 2px solid #94D2BD;
+  }
+  
+  :global(.dark) .modal-header {
+    background: linear-gradient(135deg, #0a1f23 0%, #163339 100%);
+    border-bottom-color: #0f80cf;
+  }
+  
+  .modal-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #001219;
+  }
+  
+  :global(.dark) .modal-title {
+    color: #E0FBFC;
+  }
+  
+  .modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    background: rgba(148, 210, 189, 0.2);
+    border: 2px solid #94D2BD;
+    border-radius: 0.75rem;
+    color: #001219;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .modal-close:hover {
+    background: #94D2BD;
+    transform: rotate(90deg);
+  }
+  
+  :global(.dark) .modal-close {
+    background: rgba(15, 128, 207, 0.2);
+    border-color: #0f80cf;
+    color: #E0FBFC;
+  }
+  
+  :global(.dark) .modal-close:hover {
+    background: #0f80cf;
+  }
+  
+  /* Video container con aspect ratio */
+  .video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    background: #000;
+  }
+  
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .video-modal {
+      width: 95vw;
+      max-width: 95vw;
+      border-radius: 1rem;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .modal-header {
+      padding: 1rem;
+    }
+    
+    .modal-title {
+      font-size: 1rem;
+    }
+    
+    .modal-close {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+</style>
+
+<script>
+  // Abrir modal
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as HTMLElement).closest('[data-modal-id]') as HTMLElement;
+    if (trigger) {
+      const modalId = trigger.dataset.modalId;
+      if (modalId) {
+        const modal = document.getElementById(modalId) as HTMLDialogElement;
+        if (modal) {
+          modal.showModal();
+        }
+      }
+    }
+  });
+  
+  // Cerrar modal
+  document.addEventListener('click', (e) => {
+    const closeBtn = (e.target as HTMLElement).closest('.modal-close');
+    if (closeBtn) {
+      const modal = closeBtn.closest('dialog') as HTMLDialogElement;
+      if (modal) {
+        modal.close();
+      }
+    }
+  });
+  
+  // Cerrar al hacer click en el backdrop
+  document.addEventListener('click', (e) => {
+    const dialog = (e.target as HTMLElement).closest('dialog');
+    if (dialog && e.target === dialog) {
+      const rect = dialog.getBoundingClientRect();
+      const clickedInDialog = (
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width
+      );
+      
+      if (!clickedInDialog) {
+        dialog.close();
+      }
+    }
+  });
+</script>

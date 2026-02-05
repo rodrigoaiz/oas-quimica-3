@@ -1,0 +1,306 @@
+---
+/**
+ * Modal Component - Universal
+ * Modal nativo con <dialog> para cualquier contenido
+ * 
+ * @param id - ID único para el modal
+ * @param triggerText - Texto del botón que abre el modal (opcional si usas slot:trigger)
+ * @param title - Título del modal (opcional)
+ * @param size - Tamaño del modal: 'sm' | 'md' | 'lg' | 'xl' (default: 'md')
+ * 
+ * Slots:
+ * - default: Contenido del modal
+ * - trigger: Botón personalizado para abrir el modal (opcional)
+ */
+
+interface Props {
+  id: string;
+  triggerText?: string;
+  title?: string;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  class?: string;
+  triggerClass?: string;
+}
+
+const { id, triggerText, title, size = 'md', class: className = '', triggerClass = '' } = Astro.props as Props;
+
+const sizeClasses: Record<'sm' | 'md' | 'lg' | 'xl', string> = {
+  sm: 'max-w-md',
+  md: 'max-w-2xl',
+  lg: 'max-w-4xl',
+  xl: 'max-w-6xl'
+};
+
+const modalSizeClass = sizeClasses[size];
+---
+
+<slot name="trigger">
+  {triggerText && (
+    <button 
+      type="button"
+      class={`modal-trigger ${triggerClass}`}
+      data-modal-id={id}
+    >
+      {triggerText}
+    </button>
+  )}
+</slot>
+
+<dialog id={id} class={`modal ${modalSizeClass} ${className}`}>
+  <div class="modal-content">
+    {(title || Astro.slots.has('header')) && (
+      <header class="modal-header">
+        {Astro.slots.has('header') ? (
+          <slot name="header" />
+        ) : (
+          <h3 class="modal-title">{title}</h3>
+        )}
+        <button 
+          type="button"
+          class="modal-close"
+          aria-label="Cerrar modal"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </header>
+    )}
+    
+    <div class="modal-body">
+      <slot />
+    </div>
+    
+    {Astro.slots.has('footer') && (
+      <footer class="modal-footer">
+        <slot name="footer" />
+      </footer>
+    )}
+  </div>
+</dialog>
+
+<style>
+  .modal-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0a7abf 100%);
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+  }
+  
+  .modal-trigger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(15, 128, 207, 0.3);
+  }
+  
+  .modal-trigger:active {
+    transform: translateY(0);
+  }
+  
+  :global(.dark) .modal-trigger {
+    background: linear-gradient(135deg, #0f80cf 0%, #0a5a8f 100%);
+  }
+  
+  /* Dialog nativo */
+  .modal {
+    width: 90vw;
+    max-height: 90vh;
+    padding: 0;
+    border: none;
+    border-radius: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    background: white;
+    overflow: hidden;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  :global(.dark) .modal {
+    background: #0a1f23;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Backdrop del dialog */
+  .modal::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+  }
+  
+  :global(.dark) .modal::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+  }
+  
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+  }
+  
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #E1FCEE 0%, #C4F1E0 100%);
+    border-bottom: 2px solid #94D2BD;
+    flex-shrink: 0;
+  }
+  
+  :global(.dark) .modal-header {
+    background: linear-gradient(135deg, #0a1f23 0%, #163339 100%);
+    border-bottom-color: #0f80cf;
+  }
+  
+  .modal-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #001219;
+  }
+  
+  :global(.dark) .modal-title {
+    color: #E0FBFC;
+  }
+  
+  .modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    background: rgba(148, 210, 189, 0.2);
+    border: 2px solid #94D2BD;
+    border-radius: 0.75rem;
+    color: #001219;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  
+  .modal-close:hover {
+    background: #94D2BD;
+    transform: rotate(90deg);
+  }
+  
+  :global(.dark) .modal-close {
+    background: rgba(15, 128, 207, 0.2);
+    border-color: #0f80cf;
+    color: #E0FBFC;
+  }
+  
+  :global(.dark) .modal-close:hover {
+    background: #0f80cf;
+  }
+  
+  .modal-body {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    color: #001219;
+  }
+  
+  :global(.dark) .modal-body {
+    color: #E0FBFC;
+  }
+  
+  .modal-footer {
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    flex-shrink: 0;
+  }
+  
+  :global(.dark) .modal-footer {
+    background: #0a1f23;
+    border-top-color: #163339;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .modal {
+      width: 95vw;
+      border-radius: 1rem;
+    }
+    
+    .modal-header {
+      padding: 1rem;
+    }
+    
+    .modal-title {
+      font-size: 1rem;
+    }
+    
+    .modal-close {
+      width: 2rem;
+      height: 2rem;
+    }
+    
+    .modal-body {
+      padding: 1.5rem;
+    }
+    
+    .modal-footer {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Abrir modal
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as HTMLElement).closest('[data-modal-id]') as HTMLElement;
+    if (trigger) {
+      const modalId = trigger.dataset.modalId;
+      if (modalId) {
+        const modal = document.getElementById(modalId) as HTMLDialogElement;
+        if (modal) {
+          modal.showModal();
+        }
+      }
+    }
+  });
+  
+  // Cerrar modal
+  document.addEventListener('click', (e) => {
+    const closeBtn = (e.target as HTMLElement).closest('.modal-close');
+    if (closeBtn) {
+      const modal = closeBtn.closest('dialog') as HTMLDialogElement;
+      if (modal) {
+        modal.close();
+      }
+    }
+  });
+  
+  // Cerrar al hacer click en el backdrop
+  document.addEventListener('click', (e) => {
+    const dialog = (e.target as HTMLElement).closest('dialog');
+    if (dialog && e.target === dialog) {
+      const rect = dialog.getBoundingClientRect();
+      const clickedInDialog = (
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width
+      );
+      
+      if (!clickedInDialog) {
+        dialog.close();
+      }
+    }
+  });
+</script>

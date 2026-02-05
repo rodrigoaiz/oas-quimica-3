@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 /**
  * Matching Activity Component - Versión simplificada
@@ -13,7 +13,25 @@ export default function Matching({
   pairs = [],
   feedback = { correct: '¡Correcto!', incorrect: 'Revisa tus respuestas.' }
 }) {
-  const [answers, setAnswers] = useState(Array(pairs.length).fill(''));
+  // Función para mezclar un array (Fisher-Yates shuffle)
+  const shuffleArray = (array) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  // Mezclar las opciones una sola vez al montar el componente
+  const shuffledPairs = useMemo(() => {
+    return pairs.map(pair => ({
+      ...pair,
+      options: shuffleArray(pair.options)
+    }));
+  }, [pairs]);
+
+  const [answers, setAnswers] = useState(Array(shuffledPairs.length).fill(''));
   const [submitted, setSubmitted] = useState(false);
 
   const handleSelect = (index, value) => {
@@ -28,25 +46,26 @@ export default function Matching({
   };
 
   const handleReset = () => {
-    setAnswers(Array(pairs.length).fill(''));
+    setAnswers(Array(shuffledPairs.length).fill(''));
     setSubmitted(false);
   };
 
   const allAnswered = answers.every(answer => answer !== '');
-  const isCorrect = submitted && pairs.every((pair, i) => answers[i] === pair.correctAnswer);
+  const isCorrect = submitted && shuffledPairs.every((pair, i) => answers[i] === pair.correctAnswer);
 
   return (
     <div className="matching-activity my-6 p-4 md:p-6 rounded-2xl border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 bg-linear-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 shadow-lg">
       {/* Pregunta */}
       <div className="mb-4 md:mb-6">
-        <p className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 leading-relaxed">
-          {question}
-        </p>
+        <p 
+          className="text-base md:text-lg font-semibold text-gray-900 dark:text-gray-100 leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: question }}
+        />
       </div>
 
       {/* Tabla de matching */}
       <div className="space-y-3 mb-6">
-        {pairs.map((pair, index) => {
+        {shuffledPairs.map((pair, index) => {
           const isThisCorrect = submitted && answers[index] === pair.correctAnswer;
           const isThisIncorrect = submitted && answers[index] && answers[index] !== pair.correctAnswer;
 
@@ -64,9 +83,10 @@ export default function Matching({
               }`}
             >
               {/* Descripción */}
-              <div className="mb-3 text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed">
-                {pair.description}
-              </div>
+              <div 
+                className="mb-3 text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: pair.description }}
+              />
 
               {/* Selector */}
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
@@ -109,7 +129,7 @@ export default function Matching({
               {/* Mostrar respuesta correcta si es incorrecta */}
               {submitted && isThisIncorrect && (
                 <div className="mt-2 text-xs md:text-sm text-amber-700 dark:text-amber-300 font-medium">
-                  Respuesta correcta: <strong>{pair.correctAnswer}</strong>
+                  Respuesta correcta: <strong dangerouslySetInnerHTML={{ __html: pair.correctAnswer }} />
                 </div>
               )}
             </div>
@@ -136,12 +156,12 @@ export default function Matching({
             {isCorrect ? (
               <>
                 <span className="text-xl mr-2">✓</span>
-                {feedback.correct}
+                <span dangerouslySetInnerHTML={{ __html: feedback.correct }} />
               </>
             ) : (
               <>
                 <span className="text-xl mr-2">✗</span>
-                {feedback.incorrect}
+                <span dangerouslySetInnerHTML={{ __html: feedback.incorrect }} />
               </>
             )}
           </p>
