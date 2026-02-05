@@ -13,6 +13,7 @@ import Callout from '@/components/Callout.astro';
 import Modal from '@/components/Modal.astro';
 import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
 import Matching from '@/components/Activity/Matching.jsx';
+import Ordering from '@/components/Activity/Ordering.jsx';
 
 <Prose>
   Hace más de 120 años, Svante Arrhenius descubrió que algunas disoluciones conducían la electricidad, debido a que el soluto que contenían se disolvía inmediatamente formando partículas con carga llamadas iones, pero otros no conducían tanto porque estaban disociados de manera parcial ¿Te fijaste que se ha empleado una nueva palabra?: *disociación*, es un proceso por el cual los iones de un compuesto, por ejemplo, el caso de una sal, se separan al disolverse en el agua, así que la *ionización* es la formación de iones.
@@ -176,3 +177,23 @@ import Matching from '@/components/Activity/Matching.jsx';
     ¿Qué te hacen pensar estos resultados?
   </Callout>
 </Breakout>
+
+<Ordering
+  client:load
+  layout="horizontal"
+  question="Arrastra los elementos de la reacción de disociación para el ácido"
+  description="En productos como la leche, el yogurt, los quesos se tiene presente el ácido láctico, en la leche este se encuentra en una concentración aproximada de 0.021 M.
+"
+  items={[
+    { id: 'dos', formula: '\\rightleftharpoons' },
+    { id: 'cinco', formula: 'H^{+-}' },
+    { id: 'uno', formula: 'CH_3CHOHCOOH' },
+    { id: 'cuatro', formula: '+-' },
+    { id: 'tres', formula: 'CH_3CHOHCOOH^-' },
+  ]}
+  correctOrder={['uno', 'dos', 'tres', 'cuatro', 'cinco']}
+  feedback={{
+    correct: "La reacción de disociación es aquella en la que un compuesto al agregarse en un disolvente, comúnmente agua, tendrá interacción con este para tener una reacción que alcanza el equilibrio químico en la que los productos son los componentes iónicos del compuesto, es decir como reactivo se tiene al compuesto y como productos a sus iones.",
+    incorrect: "Revisa el orden. Recuerda que en una reacción de disociación, el reactivo es el compuesto y los productos son los iones que se forman al disociarse."
+  }}
+/>
