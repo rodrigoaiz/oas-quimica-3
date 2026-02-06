@@ -11,7 +11,9 @@ import Math from '@/components/Math.astro';
 import Image from '@/components/Image.astro';
 import Callout from '@/components/Callout.astro';
 import Modal from '@/components/Modal.astro';
+import QuestionSet from '@/components/Activity/QuestionSet.astro';
 import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
+import Question from '@/components/Activity/Question.astro';
 import Matching from '@/components/Activity/Matching.jsx';
 import Ordering from '@/components/Activity/Ordering.jsx';
 
@@ -177,23 +179,82 @@ import Ordering from '@/components/Activity/Ordering.jsx';
     ¿Qué te hacen pensar estos resultados?
   </Callout>
 </Breakout>
+<QuestionSet>
+  <Ordering
+    client:load
+    layout="horizontal"
+    question="Arrastra los elementos de la reacción de disociación para el ácido"
+    description="En productos como la leche, el yogurt, los quesos se tiene presente el ácido láctico, en la leche este se encuentra en una concentración aproximada de 0.021 M.
+  "
+    items={[
+      { id: 'dos', formula: '\\rightleftharpoons' },
+      { id: 'cinco', formula: 'H^{+-}' },
+      { id: 'uno', formula: 'CH_3CHOHCOOH' },
+      { id: 'cuatro', formula: '+-' },
+      { id: 'tres', formula: 'CH_3CHOHCOOH^-' },
+    ]}
+    correctOrder={['uno', 'dos', 'tres', 'cuatro', 'cinco']}
+    feedback={{
+      correct: "La reacción de disociación es aquella en la que un compuesto al agregarse en un disolvente, comúnmente agua, tendrá interacción con este para tener una reacción que alcanza el equilibrio químico en la que los productos son los componentes iónicos del compuesto, es decir como reactivo se tiene al compuesto y como productos a sus iones.",
+      incorrect: "Revisa el orden. Recuerda que en una reacción de disociación, el reactivo es el compuesto y los productos son los iones que se forman al disociarse."
+    }}
+  />
+  <Prose>
+      <Question>
+        <p slot="question">
+          Considerando que la concentración es 0.021 M y la K<sub>a</sub> = 1.3183x10<sup>-4 </sup>determinar el pH de la leche (considera que la concentración inicial para el ácido prácticamente no cambia).
+        </p>
 
-<Ordering
-  client:load
-  layout="horizontal"
-  question="Arrastra los elementos de la reacción de disociación para el ácido"
-  description="En productos como la leche, el yogurt, los quesos se tiene presente el ácido láctico, en la leche este se encuentra en una concentración aproximada de 0.021 M.
-"
-  items={[
-    { id: 'dos', formula: '\\rightleftharpoons' },
-    { id: 'cinco', formula: 'H^{+-}' },
-    { id: 'uno', formula: 'CH_3CHOHCOOH' },
-    { id: 'cuatro', formula: '+-' },
-    { id: 'tres', formula: 'CH_3CHOHCOOH^-' },
-  ]}
-  correctOrder={['uno', 'dos', 'tres', 'cuatro', 'cinco']}
-  feedback={{
-    correct: "La reacción de disociación es aquella en la que un compuesto al agregarse en un disolvente, comúnmente agua, tendrá interacción con este para tener una reacción que alcanza el equilibrio químico en la que los productos son los componentes iónicos del compuesto, es decir como reactivo se tiene al compuesto y como productos a sus iones.",
-    incorrect: "Revisa el orden. Recuerda que en una reacción de disociación, el reactivo es el compuesto y los productos son los iones que se forman al disociarse."
-  }}
-/>
+        <p slot="answer">
+          Respuesta: pH = 2.88
+        </p>      
+        <div slot="feedback">
+          <p>El cálculo de pH para un ácido débil (identificable por tener valor de pKa) se realiza estimando la cantidad que se disocia, con lo que se obtiene la concentración de iones hidrógeno ([H+]) y al aplicar el -log a la cantidad obtenida se determina el pH.</p>
+        </div>
+      </Question>
+  </Prose>
+  <Ordering
+    client:load
+    layout="horizontal"
+    question="Arrastra los elementos de la reacción de disociación para el ácido"
+    description="El amonio es una especie ácida que se encuentra en productos de limpieza, como pulidores de pisos y limpiadores de vidrios, suele estar en una concentración aproximada de 2.86 M."
+    items={[
+      { id: 'dos', formula: '\\rightleftharpoons' },
+      { id: 'cinco', formula: 'H^{+-}' },
+      { id: 'uno', formula: 'NH_4^{+-}' },
+      { id: 'cuatro', formula: '+-' },
+      { id: 'tres', formula: 'NH_3' },
+    ]}
+    correctOrder={['uno', 'dos', 'tres', 'cuatro', 'cinco']}
+    feedback={{
+      correct: "La reacción de disociación es aquella en la que un compuesto al agregarse en un disolvente, comúnmente agua, tendrá interacción con este para tener una reacción que alcanza el equilibrio químico en la que los productos son los componentes iónicos del compuesto, es decir como reactivo se tiene al compuesto y como productos a sus iones.",
+      incorrect: "Revisa el orden. Recuerda que en una reacción de disociación, el reactivo es el compuesto y los productos son los iones que se forman al disociarse."
+    }}
+  />
+  <Prose>
+    <Question>
+      <p slot="question">
+        Considerando que la concentración es 2.86 M y la K<sub>a</sub> = 5.623x10<sup>-10</sup> determinar el pH del limpiador (considera que la concentración inicial para el ácido prácticamente no cambia).
+      </p>
+
+      <p slot="answer">
+        Respuesta: pH = 4.40
+      </p>      
+      <div slot="feedback">
+        <p>El cálculo de pH para un ácido débil (identificable por tener valor de pK<sub>a</sub>) se realiza estimando la cantidad que se disocia, con lo que se obtiene la concentración de iones hidrógeno ([H<sup>+</sup>]) y al aplicar el -log a la cantidad obtenida se determina el pH.</p>
+      </div>
+    </Question>
+    <Question>
+      <p slot="question">
+        Considerando los cálculos realizados en los ejercicios 1 y 2 ¿qué disolución es más ácida, la leche o el limpiador?
+      </p>
+
+      <p slot="answer">
+        La leche
+      </p>      
+      <div slot="feedback">
+        <p>Entre menor sea el pH de una disolución esta será más ácida.</p>
+      </div>
+    </Question>
+  </Prose>
+</QuestionSet>
