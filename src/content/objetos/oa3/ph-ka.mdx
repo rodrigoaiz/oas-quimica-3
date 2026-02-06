@@ -29,13 +29,11 @@ import Ordering from '@/components/Activity/Ordering.jsx';
   Una forma simplificada de escribir la ecuación anterior es omitir el agua, pero se debe sobrentender que siempre está presente:
 
   <Math formula='NaCl_{(s)} + H_2O_{(l)} \xrightarrow{} Na^+_{(ac)} + Cl^-_{(ac)}' display />
-</Prose>
-<Breakout>
+
   <Callout variant='warning' title='Toma en cuenta'>
     Te fijaste que en cada ion aparece un subíndice (ac) que significa acuosa, es decir indica que las especies están en disolución acuosa, en lo subsecuente lo omitiremos, pero debes recordar que son especies disueltas.
   </Callout>
-</Breakout>
-<Prose>
+
   Cuando el compuesto se disocia completamente recibe el nombre de electrolito fuerte. Entonces, un electrolito es una especie química capaz de conducir la corriente eléctrica.
   
   Hay algunos otros electrolitos que, primeramente, se disocian poco y son malas conductoras de la electricidad y se denominan electrolitos débiles.
@@ -121,23 +119,19 @@ import Ordering from '@/components/Activity/Ordering.jsx';
   <Math formula='pH = -\log[H^+]' display />
   <Math formula='pH = -\log(0.1)' display />
   <Math formula='pH = 1' display />
-</Prose>
-<Breakout>
+
   <Callout variant='info'>
     <p class="mx-auto text-xl text-center">¿Ocurrirá lo mismo con un ácido débil a la misma concentración?</p>
   </Callout>
-</Breakout>
-<Prose>
+
   Pensemos en el ácido acético, con concentración también 0.1 M. Escribiremos primeramente la disociación y luego como sabemos que es débil, representaremos la ley de acción de masas ¿Recuerdas que tiene un valor de Ka?
   <Math formula='CH_3COOH \rightleftharpoons H^+ + CH_3COO^-' display />
   <Math formula='K_a = 1.8 x 10^{-5} = \frac{[H^+][\text{CH}_3\text{COO}^-]}{[\text{CH}_3\text{COOH}]}' display />
-</Prose>
-<Breakout>
+
   <Callout variant='info'>
     <p class="mx-auto text-xl text-center">¿Será posible saber la cantidad en concentración molar que se tiene de iones hidrógeno?</p>
   </Callout>
-</Breakout>
-<Prose>
+
   De manera directa, no, porque la disociación es parcial, entonces tenemos que resolver de otra manera. Como no sabemos cuánto de disocia, asumiremos que es una incógnita y la representaremos como x, para ambos iones porque también recordarás que en el equilibrio la cantidad de iones hidrógeno es la misma que la del ion acetato, ya que en la ecuación el coeficiente estequiométrico en uno para ambos iones. También tenemos que reflexionar que el ácido acético como no se disocia totalmente, la mayor parte de él queda con la misma concentración, o sea 0.1 M.
 
   <Math formula='[H^+] = [CH_3COO^-]' display />
@@ -155,13 +149,11 @@ import Ordering from '@/components/Activity/Ordering.jsx';
   <Math formula='x=4.24x10-4' display />
   <Math formula='x=[H^+]' display />
   <Math formula='[H^+]=4.24 x 10^{-4}' display />
-</Prose>
-<Breakout>
+
   <Callout variant='warning' title='Importante'>
     <p class="mx-auto text-xl text-center">La consideración de que la concentración inicial para el ácido prácticamente no cambia es válida solo si el ácido se disocia poco y esto se da a concentraciones relativamente grandes, en general mayores a 0.1 M</p>
   </Callout>
-</Breakout>
-<Prose>
+
   Esta cantidad tiene unidades de molaridad porque acuérdate que la ley de acción de masas implica concentraciones molares.
   
   Ahora bien, si tenemos el valor de la concentración de iones hidrógeno, entonces podremos calcular el pH del ácido acético.
@@ -169,8 +161,7 @@ import Ordering from '@/components/Activity/Ordering.jsx';
   <Math formula='pH = -\log[H^+]' display />
   <Math formula='pH = -\log(4.24 x 10^{-4})' display />
   <Math formula='pH = 3.37' display />
-</Prose>
-<Breakout>
+
   <Callout variant='info' title='Importante'>
     ¡Qué diferencia tan grande entre el pH de un ácido fuerte y un ácido débil!
     
@@ -178,8 +169,11 @@ import Ordering from '@/components/Activity/Ordering.jsx';
     
     ¿Qué te hacen pensar estos resultados?
   </Callout>
-</Breakout>
-<QuestionSet>
+
+  <QuestionSet>
+
+    ### Ejercicio práctico
+
   <Ordering
     client:load
     layout="horizontal"
@@ -199,7 +193,7 @@ import Ordering from '@/components/Activity/Ordering.jsx';
       incorrect: "Revisa el orden. Recuerda que en una reacción de disociación, el reactivo es el compuesto y los productos son los iones que se forman al disociarse."
     }}
   />
-  <Prose>
+
       <Question>
         <p slot="question">
           Considerando que la concentración es 0.021 M y la K<sub>a</sub> = 1.3183x10<sup>-4 </sup>determinar el pH de la leche (considera que la concentración inicial para el ácido prácticamente no cambia).
@@ -212,7 +206,7 @@ import Ordering from '@/components/Activity/Ordering.jsx';
           <p>El cálculo de pH para un ácido débil (identificable por tener valor de pKa) se realiza estimando la cantidad que se disocia, con lo que se obtiene la concentración de iones hidrógeno ([H+]) y al aplicar el -log a la cantidad obtenida se determina el pH.</p>
         </div>
       </Question>
-  </Prose>
+
   <Ordering
     client:load
     layout="horizontal"
@@ -231,7 +225,7 @@ import Ordering from '@/components/Activity/Ordering.jsx';
       incorrect: "Revisa el orden. Recuerda que en una reacción de disociación, el reactivo es el compuesto y los productos son los iones que se forman al disociarse."
     }}
   />
-  <Prose>
+
     <Question>
       <p slot="question">
         Considerando que la concentración es 2.86 M y la K<sub>a</sub> = 5.623x10<sup>-10</sup> determinar el pH del limpiador (considera que la concentración inicial para el ácido prácticamente no cambia).
@@ -256,5 +250,5 @@ import Ordering from '@/components/Activity/Ordering.jsx';
         <p>Entre menor sea el pH de una disolución esta será más ácida.</p>
       </div>
     </Question>
-  </Prose>
-</QuestionSet>
+  </QuestionSet>
+</Prose>

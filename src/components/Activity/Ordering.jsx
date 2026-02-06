@@ -92,7 +92,7 @@ export default function Ordering({
   const getItemById = (id) => items.find(item => item.id === id);
 
   return (
-    <div className="ordering-activity my-6 p-4 md:p-6 rounded-2xl border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 bg-gradient-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 shadow-lg">
+    <div className="not-prose w-screen max-w-screen-xl relative left-1/2 -translate-x-1/2 ordering-activity my-6 px-4 md:px-8 py-4 md:py-6 rounded-2xl border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/50 bg-gradient-to-br from-(--color-primary)/5 to-(--color-primary)/10 dark:from-slate-800 dark:to-slate-900 shadow-lg">
       {/* Pregunta */}
       <div className="mb-4 md:mb-6">
         <p 
