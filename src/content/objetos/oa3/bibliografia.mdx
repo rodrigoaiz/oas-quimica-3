@@ -1,0 +1,92 @@
+---
+title: "Bibliografía"
+order: 6
+---
+import Prose from '@/components/Prose.astro';
+import Hr from '@/components/Hr.astro';
+import BibliographyHeader from '@/components/BibliographyHeader.astro';
+import BibliographySection from '@/components/BibliographySection.astro';
+import BibliographyItem from '@/components/BibliographyItem.astro';
+import BibliographyNote from '@/components/BibliographyNote.astro';
+
+<Prose>
+   
+  {/* Header principal */}
+  <BibliographyHeader />
+
+  {/* Libros */}
+  <BibliographySection title="Libros" icon="📚" type="book">
+    <BibliographyItem 
+      authors="Hein, M. y Arena, S."
+      year={2001}
+      title="Fundamentos de química."
+      publisher="Thomson Learning"
+      edition="10ª ed. México"
+      type="book"
+    />
+  </BibliographySection>
+
+  {/* Videos */}
+  <BibliographySection title="Videos" icon="🎥" type="article">
+    <BibliographyItem 
+      authors="JoVE"
+      year="s.f."
+      title="Equilibrio químico: 14.1. La constante de equilibrio."
+      url="https://app.jove.com/embed/player?id=11386&access=5d16ed0a46&t=1&s=1&fpv=1"
+      urlLabel="Recuperado de"
+      type="article"
+    />
+
+    <BibliographyItem 
+      authors="JoVE"
+      year="s.f."
+      title="Ácidos y bases: 5.1. Ácidos y bases de Brønsted-Lowry."
+      url="https://app.jove.com/es/embed/player?id=11733&access=b37956b70a&language=es&t=1&s=1&fpv=1"
+      urlLabel="Recuperado de"
+      type="article"
+    />
+
+    <BibliographyItem 
+      authors="JoVE"
+      year="s.f."
+      title="Equilibrio químico: 14.9. Principio de LeChatelier: cambio de temperatura."
+      url="https://app.jove.com/es/embed/player?id=11393&access=0861c62ceb&language=es&t=1&s=1&fpv=1"
+      urlLabel="Recuperado de"
+      type="article"
+    />
+
+    <BibliographyItem 
+      authors="JoVE"
+      year="s.f."
+      title="Equilibrio químico: 14.9. Principio de LeChatelier: cambio de volumen (presión)."
+      url="https://app.jove.com/es/embed/player?id=11392&access=206eb6f25d&language=es&t=1&s=1&fpv=1"
+      urlLabel="Recuperado de"
+      type="article"
+    />
+  </BibliographySection>
+
+  {/* Imágenes */}
+  <BibliographySection title="Imágenes" icon="🖼️" type="article">
+    <BibliographyItem 
+      authors="Boudewijn Huijgens"
+      year="s.f."
+      title="Guldberg und Waage 01: Dos hombres sentados uno al lado del otro en una mesa."
+      url="https://boudewijnhuijgens.getarchive.net/amp/media/guldberg-und-waage-01-1df87b"
+      urlLabel="Recuperado de"
+      type="article"
+    />
+
+    <BibliographyItem 
+      authors="ResearchGate"
+      year="s.f."
+      title="Confusing Quantitative Descriptions of Brønsted–Lowry Acid–Base Equilibria in Chemistry Textbooks – A Critical Review and Clarifications for Chemical Educators."
+      url="https://www.researchgate.net/figure/According-to-Johannes-Nicolaus-Bronsted-1879-1947-left-and-Thomas-Martin-Lowry-1874_fig1_263203160"
+      urlLabel="Recuperado de"
+      type="article"
+    />
+  </BibliographySection>
+
+  {/* Nota metodológica */}
+  <BibliographyNote />
+
+</Prose>

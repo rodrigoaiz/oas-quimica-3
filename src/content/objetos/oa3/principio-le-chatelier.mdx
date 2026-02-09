@@ -1,0 +1,195 @@
+---
+title: "Principio de Le Châtelier"
+order: 5
+oaSlug: "oa3"
+screenSlug: "principio-le-chatelier"
+---
+
+import Prose from '@/components/Prose.astro';
+import Breakout from '@/components/Breakout.astro';
+import Math from '@/components/Math.astro';
+import Image from '@/components/Image.astro';
+import Callout from '@/components/Callout.astro';
+import Modal from '@/components/Modal.astro';
+import MCQQuiz from '@/components/Activity/MCQQuiz.jsx';
+
+import oa3p5img01 from '@/assets/images/oa3/o3p5img01.webp';
+import oa3p5img02 from '@/assets/images/oa3/o3p5img02.webp';
+import oa3p5img03 from '@/assets/images/oa3/o3p5img03.webp';
+import oa3p5img04 from '@/assets/images/oa3/o3p5img04.webp';
+import oa3p5img05 from '@/assets/images/oa3/o3p5img05.webp';
+import oa3p5img06 from '@/assets/images/oa3/o3p5img06.webp';
+import oa3p5img07 from '@/assets/images/oa3/o3p5img07.webp';
+
+
+
+<Prose>
+  Cuando las reacciones químicas están en equilibrio químico hay algunos factores que lo modifican, tal es el caso de la temperatura, la concentración y la presión. Cada uno de ellos actúa de manera diferente sobre el equilibrio químico, según aumenten o disminuyan; a continuación, te decimos cómo ocurren tales. También es importante señalar que el equilibrio químico se desplazará hacia la derecha o izquierda de la reacción o mejor dicho hacia los productos o hacia los reactivos según sea modificado.
+  <Image 
+    src={oa3p5img01}
+    alt="Principio de Le Chatelier"
+    size="md"
+  />
+
+  ### Concentración
+
+  Si se aumenta la concentración de los reactivos, el equilibrio químico se desplazará hacia la derecha, es decir hacia los productos. ¿Por qué? Pues porque hay más reactivos y tienen que reaccionar para que se consuman. Por otro lado, si se aumenta la concentración de los productos, el equilibrio químico se desplazará hacia la izquierda, o sea hacia los reactivos, la explicación creemos que ya la supones, hay mayor cantidad de productos y reaccionan entre sí para que se consuman.
+
+  **Un ejemplo colorido:**
+
+  Cuando se hace reaccionar una disolución de tiocianato de amonio (que es transparente) con cloruro férrico (disolución amarilla) se producirá una disolución de coloración rojiza (de hecho, se mira como el color rojo sangre o rojo vino), debido a la formación del tiocianato férrico. Esta reacción corresponde a una reacción de doble sustitución ¿Podrías escribir la ecuación química que representa a esta reacción?
+
+  <Image 
+    src={oa3p5img02}
+    alt="Reacción de doble sustitución"
+    size="md"
+  />
+
+  <Math formula='3NH_4SCN + FeCl_3 \rightleftharpoons FeSCN_3 + 3NH_4Cl' display />
+
+  Si se diluye con agua destilada esta disolución, podremos observar una coloración más clara:
+
+
+  
+  <Image 
+    src={oa3p5img03}
+    alt="Disolución diluida"
+    size="sm"
+  />
+
+  El **tubo 1**, presenta una coloración más intensa que el tubo testigo (Tubo T) ¿Cuál es la razón? La reacción inicial presenta equilibrio aunque aún no lo teníamos claro o evidente. Si se torna más rojiza quiere decir que al aumentar la concentración de los reactivos, el equilibrio se ha desplazado hacia los productos ¿Cómo lo sabemos? Porque el producto que provee tal coloración es debido a la presencia de tiocianato férrico.
+
+  En el **tubo 2**, recuerda que se ha colocado más producto, cloruro de amonio; de acuerdo con el principio de Le Châtelier, se espera que la reacción se desplace hacia los reactivos, y realmente eso sucede. Si te fijas toma la coloración del cloruro férrico, reactivo con tonalidad amarilla, lo cual es indicativo que en verdad la reacción se desplazó hacia la formación de reactivos.
+
+  <Image 
+    src={oa3p5img04}
+    alt="Tubos de ensayo"
+    size="md"
+  />
+  ### Temperatura
+
+  Este factor depende de que si las reacciones liberan energía (reacciones exotérmicas) o requieren energía (reacciones endotérmicas). Fíjate bien, si la reacción es endotérmica, y aumentamos la temperatura de esa reacción, el equilibrio químico se dirigirá hacia los productos. Te preguntarás ¿por qué?, La respuesta es fácil, anteriormente comentamos que aquellas reacciones que requieren energía son endotérmicas, si la reacción se encuentra en equilibrio y le añadimos más energía estaremos favoreciendo que se formen más productos. Por lo tanto, el equilibrio químico se desplazará hacia los productos.
+
+  Pero qué sucede si retiramos energía; primero, ¿cómo podríamos retirarla? Pues bajando la temperatura y colocar en un baño de hielo el sistema (el vaso de precipitado o el matraz Erlenmeyer) que contiene la reacción. En ese caso, se desfavorece que la reacción avance hacia la formación de productos, de manera que la reacción “se queda” en los reactivos. Entonces decimos que el equilibrio químico se desplazará hacia la izquierda o hacia los reactivos.
+
+  Ahora bien, qué tal que ahora tenemos una reacción exotérmica, recuerda que libera energía, Entonces, sometemos a calentamiento el sistema que contiene la reacción, es decir, le aplicamos calor con empleo de un mechero Bunsen o calentamos agua a ebullición y allí colocamos el sistema ¿Qué ocurrirá? Resulta que al formarse los productos se libera energía, en forma de calor, y si ya los productos liberan calor y le añadimos más calor entonces se podría provocar que los productos se descompongan, es por esta razón que la reacción se “regresará” hacia la formación de reactivos para mantener el equilibrio.
+
+  Y sigamos con la reacción colorida, ¿recuerdas el color rojo intenso que tenía al realizarse la reacción? Como podrás observar, la coloración roja ahora se ha atenuado, es menos rojiza con el calentamiento ¿Qué sucede? ¿Qué podríamos pensar? Si recordamos lo anteriormente dicho, el principio de Le Châtelier, indica que cuando una reacción es exotérmica, el equilibrio desplazará hacia la formación de los reactivos, es decir cloruro férrico y tiocianato de amonio, ¿recuerdas que el primero tiene una coloración amarillo paja y el segundo es transparente?
+
+  <Image 
+    src={oa3p5img05}
+    alt="Reacción con calentamiento"
+    size="sm"
+  />
+
+  En el caso de la disminución de la temperatura para este tipo de reacciones, las exotérmicas, se favorece la formación de los productos, es decir, el equilibrio químico se desplazará hacia la derecha porque la reacción compensa el descenso de la temperatura generando más calor y la única manera de hacerlo es desplazando el equilibrio hacia los reactivos.
+
+  …Y continuamos con la reacción colorida, ahora la someteremos a enfriamiento en un baño de hielo, fíjate bien la coloración que toma la disolución. Es de un color rojo intenso, comparado con la disolución que se obtuvo cuando fue sometida a calentamiento. Esto nos indica que el equilibrio químico se ha desplazado hacia la formación de los productos, ya que se forma más tiocianato férrico, compuesto que es responsable de la coloración rojo sangre o rojo vino.
+
+  <Image 
+    src={oa3p5img06}
+    alt="Reacción con enfriamiento"
+    size="sm"
+  />
+
+  ### Presión
+
+  Para el caso del tercer factor que altera el equilibrio químico, la presión, tenemos que considerar que solamente afecta a sistemas gaseosos. Un aumento en la presión permitirá que se favorezca el lado de una reacción química que tiene el menor número de moles, por el contrario, la disminución de la presión favorecerá el lado con más número de moles.
+
+  ¿Por qué cuando aumenta la presión el equilibrio se desplaza hacia el lado con menor número de moles? Como hay una reducción del número de moles, esto permite o provoca que se disminuya el volumen y por tanto se reducirá la presión ¿Qué sucede en el caso contrario? Si disminuimos la presión del sistema gaseoso que se encuentra en equilibrio, habrá un aumento del número de moles lo cual promueve que se aumente el volumen y así aumenta la presión.
+
+  <Image 
+    src={oa3p5img07}
+    alt="Reacción con presión"
+    size="sm"
+  />
+
+  Para reforzar tus aprendizajes sobre el principio de Le Châtelier te invitamos a ver el siguiente video. Nota: Recuerda activar los subtítulos del video en español.
+
+  <Modal triggerClass='mx-auto mb-10' id="mi-modal-1" title="Efecto de la temperatura" triggerText="Video efecto de la temperatura">
+    <iframe id="embed-iframe" allowTransparency="true" allow="encrypted-media *" allowfullscreen height="415" width="460" border="0" scrolling="no" frameborder="0" marginwheight="0" marginwidth="0" src="https://app.jove.com/es/embed/player?id=11393&access=0861c62ceb&language=es&t=1&s=1&fpv=1"></iframe>
+    <p>Liga al <a href="https://app.jove.com/science-education/v/11386/the-equilibrium-constant" target='_blank'>video</a>.</p>
+  </Modal>
+
+  <Modal triggerClass='mx-auto mb-10' id="mi-modal-2" title="Efecto de la presión" triggerText="Video efecto de la presión">
+    <iframe id="embed-iframe" allowTransparency="true" allow="encrypted-media *" allowfullscreen height="415" width="460" border="0" scrolling="no" frameborder="0" marginwheight="0" marginwidth="0" src="https://app.jove.com/es/embed/player?id=11392&access=206eb6f25d&language=es&t=1&s=1&fpv=1"></iframe>
+    <p>Liga al <a href="https://app.jove.com/science-education/v/11386/the-equilibrium-constant" target='_blank'>video</a>.</p>
+  </Modal>
+
+  ### Ejercicio de opción múltiple
+
+  Responde la siguiente pregunta seleccionando la opción que consideres correcta.
+
+  <MCQQuiz 
+      client:load
+      questions={[
+        {
+          question: "En una reacción que se encuentra en equilibrio químico, ¿qué sucede si se aumenta la cantidad de reactivos?",
+          options: [
+            "Se forman más productos.",
+            "Se desplaza el equilibrio hacia reactivos.",
+            "No sucede nada"
+          ],
+          correctIndex: 0,
+          feedback: {
+            correct: "El principio de Le Châtelier dice que cuando se aumenta la concentración de los reactivos el equilibrio químico se desplazará hacia la formación de más productos.",
+            incorrect: "No es correcto, vuelve a intentarlo."
+          },
+        },
+        {
+          question: "En una reacción exotérmica que se encuentra en equilibrio químico, ¿qué sucede si se aumenta la temperatura?",
+          options: [
+            "Se forman más productos.",
+            "Se desplaza el equilibrio hacia reactivos.",
+            "No sucede nada"
+          ],
+          correctIndex: 1,
+          feedback: {
+            correct: "El principio de Le Châtelier dice que cuando se aumenta la temperatura de una reacción exotérmica, es decir, desprende calor, el equilibrio químico se desplazará hacia la formación de más reactivos con el propósito de evitar que los productos se descompongan.",
+            incorrect: "No es correcto, vuelve a intentarlo."
+          },
+        },
+        {
+          question: "De acuerdo con el principio de Le Châtelier al realizar una perturbación en un sistema que se encuentra en equilibrio químico:",
+          options: [
+            "Las especies químicas interactúan entre ellas y el estado de equilibrio químico se “rompe”.",
+            "Se produce un cambio en el mismo sentido de la perturbación hasta alcanzar la condición de equilibrio nuevamente.",
+            "Se produce un cambio en el sentido opuesto a la perturbación hasta alcanzar la condición de equilibrio nuevamente.",
+            "Las especies químicas se reagrupan y formarán nuevos productos para producir una condición de nuevo equilibrio químico."
+          ],
+          correctIndex: 2,
+          feedback: {
+            correct: "El principio de Le Châtelier es muy claro al afirmar que cuando ocurre una perturbación en el equilibrio químico de una reacción o un sistema, el equilibrio se desplazará en el sentido que se compense esa perturbación que ha sufrido el sistema.",
+            incorrect: "No es correcto, vuelve a intentarlo."
+          },
+        },
+        {
+          question: "En una reacción que se encuentra en equilibrio químico, ¿qué sucede si se disminuye la cantidad de productos?",
+          options: [
+            "Se forman más productos.",
+            "Se desplaza el equilibrio hacia reactivos.",
+            "No sucede nada"
+          ],
+          correctIndex: 0,
+          feedback: {
+            correct: "El principio de Le Châtelier dice que cuando se disminuye la concentración de los productos el equilibrio químico se desplazará hacia la formación de más productos.",
+            incorrect: "No es correcto, vuelve a intentarlo."
+          },
+        },
+        {
+          question: "En una reacción que se encuentra en equilibrio químico, ¿qué sucede si se aumenta la presión?",
+          options: [
+            "Se desplaza el equilibrio hacia el lado con menor número de moles.",
+            "Se desplaza el equilibrio hacia el lado con mayor número de moles.",
+            "No sucede nada"
+          ],
+          correctIndex: 0,
+          feedback: {
+            correct: "El principio de Le Châtelier dice que cuando se aumenta la presión el equilibrio químico se desplazará hacia el lado con menor número de moles.",
+            incorrect: " No es correcto, vuelve a intentarlo."
+          },
+        },
+      ]}
+    />
+
+</Prose>
