@@ -22,7 +22,7 @@ import Ordering from '@/components/Activity/Ordering.jsx';
 
   Si deseamos representar el proceso de la disociación, tendremos:
 
-  <Math formula='NaCl_{(s)} + H_2O_{(l)} \xrightarrow{} Na^+(H_2O)_n + Cl^-(H_2O)_n' display />
+  <Math formula='NaCl_{(s)} + n H_2O_{(l)} \xrightarrow{} Na^+(H_2O)_n + Cl^-(H_2O)_n' display />
 
   Aquí vemos como hay una gran cantidad de moléculas de agua rodeando a los iones que anteriormente formaban parte del cloruro de sodio y ahora los miramos disociados.
   
@@ -77,7 +77,7 @@ import Ordering from '@/components/Activity/Ordering.jsx';
 
   <Math formula='CH_3COOH \rightleftharpoons H^+ + CH_3COO^-' display />
 
-  Y la constante de equilibrio queda como: 
+  Y la constante de equilibrio se plantea como:
 
   <Math formula='K_{eq} = K_a = 1.8 \times 10^{-5} = \frac{[H^+][\text{CH}_3\text{COO}^-]}{[\text{H}_3\text{COOH}]}' display />
 
@@ -132,7 +132,7 @@ import Ordering from '@/components/Activity/Ordering.jsx';
     <p class="mx-auto text-xl text-center">¿Será posible saber la cantidad en concentración molar que se tiene de iones hidrógeno?</p>
   </Callout>
 
-  De manera directa, no, porque la disociación es parcial, entonces tenemos que resolver de otra manera. Como no sabemos cuánto de disocia, asumiremos que es una incógnita y la representaremos como x, para ambos iones porque también recordarás que en el equilibrio la cantidad de iones hidrógeno es la misma que la del ion acetato, ya que en la ecuación el coeficiente estequiométrico en uno para ambos iones. También tenemos que reflexionar que el ácido acético como no se disocia totalmente, la mayor parte de él queda con la misma concentración, o sea 0.1 M.
+  De manera directa, no, porque la disociación es parcial, entonces tenemos que resolver de otra manera. Como no sabemos cuánto se disocia, asumiremos que es una incógnita y la representaremos como x, para ambos iones porque también recordarás que en el equilibrio la cantidad de iones hidrógeno es la misma que la del ion acetato, ya que en la ecuación el coeficiente estequiométrico en uno para ambos iones. También tenemos que reflexionar que el ácido acético como no se disocia totalmente, la mayor parte de él queda con la misma concentración, o sea 0.1 M.
 
   <Math formula='[H^+] = [CH_3COO^-]' display />
   <Math formula='[x] = [x]' display />
@@ -159,7 +159,7 @@ import Ordering from '@/components/Activity/Ordering.jsx';
   Ahora bien, si tenemos el valor de la concentración de iones hidrógeno, entonces podremos calcular el pH del ácido acético.
 
   <Math formula='pH = -\log[H^+]' display />
-  <Math formula='pH = -\log(4.24 x 10^{-4})' display />
+  <Math formula='pH = -\log(4.24 \times 10^{-4})' display />
   <Math formula='pH = 3.37' display />
 
   <Callout variant='info' title='Importante'>
@@ -182,10 +182,10 @@ import Ordering from '@/components/Activity/Ordering.jsx';
   "
     items={[
       { id: 'dos', formula: '\\rightleftharpoons' },
-      { id: 'cinco', formula: 'H^{+-}' },
+      { id: 'cinco', formula: 'H^{+}' },
       { id: 'uno', formula: 'CH_3CHOHCOOH' },
-      { id: 'cuatro', formula: '+-' },
-      { id: 'tres', formula: 'CH_3CHOHCOOH^-' },
+      { id: 'cuatro', formula: '+' },
+      { id: 'tres', formula: 'CH_3CHOHCOO^-' },
     ]}
     correctOrder={['uno', 'dos', 'tres', 'cuatro', 'cinco']}
     feedback={{
@@ -214,9 +214,9 @@ import Ordering from '@/components/Activity/Ordering.jsx';
     description="El amonio es una especie ácida que se encuentra en productos de limpieza, como pulidores de pisos y limpiadores de vidrios, suele estar en una concentración aproximada de 2.86 M."
     items={[
       { id: 'dos', formula: '\\rightleftharpoons' },
-      { id: 'cinco', formula: 'H^{+-}' },
-      { id: 'uno', formula: 'NH_4^{+-}' },
-      { id: 'cuatro', formula: '+-' },
+      { id: 'cinco', formula: 'H^{+}' },
+      { id: 'uno', formula: 'NH_4^{+}' },
+      { id: 'cuatro', formula: '+' },
       { id: 'tres', formula: 'NH_3' },
     ]}
     correctOrder={['uno', 'dos', 'tres', 'cuatro', 'cinco']}
@@ -242,7 +242,6 @@ import Ordering from '@/components/Activity/Ordering.jsx';
       <p slot="question">
         Considerando los cálculos realizados en los ejercicios 1 y 2 ¿qué disolución es más ácida, la leche o el limpiador?
       </p>
-
       <p slot="answer">
         La leche
       </p>      

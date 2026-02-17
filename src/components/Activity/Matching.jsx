@@ -205,6 +205,10 @@ export default function Matching({
           >
             Verificar respuestas
           </button>
+        ) : isCorrect ? (
+          <div className="flex-1 text-center px-4 md:px-6 py-2 md:py-3 rounded-lg font-bold text-lg md:text-xl bg-green-50 dark:bg-green-900/30 border-2 border-green-500 dark:border-green-400 text-green-700 dark:text-green-300">
+            ¡Excelente!
+          </div>
         ) : (
           <button
             onClick={handleReset}

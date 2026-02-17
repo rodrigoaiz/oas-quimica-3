@@ -75,7 +75,7 @@ import bloque from '@/assets/images/oa1/bloque.jpg';
 
   <VideoLite
     videoId="G2oxfGSAXL0"
-    title="Efecto de la Superficie de Contacto"
+    title="Rapidez de reacción y temperatura"
     autoplay={false}
     nocookie={true}
   />
@@ -225,8 +225,8 @@ import bloque from '@/assets/images/oa1/bloque.jpg';
     { id: 'img2', src: bloque.src, alt: 'Bloque sólido' },
   ]}
   dropZones={[
-    { id: 'zone1', label: 'Mayor superficie de contacto → reacción más rápida', correctImageId: 'img2' },
-    { id: 'zone2', label: 'Menor superficie de contacto → reacción más lenta', correctImageId: 'img1' },
+    { id: 'zone1', label: 'Mayor superficie de contacto → reacción más rápida', correctImageId: 'img1' },
+    { id: 'zone2', label: 'Menor superficie de contacto → reacción más lenta', correctImageId: 'img2' },
   ]}
   feedback={{
     correct: 'Cuando un material está en polvo, ofrece más superficie para que las partículas reaccionantes choquen. Esto permite que ocurran más colisiones efectivas por segundo, haciendo que la reacción sea más rápida. En cambio, un bloque sólido expone menos superficie, por lo que las colisiones son menos frecuentes y la reacción es más lenta.',
