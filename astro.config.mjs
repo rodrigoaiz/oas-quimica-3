@@ -7,7 +7,7 @@ import rehypeKatex from 'rehype-katex';
 
 import icon from 'astro-icon';
 
-const base = (process.env.BASE_PATH?.trim() || '/').replace(/\/$/, '/') ;
+const base = (process.env.BASE_PATH?.trim() || '/').replace(/\/$/, '')  || '/';
 
 export default defineConfig({
   site: 'https://portalacademico.cch.unam.mx',
