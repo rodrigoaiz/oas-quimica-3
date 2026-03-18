@@ -52,7 +52,7 @@ const screens = pantallas
       <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
         <h2 id="objs" class="text-2xl font-bold dark:text-slate-100">Explora los contenidos</h2>
         <a 
-          href="/objetos/" 
+          href={import.meta.env.BASE_URL.replace(/\/$/, '') + '/objetos/'} 
           class="text-sm font-medium text-(--color-primary) dark:text-(--color-secondary) hover:underline flex items-center gap-1"
         >
           Ver todos

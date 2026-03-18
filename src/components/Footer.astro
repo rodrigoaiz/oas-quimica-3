@@ -13,6 +13,7 @@ const footerConfig = footerConfigModule as {
 };
 
 const { footer, socials, copyright } = footerConfig;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <footer class="bg-bg-main dark:bg-dark-bg-main mt-10 border-t dark:border-slate-700">
@@ -21,7 +22,7 @@ const { footer, socials, copyright } = footerConfig;
       <!-- Logo y marcas -->
       <div class="text-center md:mb-0 md:text-left">
         <div class="w-full flex justify-center mb-6">
-          <a href="/" aria-label="Inicio - Electrón">
+          <a href={base || '/'} aria-label="Inicio - Electrón">
             <LogoElectronAzul class="hidden sm:block dark:hidden h-8" />
             <LogoElectronBlanco class="hidden sm:dark:block h-8" />
           </a>
@@ -46,7 +47,7 @@ const { footer, socials, copyright } = footerConfig;
             {
               footer.map((menu) => (
                 <li>
-                  <a class="text-slate-700 dark:text-slate-300 hover:text-(--color-primary) dark:hover:text-(--color-secondary) transition-all" href={menu.url}>
+                  <a class="text-slate-700 dark:text-slate-300 hover:text-(--color-primary) dark:hover:text-(--color-secondary) transition-all" href={base + menu.url}>
                     {menu.name}
                   </a>
                 </li>

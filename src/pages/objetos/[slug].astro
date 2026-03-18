@@ -36,11 +36,11 @@ const screens = allObjetos
 
 // Construir breadcrumbs
 const breadcrumbItems = [
-  { label: "Inicio", href: "/" },
+  { label: "Inicio", href: import.meta.env.BASE_URL || '/' },
   { label: data.title }, // último sin href (página actual)
 ];
 
-const baseUrl = `/objetos/${entry.slug}`;
+const baseUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/objetos/${entry.slug}`;
 ---
 
 <Base title={`${data.title} · Química 3`}>
@@ -51,7 +51,7 @@ const baseUrl = `/objetos/${entry.slug}`;
     <header class="mb-6">
       <h1 class="text-4xl font-extrabold text-(--color-primary) dark:text-(--color-primary-dark) pt-2">{data.title}</h1>
       <img
-        src={data.cover}
+        src={import.meta.env.BASE_URL.replace(/\/$/, '') + data.cover}
         alt={data.title}
         class="w-full aspect-video rounded-2xl mt-4 object-cover"
         loading="lazy"

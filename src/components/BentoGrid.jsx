@@ -126,7 +126,7 @@ export default function BentoGrid({ screens = [] }) {
         return (
           <a
             key={`${screen.oaSlug}-${screen.screenSlug}`}
-            href={`/objetos/${screen.oaSlug}/${screen.screenSlug}`}
+            href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/objetos/${screen.oaSlug}/${screen.screenSlug}`}
             className={`${colSpanClass} group relative overflow-hidden rounded-2xl
               border border-slate-200/70 dark:border-white/10
               bg-white/5 dark:bg-slate-950/10
@@ -138,7 +138,7 @@ export default function BentoGrid({ screens = [] }) {
           >
             {/* Imagen de fondo con efecto zoom en hover */}
             <img 
-              src={screen.oaCover} 
+              src={import.meta.env.BASE_URL.replace(/\/$/, '') + screen.oaCover} 
               alt=""
               className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
             />
@@ -185,7 +185,7 @@ export default function BentoGrid({ screens = [] }) {
       
       {/* Celda informativa para llenar el espacio */}
       <a
-        href="/objetos"
+        href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/objetos`}
         className="hidden md:block md:col-span-4 bg-linear-to-br from-(--color-primary)/10 to-purple-500/10 
           dark:from-(--color-primary-dark)/20 dark:to-purple-500/20
           border-2 border-(--color-primary)/20 dark:border-(--color-primary-dark)/30 rounded-xl p-8 

@@ -44,12 +44,12 @@ const {
 
 // Construir breadcrumbs
 const breadcrumbItems = [
-  { label: "Inicio", href: "/" },
-  { label: oaTitle, href: `/objetos/${oaSlug}` },
+  { label: "Inicio", href: import.meta.env.BASE_URL || '/' },
+  { label: oaTitle, href: `${import.meta.env.BASE_URL.replace(/\/$/, '')}/objetos/${oaSlug}` },
   { label: screenTitle }, // último sin href (página actual)
 ];
 
-const baseUrl = `/objetos/${oaSlug}`;
+const baseUrl = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/objetos/${oaSlug}`;
 ---
 
 <Base title={title} description={description}>

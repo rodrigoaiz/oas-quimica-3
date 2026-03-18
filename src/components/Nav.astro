@@ -11,6 +11,7 @@ import LogoElectronAzul from "@/components/logos/logotipo-azul.svg";
 import IconoElectronColor from "@/components/logos/icono-color.svg";
 
 const { current = "/" } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Obtener los OAs principales desde la colección (sin pantallas individuales)
 const allObjetos = await getCollection("objetos");
@@ -34,7 +35,7 @@ const mainOAs = allObjetos
 <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-800/80 backdrop-blur border-b dark:border-slate-700">
   <div class="mx-auto max-w-7xl grid grid-cols-3 items-center px-2 py-3 sm:flex sm:justify-between">
     <div class="logos flex items-center gap-5 justify-start">
-      <a href="/" aria-label="Inicio - Electrón de la Química">
+      <a href={base || '/'} aria-label="Inicio - Electrón de la Química">
         <IconoElectronColor class="h-8 sm:hidden" />
         <LogoElectronAzul class="hidden sm:block dark:hidden h-8" />
         <LogoElectronBlanco class="hidden sm:dark:block h-8" />
@@ -67,7 +68,7 @@ const mainOAs = allObjetos
             {
               mainOAs.map(({ slug, title, level }) => (
                 <li>
-                  <a class="block px-2 py-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700" href={`/objetos/${slug}`}>
+                  <a class="block px-2 py-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-700" href={`${base}/objetos/${slug}`}>
                     <span class="font-medium">{title}</span>
                     {level && <span class="ml-1 text-xs text-slate-500 dark:text-slate-400">· {level}</span>}
                   </a>
@@ -75,16 +76,16 @@ const mainOAs = allObjetos
               ))
             }
             <li class="mt-1 pt-1 border-t dark:border-slate-700">
-              <a class="block px-2 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded" href="/objetos/">Ver todos</a>
+              <a class="block px-2 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 rounded" href={`${base}/objetos/`}>Ver todos</a>
             </li>
           </ul>
         </details>
       </li>
       <li>
-        <a class={clsx("px-2 py-1 rounded hidden sm:block", current === "/acerca-de" && "bg-(--color-primary) dark:bg-(--color-secondary) text-white dark:text-slate-900")} href="/acerca-de">Acerca de</a>
+        <a class={clsx("px-2 py-1 rounded hidden sm:block", current === "/acerca-de" && "bg-(--color-primary) dark:bg-(--color-secondary) text-white dark:text-slate-900")} href={`${base}/acerca-de`}>Acerca de</a>
       </li>
       <li>
-        <a class={clsx("px-2 py-1 rounded hidden sm:block", current === "/creditos" && "bg-(--color-primary) dark:bg-(--color-secondary) text-white dark:text-slate-900")} href="/creditos">Créditos</a>
+        <a class={clsx("px-2 py-1 rounded hidden sm:block", current === "/creditos" && "bg-(--color-primary) dark:bg-(--color-secondary) text-white dark:text-slate-900")} href={`${base}/creditos`}>Créditos</a>
       </li>
     </ul>
     <div class="flex justify-end">
