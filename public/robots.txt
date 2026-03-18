@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /electron/
+
+Sitemap: https://portalacademico.cch.unam.mx/electron/sitemap-index.xml

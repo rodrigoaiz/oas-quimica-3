@@ -4,6 +4,7 @@ import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import sitemap from '@astrojs/sitemap';
 
 import icon from 'astro-icon';
 
@@ -18,6 +19,7 @@ export default defineConfig({
       rehypePlugins: [rehypeKatex],
     }), 
     react(), 
+    sitemap(),
     icon({
       include: {
         bi: [
